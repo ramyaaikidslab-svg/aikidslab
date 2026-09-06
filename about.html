@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<title>About AI Kids Lab — Where Young Minds Build with AI</title>
+<meta name="description" content="AI Kids Lab runs a fully offline, project-based AI cohort for 9 to 15 year olds in Hyderabad. Small groups, real mentors, one real AI project.">
+<style>
+
+:root{
+  --ink:#121210;
+  --paper:#F7F6F1;
+  --yellow:#FFC800;
+  --yellow-deep:#D9A600;
+  --ink-soft:#4A4842;
+  --line: rgba(18,18,16,0.14);
+  --radius: 3px;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter', sans-serif;
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.6;
+  font-size:16px;
+}
+h1,h2,h3,h4,.display{
+  font-family:'Space Grotesk', sans-serif;
+  font-weight:700;
+  line-height:1.12;
+  letter-spacing:-0.01em;
+}
+a{color:inherit; text-decoration:none;}
+img{max-width:100%; display:block;}
+.wrap{max-width:1160px; margin:0 auto; padding:0 28px;}
+section{padding:88px 0;}
+@media (max-width:720px){ section{padding:56px 0;} }
+
+/* ---------- NAV ---------- */
+header{position:sticky; top:0; z-index:50; background:var(--ink); border-bottom:2px solid var(--yellow);}
+nav.wrap{display:flex; align-items:center; justify-content:space-between; height:72px;}
+.logo{color:var(--paper); font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.15rem; display:flex; align-items:center; gap:10px; letter-spacing:0.02em;}
+.logo-mark{width:30px; height:30px; flex-shrink:0; display:block;}
+.logo-mark rect:first-child{fill:none; stroke:var(--yellow); stroke-width:10;}
+.logo-mark rect:nth-child(2){fill:var(--yellow);}
+.logo-mark rect:last-child{fill:var(--ink);}
+.navlinks{display:flex; gap:32px; align-items:center;}
+.navlinks a{color:#D8D6CE; font-size:0.92rem;}
+.navlinks a:hover{color:var(--yellow);}
+.nav-cta{background:var(--yellow); color:var(--ink); padding:10px 20px; font-weight:700; font-size:0.9rem; border:2px solid var(--yellow);}
+.navlinks a.nav-cta{color:var(--ink);}
+.nav-cta:hover{background:var(--ink); color:var(--yellow);}
+@media (max-width:860px){ .navlinks a:not(.nav-cta){display:none;} }
+
+/* ---------- BUTTONS ---------- */
+.btn-primary{background:var(--yellow); color:var(--ink); font-weight:700; padding:16px 30px; font-size:1rem; border:2px solid var(--yellow); display:inline-block;}
+.btn-primary:hover{background:transparent; color:var(--yellow);}
+.btn-primary.on-light:hover{color:var(--yellow-deep);}
+.btn-secondary{background:transparent; color:var(--paper); font-weight:600; padding:16px 30px; font-size:1rem; border:2px solid #55534B; display:inline-block;}
+.btn-secondary:hover{border-color:var(--yellow); color:var(--yellow);}
+.btn-secondary.on-light{color:var(--ink); border-color:var(--ink);}
+.btn-secondary.on-light:hover{border-color:var(--yellow-deep); color:var(--yellow-deep);}
+
+/* ---------- ARTICLE / COMPARISON PAGE LAYOUT ---------- */
+.article-hero{background:var(--ink); color:var(--paper); padding:72px 0 56px; position:relative; overflow:hidden;}
+.article-hero::before{content:""; position:absolute; inset:0; background-image:linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size:44px 44px; opacity:0.2; pointer-events:none;}
+.article-hero .wrap{position:relative;}
+.eyebrow{display:inline-block; background:var(--yellow); color:var(--ink); font-weight:700; font-size:0.8rem; letter-spacing:0.04em; text-transform:uppercase; padding:6px 14px; margin-bottom:20px;}
+.article-hero h1{font-size:clamp(1.9rem,4vw,3rem); max-width:20ch;}
+.article-hero .dek{margin-top:18px; color:#D8D6CE; max-width:62ch; font-size:1.1rem;}
+.article-hero .hero-ctas{margin-top:32px; display:flex; gap:16px; flex-wrap:wrap;}
+
+.article-body{max-width:760px; margin:0 auto; padding:72px 28px;}
+.article-body h2{font-size:clamp(1.4rem,2.6vw,1.9rem); margin-top:52px; margin-bottom:18px;}
+.article-body h3{font-size:1.2rem; margin-top:32px; margin-bottom:12px;}
+.article-body p{margin-bottom:18px; color:var(--ink-soft); font-size:1.02rem;}
+.article-body ul{margin:0 0 18px 22px; color:var(--ink-soft);}
+.article-body li{margin-bottom:8px;}
+.article-body strong{color:var(--ink);}
+.pull-quote{border-left:4px solid var(--yellow); padding:6px 0 6px 22px; margin:32px 0; font-family:'Space Grotesk',sans-serif; font-size:1.2rem; font-weight:600; color:var(--ink);}
+
+/* ---------- COMPARISON TABLE ---------- */
+.compare-table{width:100%; border-collapse:collapse; margin:28px 0 36px; font-size:0.94rem;}
+.compare-table th, .compare-table td{border:1px solid var(--line); padding:14px 16px; text-align:left; vertical-align:top;}
+.compare-table thead th{background:var(--ink); color:var(--paper); font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.9rem;}
+.compare-table tbody th{background:#EFEEE6; font-weight:700; font-size:0.9rem; width:26%;}
+.compare-table td.us{background:#FFF6DC; font-weight:600;}
+@media (max-width:640px){ .compare-table{font-size:0.84rem;} .compare-table th,.compare-table td{padding:10px;} }
+
+/* ---------- INLINE CTA BAND ---------- */
+.cta-band{background:var(--ink); color:var(--paper); padding:64px 0; text-align:center;}
+.cta-band h2{color:var(--paper); font-size:clamp(1.5rem,3vw,2.1rem); max-width:26ch; margin:0 auto 14px;}
+.cta-band p{color:#D8D6CE; max-width:52ch; margin:0 auto 30px;}
+.cta-band .hero-ctas{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+.mid-cta{display:flex; gap:16px; flex-wrap:wrap; margin:36px 0; padding:28px; border:2px solid var(--ink); background:#EFEEE6;}
+.mid-cta p{margin:0; flex:1; min-width:220px; color:var(--ink); font-weight:600; font-size:1rem;}
+.mid-cta .actions{display:flex; gap:12px; flex-wrap:wrap;}
+.mid-cta .btn-primary, .mid-cta .btn-secondary{padding:11px 20px; font-size:0.88rem;}
+.mid-cta .btn-secondary{border-color:var(--ink); color:var(--ink);}
+.mid-cta .btn-secondary:hover{border-color:var(--yellow-deep); color:var(--yellow-deep);}
+
+/* ---------- RELATED / BLOG GRID ---------- */
+.related{background:#EFEEE6; padding:72px 0;}
+.related h2{margin-bottom:36px;}
+.related-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+@media (max-width:860px){.related-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:560px){.related-grid{grid-template-columns:1fr;}}
+.related-card{background:var(--paper); border:2px solid var(--ink); padding:24px;}
+.related-card .cat{font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--yellow-deep); font-weight:700; margin-bottom:10px;}
+.related-card h3{font-size:1.08rem; margin-bottom:10px;}
+.related-card p{color:var(--ink-soft); font-size:0.92rem; margin-bottom:14px;}
+.related-card .read{font-weight:700; font-size:0.88rem; border-bottom:2px solid var(--yellow);}
+
+/* ---------- BLOG INDEX GRID ---------- */
+.blog-hero{background:var(--ink); color:var(--paper); padding:72px 0 48px;}
+.blog-hero h1{font-size:clamp(2rem,4.4vw,3rem);}
+.blog-hero p{margin-top:16px; color:#D8D6CE; max-width:58ch; font-size:1.08rem;}
+.blog-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px; padding:72px 0;}
+@media (max-width:860px){.blog-grid{grid-template-columns:1fr 1fr; padding:48px 0;}}
+@media (max-width:560px){.blog-grid{grid-template-columns:1fr;}}
+.blog-card{border:2px solid var(--ink); background:var(--paper);}
+.blog-card .thumb{height:150px; background:var(--ink); display:flex; align-items:center; justify-content:center; color:var(--yellow); font-size:2rem;}
+.blog-card .body{padding:22px;}
+.blog-card .cat{font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--yellow-deep); font-weight:700; margin-bottom:10px;}
+.blog-card h3{font-size:1.08rem; margin-bottom:10px;}
+.blog-card p{color:var(--ink-soft); font-size:0.92rem; margin-bottom:14px;}
+.blog-card .read{font-weight:700; font-size:0.88rem; border-bottom:2px solid var(--yellow);}
+.blog-section-label{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--yellow-deep); margin:0 0 -8px;}
+
+/* ---------- ABOUT PAGE ---------- */
+.about-hero{background:var(--ink); color:var(--paper); padding:80px 0 60px;}
+.about-hero h1{font-size:clamp(2rem,4.4vw,3.1rem); max-width:18ch;}
+.about-hero p{margin-top:18px; color:#D8D6CE; max-width:60ch; font-size:1.1rem;}
+.values-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:20px;}
+@media (max-width:860px){.values-grid{grid-template-columns:1fr 1fr;}}
+@media (max-width:560px){.values-grid{grid-template-columns:1fr;}}
+.value-card{border:2px solid var(--ink); padding:26px;}
+.value-card h3{font-size:1.05rem; margin-bottom:10px;}
+.value-card p{color:var(--ink-soft); font-size:0.94rem;}
+
+/* ---------- MODAL (shared) ---------- */
+.modal-overlay{position:fixed; inset:0; background:rgba(18,18,16,0.78); z-index:300; display:none; align-items:center; justify-content:center; padding:24px;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--ink); color:var(--paper); border:3px solid var(--yellow); max-width:560px; width:100%; max-height:88vh; overflow-y:auto; padding:40px; position:relative; box-shadow:8px 8px 0 rgba(0,0,0,0.35);}
+.modal-box h3{color:var(--paper); font-family:'Space Grotesk',sans-serif; font-size:1.6rem; margin-bottom:8px;}
+.modal-box .sub{color:#B9B7AD; font-size:0.92rem; margin-bottom:22px; max-width:44ch;}
+.modal-close{position:absolute; top:16px; right:18px; background:none; border:none; font-size:1.7rem; line-height:1; cursor:pointer; color:var(--paper); opacity:0.65;}
+.modal-close:hover{opacity:1;}
+.modal-divider{margin:22px 0; border-top:1px solid #33322C; text-align:center; position:relative; padding-top:14px; font-size:0.78rem; color:#6E6C5F; letter-spacing:0.05em;}
+.modal-alt{text-align:center; margin-top:4px;}
+.modal-alt p{color:#B9B7AD; font-size:0.88rem; margin-bottom:10px;}
+@media (max-width:520px){ .modal-box{padding:26px;} }
+form{margin-top:28px; display:grid; gap:14px;}
+.form-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+@media (max-width:520px){.form-row{grid-template-columns:1fr;}}
+label{font-size:0.82rem; color:#B9B7AD; margin-bottom:6px; display:block;}
+input, textarea{width:100%; background:#1D1C18; border:1px solid #45443C; color:var(--paper); padding:12px 14px; font-family:'Inter',sans-serif; font-size:0.95rem;}
+input:focus, textarea:focus{outline:2px solid var(--yellow); border-color:var(--yellow);}
+textarea{min-height:88px; resize:vertical;}
+.submit-btn{background:var(--yellow); color:var(--ink); font-weight:700; border:none; padding:15px 28px; font-size:0.98rem; cursor:pointer; margin-top:4px; width:fit-content;}
+.submit-btn:hover{background:var(--paper);}
+.confirm{display:none; margin-top:20px; padding:16px 18px; border-left:3px solid var(--yellow); background:#1D1C18; font-size:0.92rem; color:#D8D6CE;}
+.confirm.show{display:block;}
+
+/* ---------- FOOTER (shared) ---------- */
+footer{background:var(--ink); color:#8B8974; padding:72px 0 32px; font-size:0.9rem;}
+.footer-top{display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:48px; padding-bottom:48px; border-bottom:1px solid #2A2924;}
+@media (max-width:860px){.footer-top{grid-template-columns:1fr 1fr;}}
+@media (max-width:560px){.footer-top{grid-template-columns:1fr;}}
+.footer-brand .logo{margin-bottom:16px;}
+.footer-tagline{color:#8B8974; max-width:38ch; margin-bottom:22px; line-height:1.6;}
+.footer-ctas{display:flex; flex-wrap:wrap; gap:12px;}
+.footer-ctas .btn-primary, .footer-ctas .btn-secondary{padding:12px 22px; font-size:0.88rem;}
+.footer-col h4{font-family:'Space Grotesk',sans-serif; color:var(--paper); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:16px;}
+.footer-col a{display:block; color:#B9B7AD; margin-bottom:10px; font-size:0.9rem;}
+.footer-col a:hover{color:var(--yellow);}
+.footer-loc{color:#8B8974; margin-top:4px;}
+.footer-bottom{padding-top:28px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:0.82rem; color:#6E6C5F;}
+
+/* ---------- WHATSAPP FLOAT ---------- */
+.wa-float{position:fixed; bottom:24px; right:24px; z-index:60; width:58px; height:58px; border-radius:50%; background:#25D366; color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.6rem; border:2px solid var(--ink); box-shadow:3px 3px 0 var(--ink);}
+.wa-float:hover{transform:translateY(-2px);}
+
+
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="index.html" class="logo"><svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="6" y="6" width="88" height="88" rx="14"/><rect x="34" y="34" width="32" height="32" rx="8"/><rect x="44" y="44" width="12" height="12" rx="3"/></svg>AI KIDS LAB</a>
+    <div class="navlinks">
+      <a href="index.html#build">What they build</a>
+      <a href="index.html#apply">Admission</a>
+      <a href="about.html">About</a>
+      <a href="blog.html">Blog</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="#" class="nav-cta" onclick="openJoinModal(); return false;">Join the Cohort</a>
+    </div>
+  </nav>
+</header>
+
+<div class="modal-overlay" id="joinModalOverlay" onclick="if(event.target===this){closeJoinModal();}">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeJoinModal()" aria-label="Close">&times;</button>
+    <h3>Join the Cohort</h3>
+    <p class="sub">15 seats. Admission by interview. Tell us about your child, and we'll reach out to schedule a conversation.</p>
+    <form onsubmit="return handleSubmit(event, 'modalConfirm')">
+      <div class="form-row">
+        <div><label>Child's name</label><input type="text" name="childName" required></div>
+        <div><label>Child's age (9–15)</label><input type="number" name="childAge" min="9" max="15" required></div>
+      </div>
+      <div class="form-row">
+        <div><label>Parent's name</label><input type="text" name="parentName" required></div>
+        <div><label>Phone or email</label><input type="text" name="contact" required></div>
+      </div>
+      <div><label>What's your child curious about, when it comes to AI?</label><textarea name="notes"></textarea></div>
+      <button class="submit-btn" type="submit">Submit details</button>
+    </form>
+    <div class="confirm" id="modalConfirm">Thank you. We've noted your child's details. We'll reach out within 2 working days to schedule the discovery interview.</div>
+    <div class="modal-divider">OR</div>
+    <div class="modal-alt">
+      <p>Prefer to skip the form and talk to us directly?</p>
+      <a class="submit-btn" style="display:inline-block; text-decoration:none;" href="https://calendly.com/ramyaaikidslab/request-interview-ai-kids-lab" target="_blank" rel="noopener">Request an interview</a>
+    </div>
+  </div>
+</div>
+
+
+<section class="about-hero">
+  <div class="wrap">
+    <div class="eyebrow">About us</div>
+    <h1>We think kids should build with AI, not just watch videos about it.</h1>
+    <p>AI Kids Lab runs a fully offline, project-based AI cohort for curious 9 to 15 year olds, currently launching in Hyderabad. Small groups. Real mentors. One real AI project your child can stand up and show off at the end.</p>
+  </div>
+</section>
+
+<div class="article-body">
+  <h2>Why we started this</h2>
+  <p>AI is moving into every part of how work and creativity get done. Most "AI for kids" content we looked at was either a passive video series or a generic coding course with an AI badge stuck on it. We wanted something different: a room where a child spends real hours actually building — with a mentor who has shipped real AI products sitting right next to them when they get stuck.</p>
+
+  <h2>What we believe</h2>
+  <div class="values-grid">
+    <div class="value-card">
+      <h3>Building beats watching</h3>
+      <p>A child who has built one real, working AI project understands more than a child who has completed ten modules about AI theory.</p>
+    </div>
+    <div class="value-card">
+      <h3>Small groups, real attention</h3>
+      <p>We cap every cohort at 15 kids so every child gets noticed, gets unstuck quickly, and isn't lost in a crowd.</p>
+    </div>
+    <div class="value-card">
+      <h3>Mentors who've actually done it</h3>
+      <p>Our mentors aren't reading from a slide deck — they're engineers and IIT, IIIT, and BITS alumni who've built real products at companies like Google, Amazon, Microsoft, and Apple.</p>
+    </div>
+    <div class="value-card">
+      <h3>Real tools, not toy versions</h3>
+      <p>Kids use the same category of tools professionals use — simplified for age 9 to 15, never dumbed down to the point of being fake.</p>
+    </div>
+    <div class="value-card">
+      <h3>In person, on purpose</h3>
+      <p>AI moves fast. The best way to learn to direct it is to sit next to someone experienced while they show you how, not to pause a video and rewind it.</p>
+    </div>
+    <div class="value-card">
+      <h3>One real outcome</h3>
+      <p>Not a certificate. Not a slideshow. A working AI project your child built with their own hands, in stages you can see happening.</p>
+    </div>
+  </div>
+
+  <h2>Who this is for</h2>
+  <p>AI Kids Lab is built for parents in Hyderabad who want their 9 to 15 year old to move from "curious about AI" to "has actually built something with it" — in a fully offline, small-group setting, over one focused cohort.</p>
+
+  <h2>Admission</h2>
+  <p>We keep cohorts to 15 seats and admit by a short discovery interview, not a first-come-first-served signup. It's a genuine conversation about your child's interests, not a sales call — and it helps us make sure every cohort is a good match for the kids in it.</p>
+</div>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Want to know if the next cohort is a fit?</h2>
+    <p>15 seats, admission by interview. A 30-minute conversation is the fastest way to find out.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn-primary" onclick="openJoinModal(); return false;">Join the Cohort</a>
+      <a href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener" class="btn-secondary">Book a discovery call</a>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="wrap footer-top">
+    <div class="footer-brand">
+      <div class="logo"><svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="6" y="6" width="88" height="88" rx="14"/><rect x="34" y="34" width="32" height="32" rx="8"/><rect x="44" y="44" width="12" height="12" rx="3"/></svg>AI KIDS LAB</div>
+      <p class="footer-tagline">A fully offline, project-based AI cohort for curious 9–15 year olds in Hyderabad. Small groups, real mentors, one real AI project to show for it.</p>
+      <div class="footer-ctas">
+        <a href="#" class="btn-primary" onclick="openJoinModal(); return false;">Join the Cohort</a>
+        <a href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener" class="btn-secondary">Book a discovery call</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="index.html#build">What they build</a>
+      <a href="index.html#apply">Admission</a>
+      <a href="about.html">About us</a>
+      <a href="blog.html">Blog</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h4>Compare AI Kids Lab</h4>
+      <a href="ai-kids-lab-vs-whitehat-jr.html">vs WhiteHat Jr</a>
+      <a href="ai-kids-lab-vs-byjus-futureschool.html">vs BYJU'S FutureSchool</a>
+      <a href="ai-kids-lab-vs-coding-ninjas-junior.html">vs Coding Ninjas Junior</a>
+      <a href="ai-kids-lab-vs-online-ai-courses.html">vs online AI courses</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:ramyaaikidslab@gmail.com">ramyaaikidslab@gmail.com</a>
+      <a href="https://wa.me/919642099896?text=Hi%2C%20I%27m%20interested%20in%20AI%20Kids%20Lab%20for%20my%20child" target="_blank" rel="noopener">WhatsApp: +91 96420 99896</a>
+      <div class="footer-loc">Currently launching in Hyderabad, India</div>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <div>&copy; 2026 AI Kids Lab. Where young minds build with AI.</div>
+    <div>Hyderabad, India</div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/919642099896?text=Hi%2C%20I%27m%20interested%20in%20AI%20Kids%20Lab%20for%20my%20child" target="_blank" rel="noopener" aria-label="Message us on WhatsApp">
+  <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<script>
+  function handleSubmit(e, confirmId){
+    e.preventDefault();
+    document.getElementById(confirmId).classList.add('show');
+    e.target.reset();
+    return false;
+  }
+  function openJoinModal(){
+    document.getElementById('joinModalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeJoinModal(){
+    document.getElementById('joinModalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeJoinModal();
+  });
+</script>
+</body>
+</html>
