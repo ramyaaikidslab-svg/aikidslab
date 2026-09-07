@@ -281,6 +281,10 @@
     background:#1D1C18; font-size:0.92rem; color:#D8D6CE;
   }
   .confirm.show{display:block;}
+  .form-error{display:none; margin-top:20px; padding:16px 18px; border-left:3px solid #E5533D; background:#1D1C18; font-size:0.92rem; color:#D8D6CE;}
+  .form-error.show{display:block;}
+  .form-error a{color:var(--yellow); text-decoration:underline;}
+  .submit-btn:disabled{opacity:0.6; cursor:not-allowed;}
   .side-card{
     border:2px solid #33322C; padding:26px; height:fit-content;
   }
@@ -856,14 +860,14 @@
       <p class="sub">15 seats. Admission by interview. Tell us about your child, and we'll reach out to schedule a conversation.</p>
       <form onsubmit="return handleSubmit(event, 'applyConfirm')">
         <div class="form-row">
-          <div><label>Child's name</label><input type="text" required></div>
-          <div><label>Child's age (9–15)</label><input type="number" min="9" max="15" required></div>
+          <div><label>Child's name</label><input type="text" name="childName" required></div>
+          <div><label>Child's age (9–15)</label><input type="number" name="childAge" min="9" max="15" required></div>
         </div>
         <div class="form-row">
-          <div><label>Parent's name</label><input type="text" required></div>
-          <div><label>Phone or email</label><input type="text" required></div>
+          <div><label>Parent's name</label><input type="text" name="parentName" required></div>
+          <div><label>Phone or email</label><input type="text" name="contact" required></div>
         </div>
-        <div><label>What's your child curious about, when it comes to AI?</label><textarea></textarea></div>
+        <div><label>What's your child curious about, when it comes to AI?</label><textarea name="notes"></textarea></div>
         <button class="submit-btn" type="submit">Request an interview</button>
       </form>
       <div class="confirm" id="applyConfirm">Thank you. We've noted your child's details. We'll reach out within 2 working days to schedule the discovery interview.</div>
@@ -1029,10 +1033,72 @@
     document.querySelectorAll('.faq-item').forEach(i => { if(i !== item) i.classList.remove('open'); });
     item.classList.toggle('open');
   }
-  function handleSubmit(e, confirmId){
+  const WHATSAPP_URL = 'https://wa.me/919642099896?text=Hi%2C%20I%27m%20interested%20in%20AI%20Kids%20Lab%20for%20my%20child';
+  /* ---------------------------------------------------------------
+     Enquiry form -> Google Form (ramyaaikidslab@gmail.com)
+     Replace the six PASTE_ values below with the ids from the Google
+     Form's "Get pre-filled link". Until they are replaced, the form
+     tells people to use WhatsApp instead of silently losing them.
+     --------------------------------------------------------------- */
+  const ENQUIRY_FORM = {
+    action: 'https://docs.google.com/forms/d/e/PASTE_FORM_ID/formResponse',
+    fields: {
+      childName:  'PASTE_ENTRY_CHILD_NAME',
+      childAge:   'PASTE_ENTRY_CHILD_AGE',
+      parentName: 'PASTE_ENTRY_PARENT_NAME',
+      contact:    'PASTE_ENTRY_CONTACT',
+      notes:      'PASTE_ENTRY_NOTES',
+      source:     'PASTE_ENTRY_SOURCE'
+    }
+  };
+  const ENQUIRY_CONFIGURED = !ENQUIRY_FORM.action.includes('PASTE_');
+
+  function showFormError(form, msg){
+    let box = form.parentElement.querySelector('.form-error');
+    if(!box){
+      box = document.createElement('div');
+      box.className = 'form-error';
+      form.insertAdjacentElement('afterend', box);
+    }
+    box.innerHTML = msg + ' Please <a href="' + WHATSAPP_URL + '" target="_blank" rel="noopener">message us on WhatsApp</a> '
+                  + 'or <a href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener">book a call</a> '
+                  + 'so we do not miss you.';
+    box.classList.add('show');
+  }
+
+  async function handleSubmit(e, confirmId){
     e.preventDefault();
-    document.getElementById(confirmId).classList.add('show');
-    e.target.reset();
+    const form = e.target;
+    const btn  = form.querySelector('button[type=submit]');
+    const label = btn ? btn.textContent : '';
+
+    if(!ENQUIRY_CONFIGURED){
+      showFormError(form, 'Sorry, the form is not accepting submissions yet.');
+      return false;
+    }
+
+    const body = new URLSearchParams();
+    for(const [name, entry] of Object.entries(ENQUIRY_FORM.fields)){
+      if(name === 'source') continue;
+      const field = form.elements[name];
+      if(field) body.append(entry, field.value.trim());
+    }
+    body.append(ENQUIRY_FORM.fields.source, document.title + ' (' + confirmId + ')');
+
+    if(btn){ btn.disabled = true; btn.textContent = 'Sending\u2026'; }
+    try{
+      /* Google Forms sends no CORS headers, so the response is opaque:
+         a resolved promise means the POST was delivered. */
+      await fetch(ENQUIRY_FORM.action, { method:'POST', mode:'no-cors', body });
+      const box = form.parentElement.querySelector('.form-error');
+      if(box) box.classList.remove('show');
+      document.getElementById(confirmId).classList.add('show');
+      form.reset();
+    }catch(err){
+      showFormError(form, 'Sorry, something went wrong sending your details.');
+    }finally{
+      if(btn){ btn.disabled = false; btn.textContent = label; }
+    }
     return false;
   }
   function openJoinModal(){

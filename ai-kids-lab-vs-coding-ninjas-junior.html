@@ -177,6 +177,10 @@ textarea{min-height:88px; resize:vertical;}
 .submit-btn:hover{background:var(--paper);}
 .confirm{display:none; margin-top:20px; padding:16px 18px; border-left:3px solid var(--yellow); background:#1D1C18; font-size:0.92rem; color:#D8D6CE;}
 .confirm.show{display:block;}
+.form-error{display:none; margin-top:20px; padding:16px 18px; border-left:3px solid #E5533D; background:#1D1C18; font-size:0.92rem; color:#D8D6CE;}
+.form-error.show{display:block;}
+.form-error a{color:var(--yellow); text-decoration:underline;}
+.submit-btn:disabled{opacity:0.6; cursor:not-allowed;}
 
 /* ---------- FOOTER (shared) ---------- */
 footer{background:var(--ink); color:#8B8974; padding:72px 0 32px; font-size:0.9rem;}
@@ -383,10 +387,72 @@ footer{background:var(--ink); color:#8B8974; padding:72px 0 32px; font-size:0.9r
 </a>
 
 <script>
-  function handleSubmit(e, confirmId){
+  const WHATSAPP_URL = 'https://wa.me/919642099896?text=Hi%2C%20I%27m%20interested%20in%20AI%20Kids%20Lab%20for%20my%20child';
+  /* ---------------------------------------------------------------
+     Enquiry form -> Google Form (ramyaaikidslab@gmail.com)
+     Replace the six PASTE_ values below with the ids from the Google
+     Form's "Get pre-filled link". Until they are replaced, the form
+     tells people to use WhatsApp instead of silently losing them.
+     --------------------------------------------------------------- */
+  const ENQUIRY_FORM = {
+    action: 'https://docs.google.com/forms/d/e/PASTE_FORM_ID/formResponse',
+    fields: {
+      childName:  'PASTE_ENTRY_CHILD_NAME',
+      childAge:   'PASTE_ENTRY_CHILD_AGE',
+      parentName: 'PASTE_ENTRY_PARENT_NAME',
+      contact:    'PASTE_ENTRY_CONTACT',
+      notes:      'PASTE_ENTRY_NOTES',
+      source:     'PASTE_ENTRY_SOURCE'
+    }
+  };
+  const ENQUIRY_CONFIGURED = !ENQUIRY_FORM.action.includes('PASTE_');
+
+  function showFormError(form, msg){
+    let box = form.parentElement.querySelector('.form-error');
+    if(!box){
+      box = document.createElement('div');
+      box.className = 'form-error';
+      form.insertAdjacentElement('afterend', box);
+    }
+    box.innerHTML = msg + ' Please <a href="' + WHATSAPP_URL + '" target="_blank" rel="noopener">message us on WhatsApp</a> '
+                  + 'or <a href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener">book a call</a> '
+                  + 'so we do not miss you.';
+    box.classList.add('show');
+  }
+
+  async function handleSubmit(e, confirmId){
     e.preventDefault();
-    document.getElementById(confirmId).classList.add('show');
-    e.target.reset();
+    const form = e.target;
+    const btn  = form.querySelector('button[type=submit]');
+    const label = btn ? btn.textContent : '';
+
+    if(!ENQUIRY_CONFIGURED){
+      showFormError(form, 'Sorry, the form is not accepting submissions yet.');
+      return false;
+    }
+
+    const body = new URLSearchParams();
+    for(const [name, entry] of Object.entries(ENQUIRY_FORM.fields)){
+      if(name === 'source') continue;
+      const field = form.elements[name];
+      if(field) body.append(entry, field.value.trim());
+    }
+    body.append(ENQUIRY_FORM.fields.source, document.title + ' (' + confirmId + ')');
+
+    if(btn){ btn.disabled = true; btn.textContent = 'Sending\u2026'; }
+    try{
+      /* Google Forms sends no CORS headers, so the response is opaque:
+         a resolved promise means the POST was delivered. */
+      await fetch(ENQUIRY_FORM.action, { method:'POST', mode:'no-cors', body });
+      const box = form.parentElement.querySelector('.form-error');
+      if(box) box.classList.remove('show');
+      document.getElementById(confirmId).classList.add('show');
+      form.reset();
+    }catch(err){
+      showFormError(form, 'Sorry, something went wrong sending your details.');
+    }finally{
+      if(btn){ btn.disabled = false; btn.textContent = label; }
+    }
     return false;
   }
   function openJoinModal(){
