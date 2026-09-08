@@ -364,20 +364,21 @@ footer{background:var(--ink); color:#8B8974; padding:72px 0 32px; font-size:0.9r
 <script>
   const WHATSAPP_URL = 'https://wa.me/919642099896?text=Hi%2C%20I%27m%20interested%20in%20AI%20Kids%20Lab%20for%20my%20child';
   /* ---------------------------------------------------------------
-     Enquiry form -> Google Form (ramyaaikidslab@gmail.com)
-     Replace the six PASTE_ values below with the ids from the Google
-     Form's "Get pre-filled link". Until they are replaced, the form
-     tells people to use WhatsApp instead of silently losing them.
+     Enquiry form -> the "Cohort Enquiry" Google Form owned by
+     ramyaaikidslab@gmail.com. The entry ids come from that form's
+     pre-filled link and are positional: they match the form's six
+     questions in order, so reordering or replacing a question in
+     Google Forms changes its id and breaks this mapping.
      --------------------------------------------------------------- */
   const ENQUIRY_FORM = {
-    action: 'https://docs.google.com/forms/d/e/PASTE_FORM_ID/formResponse',
+    action: 'https://docs.google.com/forms/d/e/1FAIpQLScoS7MU0PTMvf0NnpD6bqL0qWwxw2He4Y0_7-5rX85Ne9M3Jg/formResponse',
     fields: {
-      childName:  'PASTE_ENTRY_CHILD_NAME',
-      childAge:   'PASTE_ENTRY_CHILD_AGE',
-      parentName: 'PASTE_ENTRY_PARENT_NAME',
-      contact:    'PASTE_ENTRY_CONTACT',
-      notes:      'PASTE_ENTRY_NOTES',
-      source:     'PASTE_ENTRY_SOURCE'
+      childName:  'entry.17034647',
+      childAge:   'entry.1489119340',
+      parentName: 'entry.679503118',
+      contact:    'entry.1914773534',
+      notes:      'entry.428965629',
+      source:     'entry.2017562969'
     }
   };
   const ENQUIRY_CONFIGURED = !ENQUIRY_FORM.action.includes('PASTE_');
