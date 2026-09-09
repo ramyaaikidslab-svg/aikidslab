@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#121210">
 <link rel="icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="ai-kids-lab-icon-badge.png">
 <title>AI Kids Lab: Where Young Minds Build with AI</title>
@@ -30,6 +32,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
   :root{
+  /* The site is designed light with dark sections. Without this, Android
+     Chrome and Samsung Internet apply their own "auto dark theme" and
+     repaint the palette, turning the paper sections dark and the ink
+     text on yellow buttons white. */
+  color-scheme: only light;
     --ink:#121210;
     --paper:#F7F6F1;
     --yellow:#FFC800;
