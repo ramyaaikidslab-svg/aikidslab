@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#121210">
+<meta name="theme-color" content="#15171C">
 <link rel="icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="ai-kids-lab-icon-badge.png">
 <title>AI Kids Lab: The AI Curriculum for Grades 7, 8 &amp; 9 — Built for Schools</title>
@@ -28,427 +28,581 @@
 <meta name="twitter:image" content="https://www.aikidslab.co/og-image.jpg">
 <meta name="twitter:image:alt" content="AI Kids Lab: students in a school computer lab building a working AI project together.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
   :root{
-  /* The site is designed light with dark sections. Without this, Android
-     Chrome and Samsung Internet apply their own "auto dark theme" and
-     repaint the palette, turning the paper sections dark and the ink
-     text on yellow buttons white. */
-  color-scheme: only light;
-    --ink:#121210;
-    --paper:#F7F6F1;
-    --yellow:#FFC800;
-    --yellow-deep:#D9A600;
-    --ink-soft:#4A4842;
-    --line: rgba(18,18,16,0.14);
-    --radius: 3px;
+    /* The site is designed light with dark sections. Without this, Android
+       Chrome and Samsung Internet apply their own "auto dark theme" and
+       repaint the palette. */
+    color-scheme: only light;
+
+    --ink:#15171C;
+    --ink-2:#1D212A;
+    --ink-3:#2A2F3A;
+    --paper:#FBFAF7;
+    --paper-2:#F2EFE8;
+    --paper-dim:#C4C7CE;
+    --paper-faint:#868A94;
+
+    --gold:#DFA426;
+    --gold-bright:#FFC800;
+    --gold-ink:#87620F;
+    --gold-wash:#FAF3E2;
+
+    --muted:#5B606A;
+    --ink-soft:#5B606A;
+    --yellow:var(--gold);
+    --yellow-deep:var(--gold-ink);
+
+    --line:rgba(21,23,28,0.12);
+    --line-strong:rgba(21,23,28,0.26);
+    --line-dark:rgba(255,255,255,0.12);
+    --line-dark-strong:rgba(255,255,255,0.22);
+
+    --shadow:0 1px 2px rgba(21,23,28,0.04), 0 10px 28px -16px rgba(21,23,28,0.22);
+    --shadow-lift:0 2px 4px rgba(21,23,28,0.05), 0 22px 46px -22px rgba(21,23,28,0.32);
+
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --r:2px;
+
+    --serif:'Newsreader','Iowan Old Style',Georgia,'Times New Roman',serif;
+    --sans:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
   body{
-    font-family:'Inter', sans-serif;
+    font-family:var(--sans);
     color:var(--ink);
     background:var(--paper);
-    line-height:1.55;
-    font-size:16px;
+    line-height:1.62;
+    font-size:17px;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
   }
   h1,h2,h3,.display{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700;
-    line-height:1.08;
-    letter-spacing:-0.01em;
+    font-family:var(--serif);
+    font-weight:500;
+    line-height:1.14;
+    letter-spacing:-0.012em;
+    text-wrap:balance;
   }
   a{color:inherit; text-decoration:none;}
   img{max-width:100%; display:block;}
-  .wrap{max-width:1160px; margin:0 auto; padding:0 28px;}
-  section{padding:96px 0;}
-  @media (max-width:720px){ section{padding:64px 0;} }
+  :focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  @media (max-width:520px){ .wrap{padding:0 20px;} }
+  section{padding:120px 0; scroll-margin-top:84px;}
+  @media (max-width:900px){ section{padding:88px 0;} }
+  @media (max-width:560px){ section{padding:68px 0;} }
+
+  /* ---------- MOTION ---------- */
+  .has-js [data-reveal]{opacity:0; transform:translateY(16px);}
+  .has-js [data-reveal].is-in{
+    opacity:1; transform:none;
+    transition:opacity .75s var(--ease), transform .75s var(--ease);
+    transition-delay:var(--d,0ms);
+  }
+  [data-reveal]:nth-child(1){--d:0ms;}
+  [data-reveal]:nth-child(2){--d:70ms;}
+  [data-reveal]:nth-child(3){--d:140ms;}
+  [data-reveal]:nth-child(4){--d:210ms;}
+  [data-reveal]:nth-child(5){--d:280ms;}
+  [data-reveal]:nth-child(6){--d:350ms;}
+  [data-reveal]:nth-child(n+7){--d:400ms;}
+
+  /* ---------- SHARED ---------- */
+  .eyebrow{
+    font-family:var(--mono); font-size:0.71rem; font-weight:500;
+    text-transform:uppercase; letter-spacing:0.15em; color:var(--gold-ink);
+    display:flex; align-items:center; gap:14px; margin-bottom:20px;
+  }
+  .eyebrow::after{content:""; height:1px; width:56px; background:var(--line-strong); flex-shrink:0;}
+  .eyebrow.on-dark{color:var(--gold);}
+  .eyebrow.on-dark::after{background:var(--line-dark-strong);}
+
+  .sec-head{max-width:60ch; margin-bottom:56px;}
+  .sec-head h2{font-size:clamp(1.95rem,3.7vw,2.85rem); font-weight:400;}
+  .sec-head p{margin-top:18px; color:var(--muted); font-size:1.06rem; max-width:58ch;}
 
   /* ---------- NAV ---------- */
   header{
     position:sticky; top:0; z-index:50;
     background:var(--ink);
-    border-bottom:2px solid var(--yellow);
+    border-bottom:1px solid rgba(223,164,38,0.30);
+    transition:box-shadow .4s var(--ease);
   }
-  nav.wrap{
-    display:flex; align-items:center; justify-content:space-between;
-    height:72px;
-  }
+  header.scrolled{box-shadow:0 12px 30px -18px rgba(0,0,0,0.85);}
+  nav.wrap{display:flex; align-items:center; justify-content:space-between; height:78px; transition:height .4s var(--ease);}
+  header.scrolled nav.wrap{height:66px;}
   .logo{
-    color:var(--paper); font-family:'Space Grotesk',sans-serif; font-weight:700;
-    font-size:1.15rem; display:flex; align-items:center; gap:10px; letter-spacing:0.02em;
+    color:var(--paper); font-family:var(--sans); font-weight:600;
+    font-size:0.84rem; text-transform:uppercase; letter-spacing:0.17em;
+    display:flex; align-items:center; gap:12px;
   }
-  a.logo{cursor:pointer;}
-  a.logo:hover{opacity:0.82;}
-  a.logo:focus-visible{outline:2px solid var(--yellow); outline-offset:4px;}
-  .logo-mark{width:30px; height:30px; flex-shrink:0; display:block;}
-  .logo-mark rect:first-child{fill:none; stroke:var(--yellow); stroke-width:10;}
-  .logo-mark rect:nth-child(2){fill:var(--yellow);}
+  a.logo{cursor:pointer; transition:opacity .3s var(--ease);}
+  a.logo:hover{opacity:0.75;}
+  .logo-mark{width:28px; height:28px; flex-shrink:0; display:block;}
+  .logo-mark rect:first-child{fill:none; stroke:var(--gold-bright); stroke-width:10;}
+  .logo-mark rect:nth-child(2){fill:var(--gold-bright);}
   .logo-mark rect:last-child{fill:var(--ink);}
-  .navlinks{display:flex; gap:30px; align-items:center;}
-  .navlinks a{color:#D8D6CE; font-size:0.92rem; font-weight:500;}
-  .navlinks a:hover{color:var(--yellow);}
+  .navlinks{display:flex; gap:34px; align-items:center;}
+  .navlinks a:not(.nav-cta){
+    color:var(--paper-dim); font-size:0.9rem; font-weight:400;
+    position:relative; padding-bottom:4px; transition:color .3s var(--ease);
+  }
+  .navlinks a:not(.nav-cta)::after{
+    content:""; position:absolute; left:0; right:100%; bottom:0; height:1px;
+    background:var(--gold); transition:right .4s var(--ease);
+  }
+  .navlinks a:not(.nav-cta):hover{color:var(--paper);}
+  .navlinks a:not(.nav-cta):hover::after{right:0;}
   .nav-cta{
-    background:var(--yellow); color:var(--ink); padding:10px 20px;
-    font-weight:700; font-size:0.9rem; border:2px solid var(--yellow);
+    background:var(--gold); color:#1A1305; padding:11px 22px; border-radius:var(--r);
+    font-weight:600; font-size:0.86rem; border:1px solid var(--gold);
+    transition:background .3s var(--ease), color .3s var(--ease);
   }
-  .navlinks a.nav-cta{color:var(--ink);}
-  .nav-cta:hover{background:var(--ink); color:var(--yellow);}
-  .nav-cta:hover{color:var(--yellow);}
-  .navlinks a.nav-cta:hover{color:var(--yellow);}
-  @media (max-width:980px){
-    .navlinks a:not(.nav-cta){display:none;}
-  }
-  /* "Book a school demo" is wide enough to sit on top of the wordmark on a
-     phone, so the button falls back to a shorter label there. */
+  .navlinks a.nav-cta{color:#1A1305;}
+  .nav-cta:hover, .navlinks a.nav-cta:hover{background:transparent; color:var(--gold);}
   .nav-cta .short{display:none;}
+  @media (max-width:1040px){ .navlinks a:not(.nav-cta){display:none;} }
   @media (max-width:560px){
     .nav-cta .full{display:none;}
     .nav-cta .short{display:inline;}
-    .nav-cta{padding:9px 14px; font-size:0.82rem;}
-    .logo{font-size:1rem; gap:8px;}
-    .logo-mark{width:26px; height:26px;}
+    .nav-cta{padding:10px 16px; font-size:0.8rem;}
+    .logo{font-size:0.74rem; gap:9px; letter-spacing:0.14em;}
+    .logo-mark{width:24px; height:24px;}
+    nav.wrap{height:66px;}
   }
 
   /* ---------- HERO ---------- */
   .hero{
     background:var(--ink); color:var(--paper);
-    padding:88px 0 72px;
-    position:relative;
-    overflow:hidden;
+    padding:104px 0 96px; position:relative; overflow:hidden;
+    scroll-margin-top:0;
   }
   .hero::before{
-    content:"";
-    position:absolute; inset:0;
+    content:""; position:absolute; inset:0; pointer-events:none;
     background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size:44px 44px;
-    opacity:0.25;
-    pointer-events:none;
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(120% 90% at 70% 15%, #000 0%, transparent 72%);
+    -webkit-mask-image:radial-gradient(120% 90% at 70% 15%, #000 0%, transparent 72%);
+  }
+  .hero::after{
+    content:""; position:absolute; pointer-events:none;
+    width:760px; height:760px; right:-180px; top:-280px; border-radius:50%;
+    background:radial-gradient(circle, rgba(223,164,38,0.16) 0%, transparent 62%);
   }
   .hero-grid{
-    display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:64px; align-items:center;
     position:relative; z-index:2;
   }
-  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr;} }
+  @media (max-width:940px){ .hero-grid{grid-template-columns:1fr; gap:52px;} }
   .seats-tag{
-    display:inline-flex; align-items:center; gap:8px;
-    background:var(--yellow); color:var(--ink); font-weight:700;
-    font-size:0.82rem; padding:7px 14px; margin-bottom:22px;
-    border:2px solid var(--ink);
+    display:inline-flex; align-items:center; gap:10px;
+    border:1px solid var(--line-dark-strong); border-radius:100px;
+    color:var(--paper-dim); font-family:var(--mono); font-weight:400;
+    font-size:0.7rem; text-transform:uppercase; letter-spacing:0.12em;
+    padding:7px 16px; margin-bottom:16px;
   }
-  .seats-tag .pulse{width:8px; height:8px; border-radius:50%; background:var(--ink); animation:pulse 1.6s infinite;}
-  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.25;}}
+  .seats-tag .pulse{width:6px; height:6px; border-radius:50%; background:var(--gold); animation:pulse 2.4s var(--ease) infinite;}
+  @media (max-width:560px){
+    /* Keep the availability pill on one line rather than letting it become a lozenge */
+    .seats-tag{font-size:0.6rem; letter-spacing:0.08em; padding:6px 13px; gap:8px;}
+  }
+  @keyframes pulse{0%,100%{opacity:1; transform:scale(1);} 50%{opacity:0.35; transform:scale(0.8);}}
+  @media (prefers-reduced-motion: reduce){ .seats-tag .pulse{animation:none;} }
   .city-tag{
-    display:inline-flex; align-items:center; gap:8px; margin-left:10px;
-    color:#B9B7AD; font-size:0.82rem; font-weight:600;
+    display:flex; align-items:center; gap:9px; margin-bottom:26px;
+    color:var(--paper-faint); font-family:var(--mono); font-size:0.7rem;
+    text-transform:uppercase; letter-spacing:0.12em;
   }
-  .city-tag::before{content:"\f3c5"; font-family:"Font Awesome 6 Free"; font-weight:900; color:var(--yellow);}
-  @media (max-width:620px){ .city-tag{margin-left:0; margin-bottom:18px;} }
+  .city-tag::before{content:"\f3c5"; font-family:"Font Awesome 6 Free"; font-weight:900; color:var(--gold); font-size:0.85em;}
   .hero h1{
-    font-size:clamp(2.2rem, 4.6vw, 3.4rem);
-    max-width:17ch;
+    font-size:clamp(2.45rem, 5.1vw, 4.05rem);
+    font-weight:400; line-height:1.05; letter-spacing:-0.022em;
+    max-width:16ch;
   }
-  .hero p.lede{
-    margin-top:22px; font-size:1.12rem; color:#D8D6CE; max-width:50ch;
-  }
-  .hero-ctas{display:flex; flex-wrap:wrap; gap:16px; margin-top:34px;}
-  .hero-wa{
-    display:inline-flex; align-items:center; gap:9px; margin-top:18px;
-    color:#D8D6CE; font-size:0.95rem; font-weight:600; text-decoration:none;
-    border-bottom:1px solid transparent; padding-bottom:2px;
-  }
-  .hero-wa svg{width:18px; height:18px; fill:#25D366; flex-shrink:0;}
-  .hero-wa:hover{color:#25D366; border-bottom-color:#25D366;}
-  .hero-wa:focus-visible{outline:2px solid #25D366; outline-offset:4px;}
+  .hero h1 em{font-style:italic; color:var(--gold);}
+  .hero p.lede{margin-top:26px; font-size:1.1rem; color:var(--paper-dim); max-width:52ch; line-height:1.66;}
+  .hero-ctas{display:flex; flex-wrap:wrap; gap:14px; margin-top:38px;}
   .btn-primary{
-    background:var(--yellow); color:var(--ink); font-weight:700;
-    padding:16px 30px; font-size:1rem; border:2px solid var(--yellow);
-    display:inline-block;
+    background:var(--gold); color:#1A1305; font-weight:600;
+    padding:16px 30px; font-size:0.97rem; border:1px solid var(--gold);
+    border-radius:var(--r); display:inline-block;
+    transition:background .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);
   }
-  .btn-primary:hover{background:transparent; color:var(--yellow);}
+  .btn-primary:hover{
+    background:var(--gold-bright); border-color:var(--gold-bright);
+    transform:translateY(-2px); box-shadow:0 16px 32px -18px rgba(223,164,38,0.9);
+  }
+  .btn-primary.btn-wa{display:inline-flex; align-items:center; gap:11px;}
+  .btn-primary.btn-wa svg{width:18px; height:18px; fill:currentColor; flex-shrink:0;}
   .btn-secondary{
-    background:transparent; color:var(--paper); font-weight:600;
-    padding:16px 30px; font-size:1rem; border:2px solid #55534B;
-    display:inline-block;
+    background:transparent; color:var(--paper); font-weight:500;
+    padding:16px 30px; font-size:0.97rem; border:1px solid var(--line-dark-strong);
+    border-radius:var(--r); display:inline-block;
+    transition:border-color .3s var(--ease), color .3s var(--ease), background .3s var(--ease);
   }
-  .btn-secondary:hover{border-color:var(--yellow); color:var(--yellow);}
+  .btn-secondary:hover{border-color:var(--gold); color:var(--gold); background:rgba(223,164,38,0.06);}
   .hero-fact-strip{
-    display:flex; flex-wrap:wrap; gap:0; margin-top:44px;
-    border-top:1px solid #33322C;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    margin-top:52px; border-top:1px solid var(--line-dark);
   }
+  @media (max-width:640px){ .hero-fact-strip{grid-template-columns:1fr 1fr;} }
   .hero-fact{
-    padding:16px 24px 0 0; margin-right:24px; font-size:0.86rem; color:#B9B7AD;
+    padding:22px 18px 0 0;
+    font-family:var(--mono); font-size:0.64rem; text-transform:uppercase;
+    letter-spacing:0.12em; color:var(--paper-faint); min-width:0;
   }
-  .hero-fact b{display:block; color:var(--paper); font-family:'Space Grotesk',sans-serif; font-size:1.05rem; margin-top:6px;}
+  @media (max-width:640px){ .hero-fact{padding-bottom:14px;} }
+  .hero-fact b{
+    display:block; color:var(--paper); font-family:var(--serif); font-weight:500;
+    font-size:1.12rem; letter-spacing:0; text-transform:none; margin-top:9px;
+  }
 
-  .photo-stack{position:relative; height:420px;}
+  .photo-stack{position:relative; height:470px; display:block;}
+  @media (max-width:940px){ .photo-stack{height:380px;} }
+  @media (max-width:520px){ .photo-stack{height:300px;} }
   .ph{
-    position:absolute; background:var(--paper); border:2px solid var(--yellow);
-    display:flex; align-items:center; justify-content:center; overflow:hidden;
+    position:absolute; overflow:hidden; border-radius:var(--r);
+    border:1px solid var(--line-dark-strong);
+    box-shadow:0 30px 60px -34px rgba(0,0,0,0.95);
   }
-  .ph img{width:100%; height:100%; object-fit:cover; display:block;}
-  .ph1{width:62%; height:230px; top:0; right:0; transform:rotate(2deg);}
-  .ph2{width:52%; height:180px; bottom:20px; left:0; transform:rotate(-3deg);}
-  .ph3{width:38%; height:150px; bottom:0; right:8%; transform:rotate(4deg); background:var(--yellow); border-color:var(--ink);}
+  .ph img{width:100%; height:100%; object-fit:cover; display:block; transition:transform 1.2s var(--ease);}
+  .ph:hover img{transform:scale(1.04);}
+  .ph1{width:100%; height:256px; top:0; left:0;}
+  .ph2{width:48.5%; height:186px; bottom:0; left:0;}
+  .ph3{width:48.5%; height:186px; bottom:0; right:0;}
+  @media (max-width:940px){ .ph1{height:212px;} .ph2, .ph3{height:150px;} }
+  @media (max-width:520px){ .ph1{height:168px;} .ph2, .ph3{height:116px;} }
 
-  /* ---------- TRUST BAR ---------- */
-  .trust{background:var(--paper); padding:52px 0; border-bottom:1px solid var(--line);}
-  .trust p.label{font-size:0.95rem; color:var(--ink-soft); margin-bottom:22px; max-width:60ch;}
-  .wordmarks{display:flex; flex-wrap:wrap; gap:14px;}
+  /* ---------- TRUST ---------- */
+  .trust{background:var(--paper); padding:64px 0; border-bottom:1px solid var(--line);}
+  .trust p.label{font-size:1rem; color:var(--muted); margin-bottom:30px; max-width:62ch;}
+  .wordmarks{display:flex; flex-wrap:wrap; align-items:center; row-gap:14px;}
   .wordmark{
-    border:2px solid var(--ink); padding:10px 20px;
-    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1rem;
+    font-family:var(--serif); font-size:1.28rem; font-weight:500; color:var(--ink);
+    padding:2px 24px; border-left:1px solid var(--line); line-height:1.2;
   }
-  .wordmark.small{font-size:0.85rem; border-color:var(--ink-soft); color:var(--ink-soft); font-weight:600;}
+  .wordmark:first-child{padding-left:0; border-left:0;}
+  .wordmark.small{font-size:1.04rem; color:var(--muted); font-weight:400;}
+  @media (max-width:520px){ .wordmark{padding:2px 14px; font-size:1.1rem;} .wordmark.small{font-size:0.96rem;} }
 
-  /* ---------- SECTION HEADS ---------- */
-  .sec-head{max-width:60ch; margin-bottom:48px;}
-  .sec-head h2{font-size:clamp(1.8rem,3.4vw,2.5rem);}
-  .sec-head p{margin-top:14px; color:var(--ink-soft); font-size:1.05rem;}
-  .eyebrow{
-    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.78rem;
-    text-transform:uppercase; letter-spacing:0.08em; color:var(--yellow-deep);
-    margin-bottom:12px; display:block;
-  }
-  .eyebrow.on-dark{color:var(--yellow);}
-
-  /* ---------- PRESSURE CARDS ---------- */
-  .pressure-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
-  @media (max-width:900px){.pressure-grid{grid-template-columns:repeat(2,1fr);}}
-  @media (max-width:520px){.pressure-grid{grid-template-columns:1fr;}}
+  /* ---------- WHY: PRESSURE CARDS ---------- */
+  .pressure-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  @media (max-width:940px){.pressure-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.pressure-grid{grid-template-columns:1fr;}}
   .pressure-card{
-    border:2px solid var(--ink); background:#fff; padding:26px 22px;
-    transition:transform 0.15s ease, box-shadow 0.15s ease;
+    border:1px solid var(--line); border-radius:var(--r); background:#fff; padding:30px 26px;
+    transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
   }
-  .pressure-card:hover{transform:translateY(-4px); box-shadow:5px 5px 0 var(--ink);}
+  .pressure-card:hover{transform:translateY(-3px); box-shadow:var(--shadow-lift); border-color:var(--line-strong);}
   .pressure-icon{
-    width:46px; height:46px; border-radius:10px; background:var(--ink); color:var(--yellow);
-    display:flex; align-items:center; justify-content:center; font-size:1.2rem; margin-bottom:18px; flex-shrink:0;
+    width:42px; height:42px; border-radius:var(--r); background:var(--gold-wash); color:var(--gold-ink);
+    display:flex; align-items:center; justify-content:center; font-size:1.05rem; margin-bottom:22px;
   }
-  .pressure-card h3{font-size:1.02rem; margin-bottom:10px;}
-  .pressure-card p{font-size:0.94rem; color:var(--ink-soft); line-height:1.5;}
+  .pressure-card h3{font-size:1.12rem; font-weight:600; margin-bottom:11px;}
+  .pressure-card p{font-size:0.95rem; color:var(--muted); line-height:1.6;}
 
   /* ---------- OPERATING MODEL ---------- */
   .model-band{background:var(--ink); color:var(--paper);}
-  .model-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:8px;}
-  @media (max-width:900px){.model-grid{grid-template-columns:1fr 1fr;}}
-  @media (max-width:560px){.model-grid{grid-template-columns:1fr;}}
-  .model-card{border-top:3px solid var(--yellow); padding:22px 0 0 0;}
+  .model-band .sec-head h2{color:var(--paper);}
+  .model-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:28px;}
+  @media (max-width:940px){.model-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:600px){.model-grid{grid-template-columns:1fr;}}
+  .model-card{border-top:1px solid var(--line-dark-strong); padding-top:24px;}
   .model-card .cadence{
-    display:inline-block; font-family:'Space Grotesk',sans-serif; font-weight:700;
-    color:var(--ink); background:var(--yellow); padding:3px 9px; font-size:0.78rem; margin-bottom:14px;
+    display:block; font-family:var(--mono); font-weight:500; color:var(--gold);
+    font-size:0.68rem; text-transform:uppercase; letter-spacing:0.15em; margin-bottom:16px;
   }
-  .model-card h3{font-size:1.1rem; margin-bottom:10px; color:var(--paper);}
-  .model-card p{color:#B9B7AD; font-size:0.93rem;}
-  .model-card ul{margin-top:12px; padding-left:16px; color:#B9B7AD; font-size:0.9rem;}
-  .model-card li{margin-bottom:6px;}
+  .model-card h3{font-size:1.18rem; font-weight:500; margin-bottom:12px; color:var(--paper);}
+  .model-card p{color:var(--paper-dim); font-size:0.94rem;}
+  .model-card ul{margin-top:16px; list-style:none;}
+  .model-card li{
+    color:var(--paper-faint); font-size:0.88rem; padding-left:16px; position:relative; margin-bottom:8px;
+  }
+  .model-card li::before{content:""; position:absolute; left:0; top:11px; width:8px; height:1px; background:var(--gold);}
 
   /* ---------- GRADE CURRICULUM ---------- */
-  .grade-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
-  @media (max-width:980px){.grade-grid{grid-template-columns:1fr;}}
-  .grade-card{border:2px solid var(--ink); background:#fff; display:flex; flex-direction:column;}
-  .grade-card .head{background:var(--ink); color:var(--paper); padding:22px 24px; min-height:132px;}
-  .grade-card.g8 .head{background:#23221D;}
-  .grade-card.g9 .head{background:var(--yellow); color:var(--ink);}
+  .grade-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+  @media (max-width:1000px){.grade-grid{grid-template-columns:1fr;}}
+  .grade-card{
+    border:1px solid var(--line); border-radius:var(--r); background:#fff;
+    display:flex; flex-direction:column; overflow:hidden;
+    transition:box-shadow .4s var(--ease), border-color .4s var(--ease);
+  }
+  .grade-card:hover{box-shadow:var(--shadow-lift); border-color:var(--line-strong);}
+  .grade-card .head{background:var(--ink); color:var(--paper); padding:30px 28px; min-height:150px;}
+  .grade-card.g8 .head{background:var(--ink-2);}
+  .grade-card.g9 .head{background:var(--gold); color:#1A1305;}
   .grade-card .head .grade-no{
-    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.78rem;
-    letter-spacing:0.08em; text-transform:uppercase; color:var(--yellow); margin-bottom:8px; display:block;
+    display:block; font-family:var(--mono); font-weight:500; font-size:0.66rem;
+    letter-spacing:0.16em; text-transform:uppercase; color:var(--gold); margin-bottom:12px;
   }
-  .grade-card.g9 .head .grade-no{color:#6B5400;}
-  .grade-card .head h3{font-size:1.45rem;}
-  .grade-card .head .stance{font-size:0.88rem; margin-top:8px; color:#B9B7AD;}
-  .grade-card.g9 .head .stance{color:#4A3A00;}
-  .grade-card .body{padding:24px; display:flex; flex-direction:column; flex:1;}
+  .grade-card.g9 .head .grade-no{color:#7A5A0C;}
+  .grade-card .head h3{font-size:1.65rem; font-weight:400;}
+  .grade-card .head .stance{font-size:0.9rem; margin-top:10px; color:var(--paper-dim); font-family:var(--sans);}
+  .grade-card.g9 .head .stance{color:#53400C;}
+  .grade-card .body{padding:28px; display:flex; flex-direction:column; flex:1;}
   .grade-card .body h4{
-    font-family:'Space Grotesk',sans-serif; font-size:0.76rem; text-transform:uppercase;
-    letter-spacing:0.07em; color:var(--yellow-deep); margin-bottom:12px; font-weight:700;
+    font-family:var(--mono); font-size:0.66rem; text-transform:uppercase;
+    letter-spacing:0.15em; color:var(--gold-ink); margin-bottom:18px; font-weight:500;
   }
-  .grade-card .body h4:not(:first-child){margin-top:24px;}
   .grade-card ul{list-style:none;}
   .grade-card ul li{
-    display:flex; gap:10px; align-items:flex-start;
-    font-size:0.93rem; color:var(--ink-soft); margin-bottom:10px; line-height:1.45;
+    display:flex; gap:14px; align-items:flex-start;
+    font-size:0.94rem; color:var(--muted); margin-bottom:13px; line-height:1.55;
   }
-  .grade-card ul li i{color:var(--yellow-deep); font-size:0.7rem; margin-top:6px; flex-shrink:0;}
+  .grade-card ul li i{display:none;}
+  .grade-card ul li::before{content:""; width:16px; height:1px; background:var(--gold); margin-top:12px; flex-shrink:0;}
+  .grade-tools{margin-top:24px; margin-bottom:28px; display:flex; flex-wrap:wrap; gap:6px;}
+  .grade-tools span{
+    font-family:var(--mono); font-size:0.7rem; letter-spacing:0.02em;
+    border:1px solid var(--line); border-radius:var(--r);
+    padding:5px 10px; color:var(--muted);
+  }
   .capstone-box{
-    border:2px solid var(--ink); background:var(--paper); padding:18px 18px 16px;
-    margin-top:auto;
+    border:1px solid rgba(223,164,38,0.45); border-radius:var(--r);
+    background:var(--gold-wash); padding:22px; margin-top:auto;
   }
   .capstone-box .cap-label{
-    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.72rem;
-    text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;
-    background:var(--ink); color:var(--yellow); display:inline-block; padding:3px 8px;
+    display:block; font-family:var(--mono); font-weight:500; font-size:0.64rem;
+    text-transform:uppercase; letter-spacing:0.16em; color:var(--gold-ink);
   }
-  .capstone-box strong{display:block; font-family:'Space Grotesk',sans-serif; font-size:1rem; margin:10px 0 8px;}
-  .capstone-box p{font-size:0.9rem; color:var(--ink-soft); line-height:1.5;}
-  .grade-tools{margin-top:18px; display:flex; flex-wrap:wrap; gap:7px;}
-  .grade-tools span{font-size:0.76rem; border:1px solid var(--ink-soft); padding:4px 9px; color:var(--ink-soft);}
+  .capstone-box strong{display:block; font-family:var(--serif); font-weight:500; font-size:1.18rem; margin:12px 0 10px;}
+  .capstone-box p{font-size:0.9rem; color:#5A4C2C; line-height:1.58;}
 
-  /* ---------- BOARD FIT ---------- */
-  .board-band{background:#EDEBE3;}
-  .board-chips{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:34px;}
+  /* ---------- BOARD FIT & SAFEGUARDING ---------- */
+  .board-band{background:var(--paper-2);}
+  .safeguard-band{background:var(--paper-2);}
+  .board-chips{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:44px;}
   .board-chip{
-    border:2px solid var(--ink); background:var(--paper); padding:11px 22px;
-    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.98rem;
+    border:1px solid var(--line-strong); border-radius:100px; background:transparent;
+    padding:10px 22px; font-family:var(--sans); font-weight:500; font-size:0.92rem;
   }
-  .board-chip.accent{background:var(--yellow); border-color:var(--yellow);}
-  .fit-list{display:grid; grid-template-columns:1fr 1fr; gap:18px 36px;}
-  @media (max-width:760px){.fit-list{grid-template-columns:1fr;}}
-  .fit-list li{display:flex; gap:12px; align-items:flex-start; font-size:0.97rem; color:var(--ink); list-style:none;}
-  .fit-list li i{color:var(--yellow-deep); margin-top:4px; flex-shrink:0;}
-  .fit-list li b{font-family:'Space Grotesk',sans-serif;}
+  .board-chip.accent{background:var(--gold-wash); border-color:rgba(223,164,38,0.55); color:var(--gold-ink);}
+  .fit-list{display:grid; grid-template-columns:1fr 1fr; gap:26px 44px;}
+  @media (max-width:800px){.fit-list{grid-template-columns:1fr; gap:22px;}}
+  .fit-list li{display:flex; gap:14px; align-items:flex-start; font-size:0.97rem; color:var(--muted); list-style:none; line-height:1.6;}
+  .fit-list li i{color:var(--gold-ink); margin-top:5px; flex-shrink:0; font-size:0.95rem;}
+  .fit-list li b{font-family:var(--sans); font-weight:600; color:var(--ink);}
 
   /* ---------- BUILD-A-THON ---------- */
   .buildathon{background:var(--ink); color:var(--paper);}
-  .ba-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:48px; align-items:center;}
-  @media (max-width:900px){.ba-grid{grid-template-columns:1fr;}}
-  .ba-steps{display:grid; gap:18px;}
-  .ba-step{display:flex; gap:18px; align-items:flex-start; border-top:1px solid #33322C; padding-top:18px;}
+  .ba-grid{display:grid; grid-template-columns:0.88fr 1.12fr; gap:60px; align-items:center;}
+  @media (max-width:940px){.ba-grid{grid-template-columns:1fr; gap:44px;}}
+  .ba-steps{display:grid; gap:0;}
+  .ba-step{display:flex; gap:22px; align-items:flex-start; border-top:1px solid var(--line-dark); padding:22px 0;}
   .ba-step .n{
-    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.85rem;
-    background:var(--yellow); color:var(--ink); padding:3px 9px; flex-shrink:0;
+    font-family:var(--mono); font-weight:500; font-size:0.72rem; letter-spacing:0.1em;
+    color:var(--gold); flex-shrink:0; padding-top:3px;
   }
-  .ba-step h3{font-size:1.05rem; color:var(--paper); margin-bottom:6px;}
-  .ba-step p{color:#B9B7AD; font-size:0.93rem;}
+  .ba-step h3{font-size:1.1rem; font-weight:500; color:var(--paper); margin-bottom:7px;}
+  .ba-step p{color:var(--paper-dim); font-size:0.93rem;}
+
+  /* ---------- PATHWAY ---------- */
+  .comp-list{border-top:1px solid var(--line-strong);}
+  .comp-item{
+    display:grid; grid-template-columns:minmax(220px,0.72fr) 1.28fr; gap:14px 36px;
+    padding:26px 0; border-bottom:1px solid var(--line); align-items:baseline;
+    transition:background .35s var(--ease);
+  }
+  @media (max-width:680px){ .comp-item{grid-template-columns:1fr; gap:8px;} }
+  .comp-item h3{font-size:1.16rem; font-weight:500;}
+  .comp-item .org{
+    display:block; font-family:var(--mono); font-weight:400;
+    font-size:0.66rem; text-transform:uppercase; letter-spacing:0.13em;
+    color:var(--gold-ink); margin-top:8px;
+  }
+  .comp-item p{color:var(--muted); font-size:0.95rem;}
+  .incubate{
+    margin-top:60px; border-radius:var(--r); background:var(--gold);
+    padding:44px 42px; display:grid; grid-template-columns:1.05fr 0.95fr; gap:44px; align-items:center;
+  }
+  @media (max-width:860px){ .incubate{grid-template-columns:1fr; padding:32px 26px; gap:32px;} }
+  .incubate h3{font-size:clamp(1.4rem,2.8vw,1.95rem); font-weight:400; max-width:20ch; color:#1A1305;}
+  .incubate p{margin-top:16px; font-size:1.01rem; color:#3D2E08; max-width:52ch;}
+  .incubate-route{display:grid; gap:0;}
+  .incubate-step{
+    display:flex; gap:16px; align-items:flex-start; font-size:0.95rem; color:#2E2206;
+    border-top:1px solid rgba(26,19,5,0.22); padding:16px 0;
+  }
+  .incubate-step:first-child{border-top:0; padding-top:0;}
+  .incubate-step:last-child{padding-bottom:0;}
+  .incubate-step i{color:#1A1305; margin-top:5px; flex-shrink:0;}
 
   /* ---------- OUTCOMES ---------- */
-  .outcome-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:2px solid var(--ink); border-right:0; border-bottom:0; background:#fff;}
-  @media (max-width:860px){.outcome-grid{grid-template-columns:1fr 1fr;}}
-  @media (max-width:520px){.outcome-grid{grid-template-columns:1fr;}}
-  .outcome{padding:28px 26px; border-right:2px solid var(--ink); border-bottom:2px solid var(--ink);}
-  .outcome i{color:var(--yellow-deep); font-size:1.15rem; margin-bottom:14px; display:block;}
-  .outcome h3{font-size:1.02rem; margin-bottom:8px;}
-  .outcome p{font-size:0.93rem; color:var(--ink-soft);}
-
-  /* ---------- VISION ---------- */
-  .vision{background:var(--yellow);}
-  .vision .wrap{max-width:900px;}
-  .vision h2{font-size:clamp(1.9rem,4vw,2.9rem); max-width:18ch;}
-  .vision p{margin-top:24px; font-size:1.08rem; max-width:64ch; color:#2A2200;}
-  .roadmap-box{
-    margin-top:34px; border:2px solid var(--ink); background:rgba(255,255,255,0.45);
-    padding:24px 26px; max-width:64ch;
+  .outcome-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:var(--r); overflow:hidden;
   }
-  .roadmap-box .eyebrow{color:#6B5400;}
-  .roadmap-box p{margin-top:0; font-size:1rem;}
-
-  /* ---------- ROLLOUT STEPS ---------- */
-  .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:32px;}
-  @media (max-width:900px){.steps{grid-template-columns:1fr 1fr;}}
-  @media (max-width:560px){.steps{grid-template-columns:1fr;}}
-  .step{border-top:3px solid var(--ink); padding:20px 0 0 0;}
-  .step .num{
-    display:inline-block; font-family:'Space Grotesk',sans-serif; font-weight:700;
-    color:var(--ink); background:var(--yellow); padding:3px 9px; font-size:0.85rem; margin-bottom:14px;
+  @media (max-width:900px){.outcome-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:560px){.outcome-grid{grid-template-columns:1fr;}}
+  .outcome{
+    padding:34px 30px; background:#fff; border:0;
+    transition:background .35s var(--ease);
   }
-  .step h3{font-size:1.08rem; margin-bottom:8px;}
-  .step p{color:var(--ink-soft); font-size:0.92rem;}
+  .outcome:hover{background:var(--gold-wash);}
+  .outcome i{color:var(--gold-ink); font-size:1.1rem; margin-bottom:18px; display:block;}
+  .outcome h3{font-size:1.1rem; font-weight:600; margin-bottom:10px;}
+  .outcome p{font-size:0.94rem; color:var(--muted);}
 
   /* ---------- COMPARISON ---------- */
-  .compare-grid{display:grid; grid-template-columns:1fr 1fr; gap:0; border:2px solid var(--ink);}
-  @media (max-width:760px){.compare-grid{grid-template-columns:1fr;}}
-  .compare-col{padding:32px;}
-  .compare-col.without{background:#EDEBE3; border-right:2px solid var(--ink);}
-  @media (max-width:760px){.compare-col.without{border-right:none; border-bottom:2px solid var(--ink);}}
-  .compare-col.with{background:var(--yellow);}
-  .compare-col h3{font-size:1.15rem; margin-bottom:20px;}
+  .compare-grid{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line-strong); border:1px solid var(--line-strong); border-radius:var(--r); overflow:hidden;}
+  @media (max-width:800px){.compare-grid{grid-template-columns:1fr;}}
+  .compare-col{padding:40px 36px;}
+  @media (max-width:520px){.compare-col{padding:30px 24px;}}
+  .compare-col.without{background:var(--paper-2);}
+  .compare-col.with{background:var(--gold-wash);}
+  .compare-col h3{font-size:1.22rem; font-weight:500; margin-bottom:26px;}
   .compare-col ul{list-style:none;}
-  .compare-col li{display:flex; align-items:flex-start; gap:10px; margin-bottom:16px; font-size:0.95rem;}
-  .compare-col.without li i{color:#8B8974; margin-top:3px;}
-  .compare-col.with li i{color:var(--ink); margin-top:3px;}
-  .compare-col.without li{color:#5A584E;}
-  .compare-col.with li{color:var(--ink); font-weight:500;}
+  .compare-col li{display:flex; align-items:flex-start; gap:13px; margin-bottom:18px; font-size:0.96rem; line-height:1.58;}
+  .compare-col.without li i{color:#9B9C99; margin-top:5px;}
+  .compare-col.with li i{color:var(--gold-ink); margin-top:5px;}
+  .compare-col.without li{color:#6A6D73;}
+  .compare-col.with li{color:#4A3E22;}
+
+  /* ---------- VISION ---------- */
+  .vision{background:var(--gold-wash); border-top:1px solid rgba(223,164,38,0.35); border-bottom:1px solid rgba(223,164,38,0.35);}
+  .vision .wrap{max-width:920px;}
+  .vision h2{font-size:clamp(2rem,4.2vw,3.05rem); font-weight:400; max-width:19ch; color:#241B06;}
+  .vision p{margin-top:28px; font-size:1.1rem; max-width:64ch; color:#4A3E22; line-height:1.68;}
+  .roadmap-box{margin-top:40px; border-left:2px solid var(--gold); padding:6px 0 6px 26px; max-width:64ch;}
+  .roadmap-box .eyebrow{color:var(--gold-ink);}
+  .roadmap-box .eyebrow::after{background:rgba(135,98,15,0.3);}
+  .roadmap-box p{margin-top:0; font-size:1rem;}
+  .roadmap-box b{font-weight:600; color:#241B06;}
+
+  /* ---------- ROLLOUT STEPS ---------- */
+  .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:36px;}
+  @media (max-width:940px){.steps{grid-template-columns:1fr 1fr;}}
+  @media (max-width:600px){.steps{grid-template-columns:1fr; gap:28px;}}
+  .step{border-top:1px solid var(--line-strong); padding-top:24px;}
+  .step .num{
+    display:block; font-family:var(--mono); font-weight:500; color:var(--gold-ink);
+    font-size:0.68rem; letter-spacing:0.15em; margin-bottom:16px;
+  }
+  .step h3{font-size:1.14rem; font-weight:500; margin-bottom:10px;}
+  .step p{color:var(--muted); font-size:0.93rem;}
 
   /* ---------- TEAM ---------- */
-  .team-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
-  @media (max-width:800px){.team-grid{grid-template-columns:1fr;}}
-  .team-card{border:2px solid var(--ink); background:#fff;}
-  .team-card .head{padding:22px 24px; border-bottom:2px solid var(--ink); display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap;}
-  .team-card .head h3{font-size:1.2rem;}
-  .team-card .head .role{font-size:0.82rem; color:var(--ink-soft); font-weight:600;}
-  .team-card .body{padding:24px;}
-  .team-card p{color:var(--ink-soft); font-size:0.97rem;}
-  .team-card .tags{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px;}
+  .team-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px;}
+  @media (max-width:860px){.team-grid{grid-template-columns:1fr;}}
+  .team-card{border:1px solid var(--line); border-radius:var(--r); background:#fff; overflow:hidden;}
+  .team-card .head{
+    padding:28px 30px; border-bottom:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:baseline; gap:14px; flex-wrap:wrap;
+  }
+  .team-card .head h3{font-size:1.45rem; font-weight:400;}
+  .team-card .head .role{
+    font-family:var(--mono); font-size:0.66rem; text-transform:uppercase;
+    letter-spacing:0.14em; color:var(--gold-ink);
+  }
+  .team-card .body{padding:30px;}
+  .team-card p{color:var(--muted); font-size:0.96rem;}
+  .team-card .tags{margin-top:22px; display:flex; flex-wrap:wrap; gap:6px;}
   .team-card .tags span{
-    font-size:0.78rem; border:1px solid var(--ink-soft); padding:4px 10px; color:var(--ink-soft);
+    font-family:var(--mono); font-size:0.68rem; border:1px solid var(--line);
+    border-radius:var(--r); padding:5px 10px; color:var(--muted);
   }
 
   /* ---------- CLOSING CTA ---------- */
   .apply{background:var(--ink); color:var(--paper);}
-  .apply-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:start;}
-  @media (max-width:860px){.apply-grid{grid-template-columns:1fr;}}
-  .apply h2{font-size:clamp(1.7rem,3.4vw,2.3rem); color:var(--paper);}
-  .apply .sub{color:#B9B7AD; margin-top:14px; max-width:50ch;}
+  .apply-grid{display:grid; grid-template-columns:1.08fr 0.92fr; gap:56px; align-items:start;}
+  @media (max-width:900px){.apply-grid{grid-template-columns:1fr; gap:44px;}}
+  .apply h2{font-size:clamp(1.9rem,3.6vw,2.6rem); font-weight:400; color:var(--paper);}
+  .apply .sub{color:var(--paper-dim); margin-top:18px; max-width:50ch; font-size:1.04rem;}
   .wa-cta{
-    display:inline-flex; align-items:center; gap:12px; margin-top:30px;
-    background:#25D366; color:#0A2E17; border:2px solid #25D366;
-    font-weight:700; font-size:1.05rem; padding:16px 30px;
+    display:inline-flex; align-items:center; gap:13px; margin-top:36px;
+    background:#25D366; color:#062E16; border:1px solid #25D366; border-radius:var(--r);
+    font-weight:600; font-size:1.02rem; padding:17px 32px;
+    transition:background .3s var(--ease), color .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);
   }
-  .wa-cta svg{width:22px; height:22px; fill:currentColor; flex-shrink:0;}
-  .wa-cta:hover{background:transparent; color:#25D366;}
-  .wa-cta:focus-visible{outline:2px solid var(--paper); outline-offset:4px;}
-  .wa-number{color:#8B8974; font-size:0.86rem; margin-top:14px;}
-  .contact-alt{color:#B9B7AD; font-size:0.92rem; margin-top:26px; max-width:46ch;}
-  .contact-alt a{color:var(--yellow); text-decoration:underline;}
-  .side-card{border:2px solid #33322C; padding:26px; height:fit-content;}
-  .side-card h3{font-size:1.1rem; color:var(--paper);}
-  .side-card .side-photo{width:100%; height:160px; object-fit:cover; border:2px solid #33322C; margin-bottom:18px;}
-  .cover-list{list-style:none; margin-top:16px;}
-  .cover-list li{
-    color:#B9B7AD; font-size:0.92rem; padding-left:20px; margin-bottom:11px; position:relative;
-  }
-  .cover-list li::before{content:""; position:absolute; left:0; top:9px; width:7px; height:7px; background:var(--yellow);}
-  /* WhatsApp treatment for the hero and footer primary buttons */
-  .btn-primary.btn-wa{display:inline-flex; align-items:center; gap:10px;}
-  .btn-primary.btn-wa svg{width:19px; height:19px; fill:currentColor; flex-shrink:0;}
+  .wa-cta svg{width:21px; height:21px; fill:currentColor; flex-shrink:0;}
+  .wa-cta:hover{background:#2EE175; border-color:#2EE175; transform:translateY(-2px); box-shadow:0 18px 34px -18px rgba(37,211,102,0.85);}
+  .wa-number{color:var(--paper-faint); font-family:var(--mono); font-size:0.72rem; letter-spacing:0.08em; margin-top:18px;}
+  .contact-alt{color:var(--paper-dim); font-size:0.94rem; margin-top:30px; max-width:48ch;}
+  .contact-alt a{color:var(--gold); border-bottom:1px solid rgba(223,164,38,0.4); transition:border-color .3s var(--ease);}
+  .contact-alt a:hover{border-bottom-color:var(--gold);}
+  .side-card{border:1px solid var(--line-dark); border-radius:var(--r); padding:30px; height:fit-content;}
+  .side-card h3{font-size:1.18rem; font-weight:500; color:var(--paper);}
+  .side-card .side-photo{width:100%; height:170px; object-fit:cover; border-radius:var(--r); margin-bottom:24px;}
+  .cover-list{list-style:none; margin-top:20px;}
+  .cover-list li{color:var(--paper-dim); font-size:0.93rem; padding-left:20px; margin-bottom:13px; position:relative; line-height:1.55;}
+  .cover-list li::before{content:""; position:absolute; left:0; top:11px; width:9px; height:1px; background:var(--gold);}
 
   /* ---------- FAQ ---------- */
-  .faq-item{border-bottom:1px solid var(--line); padding:20px 0;}
+  .faq-item{border-bottom:1px solid var(--line);}
   .faq-q{
-    display:flex; justify-content:space-between; align-items:center; cursor:pointer;
-    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:1.02rem; gap:16px;
+    display:flex; justify-content:space-between; align-items:center; cursor:pointer; gap:20px;
+    font-family:var(--serif); font-weight:500; font-size:1.12rem; padding:24px 0;
+    transition:color .3s var(--ease);
   }
-  .faq-q .icon{font-size:1.3rem; color:var(--yellow-deep); transition:transform 0.2s; flex-shrink:0;}
-  .faq-item.open .faq-q .icon{transform:rotate(45deg);}
-  .faq-a{max-height:0; overflow:hidden; transition:max-height 0.25s ease; color:var(--ink-soft); font-size:0.96rem;}
-  .faq-item.open .faq-a{max-height:320px; margin-top:12px;}
+  .faq-q:hover{color:var(--gold-ink);}
+  .faq-q .icon{
+    font-family:var(--sans); font-weight:300; font-size:1.4rem; color:var(--gold-ink);
+    transition:transform .35s var(--ease); flex-shrink:0; line-height:1;
+  }
+  .faq-item.open .faq-q .icon{transform:rotate(135deg);}
+  .faq-a{
+    max-height:0; overflow:hidden; color:var(--muted); font-size:0.98rem; line-height:1.68;
+    transition:max-height .4s var(--ease), opacity .3s var(--ease), padding-bottom .4s var(--ease);
+    opacity:0; max-width:70ch;
+  }
+  .faq-item.open .faq-a{max-height:400px; opacity:1; padding-bottom:26px;}
 
-  footer{background:var(--ink); color:#8B8974; padding:72px 0 32px; font-size:0.9rem;}
-  .footer-top{display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:48px; padding-bottom:48px; border-bottom:1px solid #2A2924;}
-  @media (max-width:860px){.footer-top{grid-template-columns:1fr 1fr;}}
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--ink); color:var(--paper-faint); padding:88px 0 36px; font-size:0.92rem;}
+  .footer-top{display:grid; grid-template-columns:1.7fr 1fr 1fr 1fr; gap:56px; padding-bottom:56px; border-bottom:1px solid var(--line-dark);}
+  @media (max-width:900px){.footer-top{grid-template-columns:1fr 1fr; gap:40px;}}
   @media (max-width:560px){.footer-top{grid-template-columns:1fr;}}
-  .footer-brand .logo{margin-bottom:16px;}
-  .footer-tagline{color:#8B8974; max-width:40ch; margin-bottom:22px; line-height:1.6;}
+  .footer-brand .logo{margin-bottom:22px;}
+  .footer-tagline{color:var(--paper-faint); max-width:40ch; margin-bottom:28px; line-height:1.68;}
   .footer-ctas{display:flex; flex-wrap:wrap; gap:12px;}
-  .footer-ctas .btn-primary, .footer-ctas .btn-secondary{padding:12px 22px; font-size:0.88rem;}
-  .footer-col h4{font-family:'Space Grotesk',sans-serif; color:var(--paper); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:16px;}
-  .footer-col a{display:block; color:#B9B7AD; margin-bottom:10px; font-size:0.9rem;}
-  .footer-col a:hover{color:var(--yellow);}
-  .footer-loc{color:#8B8974; margin-top:4px;}
-  .footer-bottom{padding-top:28px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:0.82rem; color:#6E6C5F;}
+  .footer-ctas .btn-primary, .footer-ctas .btn-secondary{padding:12px 22px; font-size:0.87rem;}
+  .footer-col h4{
+    font-family:var(--mono); color:var(--paper); font-size:0.66rem; font-weight:500;
+    text-transform:uppercase; letter-spacing:0.15em; margin-bottom:20px;
+  }
+  .footer-col a{display:block; color:var(--paper-dim); margin-bottom:12px; font-size:0.9rem; transition:color .3s var(--ease);}
+  .footer-col a:hover{color:var(--gold);}
+  .footer-loc{color:var(--paper-faint); margin-top:6px; line-height:1.6;}
+  .footer-bottom{padding-top:32px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:0.82rem; color:#6A6E78;}
 
   /* ---------- WHATSAPP FLOAT ---------- */
   .wa-float{
-    position:fixed; bottom:24px; right:24px; z-index:60;
-    width:58px; height:58px; border-radius:50%;
+    position:fixed; bottom:26px; right:26px; z-index:60;
+    width:54px; height:54px; border-radius:50%;
     background:#25D366; color:#fff; display:flex; align-items:center; justify-content:center;
-    font-size:1.6rem; border:2px solid var(--ink);
-    box-shadow:3px 3px 0 var(--ink);
+    box-shadow:0 10px 28px -8px rgba(37,211,102,0.55), 0 2px 6px rgba(0,0,0,0.2);
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease);
   }
-  .wa-float svg{width:28px; height:28px; fill:currentColor;}
-  .wa-float:hover{transform:translateY(-2px);}
+  .wa-float svg{width:26px; height:26px; fill:currentColor;}
+  .wa-float:hover{transform:translateY(-3px) scale(1.04); box-shadow:0 16px 34px -8px rgba(37,211,102,0.7);}
+  @media (max-width:520px){ .wa-float{width:48px; height:48px; bottom:18px; right:18px;} .wa-float svg{width:23px; height:23px;} }
 
-  .side-by-photo{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;}
-  @media (max-width:860px){.side-by-photo{grid-template-columns:1fr;}}
-  .banner-photo{width:100%; height:260px; object-fit:cover; border:2px solid var(--ink); margin-top:32px;}
-  .fact-photo{width:100%; height:300px; object-fit:cover; border:2px solid var(--yellow);}
-  .vision-photo{display:block; max-width:460px; width:100%; height:260px; object-fit:cover; margin:36px auto 0; border:3px solid var(--ink);}
-  .team-banner{width:100%; height:220px; object-fit:cover; border:2px solid var(--ink); margin-bottom:36px;}
+  /* ---------- SHARED MEDIA ---------- */
+  .side-by-photo{display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;}
+  @media (max-width:900px){.side-by-photo{grid-template-columns:1fr; gap:40px;}}
+  .banner-photo{width:100%; height:300px; object-fit:cover; border-radius:var(--r); margin-top:52px;}
+  .fact-photo{width:100%; height:340px; object-fit:cover; border-radius:var(--r); border:1px solid var(--line-dark);}
+  .vision-photo{display:block; max-width:520px; width:100%; height:290px; object-fit:cover; margin:48px auto 0; border-radius:var(--r);}
+  .team-banner{width:100%; height:240px; object-fit:cover; border-radius:var(--r); margin-bottom:44px;}
 </style>
+<script>
+  /* Set synchronously, before the body paints: the reveal styles only apply
+     when this class is present, so with JS off (or reduced motion on) the
+     page renders complete and static. */
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.documentElement.classList.add('has-js');
+  }
+</script>
 </head>
 <body>
 
@@ -469,22 +623,22 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <div class="seats-tag"><span class="pulse"></span>Onboarding partner schools for 2026–27</div>
-      <div class="city-tag">Hyderabad first, then across India</div>
-      <h1>Make your school the one that builds India's young founders.</h1>
-      <p class="lede">A full AI curriculum for Grades 7, 8 and 9 — different for every grade, embedded inside your existing CBSE, ICSE, IB or Cambridge timetable. Self-paced modules through the month, an industry expert on your campus every month, and a capstone project each child builds and presents.</p>
-      <div class="hero-ctas">
+      <div class="seats-tag" data-reveal><span class="pulse"></span>Onboarding partner schools for 2026–27</div>
+      <div class="city-tag" data-reveal>Hyderabad first, then across India</div>
+      <h1 data-reveal>Make your school the one that builds India's <em>young founders</em>.</h1>
+      <p class="lede" data-reveal>A full AI curriculum for Grades 7, 8 and 9 — different for every grade, embedded inside your existing CBSE, ICSE, IB or Cambridge timetable. Self-paced modules through the month, an industry expert on your campus every month, and a capstone project each child builds and presents.</p>
+      <div class="hero-ctas" data-reveal>
         <a href="https://wa.me/919642099896?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20the%20AI%20Kids%20Lab%20program%20for%20our%20school%20%28Grades%207%E2%80%939%29" target="_blank" rel="noopener" class="btn-primary btn-wa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.898 9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>Talk to us on WhatsApp</a>
         <a href="#curriculum" class="btn-secondary">See the curriculum</a>
       </div>
-      <div class="hero-fact-strip">
+      <div class="hero-fact-strip" data-reveal>
         <div class="hero-fact">Grades<b>7, 8 &amp; 9</b></div>
         <div class="hero-fact">Boards<b>Any board</b></div>
         <div class="hero-fact">Expert on campus<b>Every month</b></div>
         <div class="hero-fact">Capstone<b>One per grade</b></div>
       </div>
     </div>
-    <div class="photo-stack">
+    <div class="photo-stack" data-reveal>
       <div class="ph ph1"><img src="images/ai-kids-lab-photo-01.jpg" alt="Students collaborating on an AI project in a school computer lab" loading="lazy"></div>
       <div class="ph ph2"><img src="images/ai-kids-lab-photo-02.jpg" alt="An industry expert guiding a student through their build on campus" loading="lazy"></div>
       <div class="ph ph3"><img src="images/ai-kids-lab-photo-03.jpg" alt="A student presenting her capstone project to her class" loading="lazy"></div>
@@ -495,7 +649,7 @@
 <section class="trust">
   <div class="wrap">
     <p class="label">The experts who walk into your classrooms aren't trainers reading from a deck. They're IIT, IIIT and BITS alumni, and engineers who have shipped real AI and software at companies like these.</p>
-    <div class="wordmarks">
+    <div class="wordmarks" data-reveal>
       <div class="wordmark">Google</div>
       <div class="wordmark">Apple</div>
       <div class="wordmark">Amazon</div>
@@ -509,28 +663,28 @@
 
 <section id="why">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <span class="eyebrow">Why school leaders are moving now</span>
       <h2>Every parent is already asking what your school is doing about AI.</h2>
       <p>The boards have added AI to the syllabus. The parents have read the headlines. What most schools don't have is a credible way to actually deliver it — taught by people who build this for a living, with something at the end of the year the child can show.</p>
     </div>
     <div class="pressure-grid">
-      <div class="pressure-card">
+      <div class="pressure-card" data-reveal>
         <div class="pressure-icon"><i class="fa-solid fa-scroll"></i></div>
         <h3>The syllabus moved</h3>
         <p>AI and computational thinking are now part of the curriculum across boards. Coverage is expected; depth is not yet delivered.</p>
       </div>
-      <div class="pressure-card">
+      <div class="pressure-card" data-reveal>
         <div class="pressure-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
         <h3>Faculty were never trained for it</h3>
         <p>Your CS teachers are excellent at what they were trained in. Nobody trained them on models, prompting, or shipping an AI product.</p>
       </div>
-      <div class="pressure-card">
+      <div class="pressure-card" data-reveal>
         <div class="pressure-icon"><i class="fa-solid fa-people-roof"></i></div>
         <h3>Admissions are competitive</h3>
         <p>Robotics labs and smart boards are table stakes now. Students who have built and pitched a working AI product are not.</p>
       </div>
-      <div class="pressure-card">
+      <div class="pressure-card" data-reveal>
         <div class="pressure-icon"><i class="fa-solid fa-hourglass-half"></i></div>
         <h3>There is no free period</h3>
         <p>Any program that demands extra hours, extra staff or a parallel timetable quietly dies by December. This one is built to fit.</p>
@@ -541,13 +695,13 @@
 
 <section class="model-band" id="model">
   <div class="wrap">
-    <div class="sec-head" style="max-width:62ch;">
+    <div class="sec-head" data-reveal style="max-width:62ch;">
       <span class="eyebrow on-dark">How it runs inside your school</span>
       <h2 style="color:var(--paper);">One period a week. One expert day a month. One capstone a year.</h2>
-      <p style="color:#B9B7AD;">We don't ask you to find new hours or hire new staff. The self-paced curriculum runs in a single existing period. Once a month, an industry expert walks into your campus — and by the end of that same day, every child has demoed what they built.</p>
+      <p style="color:var(--paper-dim);">We don't ask you to find new hours or hire new staff. The self-paced curriculum runs in a single existing period. Once a month, an industry expert walks into your campus — and by the end of that same day, every child has demoed what they built.</p>
     </div>
     <div class="model-grid">
-      <div class="model-card">
+      <div class="model-card" data-reveal>
         <span class="cadence">Weekly</span>
         <h3>Self-paced recorded modules</h3>
         <p>Grade-specific video modules and guided build tasks, taken at each student's own pace in one timetabled period.</p>
@@ -557,7 +711,7 @@
           <li>Progress tracked per student</li>
         </ul>
       </div>
-      <div class="model-card">
+      <div class="model-card" data-reveal>
         <span class="cadence">Monthly</span>
         <h3>Industry expert, on your campus</h3>
         <p>A full day with an engineer who builds AI for a living — not a guest lecture, a working session.</p>
@@ -567,7 +721,7 @@
           <li>Showcase the same day, before they leave</li>
         </ul>
       </div>
-      <div class="model-card">
+      <div class="model-card" data-reveal>
         <span class="cadence">Every term</span>
         <h3>A capstone that differs by grade</h3>
         <p>Grade 7, 8 and 9 each build something pitched at their level — never the same project recycled across grades.</p>
@@ -577,7 +731,7 @@
           <li>Documented with photos and video</li>
         </ul>
       </div>
-      <div class="model-card">
+      <div class="model-card" data-reveal>
         <span class="cadence">Once a year</span>
         <h3>Build-a-thon &amp; award ceremony</h3>
         <p>A full-day build event for the whole school, ending in an awards ceremony for the strongest projects.</p>
@@ -588,20 +742,20 @@
         </ul>
       </div>
     </div>
-    <p style="color:#8B8974; font-size:0.85rem; margin-top:34px;">Typical commitment: one 45–60 minute period per week, plus one full expert day each month. No parallel timetable, no weekend classes, no additional teaching staff.</p>
+    <p style="color:var(--paper-faint); font-size:0.85rem; margin-top:34px;">Typical commitment: one 45–60 minute period per week, plus one full expert day each month. No parallel timetable, no weekend classes, no additional teaching staff.</p>
   </div>
 </section>
 
 <section id="curriculum">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <span class="eyebrow">The curriculum</span>
       <h2>Three grades. Three different programs. Three different capstones.</h2>
       <p>A Grade 7 student and a Grade 9 student should not be handed the same worksheet. Each year builds deliberately on the last — from understanding how AI thinks, to shipping a working product, to standing up and pitching it like a founder.</p>
     </div>
     <div class="grade-grid">
 
-      <div class="grade-card g7">
+      <div class="grade-card g7" data-reveal>
         <div class="head">
           <span class="grade-no">Grade 7 · Year One</span>
           <h3>AI Literate</h3>
@@ -626,7 +780,7 @@
         </div>
       </div>
 
-      <div class="grade-card g8">
+      <div class="grade-card g8" data-reveal>
         <div class="head">
           <span class="grade-no">Grade 8 · Year Two</span>
           <h3>AI Builder</h3>
@@ -651,7 +805,7 @@
         </div>
       </div>
 
-      <div class="grade-card g9">
+      <div class="grade-card g9" data-reveal>
         <div class="head">
           <span class="grade-no">Grade 9 · Year Three</span>
           <h3>Young Founder</h3>
@@ -671,24 +825,24 @@
           <div class="capstone-box">
             <span class="cap-label">Capstone</span>
             <strong>Venture-ready build</strong>
-            <p>A working MVP with real users, a set of numbers behind it, and a founder's pitch delivered to a panel of industry mentors. The strongest of these go forward to the Build-a-thon — and, as our incubator partnerships come online, to student incubators.</p>
+            <p>A working MVP with real users, a set of numbers behind it, and a founder's pitch delivered to a panel of industry mentors. The strongest go forward to the Build-a-thon, into national competitions, and on to the student incubation labs we collaborate with.</p>
           </div>
         </div>
       </div>
 
     </div>
-    <img class="banner-photo" src="images/ai-kids-lab-photo-11.jpg" alt="Students and an industry mentor working through a project together on campus" loading="lazy">
+    <img class="banner-photo" data-reveal src="images/ai-kids-lab-photo-11.jpg" alt="Students and an industry mentor working through a project together on campus" loading="lazy">
   </div>
 </section>
 
 <section class="board-band" id="boards">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <span class="eyebrow">Curriculum fit</span>
       <h2>It embeds into your board. It doesn't compete with it.</h2>
       <p>Before day one, we sit with your academic team and map every module against what you already teach — so this reinforces your syllabus instead of adding a second one beside it.</p>
     </div>
-    <div class="board-chips">
+    <div class="board-chips" data-reveal>
       <div class="board-chip accent">CBSE</div>
       <div class="board-chip accent">ICSE / ISC</div>
       <div class="board-chip">IB</div>
@@ -696,12 +850,12 @@
       <div class="board-chip">State Boards</div>
     </div>
     <ul class="fit-list">
-      <li><i class="fa-solid fa-circle-check"></i><span><b>Mapped, not bolted on.</b> Modules are aligned to your existing AI, computer science and computational thinking units, and to NEP's emphasis on experiential learning.</span></li>
-      <li><i class="fa-solid fa-circle-check"></i><span><b>One period, already on your timetable.</b> Most schools run it in the existing computer or skill period. No new slot to create.</span></li>
-      <li><i class="fa-solid fa-circle-check"></i><span><b>Your teacher stays the teacher.</b> They facilitate the period; we train and support them through a teacher enablement track.</span></li>
-      <li><i class="fa-solid fa-circle-check"></i><span><b>Assessment you can actually use.</b> Every capstone carries a written rubric that can feed straight into internal assessment and report cards.</span></li>
-      <li><i class="fa-solid fa-circle-check"></i><span><b>Works on the lab you already have.</b> Internet-connected machines and browsers. No GPUs, no new hardware purchase.</span></li>
-      <li><i class="fa-solid fa-circle-check"></i><span><b>Age-appropriate by design.</b> Tools, accounts and content are chosen for 12–15 year olds, with safety and data handling built into the curriculum itself.</span></li>
+      <li data-reveal><i class="fa-solid fa-circle-check"></i><span><b>Mapped, not bolted on.</b> Modules are aligned to your existing AI, computer science and computational thinking units, and to NEP's emphasis on experiential learning.</span></li>
+      <li data-reveal><i class="fa-solid fa-circle-check"></i><span><b>One period, already on your timetable.</b> Most schools run it in the existing computer or skill period. No new slot to create.</span></li>
+      <li data-reveal><i class="fa-solid fa-circle-check"></i><span><b>Your teacher stays the teacher.</b> They facilitate the period; we train and support them through a teacher enablement track.</span></li>
+      <li data-reveal><i class="fa-solid fa-circle-check"></i><span><b>Assessment you can actually use.</b> Every capstone carries a written rubric that can feed straight into internal assessment and report cards.</span></li>
+      <li data-reveal><i class="fa-solid fa-circle-check"></i><span><b>Works on the lab you already have.</b> Internet-connected machines and browsers. No GPUs, no new hardware purchase.</span></li>
+      <li data-reveal><i class="fa-solid fa-circle-check"></i><span><b>Age-appropriate by design.</b> Tools, accounts and content are chosen for 12–15 year olds, with safety and data handling built into the curriculum itself.</span></li>
     </ul>
   </div>
 </section>
@@ -710,26 +864,26 @@
   <div class="wrap">
     <div class="ba-grid">
       <div>
-        <img class="fact-photo" src="images/ai-kids-lab-photo-17.jpg" alt="Students demoing their AI projects at a school build event" loading="lazy">
+        <img class="fact-photo" data-reveal src="images/ai-kids-lab-photo-17.jpg" alt="Students demoing their AI projects at a school build event" loading="lazy">
       </div>
       <div>
         <span class="eyebrow on-dark">Once a year, per school</span>
         <h2 style="color:var(--paper); font-size:clamp(1.8rem,3.4vw,2.4rem);">The Build-a-thon.</h2>
-        <p style="color:#B9B7AD; margin-top:14px; max-width:48ch;">One day where the whole school builds — and the best of it gets a stage, a trophy and a photograph that ends up on your wall.</p>
+        <p style="color:var(--paper-dim); margin-top:14px; max-width:48ch;">One day where the whole school builds — and the best of it gets a stage, a trophy and a photograph that ends up on your wall.</p>
         <div class="ba-steps" style="margin-top:32px;">
-          <div class="ba-step">
+          <div class="ba-step" data-reveal>
             <span class="n">01</span>
             <div><h3>Everyone builds</h3><p>Teams across Grades 7, 8 and 9 build against a theme, in a single day, with mentors on the floor.</p></div>
           </div>
-          <div class="ba-step">
+          <div class="ba-step" data-reveal>
             <span class="n">02</span>
             <div><h3>Industry mentors judge</h3><p>Projects are judged by engineers and founders on a published rubric — problem, build, and pitch.</p></div>
           </div>
-          <div class="ba-step">
+          <div class="ba-step" data-reveal>
             <span class="n">03</span>
             <div><h3>Top projects are picked</h3><p>The strongest builds from your school are selected, documented and taken forward.</p></div>
           </div>
-          <div class="ba-step">
+          <div class="ba-step" data-reveal>
             <span class="n">04</span>
             <div><h3>Award ceremony</h3><p>Winners are recognised in front of the school and their parents, with photos and video your school keeps.</p></div>
           </div>
@@ -739,40 +893,83 @@
   </div>
 </section>
 
+<section id="pathway">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow">Where it goes next</span>
+      <h2>Your Build-a-thon isn't the finish line.</h2>
+      <p>Every student is prepared for the national and global competitions that take AI projects seriously — and the strongest Grade 9 builds get introduced to the student incubation labs we work with.</p>
+    </div>
+    <div class="comp-list">
+      <div class="comp-item" data-reveal>
+        <h3>Indian National AI Olympiad<span class="org">ACM India</span></h3>
+        <p>The national pathway to the International Olympiad in AI. We prepare students for the syllabus and the selection rounds as part of the year.</p>
+      </div>
+      <div class="comp-item" data-reveal>
+        <h3>Technovation Girls<span class="org">Global</span></h3>
+        <p>Team app and AI projects built around a community problem — the same brief our Grade 8 and 9 capstones already train for.</p>
+      </div>
+      <div class="comp-item" data-reveal>
+        <h3>Imagine Cup Junior<span class="org">Microsoft &middot; ages 13&ndash;18</span></h3>
+        <p>AI for Good. Students enter with a working build and an honest evaluation behind it, not a concept slide.</p>
+      </div>
+      <div class="comp-item" data-reveal>
+        <h3>ATL Marathon<span class="org">Atal Innovation Mission</span></h3>
+        <p>For schools with an Atal Tinkering Lab, our capstones plug straight into the national innovation challenge.</p>
+      </div>
+      <div class="comp-item" data-reveal>
+        <h3>MIT App Inventor<span class="org">Hackathons &amp; showcases</span></h3>
+        <p>Global showcases for student-built apps, with a route for the mobile interfaces students build in Grade 8.</p>
+      </div>
+    </div>
+    <div class="incubate" data-reveal>
+      <div>
+        <h3>And for the ones who want to build a business.</h3>
+        <p>A Grade 9 student who finishes with a working product and real users shouldn't stop at a trophy. We introduce the strongest builds to the student incubation labs we collaborate with, and help the student prepare for that conversation.</p>
+      </div>
+      <div class="incubate-route">
+        <div class="incubate-step"><i class="fa-solid fa-wrench"></i><span>An MVP with real users, built in the Grade 9 capstone</span></div>
+        <div class="incubate-step"><i class="fa-solid fa-trophy"></i><span>Selected at your school's Build-a-thon, judged by industry mentors</span></div>
+        <div class="incubate-step"><i class="fa-solid fa-seedling"></i><span>Introduced to a partner student incubation lab, with the pitch prepared</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="outcomes">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <span class="eyebrow">What your school gets</span>
       <h2>A program that shows up in your admissions conversation.</h2>
       <p>Not a certificate you hand out at the end of the year. Evidence — student by student, project by project — that your school is genuinely doing this.</p>
     </div>
     <div class="outcome-grid">
-      <div class="outcome">
+      <div class="outcome" data-reveal>
         <i class="fa-solid fa-book-open-reader"></i>
         <h3>A ready, grade-wise curriculum</h3>
         <p>Grades 7, 8 and 9, fully built, sequenced and updated as the tools change. Nothing for your team to write.</p>
       </div>
-      <div class="outcome">
+      <div class="outcome" data-reveal>
         <i class="fa-solid fa-user-graduate"></i>
         <h3>Teacher enablement</h3>
         <p>Your faculty are trained to facilitate the period and grow into the subject, instead of being replaced by an outside vendor.</p>
       </div>
-      <div class="outcome">
+      <div class="outcome" data-reveal>
         <i class="fa-solid fa-user-tie"></i>
         <h3>An industry expert every month</h3>
         <p>Background-verified engineers from real AI and product teams, on your campus, in front of your students.</p>
       </div>
-      <div class="outcome">
+      <div class="outcome" data-reveal>
         <i class="fa-solid fa-chart-line"></i>
         <h3>Progress reports you can send home</h3>
         <p>Per-student progress each term — modules completed, project stage, and a rubric score parents can read.</p>
       </div>
-      <div class="outcome">
+      <div class="outcome" data-reveal>
         <i class="fa-solid fa-folder-open"></i>
         <h3>A portfolio per student</h3>
         <p>Every child leaves each year with a working build and a documented project, not a participation certificate.</p>
       </div>
-      <div class="outcome">
+      <div class="outcome" data-reveal>
         <i class="fa-solid fa-trophy"></i>
         <h3>An annual event worth covering</h3>
         <p>The Build-a-thon and award ceremony give you a story, a reel and photographs for parents, alumni and the press.</p>
@@ -781,14 +978,32 @@
   </div>
 </section>
 
+<section class="safeguard-band" id="safeguarding">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow">Safety, privacy &amp; responsible AI</span>
+      <h2>Built for a school's duty of care, not bolted on afterwards.</h2>
+      <p>Everything your leadership team, your counsellor and your parent committee will ask — answered before they have to ask it.</p>
+    </div>
+    <ul class="fit-list">
+      <li data-reveal><i class="fa-solid fa-shield-halved"></i><span><b>No personal AI accounts, ever.</b> Every model call and coding-assistant call runs through AI Kids Lab's managed gateway. No student signs up for ChatGPT, Claude or anything else, and nothing a student writes goes into a consumer account.</span></li>
+      <li data-reveal><i class="fa-solid fa-user-check"></i><span><b>Every expert vetted and briefed.</b> Background-verified, briefed before each campus visit, and assessed on how they work with 12&ndash;15 year olds — with an AI Kids Lab team member present throughout the day.</span></li>
+      <li data-reveal><i class="fa-solid fa-file-shield"></i><span><b>DPDP Act 2023 compliant.</b> We collect only what the program needs — student name, class and a parent contact — with written consent, and every school gets a named grievance and safeguarding contact.</span></li>
+      <li data-reveal><i class="fa-solid fa-file-lines"></i><span><b>Sensitive builds are scripted.</b> Projects touching scams, medicine or wellbeing use facilitator-reviewed examples only — never a real private message, photo or health record — and the wellbeing build runs only where the school names a counsellor.</span></li>
+      <li data-reveal><i class="fa-solid fa-camera-retro"></i><span><b>Nothing published without consent.</b> No student's photo, video or project goes anywhere public, the Build-a-thon included, without written parental consent.</span></li>
+      <li data-reveal><i class="fa-solid fa-scale-balanced"></i><span><b>Responsible AI is taught, not assumed.</b> Bias, hallucination, deepfakes and honest evaluation are in the curriculum from Grade 7, and every project carries a model card stating what it gets wrong.</span></li>
+    </ul>
+  </div>
+</section>
+
 <section id="compare">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <h2>Two schools, five years from now</h2>
       <p>The same AI line in the syllabus, delivered two very different ways.</p>
     </div>
     <div class="compare-grid">
-      <div class="compare-col without">
+      <div class="compare-col without" data-reveal>
         <h3>AI as a textbook chapter</h3>
         <ul>
           <li><i class="fa-solid fa-circle-minus"></i>Students can define what AI is, and have never built anything with it</li>
@@ -798,14 +1013,14 @@
           <li><i class="fa-solid fa-circle-minus"></i>Nothing to show parents at the end of the year but marks</li>
         </ul>
       </div>
-      <div class="compare-col with">
+      <div class="compare-col with" data-reveal>
         <h3>AI as something they build</h3>
         <ul>
-          <li><i class="fa-solid fa-circle-check"></i>Every student in Grades 7–9 finishes the year with a working AI project of their own</li>
-          <li><i class="fa-solid fa-circle-check"></i>Your faculty are trained and supported, with an industry expert on campus monthly</li>
-          <li><i class="fa-solid fa-circle-check"></i>Grade 7, 8 and 9 each run a distinct curriculum and a distinct capstone</li>
-          <li><i class="fa-solid fa-circle-check"></i>You can name the products your students shipped, and show the demo video</li>
-          <li><i class="fa-solid fa-circle-check"></i>An annual Build-a-thon, an award ceremony, and students on a path towards incubators</li>
+          <li data-reveal><i class="fa-solid fa-circle-check"></i>Every student in Grades 7–9 finishes the year with a working AI project of their own</li>
+          <li data-reveal><i class="fa-solid fa-circle-check"></i>Your faculty are trained and supported, with an industry expert on campus monthly</li>
+          <li data-reveal><i class="fa-solid fa-circle-check"></i>Grade 7, 8 and 9 each run a distinct curriculum and a distinct capstone</li>
+          <li data-reveal><i class="fa-solid fa-circle-check"></i>You can name the products your students shipped, and show the demo video</li>
+          <li data-reveal><i class="fa-solid fa-circle-check"></i>An annual Build-a-thon, an award ceremony, and students on a path towards incubators</li>
         </ul>
       </div>
     </div>
@@ -814,40 +1029,40 @@
 
 <section class="vision">
   <div class="wrap">
-    <h2>We're not teaching children to use AI. We're raising the founders who will build with it.</h2>
-    <p>India does not have a shortage of bright children. It has a shortage of places where a fourteen-year-old is taken seriously enough to build something real and be asked who it is for. Our mission is to bring AI education into schools in a form that produces builders — students who leave Grade 9 having identified a genuine problem, shipped something that works, and stood in front of a room to defend it. Not because it fills a line in the syllabus, but because the next decade belongs to people who can build, and India should be producing them from the classroom up.</p>
-    <div class="roadmap-box">
-      <span class="eyebrow">On our roadmap</span>
-      <p><b>Student incubator partnerships across India.</b> We're building collaborations with student incubators so that the strongest school projects don't stop at the award ceremony. A Grade 9 student with a working product and real users should have a route to turning it into a business — and the school that started them gets to say so.</p>
+    <h2 data-reveal>We're not teaching children to use AI. We're raising the founders who will build with it.</h2>
+    <p data-reveal>India does not have a shortage of bright children. It has a shortage of places where a fourteen-year-old is taken seriously enough to build something real and be asked who it is for. Our mission is to bring AI education into schools in a form that produces builders — students who leave Grade 9 having identified a genuine problem, shipped something that works, and stood in front of a room to defend it. Not because it fills a line in the syllabus, but because the next decade belongs to people who can build, and India should be producing them from the classroom up.</p>
+    <div class="roadmap-box" data-reveal>
+      <span class="eyebrow">Where your students end up</span>
+      <p><b>National competitions, and a route to incubation.</b> Every student is prepared for the national and global AI competitions that take student work seriously. The strongest Grade 9 builds go further: we introduce them to the student incubation labs we collaborate with, so a product with real users can become an actual business — and the school that started them gets to say so.</p>
     </div>
-    <img class="vision-photo" src="images/ai-kids-lab-photo-13.jpg" alt="A student presenting the AI project she built for her school" loading="lazy">
+    <img class="vision-photo" data-reveal src="images/ai-kids-lab-photo-13.jpg" alt="A student presenting the AI project she built for her school" loading="lazy">
   </div>
 </section>
 
 <section id="rollout">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <span class="eyebrow">Getting started</span>
       <h2>From first call to first class in about four weeks</h2>
       <p>We onboard a limited number of schools each academic year, because every school gets a curriculum mapping session and a named expert for its monthly days.</p>
     </div>
     <div class="steps">
-      <div class="step">
+      <div class="step" data-reveal>
         <span class="num">01</span>
         <h3>Discovery call</h3>
         <p>Thirty minutes with your leadership team. Your board, your grades, your lab, your timetable — and an honest view of what this will and won't do.</p>
       </div>
-      <div class="step">
+      <div class="step" data-reveal>
         <span class="num">02</span>
         <h3>Curriculum mapping</h3>
         <p>A working session with your academic coordinator and CS faculty to map our modules onto your existing syllabus and calendar.</p>
       </div>
-      <div class="step">
+      <div class="step" data-reveal>
         <span class="num">03</span>
         <h3>Teacher enablement</h3>
         <p>We train the teachers who will run the weekly period, set up the lab and accounts, and brief parents if you'd like us to.</p>
       </div>
-      <div class="step">
+      <div class="step" data-reveal>
         <span class="num">04</span>
         <h3>Launch &amp; review</h3>
         <p>Classes begin, the first expert day lands within the month, and we review progress with you at the end of every term.</p>
@@ -859,13 +1074,13 @@
 
 <section id="team">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <h2>Who you'd be partnering with</h2>
       <p>Two founders who have spent their careers close to how technology actually gets built — and close to the children it is being built for.</p>
     </div>
-    <img class="team-banner" src="images/ai-kids-lab-photo-14.jpg" alt="Students presenting their AI project work" loading="lazy">
+    <img class="team-banner" data-reveal src="images/ai-kids-lab-photo-14.jpg" alt="Students presenting their AI project work" loading="lazy">
     <div class="team-grid">
-      <div class="team-card">
+      <div class="team-card" data-reveal>
         <div class="head">
           <h3>Ramya</h3>
           <span class="role">Founder</span>
@@ -878,7 +1093,7 @@
           <div class="tags"><span>ISB alumna</span><span>11+ yrs B2B GTM</span><span>3x founder</span><span>Speaker &amp; judge</span><span>Founder, GetSeenInAI</span><span>Founder, B2B Growth Boost</span><span>Mom of 2</span></div>
         </div>
       </div>
-      <div class="team-card">
+      <div class="team-card" data-reveal>
         <div class="head">
           <h3>Kumar</h3>
           <span class="role">Co-Founder, Technical Lead</span>
@@ -899,14 +1114,14 @@
       <span class="eyebrow on-dark">Partner with us</span>
       <h2>Bring AI Kids Lab to your school</h2>
       <p class="sub">Send us one message and we'll reply with the curriculum guide and the program plan. If it looks like a fit, we'll set up a 30-minute walkthrough for your leadership team.</p>
-      <a class="wa-cta" href="https://wa.me/919642099896?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20the%20AI%20Kids%20Lab%20program%20for%20our%20school%20%28Grades%207%E2%80%939%29" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.898 9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg><span>Message us on WhatsApp</span></a>
-      <div class="wa-number">+91 96420 99896 &middot; we reply within a working day</div>
-      <p class="contact-alt">Prefer email or a calendar invite? Write to <a href="mailto:ramyaaikidslab@gmail.com?subject=AI%20Kids%20Lab%20for%20our%20school">ramyaaikidslab@gmail.com</a> or <a href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener">pick a slot directly</a>.</p>
+      <a class="wa-cta" data-reveal href="https://wa.me/919642099896?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20the%20AI%20Kids%20Lab%20program%20for%20our%20school%20%28Grades%207%E2%80%939%29" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.898 9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg><span>Message us on WhatsApp</span></a>
+      <div class="wa-number" data-reveal>+91 96420 99896 &middot; we reply within a working day</div>
+      <p class="contact-alt" data-reveal>Prefer email or a calendar invite? Write to <a href="mailto:ramyaaikidslab@gmail.com?subject=AI%20Kids%20Lab%20for%20our%20school">ramyaaikidslab@gmail.com</a> or <a href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener">pick a slot directly</a>.</p>
     </div>
-    <div class="side-card">
+    <div class="side-card" data-reveal>
       <img class="side-photo" src="images/ai-kids-lab-photo-04.jpg" alt="A student demonstrating a working AI tool to mentors" loading="lazy">
       <h3>What we'll cover on the call</h3>
-      <ul class="cover-list">
+      <ul class="cover-list" data-reveal>
         <li>The full module map, and the projects students actually ship</li>
         <li>How it maps onto your board and your timetable</li>
         <li>What your lab, your coordinator and your faculty need to do</li>
@@ -919,73 +1134,77 @@
 
 <section id="faq">
   <div class="wrap" style="max-width:800px;">
-    <div class="sec-head">
+    <div class="sec-head" data-reveal>
       <h2>Questions school leaders ask</h2>
     </div>
     <div class="faq-list">
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">Which grades does this cover? <span class="icon">+</span></div>
         <div class="faq-a">Grades 7, 8 and 9, with a distinct curriculum and a distinct capstone project for each year. Grade 7 builds AI literacy and trains a first model, Grade 8 ships a working application, and Grade 9 works like a founder — problem, MVP, users and a pitch.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">How much timetable time does it need? <span class="icon">+</span></div>
         <div class="faq-a">One 45–60 minute period a week, usually the computer or skill period you already have, plus one full expert day a month. There is no parallel timetable, no weekend classes and no additional teaching staff to hire.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">Will this clash with our board syllabus? <span class="icon">+</span></div>
         <div class="faq-a">No — it's designed to embed into it. Before launch we run a curriculum mapping session with your academic coordinator and align every module against your existing AI, computer science and computational thinking units, whether you run CBSE, ICSE, IB, Cambridge or a state board.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">Does it add to our teachers' workload? <span class="icon">+</span></div>
         <div class="faq-a">The teaching content is self-paced and recorded, so your teacher facilitates the period rather than preparing it. We also run a teacher enablement track so your faculty genuinely grow into the subject instead of being sidelined by an outside vendor.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">What infrastructure do we need? <span class="icon">+</span></div>
         <div class="faq-a">An internet-connected computer lab with modern browsers, and ideally one device per one or two students. Everything runs in the cloud. No GPUs, no servers, no new hardware purchase.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">What actually happens on the monthly expert day? <span class="icon">+</span></div>
         <div class="faq-a">An industry engineer spends the day on your campus. The morning is a doubt-clearing clinic on that month's modules, the middle of the day is a live build sprint on the class project with the expert on the floor, and before they leave, every team demos what moved that day. It's a working session, not a guest lecture.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">How are students assessed? <span class="icon">+</span></div>
         <div class="faq-a">Each capstone carries a written rubric covering understanding, build quality, problem fit and presentation, alongside module completion tracked per student. Schools typically feed this straight into internal assessment and the term report card.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">What does it cost? <span class="icon">+</span></div>
         <div class="faq-a">Pricing is per school, based on the grades you cover and your student numbers, and covers the curriculum, the platform, teacher enablement, the monthly expert days and the annual Build-a-thon. We share the full commercials on the demo call.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">Can we pilot with one grade first? <span class="icon">+</span></div>
         <div class="faq-a">Yes, and many schools do. Start with a single grade for one term, see the capstones the students produce, and extend to all three grades from the next academic year.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">Are the experts who come on campus verified? <span class="icon">+</span></div>
-        <div class="faq-a">Every expert is background-verified and assessed on how well they work with 12–15 year olds, not just on their engineering résumé. Our full child-safety policy, consent process and campus protocol are shared before you sign anything.</div>
+        <div class="faq-a">Every expert is background-verified, briefed before each campus visit, and assessed on how well they work with 12–15 year olds, not just on their engineering résumé. An AI Kids Lab team member is present through the whole day. Our full child-safety policy, consent process and campus protocol are shared before you sign anything.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">What about student data and online safety? <span class="icon">+</span></div>
-        <div class="faq-a">Tools and accounts are chosen for this age group, students don't share personal data with models, and safe, ethical AI use is taught as part of the curriculum from Grade 7 onwards. We share our data handling and tool list with your team during onboarding.</div>
+        <div class="faq-a">No student ever needs a personal AI account. Every model call and coding-assistant call runs through our managed gateway, so nothing a student writes lands in a consumer ChatGPT or Claude account. We collect only student name, class and a parent contact, with written consent, consistent with the DPDP Act 2023, and every school gets a named grievance and safeguarding contact. Nothing about a student is published anywhere without written parental consent.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">Do students need prior coding experience? <span class="icon">+</span></div>
         <div class="faq-a">No. Grade 7 starts from zero and is built for students who have never written a line of code. Python appears only in Grade 8, and only as much as a student needs to read and change what AI writes for them.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">What do parents see? <span class="icon">+</span></div>
         <div class="faq-a">A term-wise progress report for their child, the capstone their child built and presented, and an invitation to the annual Build-a-thon and award ceremony. We'll also run a parent orientation session at launch if you'd like one.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">How long does it take to launch? <span class="icon">+</span></div>
         <div class="faq-a">Roughly four weeks from agreement: curriculum mapping, teacher enablement, lab and account setup, then classes begin, with the first expert day landing inside the first month.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
+        <div class="faq-q" onclick="toggleFaq(this)">Do you prepare students for competitions? <span class="icon">+</span></div>
+        <div class="faq-a">Yes, as part of the year rather than as an add-on. We prepare students for the Indian National AI Olympiad (ACM India), Technovation Girls, Microsoft's Imagine Cup Junior, the ATL Marathon for schools with an Atal Tinkering Lab, and MIT App Inventor showcases. The capstones are built so a student can enter with working software and an honest evaluation, not a concept slide.</div>
+      </div>
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">Do you work with schools outside Hyderabad? <span class="icon">+</span></div>
         <div class="faq-a">The curriculum and platform run anywhere in India. The monthly on-campus expert day is currently strongest in and around Hyderabad, and we're onboarding schools in other cities as we build the expert network there — tell us your city on the call and we'll be straight with you about what we can commit to.</div>
       </div>
-      <div class="faq-item">
+      <div class="faq-item" data-reveal>
         <div class="faq-q" onclick="toggleFaq(this)">What happens to the strongest student projects? <span class="icon">+</span></div>
-        <div class="faq-a">They're selected at your school's annual Build-a-thon, judged by industry mentors and recognised at an award ceremony. On our roadmap, we're building partnerships with student incubators across India so that a Grade 9 student with a working product and real users has a route to turning it into an actual business.</div>
+        <div class="faq-a">They're selected at your school's annual Build-a-thon, judged by industry mentors and recognised at an award ceremony. From there they go into national and global competitions, and the strongest Grade 9 builds are introduced to the student incubation labs we collaborate with, so a product with real users has a route to becoming a business.</div>
       </div>
     </div>
   </div>
@@ -1005,10 +1224,12 @@
     {"@type":"Question","name":"How are students assessed?","acceptedAnswer":{"@type":"Answer","text":"Each capstone carries a written rubric covering understanding, build quality, problem fit and presentation, alongside per-student module completion. Schools feed this into internal assessment and the term report card."}},
     {"@type":"Question","name":"What does the school program cost?","acceptedAnswer":{"@type":"Answer","text":"Pricing is per school, based on the grades covered and student numbers, and includes the curriculum, platform, teacher enablement, monthly expert days and the annual Build-a-thon. Full commercials are shared on the demo call."}},
     {"@type":"Question","name":"Can we pilot with one grade first?","acceptedAnswer":{"@type":"Answer","text":"Yes. Many schools start with a single grade for one term, see the capstone projects, and extend to all three grades the following academic year."}},
-    {"@type":"Question","name":"Are the experts who come on campus verified?","acceptedAnswer":{"@type":"Answer","text":"Every expert is background-verified and assessed on how well they work with 12 to 15 year olds. The full child-safety policy, consent process and campus protocol are shared before any agreement."}},
+    {"@type":"Question","name":"Are the experts who come on campus verified?","acceptedAnswer":{"@type":"Answer","text":"Every expert is background-verified, briefed before each campus visit, and assessed on how well they work with 12 to 15 year olds. An AI Kids Lab team member is present through the whole day, and the full child-safety policy, consent process and campus protocol are shared before any agreement."}},
+    {"@type":"Question","name":"What about student data and online safety?","acceptedAnswer":{"@type":"Answer","text":"No student needs a personal AI account: every model and coding-assistant call runs through a managed gateway. Only student name, class and a parent contact are collected, with written consent, consistent with the DPDP Act 2023, and every school gets a named grievance and safeguarding contact."}},
+    {"@type":"Question","name":"Do you prepare students for competitions?","acceptedAnswer":{"@type":"Answer","text":"Yes. Students are prepared for the Indian National AI Olympiad (ACM India), Technovation Girls, Microsoft Imagine Cup Junior, the ATL Marathon and MIT App Inventor showcases as part of the year."}},
     {"@type":"Question","name":"Do students need prior coding experience?","acceptedAnswer":{"@type":"Answer","text":"No. Grade 7 starts from zero and is built for students who have never written a line of code. Python appears only in Grade 8, and only as much as a student needs to read and change what AI writes."}},
     {"@type":"Question","name":"How long does it take to launch?","acceptedAnswer":{"@type":"Answer","text":"Roughly four weeks from agreement: curriculum mapping, teacher enablement, lab and account setup, then classes begin, with the first expert day inside the first month."}},
-    {"@type":"Question","name":"What happens to the strongest student projects?","acceptedAnswer":{"@type":"Answer","text":"They are selected at the school's annual Build-a-thon, judged by industry mentors and recognised at an award ceremony. Partnerships with student incubators across India are on the roadmap so students can take a working product further."}}
+    {"@type":"Question","name":"What happens to the strongest student projects?","acceptedAnswer":{"@type":"Answer","text":"They are selected at the school's annual Build-a-thon, judged by industry mentors and recognised at an award ceremony, then go into national and global competitions. The strongest Grade 9 builds are introduced to the student incubation labs AI Kids Lab collaborates with."}}
   ]
 }
 </script>
@@ -1028,7 +1249,9 @@
       <a href="#model">How it works</a>
       <a href="#curriculum">Grade-wise curriculum</a>
       <a href="#boards">Board alignment</a>
+      <a href="#pathway">Competitions &amp; incubation</a>
       <a href="#outcomes">For your school</a>
+      <a href="#safeguarding">Safety &amp; privacy</a>
       <a href="#rollout">Rollout</a>
       <a href="#faq">FAQ</a>
     </div>
@@ -1061,6 +1284,54 @@
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
   }
+  /* Scroll reveals, plus a header that tightens once the page moves.
+     A rAF-throttled sweep rather than an IntersectionObserver: an observer
+     can miss elements that are jumped past by an anchor link or a fast
+     flick, and a missed element would stay invisible for good. The sweep
+     reveals anything at or above the fold, so nothing can be skipped.
+     Both are guarded on the has-js class, which is only set when the
+     viewer has not asked for reduced motion. */
+  (function(){
+    var root = document.documentElement;
+    if(!root.classList.contains('has-js')) return;
+    try{
+      var pending = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+      var queued = false;
+
+      function sweep(){
+        queued = false;
+        var limit = window.innerHeight * 0.94;
+        for(var i = pending.length - 1; i >= 0; i--){
+          if(pending[i].getBoundingClientRect().top < limit){
+            pending[i].classList.add('is-in');
+            pending.splice(i, 1);
+          }
+        }
+        if(!pending.length){
+          window.removeEventListener('scroll', request);
+          window.removeEventListener('resize', request);
+        }
+      }
+      function request(){
+        if(!queued){ queued = true; window.requestAnimationFrame(sweep); }
+      }
+
+      /* Two frames so the hidden state paints first and the entrance
+         actually animates instead of being coalesced away. */
+      window.requestAnimationFrame(function(){ window.requestAnimationFrame(sweep); });
+      window.addEventListener('scroll', request, {passive:true});
+      window.addEventListener('resize', request, {passive:true});
+
+      var header = document.querySelector('header');
+      var onScroll = function(){ header.classList.toggle('scrolled', window.scrollY > 24); };
+      onScroll();
+      window.addEventListener('scroll', onScroll, {passive:true});
+    }catch(err){
+      /* Never leave content stuck at opacity 0 because of a scripting fault. */
+      root.classList.remove('has-js');
+    }
+  })();
+
   function toggleFaq(el){
     const item = el.parentElement;
     document.querySelectorAll('.faq-item').forEach(i => { if(i !== item) i.classList.remove('open'); });
