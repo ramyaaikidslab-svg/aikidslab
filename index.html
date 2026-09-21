@@ -377,44 +377,34 @@
     font-size:0.78rem; border:1px solid var(--ink-soft); padding:4px 10px; color:var(--ink-soft);
   }
 
-  /* ---------- APPLY ---------- */
+  /* ---------- CLOSING CTA ---------- */
   .apply{background:var(--ink); color:var(--paper);}
-  .apply-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px;}
+  .apply-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:start;}
   @media (max-width:860px){.apply-grid{grid-template-columns:1fr;}}
   .apply h2{font-size:clamp(1.7rem,3.4vw,2.3rem); color:var(--paper);}
-  .apply .sub{color:#B9B7AD; margin-top:12px; max-width:48ch;}
-  form{margin-top:28px; display:grid; gap:14px;}
-  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
-  @media (max-width:520px){.form-row{grid-template-columns:1fr;}}
-  label{font-size:0.82rem; color:#B9B7AD; margin-bottom:6px; display:block;}
-  input, textarea, select{
-    width:100%; background:#1D1C18; border:1px solid #45443C; color:var(--paper);
-    padding:12px 14px; font-family:'Inter',sans-serif; font-size:0.95rem;
+  .apply .sub{color:#B9B7AD; margin-top:14px; max-width:50ch;}
+  .wa-cta{
+    display:inline-flex; align-items:center; gap:12px; margin-top:30px;
+    background:#25D366; color:#0A2E17; border:2px solid #25D366;
+    font-weight:700; font-size:1.05rem; padding:16px 30px;
   }
-  select{appearance:none; background-image:linear-gradient(45deg,transparent 50%,var(--yellow) 50%),linear-gradient(135deg,var(--yellow) 50%,transparent 50%); background-position:calc(100% - 20px) 20px, calc(100% - 14px) 20px; background-size:6px 6px, 6px 6px; background-repeat:no-repeat;}
-  input:focus, textarea:focus, select:focus{outline:2px solid var(--yellow); border-color:var(--yellow);}
-  textarea{min-height:88px; resize:vertical;}
-  .submit-btn{
-    background:var(--yellow); color:var(--ink); font-weight:700; border:none;
-    padding:15px 28px; font-size:0.98rem; cursor:pointer; margin-top:4px; width:fit-content;
-  }
-  .submit-btn:hover{background:var(--paper);}
-  .confirm{
-    display:none; margin-top:20px; padding:16px 18px; border-left:3px solid var(--yellow);
-    background:#1D1C18; font-size:0.92rem; color:#D8D6CE;
-  }
-  .confirm.show{display:block;}
-  .form-error{display:none; margin-top:20px; padding:16px 18px; border-left:3px solid #E5533D; background:#1D1C18; font-size:0.92rem; color:#D8D6CE;}
-  .form-error.show{display:block;}
-  .form-error a{color:var(--yellow); text-decoration:underline;}
-  .submit-btn:disabled{opacity:0.6; cursor:not-allowed;}
-  .side-card{
-    border:2px solid #33322C; padding:26px; height:fit-content;
-  }
+  .wa-cta svg{width:22px; height:22px; fill:currentColor; flex-shrink:0;}
+  .wa-cta:hover{background:transparent; color:#25D366;}
+  .wa-cta:focus-visible{outline:2px solid var(--paper); outline-offset:4px;}
+  .wa-number{color:#8B8974; font-size:0.86rem; margin-top:14px;}
+  .contact-alt{color:#B9B7AD; font-size:0.92rem; margin-top:26px; max-width:46ch;}
+  .contact-alt a{color:var(--yellow); text-decoration:underline;}
+  .side-card{border:2px solid #33322C; padding:26px; height:fit-content;}
   .side-card h3{font-size:1.1rem; color:var(--paper);}
-  .side-card p{color:#B9B7AD; font-size:0.92rem; margin-top:10px;}
-  .side-card .btn-secondary{margin-top:18px;}
   .side-card .side-photo{width:100%; height:160px; object-fit:cover; border:2px solid #33322C; margin-bottom:18px;}
+  .cover-list{list-style:none; margin-top:16px;}
+  .cover-list li{
+    color:#B9B7AD; font-size:0.92rem; padding-left:20px; margin-bottom:11px; position:relative;
+  }
+  .cover-list li::before{content:""; position:absolute; left:0; top:9px; width:7px; height:7px; background:var(--yellow);}
+  /* WhatsApp treatment for the hero and footer primary buttons */
+  .btn-primary.btn-wa{display:inline-flex; align-items:center; gap:10px;}
+  .btn-primary.btn-wa svg{width:19px; height:19px; fill:currentColor; flex-shrink:0;}
 
   /* ---------- FAQ ---------- */
   .faq-item{border-bottom:1px solid var(--line); padding:20px 0;}
@@ -452,39 +442,6 @@
   .wa-float svg{width:28px; height:28px; fill:currentColor;}
   .wa-float:hover{transform:translateY(-2px);}
 
-  /* ---------- PARTNER MODAL ---------- */
-  .modal-overlay{
-    position:fixed; inset:0; background:rgba(18,18,16,0.78); z-index:300;
-    display:none; align-items:center; justify-content:center; padding:24px;
-  }
-  .modal-overlay.open{display:flex;}
-  .modal-box{
-    background:var(--ink); color:var(--paper); border:3px solid var(--yellow);
-    max-width:600px; width:100%; max-height:88vh; overflow-y:auto; padding:40px;
-    position:relative; box-shadow:8px 8px 0 rgba(0,0,0,0.35);
-  }
-  .modal-box h3{color:var(--paper); font-family:'Space Grotesk',sans-serif; font-size:1.6rem; margin-bottom:8px;}
-  .modal-box .sub{color:#B9B7AD; font-size:0.92rem; margin-bottom:22px; max-width:48ch;}
-  .modal-close{
-    position:absolute; top:16px; right:18px; background:none; border:none;
-    font-size:1.7rem; line-height:1; cursor:pointer; color:var(--paper); opacity:0.65;
-  }
-  .modal-close:hover{opacity:1;}
-  .modal-divider{margin:22px 0; border-top:1px solid #33322C; text-align:center; position:relative;}
-  .modal-alt{text-align:center; margin-top:18px;}
-  .modal-alt p{color:#B9B7AD; font-size:0.88rem; margin-bottom:10px;}
-  .modal-alt-ctas{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
-  .alt-btn{display:inline-block; text-decoration:none; font-weight:700; font-size:0.95rem; padding:14px 22px; border:2px solid var(--yellow); text-align:center; cursor:pointer;}
-  .alt-btn.solid{background:var(--yellow); color:var(--ink);}
-  .alt-btn.solid:hover{background:var(--paper); border-color:var(--paper);}
-  .alt-btn.ghost{background:transparent; color:var(--yellow);}
-  .alt-btn.ghost:hover{background:var(--yellow); color:var(--ink);}
-  .modal-wa{display:inline-flex; align-items:center; gap:8px; margin-top:18px; color:#B9B7AD; font-size:0.88rem; text-decoration:none;}
-  .modal-wa svg{width:16px; height:16px; fill:#25D366; flex-shrink:0;}
-  .modal-wa:hover{color:#25D366;}
-  @media (max-width:520px){ .modal-alt-ctas{flex-direction:column;} .alt-btn{width:100%;} }
-  @media (max-width:520px){ .modal-box{padding:26px;} }
-
   .side-by-photo{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;}
   @media (max-width:860px){.side-by-photo{grid-template-columns:1fr;}}
   .banner-photo{width:100%; height:260px; object-fit:cover; border:2px solid var(--ink); margin-top:32px;}
@@ -504,68 +461,10 @@
       <a href="#outcomes">For your school</a>
       <a href="#rollout">Rollout</a>
       <a href="#faq">FAQ</a>
-      <a href="#" class="nav-cta" onclick="openPartnerModal(); return false;"><span class="full">Book a school demo</span><span class="short">Book a demo</span></a>
+      <a href="https://wa.me/919642099896?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20the%20AI%20Kids%20Lab%20program%20for%20our%20school%20%28Grades%207%E2%80%939%29" target="_blank" rel="noopener" class="nav-cta"><span class="full">Talk to us on WhatsApp</span><span class="short">WhatsApp us</span></a>
     </div>
   </nav>
 </header>
-
-<div class="modal-overlay" id="partnerModalOverlay" onclick="if(event.target===this){closePartnerModal();}">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closePartnerModal()" aria-label="Close">&times;</button>
-    <h3>Book a school demo</h3>
-    <p class="sub">A 30-minute walkthrough of the Grade 7, 8 and 9 curriculum, the monthly expert day, and how it maps onto your board and your timetable.</p>
-    <form onsubmit="return handleSubmit(event, 'modalConfirm')">
-      <div class="form-row">
-        <div><label>School name</label><input type="text" name="schoolName" required></div>
-        <div><label>City</label><input type="text" name="city" required></div>
-      </div>
-      <div class="form-row">
-        <div><label>Your name</label><input type="text" name="contactName" required></div>
-        <div><label>Your role</label>
-          <select name="role" required>
-            <option value="">Select</option>
-            <option>Founder / Chairperson</option>
-            <option>Director / Trustee</option>
-            <option>Principal / Head of School</option>
-            <option>Academic Coordinator</option>
-            <option>HOD, Computer Science</option>
-            <option>Other</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div><label>Phone or email</label><input type="text" name="contact" required></div>
-        <div><label>Board</label>
-          <select name="board" required>
-            <option value="">Select</option>
-            <option>CBSE</option>
-            <option>ICSE / ISC</option>
-            <option>IB</option>
-            <option>Cambridge (IGCSE)</option>
-            <option>State Board</option>
-            <option>Other</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div><label>Grades you'd start with</label><input type="text" name="grades" placeholder="e.g. Grade 7 &amp; 8"></div>
-        <div><label>Students in Grades 7–9 (approx.)</label><input type="text" name="students" placeholder="e.g. 180"></div>
-      </div>
-      <div><label>Anything you'd like us to cover on the call?</label><textarea name="notes"></textarea></div>
-      <button class="submit-btn" type="submit">Request the demo</button>
-    </form>
-    <div class="confirm" id="modalConfirm">Thank you. We've noted your school's details. We'll reach out within 2 working days to set up the walkthrough.</div>
-    <div class="modal-divider">OR</div>
-    <div class="modal-alt">
-      <p>Prefer to skip the form? Pick a slot directly, or talk to us first.</p>
-      <div class="modal-alt-ctas">
-        <a class="alt-btn solid" href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener">Pick a slot</a>
-        <a class="alt-btn ghost" href="mailto:ramyaaikidslab@gmail.com?subject=AI%20Kids%20Lab%20for%20our%20school">Email us</a>
-      </div>
-      <a class="modal-wa" href="https://wa.me/919642099896?text=Hi%2C%20I%27m%20from%20a%20school%20and%20I%27d%20like%20to%20know%20more%20about%20the%20AI%20Kids%20Lab%20school%20program" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.898 9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>Or message us on WhatsApp</a>
-    </div>
-  </div>
-</div>
 
 <section class="hero">
   <div class="wrap hero-grid">
@@ -575,15 +474,14 @@
       <h1>Make your school the one that builds India's young founders.</h1>
       <p class="lede">A full AI curriculum for Grades 7, 8 and 9 — different for every grade, embedded inside your existing CBSE, ICSE, IB or Cambridge timetable. Self-paced modules through the month, an industry expert on your campus every month, and a capstone project each child builds and presents.</p>
       <div class="hero-ctas">
-        <a href="#" class="btn-primary" onclick="openPartnerModal(); return false;">Book a school demo</a>
-        <a href="#curriculum" class="btn-secondary">See the grade-wise curriculum</a>
+        <a href="https://wa.me/919642099896?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20the%20AI%20Kids%20Lab%20program%20for%20our%20school%20%28Grades%207%E2%80%939%29" target="_blank" rel="noopener" class="btn-primary btn-wa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.898 9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>Talk to us on WhatsApp</a>
+        <a href="#curriculum" class="btn-secondary">See the curriculum</a>
       </div>
-      <a class="hero-wa" href="https://wa.me/919642099896?text=Hi%2C%20I%27m%20from%20a%20school%20and%20I%27d%20like%20to%20know%20more%20about%20the%20AI%20Kids%20Lab%20school%20program" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.898 9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>Or message us on WhatsApp</a>
       <div class="hero-fact-strip">
         <div class="hero-fact">Grades<b>7, 8 &amp; 9</b></div>
         <div class="hero-fact">Boards<b>Any board</b></div>
         <div class="hero-fact">Expert on campus<b>Every month</b></div>
-        <div class="hero-fact">Capstone<b>One per grade, per year</b></div>
+        <div class="hero-fact">Capstone<b>One per grade</b></div>
       </div>
     </div>
     <div class="photo-stack">
@@ -1000,55 +898,21 @@
     <div>
       <span class="eyebrow on-dark">Partner with us</span>
       <h2>Bring AI Kids Lab to your school</h2>
-      <p class="sub">Tell us about your school and we'll set up a 30-minute walkthrough of the Grade 7, 8 and 9 curriculum, the monthly expert day, and how it would map onto your board and timetable.</p>
-      <form onsubmit="return handleSubmit(event, 'partnerConfirm')">
-        <div class="form-row">
-          <div><label>School name</label><input type="text" name="schoolName" required></div>
-          <div><label>City</label><input type="text" name="city" required></div>
-        </div>
-        <div class="form-row">
-          <div><label>Your name</label><input type="text" name="contactName" required></div>
-          <div><label>Your role</label>
-            <select name="role" required>
-              <option value="">Select</option>
-              <option>Founder / Chairperson</option>
-              <option>Director / Trustee</option>
-              <option>Principal / Head of School</option>
-              <option>Academic Coordinator</option>
-              <option>HOD, Computer Science</option>
-              <option>Other</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div><label>Phone or email</label><input type="text" name="contact" required></div>
-          <div><label>Board</label>
-            <select name="board" required>
-              <option value="">Select</option>
-              <option>CBSE</option>
-              <option>ICSE / ISC</option>
-              <option>IB</option>
-              <option>Cambridge (IGCSE)</option>
-              <option>State Board</option>
-              <option>Other</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div><label>Grades you'd start with</label><input type="text" name="grades" placeholder="e.g. Grade 7 &amp; 8"></div>
-          <div><label>Students in Grades 7–9 (approx.)</label><input type="text" name="students" placeholder="e.g. 180"></div>
-        </div>
-        <div><label>Anything you'd like us to cover on the call?</label><textarea name="notes"></textarea></div>
-        <button class="submit-btn" type="submit">Request a school demo</button>
-      </form>
-      <div class="confirm" id="partnerConfirm">Thank you. We've noted your school's details. We'll reach out within 2 working days to set up the walkthrough.</div>
+      <p class="sub">Send us one message and we'll reply with the curriculum guide and the program plan. If it looks like a fit, we'll set up a 30-minute walkthrough for your leadership team.</p>
+      <a class="wa-cta" href="https://wa.me/919642099896?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20the%20AI%20Kids%20Lab%20program%20for%20our%20school%20%28Grades%207%E2%80%939%29" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.898 9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg><span>Message us on WhatsApp</span></a>
+      <div class="wa-number">+91 96420 99896 &middot; we reply within a working day</div>
+      <p class="contact-alt">Prefer email or a calendar invite? Write to <a href="mailto:ramyaaikidslab@gmail.com?subject=AI%20Kids%20Lab%20for%20our%20school">ramyaaikidslab@gmail.com</a> or <a href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener">pick a slot directly</a>.</p>
     </div>
     <div class="side-card">
       <img class="side-photo" src="images/ai-kids-lab-photo-04.jpg" alt="A student demonstrating a working AI tool to mentors" loading="lazy">
-      <h3>Rather just talk?</h3>
-      <p>Pick a slot and we'll walk your team through the full curriculum, the expert-day format, the assessment rubrics and the commercials. No deck-only pitch — we'll show you the actual modules and real student projects.</p>
-      <a href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener" class="submit-btn" style="display:inline-block; margin-top:18px; text-decoration:none;">Book a 30-minute call</a>
-      <p style="margin-top:18px; font-size:0.86rem;">Or email <a href="mailto:ramyaaikidslab@gmail.com" style="color:var(--yellow); text-decoration:underline;">ramyaaikidslab@gmail.com</a></p>
+      <h3>What we'll cover on the call</h3>
+      <ul class="cover-list">
+        <li>The full module map, and the projects students actually ship</li>
+        <li>How it maps onto your board and your timetable</li>
+        <li>What your lab, your coordinator and your faculty need to do</li>
+        <li>Safeguarding, student data and how AI access is managed</li>
+        <li>The Buildathon format, and commercials for your section counts</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -1155,8 +1019,8 @@
       <a class="logo" href="index.html" aria-label="AI Kids Lab, back to top" onclick="scrollToTop(); return false;"><svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="6" y="6" width="88" height="88" rx="14"/><rect x="34" y="34" width="32" height="32" rx="8"/><rect x="44" y="44" width="12" height="12" rx="3"/></svg>AI KIDS LAB</a>
       <p class="footer-tagline">A grade-wise AI curriculum for Grades 7, 8 and 9, embedded inside your school's existing timetable — with an industry expert on campus every month and a capstone every child builds.</p>
       <div class="footer-ctas">
-        <a href="#" class="btn-primary" onclick="openPartnerModal(); return false;">Book a school demo</a>
-        <a href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener" class="btn-secondary">Pick a slot</a>
+        <a href="https://wa.me/919642099896?text=Hi%2C%20I%27d%20like%20to%20know%20more%20about%20the%20AI%20Kids%20Lab%20program%20for%20our%20school%20%28Grades%207%E2%80%939%29" target="_blank" rel="noopener" class="btn-primary btn-wa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.898 9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>Talk to us on WhatsApp</a>
+        <a href="mailto:ramyaaikidslab@gmail.com?subject=AI%20Kids%20Lab%20for%20our%20school" class="btn-secondary">Email us</a>
       </div>
     </div>
     <div class="footer-col">
@@ -1202,122 +1066,6 @@
     document.querySelectorAll('.faq-item').forEach(i => { if(i !== item) i.classList.remove('open'); });
     item.classList.toggle('open');
   }
-  const WHATSAPP_URL = 'https://wa.me/919642099896?text=Hi%2C%20I%27m%20from%20a%20school%20and%20I%27d%20like%20to%20know%20more%20about%20the%20AI%20Kids%20Lab%20school%20program';
-
-  /* ---------------------------------------------------------------
-     School partnership enquiry -> Google Form owned by
-     ramyaaikidslab@gmail.com.
-
-     NOTE: this still posts to the ORIGINAL parent-facing "Cohort
-     Enquiry" form, because its entry ids are the only ones we have.
-     The ids are positional to that form's questions, so the school
-     fields are folded onto the closest equivalents and everything
-     that has no home (role, city, board, grades, student count) is
-     packed into the free-text "notes" question.
-
-       entry.17034647    was "Child's name"   -> School name
-       entry.679503118   was "Parent's name"  -> Contact person
-       entry.1914773534  was "Phone or email" -> Phone or email
-       entry.428965629   was "Notes"          -> Packed school details
-       entry.2017562969  was "Source"         -> Page + form id
-
-     The old "Child's age" question (entry.1489119340) is a number
-     field validated to 9-15, so nothing sensible can be sent to it
-     and it is deliberately left out. If that question is marked
-     required in Google Forms, submissions WILL be rejected silently
-     (the response is opaque under no-cors). Replace this block with
-     a purpose-built "School Partnership Enquiry" form as soon as
-     one exists: create the form, take a pre-filled link, and swap
-     the action url and the six entry ids below.
-     --------------------------------------------------------------- */
-  const ENQUIRY_FORM = {
-    action: 'https://docs.google.com/forms/d/e/1FAIpQLScoS7MU0PTMvf0NnpD6bqL0qWwxw2He4Y0_7-5rX85Ne9M3Jg/formResponse',
-    fields: {
-      schoolName:  'entry.17034647',
-      contactName: 'entry.679503118',
-      contact:     'entry.1914773534',
-      details:     'entry.428965629',
-      source:      'entry.2017562969'
-    }
-  };
-  const ENQUIRY_CONFIGURED = !ENQUIRY_FORM.action.includes('PASTE_');
-
-  function showFormError(form, msg){
-    let box = form.parentElement.querySelector('.form-error');
-    if(!box){
-      box = document.createElement('div');
-      box.className = 'form-error';
-      form.insertAdjacentElement('afterend', box);
-    }
-    box.innerHTML = msg + ' Please <a href="' + WHATSAPP_URL + '" target="_blank" rel="noopener">message us on WhatsApp</a> '
-                  + 'or <a href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener">book a call</a> '
-                  + 'so we do not miss you.';
-    box.classList.add('show');
-  }
-
-  /* The school-specific answers that the legacy form has no question
-     for, flattened into one readable line for the notes field. */
-  function packDetails(form){
-    const parts = [];
-    const add = (label, name) => {
-      const field = form.elements[name];
-      const value = field ? field.value.trim() : '';
-      if(value) parts.push(label + ': ' + value);
-    };
-    add('Role', 'role');
-    add('City', 'city');
-    add('Board', 'board');
-    add('Grades', 'grades');
-    add('Students in 7-9', 'students');
-    add('Notes', 'notes');
-    return parts.join(' | ');
-  }
-
-  async function handleSubmit(e, confirmId){
-    e.preventDefault();
-    const form = e.target;
-    const btn  = form.querySelector('button[type=submit]');
-    const label = btn ? btn.textContent : '';
-
-    if(!ENQUIRY_CONFIGURED){
-      showFormError(form, 'Sorry, the form is not accepting submissions yet.');
-      return false;
-    }
-
-    const body = new URLSearchParams();
-    body.append(ENQUIRY_FORM.fields.schoolName,  form.elements.schoolName.value.trim());
-    body.append(ENQUIRY_FORM.fields.contactName, form.elements.contactName.value.trim());
-    body.append(ENQUIRY_FORM.fields.contact,     form.elements.contact.value.trim());
-    body.append(ENQUIRY_FORM.fields.details,     packDetails(form));
-    body.append(ENQUIRY_FORM.fields.source,      document.title + ' (' + confirmId + ')');
-
-    if(btn){ btn.disabled = true; btn.textContent = 'Sending…'; }
-    try{
-      /* Google Forms sends no CORS headers, so the response is opaque:
-         a resolved promise means the POST was delivered. */
-      await fetch(ENQUIRY_FORM.action, { method:'POST', mode:'no-cors', body });
-      const box = form.parentElement.querySelector('.form-error');
-      if(box) box.classList.remove('show');
-      document.getElementById(confirmId).classList.add('show');
-      form.reset();
-    }catch(err){
-      showFormError(form, 'Sorry, something went wrong sending your details.');
-    }finally{
-      if(btn){ btn.disabled = false; btn.textContent = label; }
-    }
-    return false;
-  }
-  function openPartnerModal(){
-    document.getElementById('partnerModalOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closePartnerModal(){
-    document.getElementById('partnerModalOverlay').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape') closePartnerModal();
-  });
 </script>
 
 </body>
