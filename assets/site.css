@@ -788,9 +788,9 @@
   .amp h3{font-size:1.1rem; font-weight:500; margin-bottom:10px;}
   .amp p{font-size:0.93rem; color:var(--muted);}
 
-  /* ---------- TRUST-BAR CTA ---------- */
+  /* ---------- INLINE SECTION CTA ---------- */
   .trust-cta{
-    display:flex; flex-direction:column; gap:7px; margin-top:44px;
+    display:flex; flex-direction:column; gap:7px; margin-top:56px;
     border:1px solid var(--line-strong); border-radius:var(--r);
     background:var(--gold-wash); padding:26px 30px; max-width:76ch;
     position:relative; overflow:hidden;
