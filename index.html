@@ -7,26 +7,26 @@
 <meta name="theme-color" content="#121210">
 <link rel="icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="ai-kids-lab-icon-badge.png">
-<title>AI Kids Lab: Where Young Minds Build with AI</title>
-<meta name="description" content="A fully in-person, 3-month AI cohort for curious 9-15 year olds in Hyderabad. 15 seats, mentors who've built real AI, and one real project to show for it.">
+<title>AI Kids Lab: The AI Curriculum for Grades 7, 8 &amp; 9 — Built for Schools</title>
+<meta name="description" content="A grade-wise AI curriculum that embeds into your existing CBSE, ICSE, IB or Cambridge timetable. Self-paced modules, a monthly industry expert on campus, a capstone per grade, and an annual Build-a-thon.">
 <link rel="canonical" href="https://www.aikidslab.co/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AI Kids Lab">
 <meta property="og:locale" content="en_IN">
 <meta property="og:url" content="https://www.aikidslab.co/">
-<meta property="og:title" content="AI Kids Lab: Where Young Minds Build with AI">
-<meta property="og:description" content="A fully in-person, 3-month AI cohort for curious 9-15 year olds in Hyderabad. 15 seats, mentors who've built real AI, and one real project to show for it.">
+<meta property="og:title" content="AI Kids Lab: The AI Curriculum for Grades 7, 8 &amp; 9 — Built for Schools">
+<meta property="og:description" content="A grade-wise AI curriculum that embeds into your existing CBSE, ICSE, IB or Cambridge timetable. Self-paced modules, a monthly industry expert on campus, a capstone per grade, and an annual Build-a-thon.">
 <meta property="og:image" content="https://www.aikidslab.co/og-image.jpg">
 <meta property="og:image:secure_url" content="https://www.aikidslab.co/og-image.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="AI Kids Lab: where young minds build with AI. Four children working together on a laptop in an in-person AI class in Hyderabad.">
+<meta property="og:image:alt" content="AI Kids Lab: students in a school computer lab building a working AI project together.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="AI Kids Lab: Where Young Minds Build with AI">
-<meta name="twitter:description" content="A fully in-person, 3-month AI cohort for curious 9-15 year olds in Hyderabad. 15 seats, mentors who've built real AI, and one real project to show for it.">
+<meta name="twitter:title" content="AI Kids Lab: The AI Curriculum for Grades 7, 8 &amp; 9 — Built for Schools">
+<meta name="twitter:description" content="A grade-wise AI curriculum that embeds into your existing CBSE, ICSE, IB or Cambridge timetable. Self-paced modules, a monthly industry expert on campus, a capstone per grade, and an annual Build-a-thon.">
 <meta name="twitter:image" content="https://www.aikidslab.co/og-image.jpg">
-<meta name="twitter:image:alt" content="AI Kids Lab: where young minds build with AI. Four children working together on a laptop in an in-person AI class in Hyderabad.">
+<meta name="twitter:image:alt" content="AI Kids Lab: students in a school computer lab building a working AI project together.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -87,7 +87,7 @@
   .logo-mark rect:first-child{fill:none; stroke:var(--yellow); stroke-width:10;}
   .logo-mark rect:nth-child(2){fill:var(--yellow);}
   .logo-mark rect:last-child{fill:var(--ink);}
-  .navlinks{display:flex; gap:32px; align-items:center;}
+  .navlinks{display:flex; gap:30px; align-items:center;}
   .navlinks a{color:#D8D6CE; font-size:0.92rem; font-weight:500;}
   .navlinks a:hover{color:var(--yellow);}
   .nav-cta{
@@ -96,10 +96,20 @@
   }
   .navlinks a.nav-cta{color:var(--ink);}
   .nav-cta:hover{background:var(--ink); color:var(--yellow);}
+  .nav-cta:hover{color:var(--yellow);}
   .navlinks a.nav-cta:hover{color:var(--yellow);}
-  .navlinks-mobile{display:none;}
-  @media (max-width:860px){
+  @media (max-width:980px){
     .navlinks a:not(.nav-cta){display:none;}
+  }
+  /* "Book a school demo" is wide enough to sit on top of the wordmark on a
+     phone, so the button falls back to a shorter label there. */
+  .nav-cta .short{display:none;}
+  @media (max-width:560px){
+    .nav-cta .full{display:none;}
+    .nav-cta .short{display:inline;}
+    .nav-cta{padding:9px 14px; font-size:0.82rem;}
+    .logo{font-size:1rem; gap:8px;}
+    .logo-mark{width:26px; height:26px;}
   }
 
   /* ---------- HERO ---------- */
@@ -137,12 +147,13 @@
     color:#B9B7AD; font-size:0.82rem; font-weight:600;
   }
   .city-tag::before{content:"\f3c5"; font-family:"Font Awesome 6 Free"; font-weight:900; color:var(--yellow);}
+  @media (max-width:620px){ .city-tag{margin-left:0; margin-bottom:18px;} }
   .hero h1{
-    font-size:clamp(2.4rem, 5vw, 3.6rem);
-    max-width:14ch;
+    font-size:clamp(2.2rem, 4.6vw, 3.4rem);
+    max-width:17ch;
   }
   .hero p.lede{
-    margin-top:22px; font-size:1.12rem; color:#D8D6CE; max-width:46ch;
+    margin-top:22px; font-size:1.12rem; color:#D8D6CE; max-width:50ch;
   }
   .hero-ctas{display:flex; flex-wrap:wrap; gap:16px; margin-top:34px;}
   .hero-wa{
@@ -186,7 +197,7 @@
 
   /* ---------- TRUST BAR ---------- */
   .trust{background:var(--paper); padding:52px 0; border-bottom:1px solid var(--line);}
-  .trust p.label{font-size:0.95rem; color:var(--ink-soft); margin-bottom:22px; max-width:52ch;}
+  .trust p.label{font-size:0.95rem; color:var(--ink-soft); margin-bottom:22px; max-width:60ch;}
   .wordmarks{display:flex; flex-wrap:wrap; gap:14px;}
   .wordmark{
     border:2px solid var(--ink); padding:10px 20px;
@@ -194,65 +205,138 @@
   }
   .wordmark.small{font-size:0.85rem; border-color:var(--ink-soft); color:var(--ink-soft); font-weight:600;}
 
-  .tool-groups{display:flex; flex-direction:column; gap:24px;}
-  .tool-group-label{
-    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.8rem;
-    text-transform:uppercase; letter-spacing:0.06em; color:var(--yellow-deep); margin-bottom:10px;
+  /* ---------- SECTION HEADS ---------- */
+  .sec-head{max-width:60ch; margin-bottom:48px;}
+  .sec-head h2{font-size:clamp(1.8rem,3.4vw,2.5rem);}
+  .sec-head p{margin-top:14px; color:var(--ink-soft); font-size:1.05rem;}
+  .eyebrow{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.78rem;
+    text-transform:uppercase; letter-spacing:0.08em; color:var(--yellow-deep);
+    margin-bottom:12px; display:block;
   }
-  .tool-tags{display:flex; flex-wrap:wrap; gap:10px;}
-  .tool-tag{
-    border:2px solid var(--ink); padding:9px 18px; background:var(--paper);
-    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:0.92rem;
-  }
-  .tool-tag.accent{background:var(--yellow); border-color:var(--yellow);}
+  .eyebrow.on-dark{color:var(--yellow);}
 
-  .usecase-groups{display:flex; flex-direction:column; gap:44px; margin-top:8px;}
-  .usecase-group-label{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--yellow-deep); margin-bottom:4px;}
-  .usecase-group-sub{color:var(--ink-soft); font-size:0.92rem; margin-bottom:20px; max-width:60ch;}
-  .usecase-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
-  @media (max-width:900px){.usecase-grid{grid-template-columns:repeat(2,1fr);}}
-  @media (max-width:520px){.usecase-grid{grid-template-columns:1fr;}}
-  .usecase-card{
-    border:2px solid var(--ink); background:var(--paper); padding:26px 22px;
+  /* ---------- PRESSURE CARDS ---------- */
+  .pressure-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  @media (max-width:900px){.pressure-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:520px){.pressure-grid{grid-template-columns:1fr;}}
+  .pressure-card{
+    border:2px solid var(--ink); background:#fff; padding:26px 22px;
     transition:transform 0.15s ease, box-shadow 0.15s ease;
   }
-  .usecase-card:hover{transform:translateY(-4px); box-shadow:5px 5px 0 var(--ink);}
-  .usecase-icon{
+  .pressure-card:hover{transform:translateY(-4px); box-shadow:5px 5px 0 var(--ink);}
+  .pressure-icon{
     width:46px; height:46px; border-radius:10px; background:var(--ink); color:var(--yellow);
     display:flex; align-items:center; justify-content:center; font-size:1.2rem; margin-bottom:18px; flex-shrink:0;
   }
-  .usecase-card.advanced{border-color:var(--yellow-deep);}
-  .usecase-card.advanced .usecase-icon{background:var(--yellow); color:var(--ink);}
-  .usecase-card p{font-size:0.96rem; color:var(--ink); line-height:1.5;}
+  .pressure-card h3{font-size:1.02rem; margin-bottom:10px;}
+  .pressure-card p{font-size:0.94rem; color:var(--ink-soft); line-height:1.5;}
 
-  /* ---------- SECTION HEADS ---------- */
-  .sec-head{max-width:56ch; margin-bottom:48px;}
-  .sec-head h2{font-size:clamp(1.8rem,3.4vw,2.5rem);}
-  .sec-head p{margin-top:14px; color:var(--ink-soft); font-size:1.05rem;}
-
-  /* ---------- BUILD / SHOWCASE ---------- */
-  .build-cards{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
-  @media (max-width:800px){.build-cards{grid-template-columns:1fr;}}
-  .build-card{
-    background:#fff; border:2px solid var(--ink); padding:0;
+  /* ---------- OPERATING MODEL ---------- */
+  .model-band{background:var(--ink); color:var(--paper);}
+  .model-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px; margin-top:8px;}
+  @media (max-width:900px){.model-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:560px){.model-grid{grid-template-columns:1fr;}}
+  .model-card{border-top:3px solid var(--yellow); padding:22px 0 0 0;}
+  .model-card .cadence{
+    display:inline-block; font-family:'Space Grotesk',sans-serif; font-weight:700;
+    color:var(--ink); background:var(--yellow); padding:3px 9px; font-size:0.78rem; margin-bottom:14px;
   }
-  .build-card .tag{
-    background:var(--ink); color:var(--yellow); font-family:'Space Grotesk',sans-serif;
-    font-weight:700; font-size:0.9rem; padding:12px 20px;
-  }
-  .build-card .ph{position:static; width:100%; height:190px; border:none; border-bottom:2px solid var(--ink); overflow:hidden;}
-  .build-card .body{padding:24px;}
-  .build-card h3{font-size:1.25rem; margin-bottom:12px;}
-  .build-card ul{padding-left:18px; color:var(--ink-soft); font-size:0.96rem;}
-  .build-card li{margin-bottom:8px;}
+  .model-card h3{font-size:1.1rem; margin-bottom:10px; color:var(--paper);}
+  .model-card p{color:#B9B7AD; font-size:0.93rem;}
+  .model-card ul{margin-top:12px; padding-left:16px; color:#B9B7AD; font-size:0.9rem;}
+  .model-card li{margin-bottom:6px;}
 
-  .gallery{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:36px;
+  /* ---------- GRADE CURRICULUM ---------- */
+  .grade-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  @media (max-width:980px){.grade-grid{grid-template-columns:1fr;}}
+  .grade-card{border:2px solid var(--ink); background:#fff; display:flex; flex-direction:column;}
+  .grade-card .head{background:var(--ink); color:var(--paper); padding:22px 24px; min-height:132px;}
+  .grade-card.g8 .head{background:#23221D;}
+  .grade-card.g9 .head{background:var(--yellow); color:var(--ink);}
+  .grade-card .head .grade-no{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.78rem;
+    letter-spacing:0.08em; text-transform:uppercase; color:var(--yellow); margin-bottom:8px; display:block;
   }
-  @media (max-width:800px){.gallery{grid-template-columns:repeat(2,1fr);}}
-  .gallery .ph{position:static; height:140px; width:100%; border:2px solid var(--ink); background:var(--paper); overflow:hidden;}
+  .grade-card.g9 .head .grade-no{color:#6B5400;}
+  .grade-card .head h3{font-size:1.45rem;}
+  .grade-card .head .stance{font-size:0.88rem; margin-top:8px; color:#B9B7AD;}
+  .grade-card.g9 .head .stance{color:#4A3A00;}
+  .grade-card .body{padding:24px; display:flex; flex-direction:column; flex:1;}
+  .grade-card .body h4{
+    font-family:'Space Grotesk',sans-serif; font-size:0.76rem; text-transform:uppercase;
+    letter-spacing:0.07em; color:var(--yellow-deep); margin-bottom:12px; font-weight:700;
+  }
+  .grade-card .body h4:not(:first-child){margin-top:24px;}
+  .grade-card ul{list-style:none;}
+  .grade-card ul li{
+    display:flex; gap:10px; align-items:flex-start;
+    font-size:0.93rem; color:var(--ink-soft); margin-bottom:10px; line-height:1.45;
+  }
+  .grade-card ul li i{color:var(--yellow-deep); font-size:0.7rem; margin-top:6px; flex-shrink:0;}
+  .capstone-box{
+    border:2px solid var(--ink); background:var(--paper); padding:18px 18px 16px;
+    margin-top:auto;
+  }
+  .capstone-box .cap-label{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.72rem;
+    text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;
+    background:var(--ink); color:var(--yellow); display:inline-block; padding:3px 8px;
+  }
+  .capstone-box strong{display:block; font-family:'Space Grotesk',sans-serif; font-size:1rem; margin:10px 0 8px;}
+  .capstone-box p{font-size:0.9rem; color:var(--ink-soft); line-height:1.5;}
+  .grade-tools{margin-top:18px; display:flex; flex-wrap:wrap; gap:7px;}
+  .grade-tools span{font-size:0.76rem; border:1px solid var(--ink-soft); padding:4px 9px; color:var(--ink-soft);}
 
-  /* ---------- ADMISSION STEPS ---------- */
+  /* ---------- BOARD FIT ---------- */
+  .board-band{background:#EDEBE3;}
+  .board-chips{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:34px;}
+  .board-chip{
+    border:2px solid var(--ink); background:var(--paper); padding:11px 22px;
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.98rem;
+  }
+  .board-chip.accent{background:var(--yellow); border-color:var(--yellow);}
+  .fit-list{display:grid; grid-template-columns:1fr 1fr; gap:18px 36px;}
+  @media (max-width:760px){.fit-list{grid-template-columns:1fr;}}
+  .fit-list li{display:flex; gap:12px; align-items:flex-start; font-size:0.97rem; color:var(--ink); list-style:none;}
+  .fit-list li i{color:var(--yellow-deep); margin-top:4px; flex-shrink:0;}
+  .fit-list li b{font-family:'Space Grotesk',sans-serif;}
+
+  /* ---------- BUILD-A-THON ---------- */
+  .buildathon{background:var(--ink); color:var(--paper);}
+  .ba-grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:48px; align-items:center;}
+  @media (max-width:900px){.ba-grid{grid-template-columns:1fr;}}
+  .ba-steps{display:grid; gap:18px;}
+  .ba-step{display:flex; gap:18px; align-items:flex-start; border-top:1px solid #33322C; padding-top:18px;}
+  .ba-step .n{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.85rem;
+    background:var(--yellow); color:var(--ink); padding:3px 9px; flex-shrink:0;
+  }
+  .ba-step h3{font-size:1.05rem; color:var(--paper); margin-bottom:6px;}
+  .ba-step p{color:#B9B7AD; font-size:0.93rem;}
+
+  /* ---------- OUTCOMES ---------- */
+  .outcome-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:2px solid var(--ink); border-right:0; border-bottom:0; background:#fff;}
+  @media (max-width:860px){.outcome-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:520px){.outcome-grid{grid-template-columns:1fr;}}
+  .outcome{padding:28px 26px; border-right:2px solid var(--ink); border-bottom:2px solid var(--ink);}
+  .outcome i{color:var(--yellow-deep); font-size:1.15rem; margin-bottom:14px; display:block;}
+  .outcome h3{font-size:1.02rem; margin-bottom:8px;}
+  .outcome p{font-size:0.93rem; color:var(--ink-soft);}
+
+  /* ---------- VISION ---------- */
+  .vision{background:var(--yellow);}
+  .vision .wrap{max-width:900px;}
+  .vision h2{font-size:clamp(1.9rem,4vw,2.9rem); max-width:18ch;}
+  .vision p{margin-top:24px; font-size:1.08rem; max-width:64ch; color:#2A2200;}
+  .roadmap-box{
+    margin-top:34px; border:2px solid var(--ink); background:rgba(255,255,255,0.45);
+    padding:24px 26px; max-width:64ch;
+  }
+  .roadmap-box .eyebrow{color:#6B5400;}
+  .roadmap-box p{margin-top:0; font-size:1rem;}
+
+  /* ---------- ROLLOUT STEPS ---------- */
   .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:32px;}
   @media (max-width:900px){.steps{grid-template-columns:1fr 1fr;}}
   @media (max-width:560px){.steps{grid-template-columns:1fr;}}
@@ -264,19 +348,20 @@
   .step h3{font-size:1.08rem; margin-bottom:8px;}
   .step p{color:var(--ink-soft); font-size:0.92rem;}
 
-  /* ---------- PROGRAM FACTS ---------- */
-  .facts-band{background:var(--ink); color:var(--paper);}
-  .facts-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:32px;}
-  @media (max-width:760px){.facts-grid{grid-template-columns:1fr 1fr;}}
-  .fact-item{border-top:2px solid var(--yellow); padding-top:16px;}
-  .fact-item .k{color:#A9A79C; font-size:0.85rem; margin-bottom:6px;}
-  .fact-item .v{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1.15rem;}
-
-  /* ---------- VISION ---------- */
-  .vision{background:var(--yellow);}
-  .vision .wrap{max-width:900px;}
-  .vision h2{font-size:clamp(1.9rem,4vw,2.9rem); max-width:16ch;}
-  .vision p{margin-top:24px; font-size:1.08rem; max-width:62ch; color:#2A2200;}
+  /* ---------- COMPARISON ---------- */
+  .compare-grid{display:grid; grid-template-columns:1fr 1fr; gap:0; border:2px solid var(--ink);}
+  @media (max-width:760px){.compare-grid{grid-template-columns:1fr;}}
+  .compare-col{padding:32px;}
+  .compare-col.without{background:#EDEBE3; border-right:2px solid var(--ink);}
+  @media (max-width:760px){.compare-col.without{border-right:none; border-bottom:2px solid var(--ink);}}
+  .compare-col.with{background:var(--yellow);}
+  .compare-col h3{font-size:1.15rem; margin-bottom:20px;}
+  .compare-col ul{list-style:none;}
+  .compare-col li{display:flex; align-items:flex-start; gap:10px; margin-bottom:16px; font-size:0.95rem;}
+  .compare-col.without li i{color:#8B8974; margin-top:3px;}
+  .compare-col.with li i{color:var(--ink); margin-top:3px;}
+  .compare-col.without li{color:#5A584E;}
+  .compare-col.with li{color:var(--ink); font-weight:500;}
 
   /* ---------- TEAM ---------- */
   .team-grid{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
@@ -297,16 +382,17 @@
   .apply-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px;}
   @media (max-width:860px){.apply-grid{grid-template-columns:1fr;}}
   .apply h2{font-size:clamp(1.7rem,3.4vw,2.3rem); color:var(--paper);}
-  .apply .sub{color:#B9B7AD; margin-top:12px; max-width:44ch;}
+  .apply .sub{color:#B9B7AD; margin-top:12px; max-width:48ch;}
   form{margin-top:28px; display:grid; gap:14px;}
   .form-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
   @media (max-width:520px){.form-row{grid-template-columns:1fr;}}
   label{font-size:0.82rem; color:#B9B7AD; margin-bottom:6px; display:block;}
-  input, textarea{
+  input, textarea, select{
     width:100%; background:#1D1C18; border:1px solid #45443C; color:var(--paper);
     padding:12px 14px; font-family:'Inter',sans-serif; font-size:0.95rem;
   }
-  input:focus, textarea:focus{outline:2px solid var(--yellow); border-color:var(--yellow);}
+  select{appearance:none; background-image:linear-gradient(45deg,transparent 50%,var(--yellow) 50%),linear-gradient(135deg,var(--yellow) 50%,transparent 50%); background-position:calc(100% - 20px) 20px, calc(100% - 14px) 20px; background-size:6px 6px, 6px 6px; background-repeat:no-repeat;}
+  input:focus, textarea:focus, select:focus{outline:2px solid var(--yellow); border-color:var(--yellow);}
   textarea{min-height:88px; resize:vertical;}
   .submit-btn{
     background:var(--yellow); color:var(--ink); font-weight:700; border:none;
@@ -328,74 +414,25 @@
   .side-card h3{font-size:1.1rem; color:var(--paper);}
   .side-card p{color:#B9B7AD; font-size:0.92rem; margin-top:10px;}
   .side-card .btn-secondary{margin-top:18px;}
-
-  /* ---------- BLOG ---------- */
-  .blog-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
-  @media (max-width:860px){.blog-grid{grid-template-columns:1fr 1fr;}}
-  @media (max-width:560px){.blog-grid{grid-template-columns:1fr;}}
-  .blog-card{border:2px solid var(--ink); background:#fff; display:flex; flex-direction:column;}
-  .blog-card .ph{position:static; width:100%; height:150px; border:none; border-bottom:2px solid var(--ink);}
-  .blog-card .body{padding:20px; display:flex; flex-direction:column; flex:1;}
-  .blog-card .cat{font-size:0.78rem; color:var(--yellow-deep); font-weight:700; margin-bottom:10px;}
-  .blog-card h3{font-size:1.05rem; margin-bottom:10px;}
-  .blog-card p{color:var(--ink-soft); font-size:0.9rem; flex:1;}
-  .blog-card .read{margin-top:14px; font-weight:600; font-size:0.88rem; color:var(--ink);}
-  .blog-card .read:hover{color:var(--yellow-deep);}
-
-  /* ---------- JOURNEY ---------- */
-  .journey-track{position:relative; margin-top:56px;}
-  .journey-line{
-    position:absolute; top:34px; left:34px; right:34px; height:3px;
-    background-image:linear-gradient(90deg, var(--ink) 0 12px, transparent 12px 20px);
-    background-size:20px 3px; background-repeat:repeat-x;
-  }
-  @media (max-width:760px){ .journey-line{display:none;} }
-  .journey-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px; position:relative;}
-  @media (max-width:760px){ .journey-grid{grid-template-columns:1fr; gap:32px;} }
-  .journey-node{text-align:left;}
-  .journey-icon{
-    width:68px; height:68px; border:3px solid var(--ink); background:var(--yellow);
-    display:flex; align-items:center; justify-content:center; font-size:1.5rem;
-    color:var(--ink); position:relative; z-index:2; margin-bottom:18px;
-  }
-  .journey-node:nth-child(2) .journey-icon,
-  .journey-node:nth-child(4) .journey-icon{background:var(--ink); color:var(--yellow); border-color:var(--yellow);}
-  .journey-node .stage{font-size:0.78rem; color:var(--ink-soft); font-weight:600; margin-bottom:4px;}
-  .journey-node h3{font-size:1.08rem; margin-bottom:8px;}
-  .journey-node p{color:var(--ink-soft); font-size:0.9rem;}
-
-  /* ---------- COMPARISON ---------- */
-  .compare-grid{display:grid; grid-template-columns:1fr 1fr; gap:0; border:2px solid var(--ink);}
-  @media (max-width:760px){.compare-grid{grid-template-columns:1fr;}}
-  .compare-col{padding:32px;}
-  .compare-col.without{background:#EDEBE3; border-right:2px solid var(--ink);}
-  @media (max-width:760px){.compare-col.without{border-right:none; border-bottom:2px solid var(--ink);}}
-  .compare-col.with{background:var(--yellow);}
-  .compare-col h3{font-size:1.15rem; margin-bottom:20px;}
-  .compare-col ul{list-style:none;}
-  .compare-col li{display:flex; align-items:flex-start; gap:10px; margin-bottom:16px; font-size:0.95rem;}
-  .compare-col.without li i{color:#8B8974; margin-top:3px;}
-  .compare-col.with li i{color:var(--ink); margin-top:3px;}
-  .compare-col.without li{color:#5A584E;}
-  .compare-col.with li{color:var(--ink); font-weight:500;}
+  .side-card .side-photo{width:100%; height:160px; object-fit:cover; border:2px solid #33322C; margin-bottom:18px;}
 
   /* ---------- FAQ ---------- */
   .faq-item{border-bottom:1px solid var(--line); padding:20px 0;}
   .faq-q{
     display:flex; justify-content:space-between; align-items:center; cursor:pointer;
-    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:1.02rem;
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:1.02rem; gap:16px;
   }
-  .faq-q .icon{font-size:1.3rem; color:var(--yellow-deep); transition:transform 0.2s;}
+  .faq-q .icon{font-size:1.3rem; color:var(--yellow-deep); transition:transform 0.2s; flex-shrink:0;}
   .faq-item.open .faq-q .icon{transform:rotate(45deg);}
   .faq-a{max-height:0; overflow:hidden; transition:max-height 0.25s ease; color:var(--ink-soft); font-size:0.96rem;}
-  .faq-item.open .faq-a{max-height:220px; margin-top:12px;}
+  .faq-item.open .faq-a{max-height:320px; margin-top:12px;}
 
   footer{background:var(--ink); color:#8B8974; padding:72px 0 32px; font-size:0.9rem;}
   .footer-top{display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:48px; padding-bottom:48px; border-bottom:1px solid #2A2924;}
   @media (max-width:860px){.footer-top{grid-template-columns:1fr 1fr;}}
   @media (max-width:560px){.footer-top{grid-template-columns:1fr;}}
   .footer-brand .logo{margin-bottom:16px;}
-  .footer-tagline{color:#8B8974; max-width:38ch; margin-bottom:22px; line-height:1.6;}
+  .footer-tagline{color:#8B8974; max-width:40ch; margin-bottom:22px; line-height:1.6;}
   .footer-ctas{display:flex; flex-wrap:wrap; gap:12px;}
   .footer-ctas .btn-primary, .footer-ctas .btn-secondary{padding:12px 22px; font-size:0.88rem;}
   .footer-col h4{font-family:'Space Grotesk',sans-serif; color:var(--paper); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:16px;}
@@ -415,7 +452,7 @@
   .wa-float svg{width:28px; height:28px; fill:currentColor;}
   .wa-float:hover{transform:translateY(-2px);}
 
-  /* ---------- JOIN COHORT MODAL ---------- */
+  /* ---------- PARTNER MODAL ---------- */
   .modal-overlay{
     position:fixed; inset:0; background:rgba(18,18,16,0.78); z-index:300;
     display:none; align-items:center; justify-content:center; padding:24px;
@@ -423,11 +460,11 @@
   .modal-overlay.open{display:flex;}
   .modal-box{
     background:var(--ink); color:var(--paper); border:3px solid var(--yellow);
-    max-width:560px; width:100%; max-height:88vh; overflow-y:auto; padding:40px;
+    max-width:600px; width:100%; max-height:88vh; overflow-y:auto; padding:40px;
     position:relative; box-shadow:8px 8px 0 rgba(0,0,0,0.35);
   }
   .modal-box h3{color:var(--paper); font-family:'Space Grotesk',sans-serif; font-size:1.6rem; margin-bottom:8px;}
-  .modal-box .sub{color:#B9B7AD; font-size:0.92rem; margin-bottom:22px; max-width:44ch;}
+  .modal-box .sub{color:#B9B7AD; font-size:0.92rem; margin-bottom:22px; max-width:48ch;}
   .modal-close{
     position:absolute; top:16px; right:18px; background:none; border:none;
     font-size:1.7rem; line-height:1; cursor:pointer; color:var(--paper); opacity:0.65;
@@ -451,11 +488,9 @@
   .side-by-photo{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;}
   @media (max-width:860px){.side-by-photo{grid-template-columns:1fr;}}
   .banner-photo{width:100%; height:260px; object-fit:cover; border:2px solid var(--ink); margin-top:32px;}
-  .fact-photo{width:100%; height:280px; object-fit:cover; border:2px solid var(--yellow);}
-  .journey-node .journey-thumb{width:100%; height:90px; object-fit:cover; border:2px solid var(--ink); margin-top:14px;}
+  .fact-photo{width:100%; height:300px; object-fit:cover; border:2px solid var(--yellow);}
   .vision-photo{display:block; max-width:460px; width:100%; height:260px; object-fit:cover; margin:36px auto 0; border:3px solid var(--ink);}
   .team-banner{width:100%; height:220px; object-fit:cover; border:2px solid var(--ink); margin-bottom:36px;}
-  .side-card .side-photo{width:100%; height:160px; object-fit:cover; border:2px solid #33322C; margin-bottom:18px;}
 </style>
 </head>
 <body>
@@ -464,42 +499,70 @@
   <nav class="wrap">
     <a class="logo" href="index.html" aria-label="AI Kids Lab, back to top" onclick="scrollToTop(); return false;"><svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="6" y="6" width="88" height="88" rx="14"/><rect x="34" y="34" width="32" height="32" rx="8"/><rect x="44" y="44" width="12" height="12" rx="3"/></svg>AI KIDS LAB</a>
     <div class="navlinks">
-      <a href="#build">What they build</a>
-      <a href="#admission">Admission</a>
-      <a href="about.html">About</a>
-      <a href="blog.html">Blog</a>
+      <a href="#model">How it works</a>
+      <a href="#curriculum">Curriculum</a>
+      <a href="#outcomes">For your school</a>
+      <a href="#rollout">Rollout</a>
       <a href="#faq">FAQ</a>
-      <a href="#" class="nav-cta" onclick="openJoinModal(); return false;">Join the Cohort</a>
+      <a href="#" class="nav-cta" onclick="openPartnerModal(); return false;"><span class="full">Book a school demo</span><span class="short">Book a demo</span></a>
     </div>
   </nav>
 </header>
 
-<div class="modal-overlay" id="joinModalOverlay" onclick="if(event.target===this){closeJoinModal();}">
+<div class="modal-overlay" id="partnerModalOverlay" onclick="if(event.target===this){closePartnerModal();}">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeJoinModal()" aria-label="Close">&times;</button>
-    <h3>Join the Cohort</h3>
-    <p class="sub">15 seats. Admission by interview. Tell us about your child, and we'll reach out to schedule a conversation.</p>
+    <button class="modal-close" onclick="closePartnerModal()" aria-label="Close">&times;</button>
+    <h3>Book a school demo</h3>
+    <p class="sub">A 30-minute walkthrough of the Grade 7, 8 and 9 curriculum, the monthly expert day, and how it maps onto your board and your timetable.</p>
     <form onsubmit="return handleSubmit(event, 'modalConfirm')">
       <div class="form-row">
-        <div><label>Child's name</label><input type="text" name="childName" required></div>
-        <div><label>Child's age (9–15)</label><input type="number" name="childAge" min="9" max="15" required></div>
+        <div><label>School name</label><input type="text" name="schoolName" required></div>
+        <div><label>City</label><input type="text" name="city" required></div>
       </div>
       <div class="form-row">
-        <div><label>Parent's name</label><input type="text" name="parentName" required></div>
-        <div><label>Phone or email</label><input type="text" name="contact" required></div>
+        <div><label>Your name</label><input type="text" name="contactName" required></div>
+        <div><label>Your role</label>
+          <select name="role" required>
+            <option value="">Select</option>
+            <option>Founder / Chairperson</option>
+            <option>Director / Trustee</option>
+            <option>Principal / Head of School</option>
+            <option>Academic Coordinator</option>
+            <option>HOD, Computer Science</option>
+            <option>Other</option>
+          </select>
+        </div>
       </div>
-      <div><label>What's your child curious about, when it comes to AI?</label><textarea name="notes"></textarea></div>
-      <button class="submit-btn" type="submit">Submit details</button>
+      <div class="form-row">
+        <div><label>Phone or email</label><input type="text" name="contact" required></div>
+        <div><label>Board</label>
+          <select name="board" required>
+            <option value="">Select</option>
+            <option>CBSE</option>
+            <option>ICSE / ISC</option>
+            <option>IB</option>
+            <option>Cambridge (IGCSE)</option>
+            <option>State Board</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div><label>Grades you'd start with</label><input type="text" name="grades" placeholder="e.g. Grade 7 &amp; 8"></div>
+        <div><label>Students in Grades 7–9 (approx.)</label><input type="text" name="students" placeholder="e.g. 180"></div>
+      </div>
+      <div><label>Anything you'd like us to cover on the call?</label><textarea name="notes"></textarea></div>
+      <button class="submit-btn" type="submit">Request the demo</button>
     </form>
-    <div class="confirm" id="modalConfirm">Thank you. We've noted your child's details. We'll reach out within 2 working days to schedule the discovery interview.</div>
+    <div class="confirm" id="modalConfirm">Thank you. We've noted your school's details. We'll reach out within 2 working days to set up the walkthrough.</div>
     <div class="modal-divider">OR</div>
     <div class="modal-alt">
-      <p>Prefer not to fill in the form? Talk to us directly, no details needed.</p>
+      <p>Prefer to skip the form? Pick a slot directly, or talk to us first.</p>
       <div class="modal-alt-ctas">
-        <a class="alt-btn solid" href="https://calendly.com/ramyaaikidslab/request-interview-ai-kids-lab" target="_blank" rel="noopener">Request an interview</a>
-        <a class="alt-btn ghost" href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener">Book a discovery call</a>
+        <a class="alt-btn solid" href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener">Pick a slot</a>
+        <a class="alt-btn ghost" href="mailto:ramyaaikidslab@gmail.com?subject=AI%20Kids%20Lab%20for%20our%20school">Email us</a>
       </div>
-      <a class="modal-wa" href="https://wa.me/919642099896?text=Hi%2C%20I%27m%20interested%20in%20AI%20Kids%20Lab%20for%20my%20child" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.898 9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>Or message us on WhatsApp</a>
+      <a class="modal-wa" href="https://wa.me/919642099896?text=Hi%2C%20I%27m%20from%20a%20school%20and%20I%27d%20like%20to%20know%20more%20about%20the%20AI%20Kids%20Lab%20school%20program" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.898 9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>Or message us on WhatsApp</a>
     </div>
   </div>
 </div>
@@ -507,33 +570,33 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <div class="seats-tag"><span class="pulse"></span>Only 15 seats per cohort</div>
-      <div class="city-tag">Currently launching in Hyderabad</div>
-      <h1>Where young minds build with AI.</h1>
-      <p class="lede">A fully in-person, 3-month cohort for curious 9–15 year olds. Small groups, mentors who've actually built this technology, and a real AI project your child can stand up and show off at the end.</p>
+      <div class="seats-tag"><span class="pulse"></span>Onboarding partner schools for 2026–27</div>
+      <div class="city-tag">Hyderabad first, then across India</div>
+      <h1>Make your school the one that builds India's young founders.</h1>
+      <p class="lede">A full AI curriculum for Grades 7, 8 and 9 — different for every grade, embedded inside your existing CBSE, ICSE, IB or Cambridge timetable. Self-paced modules through the month, an industry expert on your campus every month, and a capstone project each child builds and presents.</p>
       <div class="hero-ctas">
-        <a href="#" class="btn-primary" onclick="openJoinModal(); return false;">Join the Cohort</a>
-        <a href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener" class="btn-secondary">Book a discovery call</a>
+        <a href="#" class="btn-primary" onclick="openPartnerModal(); return false;">Book a school demo</a>
+        <a href="#curriculum" class="btn-secondary">See the grade-wise curriculum</a>
       </div>
-      <a class="hero-wa" href="https://wa.me/919642099896?text=Hi%2C%20I%27m%20interested%20in%20AI%20Kids%20Lab%20for%20my%20child" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.898 9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>Or message us on WhatsApp</a>
+      <a class="hero-wa" href="https://wa.me/919642099896?text=Hi%2C%20I%27m%20from%20a%20school%20and%20I%27d%20like%20to%20know%20more%20about%20the%20AI%20Kids%20Lab%20school%20program" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.898 9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>Or message us on WhatsApp</a>
       <div class="hero-fact-strip">
-        <div class="hero-fact">Ages<b>9 – 15</b></div>
-        <div class="hero-fact">Format<b>Fully offline</b></div>
-        <div class="hero-fact">Cohort size<b>15 kids</b></div>
-        <div class="hero-fact">Duration<b>3 months</b></div>
+        <div class="hero-fact">Grades<b>7, 8 &amp; 9</b></div>
+        <div class="hero-fact">Boards<b>Any board</b></div>
+        <div class="hero-fact">Expert on campus<b>Every month</b></div>
+        <div class="hero-fact">Capstone<b>One per grade, per year</b></div>
       </div>
     </div>
     <div class="photo-stack">
-      <div class="ph ph1"><img src="images/ai-kids-lab-photo-01.jpg" alt="Kids collaborating around a laptop at AI Kids Lab" loading="lazy"></div>
-      <div class="ph ph2"><img src="images/ai-kids-lab-photo-02.jpg" alt="A mentor guiding a student one-on-one at AI Kids Lab" loading="lazy"></div>
-      <div class="ph ph3"><img src="images/ai-kids-lab-photo-03.jpg" alt="A student presenting her AI project to the group" loading="lazy"></div>
+      <div class="ph ph1"><img src="images/ai-kids-lab-photo-01.jpg" alt="Students collaborating on an AI project in a school computer lab" loading="lazy"></div>
+      <div class="ph ph2"><img src="images/ai-kids-lab-photo-02.jpg" alt="An industry expert guiding a student through their build on campus" loading="lazy"></div>
+      <div class="ph ph3"><img src="images/ai-kids-lab-photo-03.jpg" alt="A student presenting her capstone project to her class" loading="lazy"></div>
     </div>
   </div>
 </section>
 
 <section class="trust">
   <div class="wrap">
-    <p class="label">Our mentors aren't reading from a slide deck. They're IIT, IIIT, and BITS alumni, and engineers who've built real products at companies like these.</p>
+    <p class="label">The experts who walk into your classrooms aren't trainers reading from a deck. They're IIT, IIIT and BITS alumni, and engineers who have shipped real AI and software at companies like these.</p>
     <div class="wordmarks">
       <div class="wordmark">Google</div>
       <div class="wordmark">Apple</div>
@@ -546,218 +609,275 @@
   </div>
 </section>
 
-<section id="build">
+<section id="why">
   <div class="wrap">
     <div class="sec-head">
-      <h2>What your child actually builds</h2>
-      <p>Not a certificate. Not a slideshow. A real, working AI project, built with their own hands, in stages you can see happening.</p>
+      <span class="eyebrow">Why school leaders are moving now</span>
+      <h2>Every parent is already asking what your school is doing about AI.</h2>
+      <p>The boards have added AI to the syllabus. The parents have read the headlines. What most schools don't have is a credible way to actually deliver it — taught by people who build this for a living, with something at the end of the year the child can show.</p>
     </div>
-    <div class="build-cards">
-      <div class="build-card">
-        <div class="tag">Midway: Week 6</div>
-        <div class="ph"><img src="images/ai-kids-lab-photo-04.jpg" alt="A student presenting his working Smart Study Planner AI tool to mentors and parents" loading="lazy"></div>
+    <div class="pressure-grid">
+      <div class="pressure-card">
+        <div class="pressure-icon"><i class="fa-solid fa-scroll"></i></div>
+        <h3>The syllabus moved</h3>
+        <p>AI and computational thinking are now part of the curriculum across boards. Coverage is expected; depth is not yet delivered.</p>
+      </div>
+      <div class="pressure-card">
+        <div class="pressure-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+        <h3>Faculty were never trained for it</h3>
+        <p>Your CS teachers are excellent at what they were trained in. Nobody trained them on models, prompting, or shipping an AI product.</p>
+      </div>
+      <div class="pressure-card">
+        <div class="pressure-icon"><i class="fa-solid fa-people-roof"></i></div>
+        <h3>Admissions are competitive</h3>
+        <p>Robotics labs and smart boards are table stakes now. Students who have built and pitched a working AI product are not.</p>
+      </div>
+      <div class="pressure-card">
+        <div class="pressure-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+        <h3>There is no free period</h3>
+        <p>Any program that demands extra hours, extra staff or a parallel timetable quietly dies by December. This one is built to fit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="model-band" id="model">
+  <div class="wrap">
+    <div class="sec-head" style="max-width:62ch;">
+      <span class="eyebrow on-dark">How it runs inside your school</span>
+      <h2 style="color:var(--paper);">One period a week. One expert day a month. One capstone a year.</h2>
+      <p style="color:#B9B7AD;">We don't ask you to find new hours or hire new staff. The self-paced curriculum runs in a single existing period. Once a month, an industry expert walks into your campus — and by the end of that same day, every child has demoed what they built.</p>
+    </div>
+    <div class="model-grid">
+      <div class="model-card">
+        <span class="cadence">Weekly</span>
+        <h3>Self-paced recorded modules</h3>
+        <p>Grade-specific video modules and guided build tasks, taken at each student's own pace in one timetabled period.</p>
+        <ul>
+          <li>Runs on your existing computer lab</li>
+          <li>Your teacher facilitates, we train them</li>
+          <li>Progress tracked per student</li>
+        </ul>
+      </div>
+      <div class="model-card">
+        <span class="cadence">Monthly</span>
+        <h3>Industry expert, on your campus</h3>
+        <p>A full day with an engineer who builds AI for a living — not a guest lecture, a working session.</p>
+        <ul>
+          <li>Doubt-clearing clinic on the month's modules</li>
+          <li>Live build sprint on the class project</li>
+          <li>Showcase the same day, before they leave</li>
+        </ul>
+      </div>
+      <div class="model-card">
+        <span class="cadence">Every term</span>
+        <h3>A capstone that differs by grade</h3>
+        <p>Grade 7, 8 and 9 each build something pitched at their level — never the same project recycled across grades.</p>
+        <ul>
+          <li>Solves a real problem the student picks</li>
+          <li>Assessed on a written rubric</li>
+          <li>Documented with photos and video</li>
+        </ul>
+      </div>
+      <div class="model-card">
+        <span class="cadence">Once a year</span>
+        <h3>Build-a-thon &amp; award ceremony</h3>
+        <p>A full-day build event for the whole school, ending in an awards ceremony for the strongest projects.</p>
+        <ul>
+          <li>Judged by industry mentors</li>
+          <li>Top projects recognised on stage</li>
+          <li>A story and a reel your school owns</li>
+        </ul>
+      </div>
+    </div>
+    <p style="color:#8B8974; font-size:0.85rem; margin-top:34px;">Typical commitment: one 45–60 minute period per week, plus one full expert day each month. No parallel timetable, no weekend classes, no additional teaching staff.</p>
+  </div>
+</section>
+
+<section id="curriculum">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The curriculum</span>
+      <h2>Three grades. Three different programs. Three different capstones.</h2>
+      <p>A Grade 7 student and a Grade 9 student should not be handed the same worksheet. Each year builds deliberately on the last — from understanding how AI thinks, to shipping a working product, to standing up and pitching it like a founder.</p>
+    </div>
+    <div class="grade-grid">
+
+      <div class="grade-card g7">
+        <div class="head">
+          <span class="grade-no">Grade 7 · Year One</span>
+          <h3>AI Literate</h3>
+          <div class="stance">Understand it, direct it, train your first model.</div>
+        </div>
         <div class="body">
-          <h3>Their first working AI tool</h3>
+          <h4>What they learn</h4>
           <ul>
-            <li>A trained mini-model, a simple classifier, or a small working chatbot, built and not just explained</li>
-            <li>Can explain, in plain language, how their AI actually makes decisions</li>
-            <li>Has picked the real-world problem their final project will solve</li>
+            <li><i class="fa-solid fa-circle"></i>How AI actually works — data, patterns and prediction, taught without the maths jargon</li>
+            <li><i class="fa-solid fa-circle"></i>Prompting as a real skill: directing ChatGPT, Claude and Gemini to do useful work</li>
+            <li><i class="fa-solid fa-circle"></i>Training their first model themselves, on images, sound or gestures</li>
+            <li><i class="fa-solid fa-circle"></i>Creative AI: images, audio and storytelling, with a critical eye</li>
+            <li><i class="fa-solid fa-circle"></i>Safety and ethics: bias, deepfakes, and what never to share with a model</li>
+            <li><i class="fa-solid fa-circle"></i>First builds with block-based and no-code tools</li>
           </ul>
+          <div class="grade-tools"><span>Teachable Machine</span><span>Scratch + AI</span><span>ChatGPT</span><span>Claude</span><span>Gemini</span><span>Canva AI</span></div>
+          <div class="capstone-box">
+            <span class="cap-label">Capstone</span>
+            <strong>AI for my classroom</strong>
+            <p>A trained model or simple assistant that solves a problem inside their own school — a waste-segregation sorter, a lost-and-found identifier, a revision helper for their toughest subject. Built, tested, and presented to their class.</p>
+          </div>
         </div>
       </div>
-      <div class="build-card">
-        <div class="tag">Final: Week 12, Showcase Day</div>
-        <div class="ph"><img src="images/ai-kids-lab-photo-05.jpg" alt="A student presenting her AI project on Showcase Day" loading="lazy"></div>
+
+      <div class="grade-card g8">
+        <div class="head">
+          <span class="grade-no">Grade 8 · Year Two</span>
+          <h3>AI Builder</h3>
+          <div class="stance">Turn a model into a product people can use.</div>
+        </div>
         <div class="body">
-          <h3>A demo they present, live</h3>
+          <h4>What they learn</h4>
           <ul>
-            <li>An end-to-end AI solution to a real problem they chose, running and not theoretical</li>
-            <li>Presented live, in front of parents and mentors, at Showcase Day</li>
-            <li>Documented with photos and video, theirs to keep and yours to share</li>
+            <li><i class="fa-solid fa-circle"></i>From model to product: how an AI application is actually assembled</li>
+            <li><i class="fa-solid fa-circle"></i>Working with data — collecting, cleaning and labelling a dataset of their own</li>
+            <li><i class="fa-solid fa-circle"></i>Building real apps with vibe-coding and no-code tools</li>
+            <li><i class="fa-solid fa-circle"></i>Python foundations: enough to read, debug and change what the AI writes</li>
+            <li><i class="fa-solid fa-circle"></i>Assistants that answer from their own documents and notes</li>
+            <li><i class="fa-solid fa-circle"></i>Testing with real users: does this work for anyone other than me?</li>
           </ul>
-        </div>
-      </div>
-    </div>
-    <div style="margin-top:64px;">
-      <h3 style="font-size:1.35rem; margin-bottom:8px;">Real projects kids at this age can genuinely build</h3>
-      <p style="color:var(--ink-soft); font-size:0.98rem; max-width:60ch; margin-bottom:28px;">Every child's project depends on what they're curious about, but here's the kind of thing a 9 to 15 year old walks out having actually built — from a first working model to a genuinely ambitious build.</p>
-      <div class="usecase-groups">
-        <div>
-          <div class="usecase-group-label">Starter builds</div>
-          <p class="usecase-group-sub">Where most kids begin — a first taste of training and directing a real model.</p>
-          <div class="usecase-grid">
-            <div class="usecase-card">
-              <div class="usecase-icon"><i class="fa-solid fa-comments"></i></div>
-              <p>A chatbot that answers questions about their favorite subject or hobby</p>
-            </div>
-            <div class="usecase-card">
-              <div class="usecase-icon"><i class="fa-solid fa-image"></i></div>
-              <p>An image classifier that sorts photos, waste, or handwriting</p>
-            </div>
-            <div class="usecase-card">
-              <div class="usecase-icon"><i class="fa-solid fa-gamepad"></i></div>
-              <p>A simple AI-powered game that reacts to how the player plays</p>
-            </div>
-            <div class="usecase-card">
-              <div class="usecase-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-              <p>A recommendation tool, for books, music, or study topics</p>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="usecase-group-label">Advanced builds</div>
-          <p class="usecase-group-sub">For kids ready to go further — usually ages 13 to 15, or a starter project already under their belt.</p>
-          <div class="usecase-grid">
-            <div class="usecase-card advanced">
-              <div class="usecase-icon"><i class="fa-solid fa-cube"></i></div>
-              <p>A prompt-to-3D model generator that turns a text description into a game-ready asset</p>
-            </div>
-            <div class="usecase-card advanced">
-              <div class="usecase-icon"><i class="fa-solid fa-clapperboard"></i></div>
-              <p>An AI-assisted short film — storyboarded, generated, and narrated scene by scene</p>
-            </div>
-            <div class="usecase-card advanced">
-              <div class="usecase-icon"><i class="fa-solid fa-palette"></i></div>
-              <p>A style-transfer art generator that reimagines a photo in a completely different art style</p>
-            </div>
-            <div class="usecase-card advanced">
-              <div class="usecase-icon"><i class="fa-solid fa-music"></i></div>
-              <p>An AI music composer that generates an original soundtrack from a mood or theme prompt</p>
-            </div>
+          <div class="grade-tools"><span>Replit</span><span>Lovable</span><span>Cursor</span><span>Python basics</span><span>MIT App Inventor</span><span>Hugging Face</span></div>
+          <div class="capstone-box">
+            <span class="cap-label">Capstone</span>
+            <strong>AI for my community</strong>
+            <p>A working AI app or assistant aimed at a real problem beyond the classroom — a local-language study helper, a plant-disease checker for a family farm, a safety or accessibility tool. Shipped, put in front of real users, and improved on their feedback.</p>
           </div>
         </div>
       </div>
-    </div>
 
-    <div style="margin-top:64px;">
-      <h3 style="font-size:1.35rem; margin-bottom:8px;">Tools they'll actually get hands-on with</h3>
-      <p style="color:var(--ink-soft); font-size:0.98rem; max-width:60ch; margin-bottom:28px;">Real, industry tools, simplified for age 9 to 15, not a toy version of AI.</p>
-      <div class="tool-groups">
-        <div>
-          <div class="tool-group-label">AI assistants they learn to direct</div>
-          <div class="tool-tags">
-            <div class="tool-tag accent">ChatGPT</div>
-            <div class="tool-tag accent">Claude</div>
-            <div class="tool-tag accent">Gemini</div>
-          </div>
+      <div class="grade-card g9">
+        <div class="head">
+          <span class="grade-no">Grade 9 · Year Three</span>
+          <h3>Young Founder</h3>
+          <div class="stance">Find a real problem. Build the MVP. Pitch it.</div>
         </div>
-        <div>
-          <div class="tool-group-label">No-code & vibe-coding builders</div>
-          <div class="tool-tags">
-            <div class="tool-tag">Replit</div>
-            <div class="tool-tag">Cursor</div>
-            <div class="tool-tag">Lovable</div>
-            <div class="tool-tag">No-code AI app builders</div>
-          </div>
-        </div>
-        <div>
-          <div class="tool-group-label">Beginner AI &amp; coding foundations</div>
-          <div class="tool-tags">
-            <div class="tool-tag">Google Teachable Machine</div>
-            <div class="tool-tag">Scratch + AI extensions</div>
-            <div class="tool-tag">MIT App Inventor</div>
-            <div class="tool-tag">Python basics (ages 13+)</div>
+        <div class="body">
+          <h4>What they learn</h4>
+          <ul>
+            <li><i class="fa-solid fa-circle"></i>Finding a problem worth solving, and talking to the people who have it</li>
+            <li><i class="fa-solid fa-circle"></i>Product thinking: scope, MVP, and deciding what to build first</li>
+            <li><i class="fa-solid fa-circle"></i>Building an end-to-end product with AI tooling, start to finish</li>
+            <li><i class="fa-solid fa-circle"></i>Measuring what matters — is anyone actually using this?</li>
+            <li><i class="fa-solid fa-circle"></i>Business basics: who pays, what it costs, how it could grow</li>
+            <li><i class="fa-solid fa-circle"></i>The pitch: telling the whole story in five minutes, on a stage</li>
+          </ul>
+          <div class="grade-tools"><span>Full-stack AI tooling</span><span>User research</span><span>Analytics</span><span>Unit economics</span><span>Pitch craft</span><span>Demo day</span></div>
+          <div class="capstone-box">
+            <span class="cap-label">Capstone</span>
+            <strong>Venture-ready build</strong>
+            <p>A working MVP with real users, a set of numbers behind it, and a founder's pitch delivered to a panel of industry mentors. The strongest of these go forward to the Build-a-thon — and, as our incubator partnerships come online, to student incubators.</p>
           </div>
         </div>
       </div>
+
     </div>
+    <img class="banner-photo" src="images/ai-kids-lab-photo-11.jpg" alt="Students and an industry mentor working through a project together on campus" loading="lazy">
   </div>
 </section>
 
-<section class="facts-band">
-  <div class="wrap side-by-photo">
-    <div>
-      <div class="sec-head" style="max-width:60ch;">
-        <h2 style="color:var(--paper);">Built for the real world, not the syllabus</h2>
-        <p style="color:#B9B7AD;">Every cohort is small on purpose, so every child gets seen, and every project gets built with a real problem in mind.</p>
-      </div>
-      <div class="facts-grid">
-        <div class="fact-item"><div class="k">Age range</div><div class="v">9 to 15 years</div></div>
-        <div class="fact-item"><div class="k">Where</div><div class="v">Hyderabad, in person at a nearby coworking training room</div></div>
-        <div class="fact-item"><div class="k">Schedule</div><div class="v">Every Saturday & Sunday, for 3 months</div></div>
-        <div class="fact-item"><div class="k">Cohort size</div><div class="v">Capped at 15 children</div></div>
-        <div class="fact-item"><div class="k">Mentors</div><div class="v">IIT / IIIT / BITS alumni & industry engineers</div></div>
-        <div class="fact-item"><div class="k">Real-world exposure</div><div class="v">Internship-style opportunities for the right fit</div></div>
-      </div>
-      <p style="color:#8B8974; font-size:0.85rem; margin-top:28px;">Currently running in Hyderabad only. More cities coming as cohorts prove out.</p>
-    </div>
-    <img class="fact-photo" src="images/ai-kids-lab-photo-06.jpg" alt="Students collaborating on an AI project together">
-  </div>
-</section>
-
-<section id="admission">
+<section class="board-band" id="boards">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Admission is by interview, on purpose</h2>
-      <p>We don't sell a seat to anyone who clicks "buy." We meet every child and parent first, so the pace, the project, and the mentor are genuinely the right fit, and so you know exactly what three months will look like before you commit.</p>
+      <span class="eyebrow">Curriculum fit</span>
+      <h2>It embeds into your board. It doesn't compete with it.</h2>
+      <p>Before day one, we sit with your academic team and map every module against what you already teach — so this reinforces your syllabus instead of adding a second one beside it.</p>
     </div>
-    <div class="steps">
-      <div class="step">
-        <span class="num">01</span>
-        <h3>Apply</h3>
-        <p>Tell us about your child: their age, what's pulled them toward AI so far, and what you're hoping the next three months look like.</p>
-      </div>
-      <div class="step">
-        <span class="num">02</span>
-        <h3>Discovery interview</h3>
-        <p>A relaxed conversation with your child and you, together with a mentor, to gauge genuine interest, not just enthusiasm on a form.</p>
-      </div>
-      <div class="step">
-        <span class="num">03</span>
-        <h3>Fit confirmation</h3>
-        <p>We confirm the cohort, the mentor, and set clear, honest expectations for the three months ahead, with no surprises either side.</p>
-      </div>
-      <div class="step">
-        <span class="num">04</span>
-        <h3>Cohort begins</h3>
-        <p>Your child starts building, in a room of 15, guided by a mentor who has actually shipped this technology in the real world.</p>
-      </div>
+    <div class="board-chips">
+      <div class="board-chip accent">CBSE</div>
+      <div class="board-chip accent">ICSE / ISC</div>
+      <div class="board-chip">IB</div>
+      <div class="board-chip">Cambridge · IGCSE</div>
+      <div class="board-chip">State Boards</div>
     </div>
-    <img class="banner-photo" src="images/ai-kids-lab-photo-02.jpg" alt="A mentor guiding a student one-on-one at AI Kids Lab">
+    <ul class="fit-list">
+      <li><i class="fa-solid fa-circle-check"></i><span><b>Mapped, not bolted on.</b> Modules are aligned to your existing AI, computer science and computational thinking units, and to NEP's emphasis on experiential learning.</span></li>
+      <li><i class="fa-solid fa-circle-check"></i><span><b>One period, already on your timetable.</b> Most schools run it in the existing computer or skill period. No new slot to create.</span></li>
+      <li><i class="fa-solid fa-circle-check"></i><span><b>Your teacher stays the teacher.</b> They facilitate the period; we train and support them through a teacher enablement track.</span></li>
+      <li><i class="fa-solid fa-circle-check"></i><span><b>Assessment you can actually use.</b> Every capstone carries a written rubric that can feed straight into internal assessment and report cards.</span></li>
+      <li><i class="fa-solid fa-circle-check"></i><span><b>Works on the lab you already have.</b> Internet-connected machines and browsers. No GPUs, no new hardware purchase.</span></li>
+      <li><i class="fa-solid fa-circle-check"></i><span><b>Age-appropriate by design.</b> Tools, accounts and content are chosen for 12–15 year olds, with safety and data handling built into the curriculum itself.</span></li>
+    </ul>
   </div>
 </section>
 
-<section class="vision">
+<section class="buildathon">
   <div class="wrap">
-    <h2>We're not just teaching kids to use AI. We're teaching them to build with it.</h2>
-    <p>AI Kids Lab exists because the next decade won't reward children who can prompt a chatbot. It will reward the ones who understand how these systems think, and can build with them. Every mentor here has shipped real AI and software in the real world. Every cohort stays small enough that no child is a face in a crowd. And every child leaves with something they made: not a slide, not a badge, a working thing they built with their own hands.</p>
-    <img class="vision-photo" src="images/ai-kids-lab-photo-04.jpg" alt="A student presenting his working AI tool to mentors and parents">
+    <div class="ba-grid">
+      <div>
+        <img class="fact-photo" src="images/ai-kids-lab-photo-17.jpg" alt="Students demoing their AI projects at a school build event" loading="lazy">
+      </div>
+      <div>
+        <span class="eyebrow on-dark">Once a year, per school</span>
+        <h2 style="color:var(--paper); font-size:clamp(1.8rem,3.4vw,2.4rem);">The Build-a-thon.</h2>
+        <p style="color:#B9B7AD; margin-top:14px; max-width:48ch;">One day where the whole school builds — and the best of it gets a stage, a trophy and a photograph that ends up on your wall.</p>
+        <div class="ba-steps" style="margin-top:32px;">
+          <div class="ba-step">
+            <span class="n">01</span>
+            <div><h3>Everyone builds</h3><p>Teams across Grades 7, 8 and 9 build against a theme, in a single day, with mentors on the floor.</p></div>
+          </div>
+          <div class="ba-step">
+            <span class="n">02</span>
+            <div><h3>Industry mentors judge</h3><p>Projects are judged by engineers and founders on a published rubric — problem, build, and pitch.</p></div>
+          </div>
+          <div class="ba-step">
+            <span class="n">03</span>
+            <div><h3>Top projects are picked</h3><p>The strongest builds from your school are selected, documented and taken forward.</p></div>
+          </div>
+          <div class="ba-step">
+            <span class="n">04</span>
+            <div><h3>Award ceremony</h3><p>Winners are recognised in front of the school and their parents, with photos and video your school keeps.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section id="journey">
+<section id="outcomes">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Your child's journey through the lab</h2>
-      <p>Twelve weeks, four real shifts, from curious to genuinely future-ready.</p>
+      <span class="eyebrow">What your school gets</span>
+      <h2>A program that shows up in your admissions conversation.</h2>
+      <p>Not a certificate you hand out at the end of the year. Evidence — student by student, project by project — that your school is genuinely doing this.</p>
     </div>
-    <div class="journey-track">
-      <div class="journey-line"></div>
-      <div class="journey-grid">
-        <div class="journey-node">
-          <div class="journey-icon"><i class="fa-solid fa-lightbulb"></i></div>
-          <div class="stage">Week 1</div>
-          <h3>Curious</h3>
-          <p>Meets their mentor, sees AI up close for the first time, and picks the problem they're curious about solving.</p><img class="journey-thumb" src="images/ai-kids-lab-photo-01.jpg" alt="Students on their first day at AI Kids Lab">
-        </div>
-        <div class="journey-node">
-          <div class="journey-icon"><i class="fa-solid fa-gears"></i></div>
-          <div class="stage">Week 3–5</div>
-          <h3>Building</h3>
-          <p>Hands on keyboard, running real tools, learning how AI actually makes decisions instead of just using it.</p><img class="journey-thumb" src="images/ai-kids-lab-photo-10.jpg" alt="A student building her AI project">
-        </div>
-        <div class="journey-node">
-          <div class="journey-icon"><i class="fa-solid fa-rocket"></i></div>
-          <div class="stage">Week 6–11</div>
-          <h3>Creating</h3>
-          <p>Their own AI project takes shape, guided one-on-one by a mentor who's built this for a living.</p><img class="journey-thumb" src="images/ai-kids-lab-photo-11.jpg" alt="Students and a mentor discussing their AI project">
-        </div>
-        <div class="journey-node">
-          <div class="journey-icon"><i class="fa-solid fa-star"></i></div>
-          <div class="stage">Week 12</div>
-          <h3>Future-ready</h3>
-          <p>Presents a working AI solution at Showcase Day, and walks away a builder, not just a user.</p><img class="journey-thumb" src="images/ai-kids-lab-photo-05.jpg" alt="A student presenting at Showcase Day">
-        </div>
+    <div class="outcome-grid">
+      <div class="outcome">
+        <i class="fa-solid fa-book-open-reader"></i>
+        <h3>A ready, grade-wise curriculum</h3>
+        <p>Grades 7, 8 and 9, fully built, sequenced and updated as the tools change. Nothing for your team to write.</p>
+      </div>
+      <div class="outcome">
+        <i class="fa-solid fa-user-graduate"></i>
+        <h3>Teacher enablement</h3>
+        <p>Your faculty are trained to facilitate the period and grow into the subject, instead of being replaced by an outside vendor.</p>
+      </div>
+      <div class="outcome">
+        <i class="fa-solid fa-user-tie"></i>
+        <h3>An industry expert every month</h3>
+        <p>Background-verified engineers from real AI and product teams, on your campus, in front of your students.</p>
+      </div>
+      <div class="outcome">
+        <i class="fa-solid fa-chart-line"></i>
+        <h3>Progress reports you can send home</h3>
+        <p>Per-student progress each term — modules completed, project stage, and a rubric score parents can read.</p>
+      </div>
+      <div class="outcome">
+        <i class="fa-solid fa-folder-open"></i>
+        <h3>A portfolio per student</h3>
+        <p>Every child leaves each year with a working build and a documented project, not a participation certificate.</p>
+      </div>
+      <div class="outcome">
+        <i class="fa-solid fa-trophy"></i>
+        <h3>An annual event worth covering</h3>
+        <p>The Build-a-thon and award ceremony give you a story, a reel and photographs for parents, alumni and the press.</p>
       </div>
     </div>
   </div>
@@ -766,39 +886,86 @@
 <section id="compare">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Two kids, ten years from now</h2>
-      <p>The same curiosity today can lead to a very different starting point tomorrow.</p>
+      <h2>Two schools, five years from now</h2>
+      <p>The same AI line in the syllabus, delivered two very different ways.</p>
     </div>
     <div class="compare-grid">
       <div class="compare-col without">
-        <h3>Without AI coaching</h3>
+        <h3>AI as a textbook chapter</h3>
         <ul>
-          <li><i class="fa-solid fa-circle-minus"></i>Grows up using AI tools like everyone else, without knowing how they actually work</li>
-          <li><i class="fa-solid fa-circle-minus"></i>Sees AI as a black box that gives answers</li>
-          <li><i class="fa-solid fa-circle-minus"></i>Enters a world that assumes AI fluency, and has to catch up later</li>
-          <li><i class="fa-solid fa-circle-minus"></i>Has used AI, but never built anything with it</li>
+          <li><i class="fa-solid fa-circle-minus"></i>Students can define what AI is, and have never built anything with it</li>
+          <li><i class="fa-solid fa-circle-minus"></i>The subject rests entirely on one teacher who was never trained for it</li>
+          <li><i class="fa-solid fa-circle-minus"></i>The same content is taught to Grade 7 and Grade 9 with the slides barely changed</li>
+          <li><i class="fa-solid fa-circle-minus"></i>At an admissions meeting, "we cover AI" sounds like every other school in the city</li>
+          <li><i class="fa-solid fa-circle-minus"></i>Nothing to show parents at the end of the year but marks</li>
         </ul>
       </div>
       <div class="compare-col with">
-        <h3>With AI Kids Lab</h3>
+        <h3>AI as something they build</h3>
         <ul>
-          <li><i class="fa-solid fa-circle-check"></i>Understands how AI actually thinks, decides, and builds</li>
-          <li><i class="fa-solid fa-circle-check"></i>Has already built a real, working AI project, start to finish</li>
-          <li><i class="fa-solid fa-circle-check"></i>Enters the future already fluent, years ahead of catching up</li>
-          <li><i class="fa-solid fa-circle-check"></i>Has stood in front of a room and presented something they made</li>
+          <li><i class="fa-solid fa-circle-check"></i>Every student in Grades 7–9 finishes the year with a working AI project of their own</li>
+          <li><i class="fa-solid fa-circle-check"></i>Your faculty are trained and supported, with an industry expert on campus monthly</li>
+          <li><i class="fa-solid fa-circle-check"></i>Grade 7, 8 and 9 each run a distinct curriculum and a distinct capstone</li>
+          <li><i class="fa-solid fa-circle-check"></i>You can name the products your students shipped, and show the demo video</li>
+          <li><i class="fa-solid fa-circle-check"></i>An annual Build-a-thon, an award ceremony, and students on a path towards incubators</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
+<section class="vision">
+  <div class="wrap">
+    <h2>We're not teaching children to use AI. We're raising the founders who will build with it.</h2>
+    <p>India does not have a shortage of bright children. It has a shortage of places where a fourteen-year-old is taken seriously enough to build something real and be asked who it is for. Our mission is to bring AI education into schools in a form that produces builders — students who leave Grade 9 having identified a genuine problem, shipped something that works, and stood in front of a room to defend it. Not because it fills a line in the syllabus, but because the next decade belongs to people who can build, and India should be producing them from the classroom up.</p>
+    <div class="roadmap-box">
+      <span class="eyebrow">On our roadmap</span>
+      <p><b>Student incubator partnerships across India.</b> We're building collaborations with student incubators so that the strongest school projects don't stop at the award ceremony. A Grade 9 student with a working product and real users should have a route to turning it into a business — and the school that started them gets to say so.</p>
+    </div>
+    <img class="vision-photo" src="images/ai-kids-lab-photo-13.jpg" alt="A student presenting the AI project she built for her school" loading="lazy">
+  </div>
+</section>
+
+<section id="rollout">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Getting started</span>
+      <h2>From first call to first class in about four weeks</h2>
+      <p>We onboard a limited number of schools each academic year, because every school gets a curriculum mapping session and a named expert for its monthly days.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="num">01</span>
+        <h3>Discovery call</h3>
+        <p>Thirty minutes with your leadership team. Your board, your grades, your lab, your timetable — and an honest view of what this will and won't do.</p>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <h3>Curriculum mapping</h3>
+        <p>A working session with your academic coordinator and CS faculty to map our modules onto your existing syllabus and calendar.</p>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <h3>Teacher enablement</h3>
+        <p>We train the teachers who will run the weekly period, set up the lab and accounts, and brief parents if you'd like us to.</p>
+      </div>
+      <div class="step">
+        <span class="num">04</span>
+        <h3>Launch &amp; review</h3>
+        <p>Classes begin, the first expert day lands within the month, and we review progress with you at the end of every term.</p>
+      </div>
+    </div>
+    <p style="color:var(--ink-soft); font-size:0.92rem; margin-top:32px; max-width:62ch;">Want to start smaller? Many schools begin with a single grade for one term, see the capstones, and extend to all three grades from the next academic year.</p>
+  </div>
+</section>
+
 <section id="team">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Who's behind this</h2>
-      <p>Built by two people who've spent their careers close to how technology actually gets made, and in one case, close to raising the kids it's being made for.</p>
+      <h2>Who you'd be partnering with</h2>
+      <p>Two founders who have spent their careers close to how technology actually gets built — and close to the children it is being built for.</p>
     </div>
-    <img class="team-banner" src="images/ai-kids-lab-photo-13.jpg" alt="A student presenting her AI project for a cleaner, greener school">
+    <img class="team-banner" src="images/ai-kids-lab-photo-14.jpg" alt="Students presenting their AI project work" loading="lazy">
     <div class="team-grid">
       <div class="team-card">
         <div class="head">
@@ -809,7 +976,7 @@
           <p>Ramya has spent 11+ years building go-to-market strategy for B2B SaaS companies, most recently leading marketing at Syntasa, an agentic marketing platform built on Google Cloud, while co-founding GetSeenInAI, an AI-visibility platform, and B2B Growth Boost, a growth agency for SaaS and B2B companies. Along the way, she's advised more than 40 companies on how to grow in a world being rewritten by AI.</p>
           <p style="margin-top:12px;">She's an ISB alumna through its Chief Growth and Marketing Officer program, an AI Fellow with Outskill, and a graduate of Growth School's Advanced Gen AI program, along with their SaaS Growth and Growth Hacking mentorships, B2B Marketing, Performance Marketing, ChatGPT 101 and Gen AI workshops.</p>
           <p style="margin-top:12px;">A three-time founder, she speaks on AI in marketing at T-Hub, has been invited to judge and mentor student AI projects at multiple universities, and organizes developer communities around vibe coding for launching AI products.</p>
-          <p style="margin-top:12px;">She's also a mother of two, which is the real reason AI Kids Lab exists. She's watched, up close, how fast the world her own children are growing up in is changing, and decided she wasn't willing to let them learn AI from a rushed school module or a generic app. AI Kids Lab is the program she wished existed for her own kids: small, credible, mentor-led, and honest about what a child can genuinely build in three months.</p>
+          <p style="margin-top:12px;">She's also a mother of two, which is the real reason AI Kids Lab exists — and the reason it now works with schools rather than around them. A rushed module or a generic app was never going to be enough, and no individual program reaches the number of children a school does.</p>
           <div class="tags"><span>ISB alumna</span><span>11+ yrs B2B GTM</span><span>3x founder</span><span>Speaker &amp; judge</span><span>Founder, GetSeenInAI</span><span>Founder, B2B Growth Boost</span><span>Mom of 2</span></div>
         </div>
       </div>
@@ -820,184 +987,141 @@
         </div>
         <div class="body">
           <p>Our technical co-founder has built and tested software at scale across Apple, Amazon, and fast-growing product companies including CoinDCX, Zepto, and Slice, specializing in SDET, DevOps, and automation at scale.</p>
-          <p style="margin-top:12px;">That builder's discipline shapes the curriculum directly: nothing is taught here until it's been genuinely shipped somewhere first. The technology your child learns is the technology actually running in production, not a simplified textbook version of it.</p>
-          <div class="tags"><span>Ex-Apple</span><span>Ex-Amazon</span><span>CoinDCX · Zepto · Slice</span><span>SDET & DevOps</span><span>Automation @ Scale</span></div>
+          <p style="margin-top:12px;">That builder's discipline shapes the curriculum directly: nothing enters a module until it has genuinely been shipped somewhere first. What your students learn is the technology actually running in production, not a simplified textbook version of it — and the industry experts who come to your campus are drawn from the same network.</p>
+          <div class="tags"><span>Ex-Apple</span><span>Ex-Amazon</span><span>CoinDCX · Zepto · Slice</span><span>SDET &amp; DevOps</span><span>Automation @ Scale</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="blog">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>From the Lab</h2>
-      <p>What we're seeing in our cohorts, and what we think parents should know about raising kids in an AI-shaped world.</p>
-    </div>
-    <div class="blog-grid">
-      <div class="blog-card">
-        <div class="ph" style="height:150px;"><img src="images/ai-kids-lab-photo-14.jpg" alt="A student pitching her AI project idea to parents"></div>
-        <div class="body">
-          <div class="cat">Parenting & AI</div>
-          <h3>Is coding still worth learning if AI can code for you?</h3>
-          <p>Why understanding how AI thinks matters more than ever, not less, for a 10-year-old today.</p>
-          <a class="read" href="#">Read the post</a>
-        </div>
-      </div>
-      <div class="blog-card">
-        <div class="ph" style="height:150px;"><img src="images/ai-kids-lab-photo-15.jpg" alt="A mentor helping students build their AI project prototype"></div>
-        <div class="body">
-          <div class="cat">Getting Started</div>
-          <h3>How to introduce AI to a 10-year-old, safely</h3>
-          <p>A parent's guide to starting the conversation before a classroom does it for you.</p>
-          <a class="read" href="#">Read the post</a>
-        </div>
-      </div>
-      <div class="blog-card">
-        <div class="ph" style="height:150px;"><img src="images/ai-kids-lab-photo-01.jpg" alt="Students learning together in the AI Kids Lab classroom"></div>
-        <div class="body">
-          <div class="cat">Curriculum</div>
-          <h3>CBSE's new AI curriculum, explained for parents</h3>
-          <p>What's changing in schools from 2026-27, and where a hands-on program like ours fits alongside it.</p>
-          <a class="read" href="#">Read the post</a>
-        </div>
-      </div>
-      <div class="blog-card">
-        <div class="ph" style="height:150px;"><img src="images/ai-kids-lab-photo-17.jpg" alt="Students demoing their AI project on Showcase Day"></div>
-        <div class="body">
-          <div class="cat">Showcase Day</div>
-          <h3>Inside our first Showcase Day: what the kids actually built</h3>
-          <p>A look at the real projects from our pilot cohort, and what surprised the mentors most.</p>
-          <a class="read" href="#">Read the post</a>
-        </div>
-      </div>
-      <div class="blog-card">
-        <div class="ph" style="height:150px;"><img src="images/ai-kids-lab-photo-02.jpg" alt="A mentor guiding a student one-on-one at AI Kids Lab" loading="lazy"></div>
-        <div class="body">
-          <div class="cat">Admissions</div>
-          <h3>What we're actually listening for in the parent-child interview</h3>
-          <p>It's not a test. Here's what genuinely helps us place your child in the right cohort.</p>
-          <a class="read" href="#">Read the post</a>
-        </div>
-      </div>
-      <div class="blog-card">
-        <div class="ph" style="height:150px;"><img src="images/ai-kids-lab-photo-19.jpg" alt="A student building an AI project on a laptop" loading="lazy" style="width:100%; height:100%; object-fit:cover;"></div>
-        <div class="body">
-          <div class="cat">Age & Readiness</div>
-          <h3>9 or 15: is there a "right" age to start learning AI?</h3>
-          <p>What changes about how a child engages with AI between age 9 and age 15, and how we adapt for it.</p>
-          <a class="read" href="#">Read the post</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="apply" id="apply">
+<section class="apply" id="partner">
   <div class="wrap apply-grid">
     <div>
-      <h2>Join the Cohort</h2>
-      <p class="sub">15 seats. Admission by interview. Tell us about your child, and we'll reach out to schedule a conversation.</p>
-      <form onsubmit="return handleSubmit(event, 'applyConfirm')">
+      <span class="eyebrow on-dark">Partner with us</span>
+      <h2>Bring AI Kids Lab to your school</h2>
+      <p class="sub">Tell us about your school and we'll set up a 30-minute walkthrough of the Grade 7, 8 and 9 curriculum, the monthly expert day, and how it would map onto your board and timetable.</p>
+      <form onsubmit="return handleSubmit(event, 'partnerConfirm')">
         <div class="form-row">
-          <div><label>Child's name</label><input type="text" name="childName" required></div>
-          <div><label>Child's age (9–15)</label><input type="number" name="childAge" min="9" max="15" required></div>
+          <div><label>School name</label><input type="text" name="schoolName" required></div>
+          <div><label>City</label><input type="text" name="city" required></div>
         </div>
         <div class="form-row">
-          <div><label>Parent's name</label><input type="text" name="parentName" required></div>
+          <div><label>Your name</label><input type="text" name="contactName" required></div>
+          <div><label>Your role</label>
+            <select name="role" required>
+              <option value="">Select</option>
+              <option>Founder / Chairperson</option>
+              <option>Director / Trustee</option>
+              <option>Principal / Head of School</option>
+              <option>Academic Coordinator</option>
+              <option>HOD, Computer Science</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
           <div><label>Phone or email</label><input type="text" name="contact" required></div>
+          <div><label>Board</label>
+            <select name="board" required>
+              <option value="">Select</option>
+              <option>CBSE</option>
+              <option>ICSE / ISC</option>
+              <option>IB</option>
+              <option>Cambridge (IGCSE)</option>
+              <option>State Board</option>
+              <option>Other</option>
+            </select>
+          </div>
         </div>
-        <div><label>What's your child curious about, when it comes to AI?</label><textarea name="notes"></textarea></div>
-        <button class="submit-btn" type="submit">Request an interview</button>
+        <div class="form-row">
+          <div><label>Grades you'd start with</label><input type="text" name="grades" placeholder="e.g. Grade 7 &amp; 8"></div>
+          <div><label>Students in Grades 7–9 (approx.)</label><input type="text" name="students" placeholder="e.g. 180"></div>
+        </div>
+        <div><label>Anything you'd like us to cover on the call?</label><textarea name="notes"></textarea></div>
+        <button class="submit-btn" type="submit">Request a school demo</button>
       </form>
-      <div class="confirm" id="applyConfirm">Thank you. We've noted your child's details. We'll reach out within 2 working days to schedule the discovery interview.</div>
+      <div class="confirm" id="partnerConfirm">Thank you. We've noted your school's details. We'll reach out within 2 working days to set up the walkthrough.</div>
     </div>
-    <div class="side-card" id="discovery">
-      <img class="side-photo" src="images/ai-kids-lab-photo-04.jpg" alt="A student presenting his working AI tool">
-      <h3>Not ready to apply?</h3>
-      <p>If you'd rather talk to us first, about the format, the mentors, or whether your child is the right fit, book a short discovery call. No pressure, no pitch, just a real conversation.</p>
-      <a href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener" class="submit-btn" style="display:inline-block; margin-top:18px; text-decoration:none;">Book a discovery call</a>
+    <div class="side-card">
+      <img class="side-photo" src="images/ai-kids-lab-photo-04.jpg" alt="A student demonstrating a working AI tool to mentors" loading="lazy">
+      <h3>Rather just talk?</h3>
+      <p>Pick a slot and we'll walk your team through the full curriculum, the expert-day format, the assessment rubrics and the commercials. No deck-only pitch — we'll show you the actual modules and real student projects.</p>
+      <a href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener" class="submit-btn" style="display:inline-block; margin-top:18px; text-decoration:none;">Book a 30-minute call</a>
+      <p style="margin-top:18px; font-size:0.86rem;">Or email <a href="mailto:ramyaaikidslab@gmail.com" style="color:var(--yellow); text-decoration:underline;">ramyaaikidslab@gmail.com</a></p>
     </div>
   </div>
 </section>
 
 <section id="faq">
-  <div class="wrap" style="max-width:760px;">
+  <div class="wrap" style="max-width:800px;">
     <div class="sec-head">
-      <h2>Questions parents ask</h2>
+      <h2>Questions school leaders ask</h2>
     </div>
     <div class="faq-list">
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">What ages can join? <span class="icon">+</span></div>
-        <div class="faq-a">Children between 9 and 15 years old.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">Which grades does this cover? <span class="icon">+</span></div>
+        <div class="faq-a">Grades 7, 8 and 9, with a distinct curriculum and a distinct capstone project for each year. Grade 7 builds AI literacy and trains a first model, Grade 8 ships a working application, and Grade 9 works like a founder — problem, MVP, users and a pitch.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Is this online or in person? <span class="icon">+</span></div>
-        <div class="faq-a">Fully in person, every Saturday and Sunday, at a coworking training room near you. There is no online-only version of this cohort.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">How much timetable time does it need? <span class="icon">+</span></div>
+        <div class="faq-a">One 45–60 minute period a week, usually the computer or skill period you already have, plus one full expert day a month. There is no parallel timetable, no weekend classes and no additional teaching staff to hire.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Why is there an interview before joining? <span class="icon">+</span></div>
-        <div class="faq-a">Cohorts are capped at 15 seats, so we meet every child and parent first, to make sure the pace, the project, and the mentor genuinely fit, and to set honest expectations before day one.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">Will this clash with our board syllabus? <span class="icon">+</span></div>
+        <div class="faq-a">No — it's designed to embed into it. Before launch we run a curriculum mapping session with your academic coordinator and align every module against your existing AI, computer science and computational thinking units, whether you run CBSE, ICSE, IB, Cambridge or a state board.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">What will my child actually walk away with? <span class="icon">+</span></div>
-        <div class="faq-a">A working AI project they can demo end-to-end, plus an earlier milestone project at the program's midpoint. Both are things they can show off, not just a certificate.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">Does it add to our teachers' workload? <span class="icon">+</span></div>
+        <div class="faq-a">The teaching content is self-paced and recorded, so your teacher facilitates the period rather than preparing it. We also run a teacher enablement track so your faculty genuinely grow into the subject instead of being sidelined by an outside vendor.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Who actually teaches the classes? <span class="icon">+</span></div>
-        <div class="faq-a">Mentors who are IIT, IIIT, or BITS alumni, or who've worked at companies like Google, Apple, Amazon, and Microsoft. Every mentor is also assessed on how well they teach a 10-year-old, not just on their resume.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">What infrastructure do we need? <span class="icon">+</span></div>
+        <div class="faq-a">An internet-connected computer lab with modern browsers, and ideally one device per one or two students. Everything runs in the cloud. No GPUs, no servers, no new hardware purchase.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Is internship exposure guaranteed? <span class="icon">+</span></div>
-        <div class="faq-a">For children who show strong aptitude and interest, we help arrange internship-style exposure to real companies at the end of the cohort, based on project fit and availability.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">What actually happens on the monthly expert day? <span class="icon">+</span></div>
+        <div class="faq-a">An industry engineer spends the day on your campus. The morning is a doubt-clearing clinic on that month's modules, the middle of the day is a live build sprint on the class project with the expert on the floor, and before they leave, every team demos what moved that day. It's a working session, not a guest lecture.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">How much does it cost? <span class="icon">+</span></div>
-        <div class="faq-a">Pricing depends on the cohort and schedule that fits your child, and is shared during your discovery call or interview.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">How are students assessed? <span class="icon">+</span></div>
+        <div class="faq-a">Each capstone carries a written rubric covering understanding, build quality, problem fit and presentation, alongside module completion tracked per student. Schools typically feed this straight into internal assessment and the term report card.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Does my child need any prior coding experience? <span class="icon">+</span></div>
-        <div class="faq-a">No. Curiosity matters far more than background. We've designed the first weeks for children who have never written a line of code.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">What does it cost? <span class="icon">+</span></div>
+        <div class="faq-a">Pricing is per school, based on the grades you cover and your student numbers, and covers the curriculum, the platform, teacher enablement, the monthly expert days and the annual Build-a-thon. We share the full commercials on the demo call.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">What if my child isn't selected after the interview? <span class="icon">+</span></div>
-        <div class="faq-a">We're honest about fit, not harsh about it. If it's not the right time, we'll tell you exactly why and what to build on before applying to a future cohort.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">Can we pilot with one grade first? <span class="icon">+</span></div>
+        <div class="faq-a">Yes, and many schools do. Start with a single grade for one term, see the capstones the students produce, and extend to all three grades from the next academic year.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">How many mentors are there per cohort? <span class="icon">+</span></div>
-        <div class="faq-a">Cohorts are capped at 15 children specifically so mentors can give real, individual attention, not lecture to a room.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">Are the experts who come on campus verified? <span class="icon">+</span></div>
+        <div class="faq-a">Every expert is background-verified and assessed on how well they work with 12–15 year olds, not just on their engineering résumé. Our full child-safety policy, consent process and campus protocol are shared before you sign anything.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Where exactly are classes held? <span class="icon">+</span></div>
-        <div class="faq-a">In-person, at coworking training rooms in Hyderabad. The exact venue nearest you is confirmed once your child is placed in a cohort.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">What about student data and online safety? <span class="icon">+</span></div>
+        <div class="faq-a">Tools and accounts are chosen for this age group, students don't share personal data with models, and safe, ethical AI use is taught as part of the curriculum from Grade 7 onwards. We share our data handling and tool list with your team during onboarding.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">What days and times are classes held? <span class="icon">+</span></div>
-        <div class="faq-a">Every Saturday and Sunday, same time each week, for the full three months. Consistency is part of how the program works.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">Do students need prior coding experience? <span class="icon">+</span></div>
+        <div class="faq-a">No. Grade 7 starts from zero and is built for students who have never written a line of code. Python appears only in Grade 8, and only as much as a student needs to read and change what AI writes for them.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">How does this relate to CBSE's new AI curriculum? <span class="icon">+</span></div>
-        <div class="faq-a">CBSE's Computational Thinking & AI curriculum builds foundational classroom awareness. We go further: hands-on, project-based, and outside the constraints of a school syllabus.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">What do parents see? <span class="icon">+</span></div>
+        <div class="faq-a">A term-wise progress report for their child, the capstone their child built and presented, and an invitation to the annual Build-a-thon and award ceremony. We'll also run a parent orientation session at launch if you'd like one.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Can parents sit in on the classes? <span class="icon">+</span></div>
-        <div class="faq-a">Regular sessions are child-only, so kids can focus and build independently. Every parent is welcome, and encouraged, to attend Showcase Day.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">How long does it take to launch? <span class="icon">+</span></div>
+        <div class="faq-a">Roughly four weeks from agreement: curriculum mapping, teacher enablement, lab and account setup, then classes begin, with the first expert day landing inside the first month.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">What happens if my child misses a class? <span class="icon">+</span></div>
-        <div class="faq-a">Mentors share a short recap and help your child catch up on their project. Missing an occasional session doesn't derail the cohort.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">Do you work with schools outside Hyderabad? <span class="icon">+</span></div>
+        <div class="faq-a">The curriculum and platform run anywhere in India. The monthly on-campus expert day is currently strongest in and around Hyderabad, and we're onboarding schools in other cities as we build the expert network there — tell us your city on the call and we'll be straight with you about what we can commit to.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">How are mentors vetted, and is my child safe? <span class="icon">+</span></div>
-        <div class="faq-a">Every mentor is background-verified and assessed on how they teach children, not just their resume. Our full child-safety policy and consent process is shared during your interview.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Is coding still worth learning if AI can code for you? <span class="icon">+</span></div>
-        <div class="faq-a">More than ever. Understanding how AI actually thinks and builds is what lets a child direct it well, and that understanding doesn't come from using AI tools alone.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Is there a trial before we commit? <span class="icon">+</span></div>
-        <div class="faq-a">Your discovery interview includes a short, interactive taste of how a real class runs, so your child (and you) know what to expect before joining.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">What happens to the strongest student projects? <span class="icon">+</span></div>
+        <div class="faq-a">They're selected at your school's annual Build-a-thon, judged by industry mentors and recognised at an award ceremony. On our roadmap, we're building partnerships with student incubators across India so that a Grade 9 student with a working product and real users has a route to turning it into an actual business.</div>
       </div>
     </div>
   </div>
@@ -1008,19 +1132,19 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type":"Question","name":"What ages can join?","acceptedAnswer":{"@type":"Answer","text":"Children between 9 and 15 years old."}},
-    {"@type":"Question","name":"Is this online or in person?","acceptedAnswer":{"@type":"Answer","text":"Fully in person, every Saturday and Sunday, at a coworking training room near you. There is no online-only version of this cohort."}},
-    {"@type":"Question","name":"Why is there an interview before joining?","acceptedAnswer":{"@type":"Answer","text":"Cohorts are capped at 15 seats, so we meet every child and parent first, to make sure the pace, the project, and the mentor genuinely fit, and to set honest expectations before day one."}},
-    {"@type":"Question","name":"What will my child actually walk away with?","acceptedAnswer":{"@type":"Answer","text":"A working AI project they can demo end-to-end, plus an earlier milestone project at the program's midpoint."}},
-    {"@type":"Question","name":"Who actually teaches the classes?","acceptedAnswer":{"@type":"Answer","text":"Mentors who are IIT, IIIT, or BITS alumni, or who've worked at companies like Google, Apple, Amazon, and Microsoft."}},
-    {"@type":"Question","name":"Is internship exposure guaranteed?","acceptedAnswer":{"@type":"Answer","text":"For children who show strong aptitude and interest, we help arrange internship-style exposure to real companies at the end of the cohort, based on project fit and availability."}},
-    {"@type":"Question","name":"Does my child need any prior coding experience?","acceptedAnswer":{"@type":"Answer","text":"No. Curiosity matters far more than background."}},
-    {"@type":"Question","name":"How many mentors are there per cohort?","acceptedAnswer":{"@type":"Answer","text":"Cohorts are capped at 15 children so mentors can give real, individual attention."}},
-    {"@type":"Question","name":"Where exactly are classes held?","acceptedAnswer":{"@type":"Answer","text":"In-person, at coworking training rooms in Hyderabad."}},
-    {"@type":"Question","name":"What days and times are classes held?","acceptedAnswer":{"@type":"Answer","text":"Every Saturday and Sunday, same time each week, for three months."}},
-    {"@type":"Question","name":"How does this relate to CBSE's new AI curriculum?","acceptedAnswer":{"@type":"Answer","text":"CBSE's Computational Thinking & AI curriculum builds foundational classroom awareness; this program goes further with hands-on, project-based learning."}},
-    {"@type":"Question","name":"Can parents sit in on the classes?","acceptedAnswer":{"@type":"Answer","text":"Regular sessions are child-only; parents are welcome to attend Showcase Day."}},
-    {"@type":"Question","name":"Is coding still worth learning if AI can code for you?","acceptedAnswer":{"@type":"Answer","text":"Yes. Understanding how AI actually thinks and builds is what lets a child direct it well."}}
+    {"@type":"Question","name":"Which grades does the AI Kids Lab school program cover?","acceptedAnswer":{"@type":"Answer","text":"Grades 7, 8 and 9, with a distinct curriculum and a distinct capstone project for each year. Grade 7 builds AI literacy and trains a first model, Grade 8 ships a working application, and Grade 9 works like a founder with a problem, an MVP, users and a pitch."}},
+    {"@type":"Question","name":"How much timetable time does it need?","acceptedAnswer":{"@type":"Answer","text":"One 45 to 60 minute period a week, usually an existing computer or skill period, plus one full industry expert day a month. No parallel timetable, no weekend classes and no additional teaching staff."}},
+    {"@type":"Question","name":"Will this clash with our board syllabus?","acceptedAnswer":{"@type":"Answer","text":"No. Before launch we run a curriculum mapping session with your academic coordinator and align every module against your existing AI, computer science and computational thinking units, whether you run CBSE, ICSE, IB, Cambridge or a state board."}},
+    {"@type":"Question","name":"Does it add to our teachers' workload?","acceptedAnswer":{"@type":"Answer","text":"The teaching content is self-paced and recorded, so the teacher facilitates the period rather than preparing it. A teacher enablement track trains your faculty to grow into the subject."}},
+    {"@type":"Question","name":"What infrastructure does the school need?","acceptedAnswer":{"@type":"Answer","text":"An internet-connected computer lab with modern browsers, ideally one device per one or two students. Everything runs in the cloud, with no GPUs, servers or new hardware purchase."}},
+    {"@type":"Question","name":"What happens on the monthly expert day?","acceptedAnswer":{"@type":"Answer","text":"An industry engineer spends the day on campus: a doubt-clearing clinic on that month's modules, a live build sprint on the class project, and a showcase the same day where every team demos what they built."}},
+    {"@type":"Question","name":"How are students assessed?","acceptedAnswer":{"@type":"Answer","text":"Each capstone carries a written rubric covering understanding, build quality, problem fit and presentation, alongside per-student module completion. Schools feed this into internal assessment and the term report card."}},
+    {"@type":"Question","name":"What does the school program cost?","acceptedAnswer":{"@type":"Answer","text":"Pricing is per school, based on the grades covered and student numbers, and includes the curriculum, platform, teacher enablement, monthly expert days and the annual Build-a-thon. Full commercials are shared on the demo call."}},
+    {"@type":"Question","name":"Can we pilot with one grade first?","acceptedAnswer":{"@type":"Answer","text":"Yes. Many schools start with a single grade for one term, see the capstone projects, and extend to all three grades the following academic year."}},
+    {"@type":"Question","name":"Are the experts who come on campus verified?","acceptedAnswer":{"@type":"Answer","text":"Every expert is background-verified and assessed on how well they work with 12 to 15 year olds. The full child-safety policy, consent process and campus protocol are shared before any agreement."}},
+    {"@type":"Question","name":"Do students need prior coding experience?","acceptedAnswer":{"@type":"Answer","text":"No. Grade 7 starts from zero and is built for students who have never written a line of code. Python appears only in Grade 8, and only as much as a student needs to read and change what AI writes."}},
+    {"@type":"Question","name":"How long does it take to launch?","acceptedAnswer":{"@type":"Answer","text":"Roughly four weeks from agreement: curriculum mapping, teacher enablement, lab and account setup, then classes begin, with the first expert day inside the first month."}},
+    {"@type":"Question","name":"What happens to the strongest student projects?","acceptedAnswer":{"@type":"Answer","text":"They are selected at the school's annual Build-a-thon, judged by industry mentors and recognised at an award ceremony. Partnerships with student incubators across India are on the roadmap so students can take a working product further."}}
   ]
 }
 </script>
@@ -1029,41 +1153,42 @@
   <div class="wrap footer-top">
     <div class="footer-brand">
       <a class="logo" href="index.html" aria-label="AI Kids Lab, back to top" onclick="scrollToTop(); return false;"><svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="6" y="6" width="88" height="88" rx="14"/><rect x="34" y="34" width="32" height="32" rx="8"/><rect x="44" y="44" width="12" height="12" rx="3"/></svg>AI KIDS LAB</a>
-      <p class="footer-tagline">A fully offline, project-based AI cohort for curious 9–15 year olds in Hyderabad. Small groups, real mentors, one real AI project to show for it.</p>
+      <p class="footer-tagline">A grade-wise AI curriculum for Grades 7, 8 and 9, embedded inside your school's existing timetable — with an industry expert on campus every month and a capstone every child builds.</p>
       <div class="footer-ctas">
-        <a href="#" class="btn-primary" onclick="openJoinModal(); return false;">Join the Cohort</a>
-        <a href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener" class="btn-secondary">Book a discovery call</a>
+        <a href="#" class="btn-primary" onclick="openPartnerModal(); return false;">Book a school demo</a>
+        <a href="https://calendly.com/ramyaaikidslab/30min" target="_blank" rel="noopener" class="btn-secondary">Pick a slot</a>
       </div>
     </div>
     <div class="footer-col">
-      <h4>Explore</h4>
-      <a href="#build">What they build</a>
-      <a href="#apply">Admission</a>
-      <a href="about.html">About us</a>
-      <a href="blog.html">Blog</a>
+      <h4>Program</h4>
+      <a href="#model">How it works</a>
+      <a href="#curriculum">Grade-wise curriculum</a>
+      <a href="#boards">Board alignment</a>
+      <a href="#outcomes">For your school</a>
+      <a href="#rollout">Rollout</a>
       <a href="#faq">FAQ</a>
     </div>
     <div class="footer-col">
-      <h4>Compare AI Kids Lab</h4>
-      <a href="ai-kids-lab-vs-whitehat-jr.html">vs WhiteHat Jr</a>
-      <a href="ai-kids-lab-vs-byjus-futureschool.html">vs BYJU'S FutureSchool</a>
-      <a href="ai-kids-lab-vs-coding-ninjas-junior.html">vs Coding Ninjas Junior</a>
-      <a href="ai-kids-lab-vs-online-ai-courses.html">vs online AI courses</a>
+      <h4>Company</h4>
+      <a href="#team">Who's behind this</a>
+      <a href="about.html">About us</a>
+      <a href="blog.html">Blog</a>
+      <a href="#partner">Partner with us</a>
     </div>
     <div class="footer-col">
       <h4>Contact</h4>
       <a href="mailto:ramyaaikidslab@gmail.com">ramyaaikidslab@gmail.com</a>
-      <a href="https://wa.me/919642099896?text=Hi%2C%20I%27m%20interested%20in%20AI%20Kids%20Lab%20for%20my%20child" target="_blank" rel="noopener">WhatsApp: +91 96420 99896</a>
-      <div class="footer-loc">Currently launching in Hyderabad, India</div>
+      <a href="https://wa.me/919642099896?text=Hi%2C%20I%27m%20from%20a%20school%20and%20I%27d%20like%20to%20know%20more%20about%20the%20AI%20Kids%20Lab%20school%20program" target="_blank" rel="noopener">WhatsApp: +91 96420 99896</a>
+      <div class="footer-loc">Hyderabad, India — working with schools across India</div>
     </div>
   </div>
   <div class="wrap footer-bottom">
-    <div>&copy; 2026 AI Kids Lab. Where young minds build with AI.</div>
+    <div>&copy; 2026 AI Kids Lab. Building India's young founders, one classroom at a time.</div>
     <div>Hyderabad, India</div>
   </div>
 </footer>
 
-<a class="wa-float" href="https://wa.me/919642099896?text=Hi%2C%20I%27m%20interested%20in%20AI%20Kids%20Lab%20for%20my%20child" target="_blank" rel="noopener" aria-label="Message us on WhatsApp">
+<a class="wa-float" href="https://wa.me/919642099896?text=Hi%2C%20I%27m%20from%20a%20school%20and%20I%27d%20like%20to%20know%20more%20about%20the%20AI%20Kids%20Lab%20school%20program" target="_blank" rel="noopener" aria-label="Message us on WhatsApp">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.898 9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
 </a>
 
@@ -1077,23 +1202,42 @@
     document.querySelectorAll('.faq-item').forEach(i => { if(i !== item) i.classList.remove('open'); });
     item.classList.toggle('open');
   }
-  const WHATSAPP_URL = 'https://wa.me/919642099896?text=Hi%2C%20I%27m%20interested%20in%20AI%20Kids%20Lab%20for%20my%20child';
+  const WHATSAPP_URL = 'https://wa.me/919642099896?text=Hi%2C%20I%27m%20from%20a%20school%20and%20I%27d%20like%20to%20know%20more%20about%20the%20AI%20Kids%20Lab%20school%20program';
+
   /* ---------------------------------------------------------------
-     Enquiry form -> the "Cohort Enquiry" Google Form owned by
-     ramyaaikidslab@gmail.com. The entry ids come from that form's
-     pre-filled link and are positional: they match the form's six
-     questions in order, so reordering or replacing a question in
-     Google Forms changes its id and breaks this mapping.
+     School partnership enquiry -> Google Form owned by
+     ramyaaikidslab@gmail.com.
+
+     NOTE: this still posts to the ORIGINAL parent-facing "Cohort
+     Enquiry" form, because its entry ids are the only ones we have.
+     The ids are positional to that form's questions, so the school
+     fields are folded onto the closest equivalents and everything
+     that has no home (role, city, board, grades, student count) is
+     packed into the free-text "notes" question.
+
+       entry.17034647    was "Child's name"   -> School name
+       entry.679503118   was "Parent's name"  -> Contact person
+       entry.1914773534  was "Phone or email" -> Phone or email
+       entry.428965629   was "Notes"          -> Packed school details
+       entry.2017562969  was "Source"         -> Page + form id
+
+     The old "Child's age" question (entry.1489119340) is a number
+     field validated to 9-15, so nothing sensible can be sent to it
+     and it is deliberately left out. If that question is marked
+     required in Google Forms, submissions WILL be rejected silently
+     (the response is opaque under no-cors). Replace this block with
+     a purpose-built "School Partnership Enquiry" form as soon as
+     one exists: create the form, take a pre-filled link, and swap
+     the action url and the six entry ids below.
      --------------------------------------------------------------- */
   const ENQUIRY_FORM = {
     action: 'https://docs.google.com/forms/d/e/1FAIpQLScoS7MU0PTMvf0NnpD6bqL0qWwxw2He4Y0_7-5rX85Ne9M3Jg/formResponse',
     fields: {
-      childName:  'entry.17034647',
-      childAge:   'entry.1489119340',
-      parentName: 'entry.679503118',
-      contact:    'entry.1914773534',
-      notes:      'entry.428965629',
-      source:     'entry.2017562969'
+      schoolName:  'entry.17034647',
+      contactName: 'entry.679503118',
+      contact:     'entry.1914773534',
+      details:     'entry.428965629',
+      source:      'entry.2017562969'
     }
   };
   const ENQUIRY_CONFIGURED = !ENQUIRY_FORM.action.includes('PASTE_');
@@ -1111,6 +1255,24 @@
     box.classList.add('show');
   }
 
+  /* The school-specific answers that the legacy form has no question
+     for, flattened into one readable line for the notes field. */
+  function packDetails(form){
+    const parts = [];
+    const add = (label, name) => {
+      const field = form.elements[name];
+      const value = field ? field.value.trim() : '';
+      if(value) parts.push(label + ': ' + value);
+    };
+    add('Role', 'role');
+    add('City', 'city');
+    add('Board', 'board');
+    add('Grades', 'grades');
+    add('Students in 7-9', 'students');
+    add('Notes', 'notes');
+    return parts.join(' | ');
+  }
+
   async function handleSubmit(e, confirmId){
     e.preventDefault();
     const form = e.target;
@@ -1123,14 +1285,13 @@
     }
 
     const body = new URLSearchParams();
-    for(const [name, entry] of Object.entries(ENQUIRY_FORM.fields)){
-      if(name === 'source') continue;
-      const field = form.elements[name];
-      if(field) body.append(entry, field.value.trim());
-    }
-    body.append(ENQUIRY_FORM.fields.source, document.title + ' (' + confirmId + ')');
+    body.append(ENQUIRY_FORM.fields.schoolName,  form.elements.schoolName.value.trim());
+    body.append(ENQUIRY_FORM.fields.contactName, form.elements.contactName.value.trim());
+    body.append(ENQUIRY_FORM.fields.contact,     form.elements.contact.value.trim());
+    body.append(ENQUIRY_FORM.fields.details,     packDetails(form));
+    body.append(ENQUIRY_FORM.fields.source,      document.title + ' (' + confirmId + ')');
 
-    if(btn){ btn.disabled = true; btn.textContent = 'Sending\u2026'; }
+    if(btn){ btn.disabled = true; btn.textContent = 'Sending…'; }
     try{
       /* Google Forms sends no CORS headers, so the response is opaque:
          a resolved promise means the POST was delivered. */
@@ -1146,16 +1307,16 @@
     }
     return false;
   }
-  function openJoinModal(){
-    document.getElementById('joinModalOverlay').classList.add('open');
+  function openPartnerModal(){
+    document.getElementById('partnerModalOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
-  function closeJoinModal(){
-    document.getElementById('joinModalOverlay').classList.remove('open');
+  function closePartnerModal(){
+    document.getElementById('partnerModalOverlay').classList.remove('open');
     document.body.style.overflow = '';
   }
   document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape') closeJoinModal();
+    if(e.key === 'Escape') closePartnerModal();
   });
 </script>
 
