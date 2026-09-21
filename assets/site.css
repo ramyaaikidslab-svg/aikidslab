@@ -787,3 +787,27 @@
   .amp .n{display:block; font-family:var(--mono); font-size:0.66rem; letter-spacing:0.16em; color:var(--gold-ink); margin-bottom:16px;}
   .amp h3{font-size:1.1rem; font-weight:500; margin-bottom:10px;}
   .amp p{font-size:0.93rem; color:var(--muted);}
+
+  /* ---------- TRUST-BAR CTA ---------- */
+  .trust-cta{
+    display:flex; flex-direction:column; gap:7px; margin-top:44px;
+    border:1px solid var(--line-strong); border-radius:var(--r);
+    background:var(--gold-wash); padding:26px 30px; max-width:76ch;
+    position:relative; overflow:hidden;
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s var(--ease);
+  }
+  .trust-cta::before{
+    content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--gold);
+  }
+  .trust-cta:hover{transform:translateY(-3px); box-shadow:var(--shadow-lift); border-color:var(--gold);}
+  .trust-cta-main{
+    font-family:var(--serif); font-size:clamp(1.25rem,2.4vw,1.6rem); font-weight:500;
+    color:var(--ink); display:flex; align-items:center; gap:14px; line-height:1.2;
+  }
+  .trust-cta-main::after{
+    content:"\2192"; color:var(--gold-ink); font-family:var(--sans);
+    transition:transform .35s var(--ease); flex-shrink:0;
+  }
+  .trust-cta:hover .trust-cta-main::after{transform:translateX(6px);}
+  .trust-cta-sub{font-size:0.94rem; color:#5A4C2C; max-width:62ch;}
+  @media (max-width:560px){ .trust-cta{padding:22px 20px;} }
