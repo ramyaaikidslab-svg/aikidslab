@@ -36,7 +36,7 @@ export function authScreen(main, onDone) {
       busy(f, true);
       try {
         let r;
-        try { r = await backend.lookup(email); } catch (err) { busy(f, false); return showErr(f, 'Could not reach the server. Check your internet connection and try again.'); }
+        try { r = await backend.lookup(email); } catch (err) { busy(f, false); return showErr(f, `Could not reach the server. Check your internet connection and try again.<br><span class="small muted">${esc(err && err.message || err)} · Teachers: open <a href="check.html">check.html</a></span>`); }
         if (!r.ok) { busy(f, false); return showErr(f, r.error === 'bad_email' ? 'Please type a full email address, like name@school.edu.in' : `The server had a problem (${esc(r.error)}${r.message ? ': ' + esc(r.message) : ''}). If this keeps happening, tell your teacher.`); }
         if (!r.allowed) return stepEmail(`This email isn't on the access list yet. Ask your teacher to add <b>${esc(email)}</b>.`);
         r.exists ? stepPin(r.name, '', r.needsPin) : stepRegister();

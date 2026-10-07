@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex">
+<title>Connection Check · AI Kids Lab Academy</title>
+<link rel="icon" href="../favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+<style>
+  .res { border: 2px solid var(--line, #ddd); border-radius: 12px; padding: 12px 14px; margin-top: 12px; }
+  .res.ok { border-color: #1a9e5c; } .res.bad { border-color: #d93a3a; }
+  .res pre { white-space: pre-wrap; word-break: break-word; font-size: 13px; margin: 8px 0 0; max-height: 180px; overflow: auto; }
+</style>
+</head>
+<body>
+<main class="wrap auth">
+  <div class="card" style="width:min(100%,640px)">
+    <div class="kicker">For teachers</div>
+    <h1>Connection check</h1>
+    <p class="muted">Tests the Google Sheets backend exactly the way the app calls it. It only reads; nothing is written to the sheet.</p>
+    <p class="small muted mono" id="url"></p>
+    <button class="btn primary big block mt" id="go">Run check</button>
+    <div id="out" aria-live="polite"></div>
+  </div>
+</main>
+<script type="module">
+  import CFG from './js/config.js';
+  const $ = s => document.querySelector(s), esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  $('#url').textContent = CFG.BACKEND_URL || '(BACKEND_URL is empty: the app is in device-only mode)';
+  const ACCESS = 'The browser was refused before getting an answer. This almost always means the deployment\'s "Who has access" is not "Anyone". Fix: Apps Script → Deploy → Manage deployments → pencil → Who has access: Anyone, Version: New version → Deploy.';
+  function show(title, ok, note, detail) {
+    $('#out').insertAdjacentHTML('beforeend', `<div class="res ${ok ? 'ok' : 'bad'}"><b>${ok ? '✓' : '✗'} ${esc(title)}</b><p class="small mt">${esc(note)}</p>${detail ? `<pre>${esc(detail)}</pre>` : ''}</div>`);
+  }
+  function explainText(t) {
+    if (/Script function not found/i.test(t)) return 'The deployed version is missing a function. Paste Code.gs again, Save, then Deploy → Manage deployments → pencil → Version: New version → Deploy.';
+    if (/<html|<!doctype/i.test(t)) return 'Google answered with a web page instead of data, usually an error or sign-in page. The text below says which.';
+    return 'The answer was not in the expected format.';
+  }
+  function pageText(t) { const d = new DOMParser().parseFromString(t, 'text/html'); return (d.body ? d.body.innerText : t).replace(/\s+\n/g, '\n').trim().slice(0, 600); }
+  async function test(title, opts) {
+    let res, text;
+    try { res = await fetch(CFG.BACKEND_URL, { redirect: 'follow', ...opts }); text = await res.text(); }
+    catch (e) { show(title, false, ACCESS, String(e)); return; }
+    let j = null; try { j = JSON.parse(text); } catch (e) {}
+    if (!j) return show(title, false, explainText(text) + ' (HTTP ' + res.status + ')', pageText(text));
+    if (j.ok) return show(title, true, 'Works.', text.slice(0, 300));
+    show(title, false, j.error === 'server_error' ? 'The script ran but hit an error. Check the sheet has all 6 tabs (run setup again if not), and send this message to your developer.' : 'The script answered with an error.', text.slice(0, 600));
+  }
+  $('#go').onclick = async () => {
+    $('#out').innerHTML = '';
+    if (!CFG.BACKEND_URL) return show('No backend', false, 'BACKEND_URL is empty in js/config.js.');
+    $('#go').disabled = true;
+    await test('1. Basic connection (GET)', { method: 'GET' });
+    await test('2. Sign-in lookup (POST, like the app)', { method: 'POST', body: JSON.stringify({ action: 'lookup', email: 'connection-check@example.com' }), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
+    $('#go').disabled = false;
+  };
+</script>
+</body>
+</html>
