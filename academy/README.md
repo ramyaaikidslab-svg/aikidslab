@@ -15,24 +15,28 @@ Live path: `/academy/` (e.g. `https://www.aikidslab.co/academy/`).
 - Resume exactly where you left off (step-level), on any device when the Sheets backend is on.
 
 ## Accounts and data
-Sign-in is **email + 4-digit PIN** (name, school, section collected at sign-up).
-- **Device-only mode** (default, `BACKEND_URL` empty in `js/config.js`): accounts/progress in the browser.
-- **Google Sheets mode**: follow `backend/SETUP.md` (≈ 5 minutes). Names, emails, progress summaries, logins and certificates land in a Google Sheet you own. `Settings → ACCESS_MODE = allowlist` restricts sign-ups to the emails in the `Allowlist` tab.
+Sign-in is **email + 4-digit PIN** (name, school, section collected at sign-up). Backends, chosen in `js/config.js`:
+- **Firebase** (current, `FIREBASE` set): Firebase Auth + Firestore. Setup, teacher dashboard (`teacher.html`) and allowlist: `backend/FIREBASE.md`. Rules: `backend/firestore.rules`.
+- **Google Sheets** (`BACKEND_URL`): Apps Script web app, see `backend/SETUP.md`.
+- **Device-only** (neither set): accounts/progress stay in the browser.
+
+`check.html` tests the connection; `verify.html` checks certificates.
 
 ## Layout
 ```
 index.html, verify.html      app shell, certificate checker
+teacher.html, check.html     teacher dashboard (Firebase), connection check
 css/app.css                  design system
 js/app.js                    boot, top bar, router
 js/config.js                 BACKEND_URL and settings
-js/core/                     store (state+backends), auth, course, questions, learn (practice/quiz/gym),
+js/core/                     store (state+backends), firebase (Firebase backend), auth, course, questions, learn (practice/quiz/gym),
                              player, code (Python step), python + py-worker (Pyodide), cert, charts, views, util, rng, pdf
 js/content/u1..u5.js, cp.js  course content (unit 1 split into parts/)
 js/py/exercises*.js          Python exercises (solutions are the answer key)
 js/gens/index.js             question generators
 js/labs/*.js                 interactive labs (see docs/LAB_SPEC.md)
-vendor/                      Pyodide, jsPDF, CodeMirror (self-hosted)
-backend/Code.gs, SETUP.md    Google Apps Script backend
+vendor/                      Pyodide, jsPDF, CodeMirror, Firebase JS SDK (self-hosted)
+backend/                     firestore.rules + FIREBASE.md; Code.gs + SETUP.md (Sheets alternative)
 docs/                        CONTENT_SPEC, LAB_SPEC, PYTHON_SPEC
 tools/                       validators and tests
 ```
