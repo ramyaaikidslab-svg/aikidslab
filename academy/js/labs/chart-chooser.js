@@ -50,7 +50,7 @@ const CANT = { cat: ['scatter'], time: ['scatter'], parts: ['scatter'], rel: ['p
 
 function renderChart(sc, t, narrow) {
   const d = sc.d, W = narrow ? 340 : 560, H = narrow ? 260 : 300, title = '';
-  if (CANT[sc.kind].includes(t)) return `<div class="cc-cant">${ic('alert', 'lg')}<b>This chart can't show this data</b><span class="small">${esc(why(sc.kind, t, d))}</span></div>`;
+  if (CANT[sc.kind].includes(t)) return `<div class="cc-cant">${ic('alert', 'lg')}<b>A ${TNAME[t].toLowerCase()} chart can't show this data</b><span class="small">See why below.</span></div>`;
   if (sc.kind === 'rel') {
     const pts = d.pts.slice().sort((a, b) => a[0] - b[0]);
     if (t === 'scatter') return chart.scatter(d.pts, { W, H, title, xlabel: d.xname, ylabel: d.yname });

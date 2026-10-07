@@ -14,6 +14,13 @@ const KPIS = { rev: 'Total revenue', qty: 'Items sold', best: 'Best-selling item
 export const rupees = n => '₹' + Math.round(n).toLocaleString('en-IN');
 export function agg(rows, by, m) { const out = Object.fromEntries(CATS[by].map(c => [c, 0])); rows.forEach(r => { out[r[by]] += r[m]; }); return out; }
 export function top(obj) { const e = Object.entries(obj).sort((a, b) => b[1] - a[1]); return { key: e[0][0], v: e[0][1], margin: e.length > 1 ? (e[0][1] - e[1][1]) / e[0][1] : 1 }; }
+// whole-number percentages that always add up to exactly 100 (largest remainder)
+export function pcts(vals) {
+  const tot = vals.reduce((a, b) => a + b, 0); if (!tot) return vals.map(() => 0);
+  const raw = vals.map(v => v / tot * 100), fl = raw.map(Math.floor); let left = 100 - fl.reduce((a, b) => a + b, 0);
+  raw.map((r, i) => [r - fl[i], i]).sort((a, b) => b[0] - a[0]).forEach(([, i]) => { if (left > 0) { fl[i]++; left--; } });
+  return fl;
+}
 export const filt = (rows, month) => month === 'All' ? rows : rows.filter(r => r.month === month);
 
 export function makeData(rng) {
@@ -134,14 +141,14 @@ export default {
       const data = agg(rowsNow(), c.g, c.m), labels = Object.keys(data), vals = Object.values(data);
       const title = `${c.m === 'rev' ? 'Revenue' : 'Quantity'} by ${GRP[c.g]} · ${fLabel()}`;
       if (c.t === 'pie') {
-        const tot = vals.reduce((a, b) => a + b, 0) || 1; let a0 = -Math.PI / 2, g = '';
+        const tot = vals.reduce((a, b) => a + b, 0) || 1, pc = pcts(vals); let a0 = -Math.PI / 2, g = '';
         vals.forEach((v, i) => {
           const a1 = a0 + v / tot * Math.PI * 2, large = a1 - a0 > Math.PI ? 1 : 0, col = chart.COLORS[i % chart.COLORS.length];
           g += v === tot ? `<circle cx="80" cy="80" r="72" fill="${col}" stroke="#15171C" stroke-width="2"/>` : v ? `<path d="M80,80 L${80 + 72 * Math.cos(a0)},${80 + 72 * Math.sin(a0)} A72,72 0 ${large} 1 ${80 + 72 * Math.cos(a1)},${80 + 72 * Math.sin(a1)} Z" fill="${col}" stroke="#15171C" stroke-width="2"/>` : '';
           a0 = a1;
         });
-        return [title, `<div class="pie"><svg viewBox="0 0 160 160" role="img" aria-label="${esc(title)}: ${labels.map((l, i) => `${l} ${Math.round(vals[i] / tot * 100)}%`).join(', ')}">${g}</svg>
-          <div class="leg">${labels.map((l, i) => `<div><i style="background:${chart.COLORS[i % chart.COLORS.length]}"></i>${esc(l)} — ${Math.round(vals[i] / tot * 100)}% <span class="muted">(${c.m === 'rev' ? rupees(vals[i]) : vals[i]})</span></div>`).join('')}</div></div>`];
+        return [title, `<div class="pie"><svg viewBox="0 0 160 160" role="img" aria-label="${esc(title)}: ${labels.map((l, i) => `${l} ${pc[i]}%`).join(', ')}">${g}</svg>
+          <div class="leg">${labels.map((l, i) => `<div><i style="background:${chart.COLORS[i % chart.COLORS.length]}"></i>${esc(l)} — ${pc[i]}% <span class="muted">(${c.m === 'rev' ? rupees(vals[i]) : vals[i]})</span></div>`).join('')}</div></div>`];
       }
       const o = { W: 360, H: 240, title: '', ylabel: MEAS[c.m] };
       return [title, c.t === 'bar' ? chart.bar(labels, vals, o) : chart.line(labels, [vals], o)];

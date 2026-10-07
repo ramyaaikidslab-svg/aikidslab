@@ -30,7 +30,7 @@ const MSGS = [
   },
   {
     id: 'prize', kind: 'wa', from: ['+44 7700 9XX 112', 'sender'], time: '9:15 pm', phish: true,
-    parts: ['🎉 ', ['Congratulations!! You have WON ₹25,00,000 in the Mega Lucky Draw 2026', 'prize'], '. ', ['Your number was picked by our computer.', null], ' To claim it, ', ['pay a ₹4,999 processing fee by UPI', 'fee'], ' ', ['within 1 hour', 'urgent'], ' or the prize goes to someone else. ', ['Our manager Mr. Sharma will help you.', null]]
+    parts: ['🎉 ', ['Congratulations!! You have WON ₹25,00,000 in the Mega Lucky Draw 2026', 'prize'], '. ', ['Your number was picked by our computer.', 'prize'], ' To claim it, ', ['pay a ₹4,999 processing fee by UPI', 'fee'], ' ', ['within 1 hour', 'urgent'], ' or the prize goes to someone else. ', ['Our manager Mr. Sharma will help you.', null]]
   },
   {
     id: 'bank', kind: 'email', from: ['Sunrise Bank Security <alerts@sunrlse-bank.com>', 'misspelt'], subject: 'Unusual sign-in detected on your account', time: '7:03 am', phish: true,

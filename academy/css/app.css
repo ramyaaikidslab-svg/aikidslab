@@ -344,3 +344,7 @@ footer.foot a{font-weight:800;}
 .editor .cm-s-default .cm-def, .editor .cm-def{color:#C8A8FF;}
 .editor .cm-s-default .cm-error, .editor .cm-error{color:#FF8E86;}
 .editor .CodeMirror-matchingbracket{color:#FFC800 !important; text-decoration:underline;}
+
+/* Tally mark bundle of five: four strokes crossed by a fifth (works in every font). */
+.t5{position:relative; display:inline-block; font-family:var(--mono); font-weight:700; letter-spacing:1px; padding:0 2px;}
+.t5::after{content:""; position:absolute; left:-2px; right:-2px; top:52%; border-top:2px solid currentColor; transform:rotate(-24deg);}

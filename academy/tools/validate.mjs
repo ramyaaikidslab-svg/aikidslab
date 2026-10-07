@@ -19,7 +19,7 @@ const PLAN = {
 };
 const GENS = ['conf-matrix', 'accuracy-calc', 'chart-pick', 'data-type', 'mean-median-mode', 'number-pattern', 'prob-basic', 'event-type', 'prob-complement', 'py-output-arith', 'py-output-cond', 'py-output-loop', 'py-output-list', 'py-type'];
 const TAGS = new Set(['p', 'b', 'i', 'em', 'strong', 'ul', 'ol', 'li', 'br', 'code', 'pre', 'table', 'thead', 'tbody', 'tr', 'th', 'td', 'h4', 'span', 'div', 'sup', 'sub', 'small', 'dfn']);
-const CLASSES = new Set(['key', 'def', 'eg', 'warn', 'cols', 'mini', 'flow', 'formula', 'tbl', 'tblwrap', 'tag', 'data', 'cv', 'nlp', 'code', 'muted', 'small']);
+const CLASSES = new Set(['key', 'def', 'eg', 'warn', 'cols', 'mini', 'flow', 'formula', 'tbl', 'tblwrap', 'tag', 'data', 'cv', 'nlp', 'code', 'muted', 'small', 't5']);
 const BANNED = /\b(all of the above|none of the above|both (a|b) and|both of (these|them|the above)|none of these)\b/i;
 
 const errors = [], warns = [];
