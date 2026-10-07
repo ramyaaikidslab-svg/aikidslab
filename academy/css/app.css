@@ -119,8 +119,8 @@ main{padding-block:26px 90px;}
 .auth h1{font-size:clamp(1.8rem,5vw,2.4rem);}
 .auth-hero{display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center; width:100%;}
 @media (max-width:860px){ .auth-hero{grid-template-columns:1fr;} .auth-side{display:none;} }
-.auth-side h2{font-size:clamp(1.8rem,4vw,2.7rem);}
-.auth-side h2 em{font-style:normal; background:var(--gold); padding:0 .18em; border-radius:8px;}
+.auth-side h2{font-size:clamp(1.8rem,4vw,2.7rem); margin-top:12px; line-height:1.2;}
+.auth-side h2 em{font-style:normal; background:var(--gold); display:inline-block; line-height:1.1; padding:0 .18em; border-radius:8px;}
 .auth-side ul{list-style:none; display:grid; gap:10px; margin-top:18px;}
 .auth-side li{display:flex; gap:10px; align-items:flex-start; font-weight:700;}
 .auth-side li .ic{color:var(--gold-ink); margin-top:3px;}
