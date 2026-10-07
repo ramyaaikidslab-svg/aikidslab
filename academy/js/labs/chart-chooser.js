@@ -125,7 +125,7 @@ export default {
       const done = idx >= set.length;
       ctx.el.innerHTML = `<style>${CSS}</style>
         <p class="lab-intro">Data exploration starts with the right picture. For each question, choose the chart that answers it best. Your choice is drawn instantly — switch as often as you like, then lock in your <b>final choice</b>.</p>
-        <div class="banner" style="flex-wrap:wrap"><span class="chip gold">Goal</span><span>Answer <b>6 questions</b> with at least <b>5 correct</b> final choices.</span></div>
+        <div class="banner" style="flex-wrap:wrap"><span class="chip gold">Goal</span><span>Answer <b>6 questions</b> with at least <b>5 correct</b> final choices.</span>${ctx.done ? '<span class="chip ok">✓ Goal already met — replay any time</span>' : ''}</div>
         <div class="qcount"><span>${done ? 'Finished' : `Question ${idx + 1} of ${set.length}`}</span><span class="dots">${set.map((_, i) => `<i class="${i < finals.length ? (finals[i].ok ? 'ok' : 'no') : i === idx ? 'now' : ''}"></i>`).join('')}</span></div>
         ${done ? endHTML() : qHTML(set[idx])}`;
       wire();

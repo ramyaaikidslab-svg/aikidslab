@@ -61,7 +61,7 @@ export default {
     const QS = [
       { kind: 'mcq', text: 'Which colour was the most common? (This is the <b>mode</b>.)', opts: COLS.map(c => c.name), ans: mode.name, why: `${mode.name} appeared ${TR.actual[mode.k]} times — more than any other colour, so it is the mode.` },
       { kind: 'num', text: 'How many vehicles passed in total?', ans: TR.total, why: `${COLS.map(c => TR.actual[c.k]).join(' + ')} = ${TR.total}. Add up the frequency column.` },
-      { kind: 'mcq', text: 'What fraction of all the vehicles were red?', opts: fopts, ans: frac(TR.actual.red, TR.total), why: `${TR.actual.red} red out of ${TR.total} vehicles = ${TR.actual.red}/${TR.total}${frac(TR.actual.red, TR.total) !== `${TR.actual.red}/${TR.total}` ? ' = ' + frac(TR.actual.red, TR.total) : ''} ≈ ${(TR.actual.red / TR.total).toFixed(2)}.` },
+      { kind: 'mcq', text: 'What fraction of all the vehicles were red?', opts: fopts, ans: frac(TR.actual.red, TR.total), why: `${TR.actual.red} red out of ${TR.total} vehicles = ${TR.actual.red}/${TR.total}${frac(TR.actual.red, TR.total) !== `${TR.actual.red}/${TR.total}` ? ' = ' + frac(TR.actual.red, TR.total) : ''} ${Number.isInteger(TR.actual.red / TR.total * 100) ? '=' : '≈'} ${+(TR.actual.red / TR.total).toFixed(2)}.` },
       { kind: 'mcq', text: 'How could you make your count more reliable?', opts: reliable.map(r => r[0]), ans: reliable.find(r => r[1])[0], why: 'Checking the data a second way (a recording, or two counters comparing) catches mistakes. Counting longer and at different times also gives more representative data.' }
     ];
     let phase = 'ready', mode2 = 'anim', simT = 0, last = 0, raf = 0, tally = Object.fromEntries(COLS.map(c => [c.k, 0])), hist = [], ok = [false, false, false, false], qMsg = ['', '', '', ''], fired = false;
@@ -84,6 +84,10 @@ export default {
         .lab-car .qrow:first-child{border-top:0; padding-top:0;}
         .lab-car .opts{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));}
         .lab-car .tbl td{vertical-align:middle;}
+        .lab-car .tbl th,.lab-car .tbl td{padding:6px 8px;}
+        .lab-car .nw{white-space:nowrap;}
+        @media (max-width:420px){ .lab-car .tb{padding:8px 10px; font-size:.95rem;} .lab-car .tb .sw{width:20px; height:20px;} .lab-car .tbl{font-size:.84rem;} .lab-car .tbl th,.lab-car .tbl td{padding:5px 5px;} }
+        .lab-car .tb .nm{display:flex; align-items:center; gap:8px; min-width:0;}
       </style>
       <div class="lab-car stack">
         <p class="lab-intro">You are doing a <b>traffic survey</b> outside school. For 60 seconds, tap a colour button every time a vehicle passes. Then compare your tally with the real counts.</p>
@@ -96,7 +100,7 @@ export default {
           <div class="meter mt" aria-hidden="true"><i id="csBar" style="width:100%"></i></div>
           <div id="csListBox"></div>
           <h4 class="mt">Your tally <span class="small muted">(keys 1–4 work too)</span></h4>
-          <div class="tal" id="csTal">${COLS.map((c, i) => `<button class="tb" data-c="${c.k}" disabled aria-label="${c.name}: add one"><span class="row" style="gap:8px"><span class="sw" style="background:${c.fill}"></span>${c.name}</span><span class="cnt" id="csN${c.k}">0</span></button>`).join('')}</div>
+          <div class="tal" id="csTal">${COLS.map((c, i) => `<button class="tb" data-c="${c.k}" disabled aria-label="${c.name}: add one"><span class="nm"><span class="sw" style="background:${c.fill}"></span>${c.name}</span><span class="cnt" id="csN${c.k}">0</span></button>`).join('')}</div>
           <div class="row mt"><button class="btn sm" id="csUndo" disabled>${ic('back')} Undo last tap</button><button class="btn sm dark" id="csDone" hidden>I've finished counting</button></div>
         </div>
         <div id="csRes"></div>
@@ -185,7 +189,7 @@ export default {
       ctx.el.querySelector('.meter').hidden = true;
       $('#csListBox').innerHTML = `<p class="small mt">Here are all <b>${TR.total}</b> vehicles in the order they passed. Count each colour with the buttons below, then press “I've finished counting”.</p>
         <div class="tblwrap mt" style="max-height:300px; overflow:auto"><table class="tbl"><thead><tr><th>#</th><th>Time</th><th>Colour</th><th>Type</th></tr></thead><tbody>
-        ${TR.list.map((v, i) => `<tr><td>${i + 1}</td><td>${Math.floor(v.t)} s</td><td><span class="sw" style="display:inline-block; width:14px; height:14px; border-radius:4px; vertical-align:-2px; background:${COLS.find(c => c.k === v.col).fill}"></span> ${COLS.find(c => c.k === v.col).name}</td><td>${v.type === 'car' ? 'Car' : 'Auto-rickshaw'}</td></tr>`).join('')}</tbody></table></div>`;
+        ${TR.list.map((v, i) => `<tr><td>${i + 1}</td><td>${Math.floor(v.t)} s</td><td class="nw"><span class="sw" style="display:inline-block; width:14px; height:14px; border-radius:4px; vertical-align:-2px; background:${COLS.find(c => c.k === v.col).fill}"></span> ${COLS.find(c => c.k === v.col).name}</td><td>${v.type === 'car' ? 'Car' : 'Auto-rickshaw'}</td></tr>`).join('')}</tbody></table></div>`;
       setTally(true); $('#csDone').hidden = false; drawTime();
     }
     function finishTally() {
@@ -203,17 +207,27 @@ export default {
 
     // ---------- results + questions ----------
     function results() {
-      const rowsHTML = COLS.map(c => `<tr><td><span class="sw" style="display:inline-block; width:16px; height:16px; border-radius:4px; vertical-align:-3px; background:${c.fill}"></span> ${c.name}</td><td>${tally[c.k]}</td><td>${tallySVG(TR.actual[c.k])}</td><td><b>${TR.actual[c.k]}</b></td></tr>`).join('');
+      const rowsHTML = COLS.map(c => `<tr><td class="nw"><span class="sw" style="display:inline-block; width:16px; height:16px; border-radius:4px; vertical-align:-3px; background:${c.fill}"></span> ${c.name}</td><td>${tally[c.k]}</td><td>${tallySVG(TR.actual[c.k])}</td><td><b>${TR.actual[c.k]}</b></td></tr>`).join('');
       const yourTot = Object.values(tally).reduce((a, b) => a + b, 0);
       const exact = COLS.filter(c => tally[c.k] === TR.actual[c.k]).length;
       const cars = TR.list.filter(v => v.type === 'car').length;
       $('#csRes').innerHTML = `<div class="lab-box"><h4>Frequency table</h4>
         <p class="small muted">Tally marks are drawn in groups of five (four lines and a fifth line across). The <b>frequency</b> is how many times each colour appeared.</p>
-        <div class="tblwrap mt"><table class="tbl"><thead><tr><th>Colour</th><th>Your tally</th><th>Tally marks (actual)</th><th>Frequency</th></tr></thead><tbody>${rowsHTML}
+        <div class="tblwrap mt"><table class="tbl"><thead><tr><th>Colour</th><th>You</th><th>Tally (actual)</th><th>Freq.</th></tr></thead><tbody>${rowsHTML}
           <tr><td><b>Total</b></td><td>${yourTot}</td><td></td><td><b>${TR.total}</b></td></tr></tbody></table></div>
-        <p class="small mt">${exact === 4 ? 'Perfect counting — all four colours match!' : `You matched ${exact} of 4 colours exactly. Counting moving things is hard — that is why surveys check their data.`} By type: ${cars} cars and ${TR.total - cars} auto-rickshaws.</p></div>
+        <p class="small mt">${exact === 4 ? 'Perfect counting — all four colours match!' : `You matched ${exact} of 4 colours exactly. Counting moving things is hard — that is why surveys check their data.`} By type: ${cars} cars and ${TR.total - cars} auto-rickshaws.</p><button class="btn sm mt" id="csAgain">${ic('refresh')} Do the survey again</button></div>
         <div class="lab-box"><h4>Questions <span class="small muted">(use the actual frequencies)</span></h4><div class="stack mt" id="csQs"></div></div>`;
       drawQs();
+      $('#csAgain').onclick = again;
+    }
+    function again() {
+      cancelAnimationFrame(raf); raf = 0; phase = 'ready'; mode2 = 'anim'; simT = 0; hist = [];
+      COLS.forEach(c => { tally[c.k] = 0; $('#csN' + c.k).textContent = 0; });
+      $('#csRoad').hidden = false; ctx.el.querySelector('.meter').hidden = false; $('#csListBox').innerHTML = '';
+      $('#csList').disabled = false; $('#csPause').disabled = true; $('#csPause').textContent = 'Pause'; $('#csDone').hidden = true; setTally(false);
+      $('#csRes').innerHTML = '';
+      overlay(`<div><button class="btn primary big" id="csGo">${ic('play')} Start the survey</button></div>`); $('#csGo').onclick = start;
+      resize(); drawTime(); $('#csTop').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     function drawQs() {
       $('#csQs').innerHTML = QS.map((q, i) => `<div class="qrow"><div><b>Q${i + 1}.</b> ${q.text} ${ok[i] ? '<span class="chip ok">Correct</span>' : ''}</div>

@@ -3,7 +3,7 @@ import { ic } from '../core/util.js';
 // Learning-based model: the learner adds labelled examples; a k-NN (k = 3)
 // colours the plane live; 10 hidden test plants check what it learned.
 
-const W = 480, H = 380, L = 46, R = 12, T = 14, B = 42;
+const W = 420, H = 340, L = 58, R = 12, T = 14, B = 46;
 const XMAX = 12, YMAX = 100, K = 3, CELL = 8, GOAL = 0.9, MAXPTS = 80;
 const COL = { water: '#2F6FED', fine: '#109A66' };
 const WASH = { water: 'rgba(47,111,237,.20)', fine: 'rgba(16,154,102,.20)' };
@@ -30,7 +30,8 @@ function makeTests(rng) {
     const x = +(0.5 + rng() * 11).toFixed(1), y = Math.round(4 + rng() * 92);
     const gap = y - (20 + 4 * x);
     const want = out.length % 2 ? 'fine' : 'water';
-    if (Math.abs(gap) < 7 || truth(x, y) !== want) continue;
+    // close enough to the boundary to need careful teaching, never right on it
+    if (Math.abs(gap) < 4 || (Math.abs(gap) > 16 && guard < 1500) || truth(x, y) !== want) continue;
     if (out.some(p => Math.hypot((p.x - x) / XMAX, (p.y - y) / YMAX) < 0.09)) continue;
     out.push({ x, y, l: want });
   }
@@ -48,6 +49,7 @@ const CSS = `
 .lab-learn-by-example .mk{display:inline-block; width:14px; height:14px; border:2px solid var(--ink); vertical-align:-2px;}
 .lab-learn-by-example .mk.w{background:${COL.water}; border-radius:50%;} .lab-learn-by-example .mk.f{background:${COL.fine}; border-radius:2px;}
 .lab-learn-by-example .mk.t{background:#fff; border-radius:50%; border-style:dashed;}
+.lab-learn-by-example .rl{display:inline-block; width:22px; border-top:3px dashed #87620F; vertical-align:4px;}
 .lab-learn-by-example .score{font-family:var(--head); font-weight:800; font-size:1.6rem;}
 `;
 
@@ -64,17 +66,16 @@ export default {
       <div class="banner" style="flex-wrap:wrap"><span class="chip gold">Goal</span><span>Teach the AI with examples until it gets <b>at least 9 of 10</b> hidden test plants right (90%).</span></div>
       <div class="lab-grid">
         <div class="lab-box">
+          <h4>1 · Choose a label, then tap the plane</h4>
+          <div class="lblseg mb" role="group" aria-label="Label for new examples">
+            <button class="btn w" data-l="water" aria-pressed="true"><i class="mk w"></i> Needs water</button>
+            <button class="btn f" data-l="fine" aria-pressed="false"><i class="mk f"></i> Doesn't need</button></div>
           <div class="lbe-stage"><canvas class="lab-canvas" id="lbeCv" width="${W}" height="${H}" aria-label="Plane: hours of sunlight across, soil moisture up. Tap to add an example."></canvas></div>
-          <div class="row mt small" style="gap:6px 14px;font-weight:700"><span><i class="mk w"></i> needs water</span><span><i class="mk f"></i> doesn't need water</span>${'<span><i class="mk t"></i> test plant</span>'}</div>
-          <p class="tiny muted mt">Background colour = what the AI would predict there. It looks at the <b>3 nearest examples</b> and takes the majority (k-nearest neighbours, k = 3).</p>
+          <div class="row mt small" style="gap:6px 14px;font-weight:700"><span><i class="mk w"></i> needs water</span><span><i class="mk f"></i> doesn't need water</span><span><i class="mk t"></i> test plant</span><span><i class="rl"></i> your rule (the AI can't see it)</span></div>
+          <p class="tiny muted mt">Tap an existing example to remove it. Background colour = what the AI would predict there. It looks at the <b>3 nearest examples</b> and takes the majority (k-nearest neighbours, k = 3).</p>
         </div>
         <div class="lab-box stack" style="gap:12px">
-          <div><h4>1 · Choose a label, then tap the plane</h4>
-            <div class="lblseg" role="group" aria-label="Label for new examples">
-              <button class="btn w" data-l="water" aria-pressed="true"><i class="mk w"></i> Needs water</button>
-              <button class="btn f" data-l="fine" aria-pressed="false"><i class="mk f"></i> Doesn't need</button></div>
-            <p class="tiny muted mt">Tap an existing example to remove it.</p></div>
-          <div class="row"><button class="btn sm" id="lbeUndo">${ic('back')} Undo</button><button class="btn sm" id="lbeClear">${ic('x')} Clear all</button>
+          <h4 style="margin:0">Your training data</h4><div class="row"><button class="btn sm" id="lbeUndo">${ic('back')} Undo</button><button class="btn sm" id="lbeClear">${ic('x')} Clear all</button>
             <button class="toggle" id="lbeRule" aria-pressed="true">Show my rule</button></div>
           <p class="small" id="lbeCount" aria-live="polite"></p>
           <div><h4>2 · Test the AI</h4>
@@ -98,17 +99,16 @@ export default {
         }
       }
       // grid + axes
-      g.strokeStyle = 'rgba(21,23,28,.08)'; g.lineWidth = 1; g.font = '700 12px Nunito, system-ui, sans-serif'; g.fillStyle = '#2A2F3A';
-      for (let x = 0; x <= XMAX; x += 2) { g.beginPath(); g.moveTo(px(x), T); g.lineTo(px(x), H - B); g.stroke(); g.textAlign = 'center'; g.fillText(x, px(x), H - B + 16); }
-      for (let y = 0; y <= YMAX; y += 20) { g.beginPath(); g.moveTo(L, py(y)); g.lineTo(W - R, py(y)); g.stroke(); g.textAlign = 'right'; g.fillText(y + '%', L - 6, py(y) + 4); }
+      g.strokeStyle = 'rgba(21,23,28,.08)'; g.lineWidth = 1; g.font = '700 15px Nunito, system-ui, sans-serif'; g.fillStyle = '#2A2F3A';
+      for (let x = 0; x <= XMAX; x += 2) { g.beginPath(); g.moveTo(px(x), T); g.lineTo(px(x), H - B); g.stroke(); g.textAlign = 'center'; g.fillText(x, px(x), H - B + 18); }
+      for (let y = 0; y <= YMAX; y += 20) { g.beginPath(); g.moveTo(L, py(y)); g.lineTo(W - R, py(y)); g.stroke(); g.textAlign = 'right'; g.fillText(y + '%', L - 6, py(y) + 5); }
       g.strokeStyle = '#15171C'; g.lineWidth = 2; g.beginPath(); g.moveTo(L, T); g.lineTo(L, H - B); g.lineTo(W - R, H - B); g.stroke();
-      g.fillStyle = '#5B606A'; g.textAlign = 'right'; g.fillText('hours of sunlight per day →', W - R, H - 6);
-      g.save(); g.translate(13, T + 2); g.rotate(-Math.PI / 2); g.textAlign = 'right'; g.fillText('soil moisture →', 0, 0); g.restore();
+      g.fillStyle = '#5B606A'; g.textAlign = 'right'; g.fillText('hours of sunlight per day →', W - R, H - 4);
+      g.save(); g.translate(14, (T + H - B) / 2); g.rotate(-Math.PI / 2); g.textAlign = 'center'; g.fillText('soil moisture (%) →', 0, 0); g.restore();
       // the gardener's rule
       if (showRule) {
         g.setLineDash([8, 6]); g.strokeStyle = '#87620F'; g.lineWidth = 2.5;
         g.beginPath(); g.moveTo(px(0), py(20)); g.lineTo(px(XMAX), py(68)); g.stroke(); g.setLineDash([]);
-        g.fillStyle = '#87620F'; g.textAlign = 'left'; g.fillText('your rule (the AI can’t see this)', px(0.4), py(20 + 4 * 0.4) + 18);
       }
       // examples
       pts.forEach(p => marker(p.x, p.y, p.l));
@@ -118,8 +118,8 @@ export default {
         const X = px(t.x), Y = py(t.y);
         g.beginPath(); g.arc(X, Y, 10, 0, Math.PI * 2); g.fillStyle = '#fff'; g.fill();
         g.setLineDash([3, 3]); g.lineWidth = 2.5; g.strokeStyle = COL[t.l]; g.stroke(); g.setLineDash([]);
-        g.fillStyle = ok ? '#109A66' : '#D93A40'; g.font = '900 15px Nunito, system-ui, sans-serif'; g.textAlign = 'center';
-        g.fillText(ok ? '✓' : '✗', X, Y + 5); g.font = '700 12px Nunito, system-ui, sans-serif';
+        g.fillStyle = ok ? '#109A66' : '#D93A40'; g.font = '900 16px Nunito, system-ui, sans-serif'; g.textAlign = 'center';
+        g.fillText(ok ? '✓' : '✗', X, Y + 6); g.font = '700 15px Nunito, system-ui, sans-serif';
       });
     }
     function marker(x, y, l) {
