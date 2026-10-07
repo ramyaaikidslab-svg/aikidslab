@@ -1,0 +1,1 @@
+{ "type": "module", "private": true, "description": "AI Kids Lab Academy (static app). This file only tells Node the tools use ES modules." }
