@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0B0D11">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="ai-kids-lab-icon-badge.png">
+<title>Flood Desk</title>
+<meta name="description" content="A Grade 9 AI lesson played as one night on a city's flood desk. Train three real AI systems — Statistical Data, Computer Vision and Natural Language Processing — then make the call that matters.">
+<link rel="canonical" href="https://www.aikidslab.co/ai-flood-desk.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Kids Lab">
+<meta property="og:locale" content="en_IN">
+<meta property="og:url" content="https://www.aikidslab.co/ai-flood-desk.html">
+<meta property="og:title" content="Flood Desk: one night, three AIs">
+<meta property="og:description" content="Train three AI systems to get a city through a flood. A free Grade 9 lesson.">
+<meta property="og:image" content="https://www.aikidslab.co/og-flood-desk.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.aikidslab.co/og-flood-desk.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Flood Desk — a cinematic, story-led lesson. Night control room in the
+     AI Kids Lab ink and gold, brand typefaces, and an icon set drawn on the
+     logo's nested-rounded-square grid. Self-contained: no site.css. */
+  :root{
+    color-scheme: only dark;
+    --ink:#0B0D11; --ink-2:#11141A; --ink-3:#181C23; --ink-4:#222731;
+    --line:rgba(243,239,230,.08); --line-2:rgba(243,239,230,.15); --line-3:rgba(243,239,230,.28);
+    --paper:#F3EFE6; --dim:#B4B7BE; --faint:#7C818C;
+    --gold:#FFC800; --gold-2:#DFA426; --gold-wash:rgba(255,200,0,.09); --gold-line:rgba(255,200,0,.38);
+    --alert:#FF6B5B; --alert-wash:rgba(255,107,91,.11);
+    --ok:#5BD6A8; --ok-wash:rgba(91,214,168,.11);
+    --water:#5AA9E6; --water-deep:#1E3A52;
+    --serif:'Newsreader',Georgia,'Times New Roman',serif;
+    --sans:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --r:4px; --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    font-family:var(--sans); color:var(--paper); background:var(--ink); line-height:1.55; font-size:16px;
+    -webkit-font-smoothing:antialiased; min-height:100vh;
+    background-image:radial-gradient(120% 70% at 70% -10%, rgba(255,200,0,.06), transparent 60%);
+  }
+  button, input, textarea{font:inherit; color:inherit;}
+  button{cursor:pointer;}
+  :focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+  ::selection{background:var(--gold); color:var(--ink);}
+  #rain{position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.55;}
+
+  .ic{width:20px; height:20px; flex-shrink:0; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; vertical-align:middle;}
+  .ic.sm{width:15px; height:15px;} .ic.lg{width:30px; height:30px;} .ic.xl{width:46px; height:46px; stroke-width:1.3;}
+  .mono{font-family:var(--mono);}
+  .gold{color:var(--gold);} .dim{color:var(--dim);} .faint{color:var(--faint);}
+  .okc{color:var(--ok);} .alc{color:var(--alert);}
+
+  /* ---------- TOP BAR ---------- */
+  .top{position:sticky; top:env(safe-area-inset-top,0px); z-index:30; background:rgba(11,13,17,.92); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--line-2);}
+  .top-in{max-width:1240px; margin:0 auto; padding:0 16px; height:60px; display:flex; align-items:center; gap:18px;}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--paper); flex-shrink:0;}
+  .brand .mark{width:24px; height:24px;}
+  .brand .mark rect:first-child{fill:none; stroke:var(--gold); stroke-width:10;}
+  .brand .mark rect:nth-child(2){fill:var(--gold);}
+  .brand .mark rect:last-child{fill:var(--ink);}
+  .brand b{font-family:var(--mono); font-weight:600; font-size:.78rem; letter-spacing:.16em;}
+  .brand span{font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; color:var(--faint);}
+  .track{display:flex; gap:4px; margin:0 auto; list-style:none;}
+  .trk{display:flex; align-items:center; gap:8px; background:none; border:0; border-bottom:2px solid transparent; padding:8px 10px; color:var(--faint); font-family:var(--mono); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; cursor:default;}
+  .trk.done{color:var(--dim); cursor:pointer;} .trk.done:hover{color:var(--paper);}
+  .trk.done .ic{color:var(--gold);}
+  .trk.now{color:var(--paper); border-bottom-color:var(--gold);}
+  .trk.now .ic{color:var(--gold);}
+  .top-r{display:flex; align-items:center; gap:10px; margin-left:auto;}
+  .clock{font-family:var(--mono); font-weight:500; font-size:1.15rem; color:var(--gold); letter-spacing:.04em; font-variant-numeric:tabular-nums; display:flex; align-items:baseline; gap:6px;}
+  .clock small{font-size:.6rem; color:var(--faint); letter-spacing:.14em;}
+  .clock.tick{animation:tick .6s var(--ease);}
+  @keyframes tick{0%{opacity:.2; transform:translateY(-4px);} 100%{opacity:1; transform:none;}}
+  .tbtn{display:inline-flex; align-items:center; gap:6px; height:36px; padding:0 10px; background:none; border:1px solid var(--line-2); border-radius:var(--r); color:var(--dim); font-family:var(--mono); font-size:.72rem;}
+  .tbtn:hover{border-color:var(--gold-line); color:var(--paper);}
+  .tbtn .n{color:var(--gold); font-weight:600;}
+  @media (max-width:1020px){ .track .lbl{display:none;} .track{margin:0 0 0 auto;} .top-r{margin-left:6px;} }
+  @media (max-width:640px){ .brand span{display:none;} .track{display:none;} .top-in{gap:10px;} .tbtn .t{display:none;} }
+
+  /* ---------- LAYOUT ---------- */
+  main{position:relative; z-index:1;}
+  .wrap{max-width:1240px; margin:0 auto; padding:0 16px;}
+  .grid{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:36px; padding-block:40px 80px; align-items:start;}
+  @media (max-width:920px){ .grid{grid-template-columns:minmax(0,1fr); gap:24px; padding-block:24px 60px;} }
+  .brief{position:sticky; top:96px;}
+  @media (max-width:920px){ .brief{position:static;} }
+  .kick{display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold);}
+  .brief h2{font-family:var(--serif); font-weight:400; font-size:clamp(2rem,3.6vw,2.9rem); line-height:1.06; letter-spacing:-.015em; margin-top:14px; text-wrap:balance;}
+  .story{margin-top:16px; display:grid; gap:12px;}
+  .story p{font-family:var(--serif); font-size:1.14rem; line-height:1.6; color:var(--dim); max-width:46ch; font-weight:300;}
+  .story p b{color:var(--paper); font-weight:500;}
+  .obj{list-style:none; margin-top:26px; border-top:1px solid var(--line-2);}
+  .obj li{display:flex; gap:12px; align-items:flex-start; padding:12px 0; border-bottom:1px solid var(--line); color:var(--faint); font-size:.93rem;}
+  .obj li .st{width:20px; height:20px; border:1px solid var(--line-3); border-radius:6px; flex-shrink:0; display:grid; place-items:center; margin-top:1px;}
+  .obj li.now{color:var(--paper);}
+  .obj li.now .st{border-color:var(--gold); box-shadow:0 0 0 3px var(--gold-wash);}
+  .obj li.now .st::after{content:""; width:6px; height:6px; border-radius:2px; background:var(--gold);}
+  .obj li.done{color:var(--dim);}
+  .obj li.done .st{background:var(--gold); border-color:var(--gold); color:var(--ink);}
+  .obj li .st .ic{width:13px; height:13px; stroke-width:2.4;}
+  @media (max-width:920px){ .obj{display:none;} }
+
+  /* ---------- CONSOLE ---------- */
+  .console{background:var(--ink-2); border:1px solid var(--line-2); border-radius:8px; box-shadow:0 30px 80px -40px rgba(0,0,0,.8); overflow:hidden; scroll-margin-top:76px;}
+  .chead{display:flex; align-items:center; gap:10px; padding:12px 18px; border-bottom:1px solid var(--line-2); background:var(--ink-3); font-family:var(--mono); font-size:.74rem; letter-spacing:.1em;}
+  .chead .ic{color:var(--gold);}
+  .chead .ver{color:var(--faint);}
+  .pill{margin-left:auto; font-family:var(--mono); font-size:.64rem; letter-spacing:.14em; text-transform:uppercase; padding:4px 9px; border:1px solid; border-radius:20px; white-space:nowrap;}
+  .pill.off{color:var(--alert); border-color:rgba(255,107,91,.45); background:var(--alert-wash);}
+  .pill.busy{color:var(--gold); border-color:var(--gold-line); background:var(--gold-wash);}
+  .pill.on{color:var(--ok); border-color:rgba(91,214,168,.45); background:var(--ok-wash);}
+  .cbody{padding:22px 20px 26px;}
+  @media (max-width:520px){ .cbody{padding:18px 14px 22px;} .chead{padding:11px 14px;} .chead .ver{display:none;} }
+  .fade{animation:fadeUp .45s var(--ease);}
+  @keyframes fadeUp{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+  .step{font-family:var(--mono); font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--faint);}
+  .cbody h3{font-family:var(--serif); font-weight:400; font-size:1.55rem; line-height:1.2; margin-top:6px; text-wrap:balance;}
+  .lead{color:var(--dim); margin-top:8px; max-width:62ch;}
+  .lead b{color:var(--paper); font-weight:500;}
+  .row{display:flex; flex-wrap:wrap; gap:10px; align-items:center;}
+  .mt{margin-top:16px;} .mt2{margin-top:24px;} .mt3{margin-top:34px;}
+
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; background:var(--gold); color:#16120A; border:1px solid var(--gold); border-radius:2px; padding:12px 18px; font-family:var(--mono); font-weight:600; font-size:.76rem; letter-spacing:.12em; text-transform:uppercase; transition:background .2s, color .2s, opacity .2s; touch-action:manipulation;}
+  .btn:hover:not(:disabled){background:#FFD633;}
+  .btn:disabled{opacity:.32; cursor:not-allowed;}
+  .btn.ghost{background:transparent; color:var(--paper); border-color:var(--line-3);}
+  .btn.ghost:hover:not(:disabled){border-color:var(--gold); color:var(--gold); background:transparent;}
+  .btn .ic{width:16px; height:16px; stroke-width:2;}
+
+  .callout{border:1px solid var(--gold-line); background:var(--gold-wash); border-radius:var(--r); padding:14px 16px; display:flex; gap:12px; align-items:flex-start;}
+  .callout .ic{color:var(--gold); margin-top:2px;}
+  .callout.bad{border-color:rgba(255,107,91,.45); background:var(--alert-wash);} .callout.bad .ic{color:var(--alert);}
+  .callout.good{border-color:rgba(91,214,168,.45); background:var(--ok-wash);} .callout.good .ic{color:var(--ok);}
+  .callout p{color:var(--dim); font-size:.95rem;} .callout p b{color:var(--paper); font-weight:500;}
+
+  .stats{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border:1px solid var(--line-2); border-radius:var(--r); overflow:hidden;}
+  .stat{padding:12px 14px; border-right:1px solid var(--line);}
+  .stat:last-child{border-right:0;}
+  .stat .k{font-family:var(--mono); font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:var(--faint);}
+  .stat .v{font-family:var(--mono); font-size:1.5rem; font-weight:500; font-variant-numeric:tabular-nums; margin-top:2px;}
+  .stat .v small{font-size:.8rem; color:var(--faint);}
+  @media (max-width:420px){ .stat{padding:10px;} .stat .v{font-size:1.2rem;} }
+
+  /* Charts */
+  .chart{width:100%; height:auto; display:block; touch-action:none; user-select:none; -webkit-user-select:none;}
+  .chart text{font-family:var(--mono); font-size:11px; fill:var(--faint);}
+  .chart .ax{stroke:var(--line-3); stroke-width:1;}
+  .chart .gr{stroke:var(--line); stroke-width:1;}
+  .chart .handle{cursor:grab; fill:var(--gold); stroke:var(--ink); stroke-width:3;}
+  .chart .handle:active{cursor:grabbing;}
+  .chart .hit{fill:transparent; cursor:grab;}
+  .chart-wrap{border:1px solid var(--line-2); border-radius:var(--r); background:var(--ink); padding:6px; margin-top:16px;}
+  .legend{display:flex; flex-wrap:wrap; gap:16px; font-family:var(--mono); font-size:.68rem; letter-spacing:.08em; color:var(--faint); margin-top:10px; text-transform:uppercase;}
+  .legend i{display:inline-block; width:10px; height:10px; border-radius:50%; vertical-align:-1px; margin-right:6px;}
+  .legend i.f{background:var(--gold);} .legend i.d{border:2px solid var(--paper);} .legend i.t{background:var(--water); border-radius:2px; transform:rotate(45deg);}
+  input[type=range]{width:100%; accent-color:var(--gold);}
+
+  /* Records table */
+  .tbl-wrap{border:1px solid var(--line-2); border-radius:var(--r); max-height:320px; overflow:auto; margin-top:16px;}
+  table.rec{width:100%; border-collapse:collapse; font-family:var(--mono); font-size:.8rem; font-variant-numeric:tabular-nums;}
+  table.rec th{position:sticky; top:0; background:var(--ink-3); z-index:1; padding:0; text-align:left; border-bottom:1px solid var(--line-2);}
+  table.rec th button{width:100%; text-align:left; background:none; border:0; padding:10px 12px; font-family:var(--mono); font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:var(--dim); display:flex; flex-direction:column; gap:4px; transition:background .2s, color .2s;}
+  table.rec th button:hover{background:var(--ink-4); color:var(--paper);}
+  table.rec th button .tg{font-size:.6rem; color:var(--faint); min-height:1.1em;}
+  table.rec th.is-label button{background:var(--gold); color:var(--ink);} table.rec th.is-label .tg{color:var(--ink);}
+  table.rec th.is-feat button{background:rgba(90,169,230,.18); color:var(--paper);} table.rec th.is-feat .tg{color:var(--water);}
+  table.rec th.is-wrong button{background:var(--alert-wash); color:var(--alert);}
+  table.rec td{padding:8px 12px; border-bottom:1px solid var(--line); color:var(--dim);}
+  table.rec td.y{color:var(--gold);}
+
+  /* Vision */
+  .cam{position:relative; border:1px solid var(--line-2); border-radius:var(--r); overflow:hidden; background:#000;}
+  .cam canvas{display:block; width:100%; height:auto; cursor:crosshair; touch-action:none;}
+  .cam .tag{position:absolute; width:22px; height:22px; border:2px solid var(--gold); border-radius:4px; transform:translate(-50%,-50%); pointer-events:none; box-shadow:0 0 0 2px rgba(0,0,0,.5);}
+  .cam .tag.ok{border-color:var(--ok);}
+  .loupe-row{display:grid; grid-template-columns:minmax(0,1fr) 160px; gap:16px; margin-top:16px; align-items:start;}
+  @media (max-width:560px){ .loupe-row{grid-template-columns:minmax(0,1fr) 120px; gap:10px;} }
+  .loupe{border:1px solid var(--line-2); border-radius:var(--r); background:var(--ink); padding:8px;}
+  .loupe canvas{width:100%; height:auto; display:block; image-rendering:pixelated; border-radius:2px;}
+  .rgb{display:grid; gap:4px; margin-top:8px; font-family:var(--mono); font-size:.72rem; font-variant-numeric:tabular-nums;}
+  .rgb div{display:grid; grid-template-columns:14px 1fr 30px; gap:6px; align-items:center;}
+  .rgb .bar{height:6px; background:var(--ink-4); border-radius:3px; overflow:hidden;}
+  .rgb .bar i{display:block; height:100%;}
+  .finds{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;}
+  .find{display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; border:1px solid var(--line-2); border-radius:20px; padding:5px 12px; color:var(--faint);}
+  .find.got{border-color:rgba(91,214,168,.5); color:var(--ok);}
+  .find .sw{width:12px; height:12px; border-radius:3px; border:1px solid var(--line-3);}
+
+  .shots{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:16px;}
+  @media (max-width:640px){ .shots{grid-template-columns:repeat(2,minmax(0,1fr));} }
+  .shot{border:1px solid var(--line-2); border-radius:var(--r); background:var(--ink); overflow:hidden; transition:border-color .2s, box-shadow .2s;}
+  .shot canvas{display:block; width:100%; height:auto;}
+  .shot .lb{display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--line-2);}
+  .shot .lb button{background:none; border:0; padding:8px 4px; font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; color:var(--faint); text-transform:uppercase;}
+  .shot .lb button + button{border-left:1px solid var(--line-2);}
+  .shot .lb button[aria-pressed="true"]{color:var(--ink); background:var(--paper);}
+  .shot .lb button.fl[aria-pressed="true"]{background:var(--gold);}
+  .shot.wrong{border-color:var(--alert); box-shadow:0 0 0 2px var(--alert-wash);}
+  .shot.wrong{animation:shake .4s;}
+  @keyframes shake{25%{transform:translateX(-5px);} 75%{transform:translateX(5px);}}
+
+  .results{display:grid; gap:8px; margin-top:16px;}
+  .res{display:grid; grid-template-columns:120px minmax(0,1fr) auto; gap:14px; align-items:center; border:1px solid var(--line-2); border-radius:var(--r); padding:8px; background:var(--ink);}
+  .res canvas{width:100%; height:auto; display:block; border-radius:2px;}
+  .res .why{font-size:.84rem; color:var(--dim);}
+  .res .why b{color:var(--paper); font-weight:500;}
+  .res .nn{display:inline-flex; align-items:center; gap:8px; margin-top:6px; font-family:var(--mono); font-size:.66rem; color:var(--faint); letter-spacing:.06em;}
+  .res .nn canvas{width:54px; border:1px solid var(--line-2);}
+  .verdict{font-family:var(--mono); font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; padding:5px 9px; border-radius:20px; border:1px solid; white-space:nowrap; text-align:center;}
+  .verdict.ok{color:var(--ok); border-color:rgba(91,214,168,.5);} .verdict.no{color:var(--alert); border-color:rgba(255,107,91,.5);}
+  .tagp{display:inline-block; font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; padding:2px 7px; border-radius:2px; margin-right:6px;}
+  .tagp.f{background:var(--gold); color:var(--ink);} .tagp.c{background:var(--ink-4); color:var(--paper);}
+  .tagp.u{background:var(--alert); color:var(--ink);} .tagp.n{background:var(--ink-4); color:var(--dim);}
+  @media (max-width:560px){ .res{grid-template-columns:84px minmax(0,1fr); } .res .verdict{grid-column:1 / -1; justify-self:start;} }
+
+  /* Language */
+  .msg{border:1px solid var(--line-2); border-radius:var(--r); background:var(--ink); padding:12px 14px;}
+  .msg .from{font-family:var(--mono); font-size:.64rem; letter-spacing:.12em; color:var(--faint); text-transform:uppercase; display:flex; gap:8px; align-items:center;}
+  .msg .tx{font-size:1rem; margin-top:4px;}
+  .msg .gl{font-family:var(--serif); font-style:italic; font-size:.92rem; color:var(--faint); margin-top:2px;}
+  .toks{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px;}
+  .tok{font-family:var(--mono); font-size:.78rem; padding:4px 8px; border:1px solid var(--line-3); border-radius:3px; background:var(--ink-3); display:inline-flex; gap:6px; align-items:baseline;}
+  .tok sub{font-size:.6rem; color:var(--faint);}
+  .tok.in{animation:tokIn .35s var(--ease) both;}
+  @keyframes tokIn{from{opacity:0; transform:translateY(-6px) scale(.9);} to{opacity:1; transform:none;}}
+  .tok.u{border-color:rgba(255,107,91,.6); color:#FFB3A9;} .tok.n{border-color:rgba(91,214,168,.55); color:#A9EBD2;}
+  .bank{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+  .chip{font-family:var(--mono); font-size:.8rem; padding:7px 12px; border:1px solid var(--line-3); border-radius:20px; background:none; color:var(--dim); transition:all .15s;}
+  .chip:hover{border-color:var(--gold-line); color:var(--paper);}
+  .chip[aria-pressed="true"]{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .mlist{display:grid; gap:8px; margin-top:16px;}
+  .mrow{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:12px; align-items:center; border:1px solid var(--line-2); border-radius:var(--r); padding:10px 12px; background:var(--ink);}
+  .mrow .tx{font-size:.94rem;}
+  .mrow .gl{font-family:var(--serif); font-style:italic; font-size:.86rem; color:var(--faint);}
+  .mrow .ex{font-family:var(--mono); font-size:.68rem; color:var(--faint); margin-top:6px; letter-spacing:.02em;}
+  .mrow .ex b{color:var(--paper); font-weight:500;}
+  .seg{display:inline-grid; grid-template-columns:1fr 1fr; border:1px solid var(--line-3); border-radius:3px; overflow:hidden;}
+  .seg button{background:none; border:0; padding:7px 10px; font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:var(--faint);}
+  .seg button + button{border-left:1px solid var(--line-3);}
+  .seg button[aria-pressed="true"].u{background:var(--alert); color:var(--ink);}
+  .seg button[aria-pressed="true"].n{background:var(--paper); color:var(--ink);}
+  @media (max-width:520px){ .mrow{grid-template-columns:minmax(0,1fr);} }
+  .wbars{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:16px;}
+  @media (max-width:520px){ .wbars{grid-template-columns:1fr;} }
+  .wbar{display:grid; grid-template-columns:90px 1fr; gap:8px; align-items:center; font-family:var(--mono); font-size:.74rem; margin-top:6px;}
+  .wbar .b{height:8px; border-radius:2px;}
+  .field{width:100%; background:var(--ink); border:1px solid var(--line-3); border-radius:var(--r); padding:12px 14px; font-size:1rem; color:var(--paper);}
+  .field:focus{border-color:var(--gold); outline:none;}
+
+  /* Map */
+  .map-wrap{border:1px solid var(--line-2); border-radius:var(--r); background:#0A1016; overflow:hidden; margin-top:16px;}
+  .map{display:block; width:100%; height:auto;}
+  .map text{font-family:var(--mono);}
+  .zones{display:grid; gap:8px; margin-top:16px;}
+  .zone{display:grid; grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr)) 110px; gap:10px; align-items:center; border:1px solid var(--line-2); border-radius:var(--r); padding:12px; background:var(--ink); transition:border-color .2s, background .2s;}
+  .zone.sel{border-color:var(--gold); background:var(--gold-wash);}
+  .zone .zn{font-family:var(--serif); font-size:1.1rem; line-height:1.15;}
+  .zone .zn small{display:block; font-family:var(--mono); font-size:.6rem; letter-spacing:.12em; color:var(--faint); text-transform:uppercase; margin-top:3px;}
+  .zone .rd{font-family:var(--mono); font-size:.72rem; color:var(--dim); display:flex; gap:6px; align-items:center;}
+  .zone .rd .ic{width:16px; height:16px; color:var(--faint);}
+  .zone .rd b{font-weight:500; color:var(--paper);}
+  .zone .rd.hi b{color:var(--alert);} .zone .rd.none b{color:var(--faint); font-style:italic;}
+  .zone .btn{padding:9px 10px; font-size:.64rem;}
+  .zone .out{grid-column:1 / -1; font-size:.86rem; color:var(--dim); border-top:1px solid var(--line); padding-top:10px; display:none;}
+  .zone.reveal .out{display:block;}
+  @media (max-width:720px){ .zone{grid-template-columns:repeat(3,minmax(0,1fr));} .zone .zn{grid-column:1 / -1;} .zone .btn{grid-column:1 / -1;} }
+  .boats{display:flex; gap:6px;}
+  .boats .ic{color:var(--gold);} .boats .ic.used{color:var(--line-3);}
+
+  /* ---------- INTRO ---------- */
+  .intro{min-height:calc(100vh - 60px); display:grid; align-items:center; padding-block:48px 64px;}
+  .intro-in{max-width:880px;}
+  .intro-grid{display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:56px; align-items:center;}
+  @media (max-width:1000px){ .intro-grid{grid-template-columns:minmax(0,1fr);} .gauge{display:none;} }
+  .gauge{border:1px solid var(--line-2); border-radius:8px; background:var(--ink-2); padding:18px; box-shadow:0 30px 80px -40px rgba(0,0,0,.9);}
+  .gauge .gh{display:flex; justify-content:space-between; font-family:var(--mono); font-size:.64rem; letter-spacing:.14em; color:var(--faint); text-transform:uppercase;}
+  .gauge .gh b{color:var(--alert); font-weight:500;}
+  .gauge svg{display:block; width:100%; height:auto; margin-top:12px;}
+  .gauge svg text{font-family:var(--mono); font-size:10px; fill:var(--faint);}
+  .gauge .lv{font-family:var(--mono); font-size:1.8rem; font-variant-numeric:tabular-nums; margin-top:6px;}
+  .gauge .lv small{font-size:.75rem; color:var(--faint); margin-left:6px;}
+  .gauge ul{list-style:none; margin-top:14px; border-top:1px solid var(--line);}
+  .gauge li{display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--line); font-family:var(--mono); font-size:.72rem; letter-spacing:.1em;}
+  .gauge li .ic{color:var(--gold); width:16px; height:16px;}
+  .gauge li .pill{font-size:.56rem;}
+  .eyebrow{font-family:var(--mono); font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--faint); display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center;}
+  .eyebrow b{color:var(--gold); font-weight:500;}
+  .intro h1{font-family:var(--serif); font-weight:300; font-size:clamp(3.6rem,13vw,9.5rem); line-height:.9; letter-spacing:-.04em; margin-top:34px;}
+  .intro h1 em{font-style:italic; color:var(--gold);}
+  .intro .sub{font-family:var(--serif); font-size:clamp(1.25rem,2.6vw,1.7rem); font-weight:300; color:var(--dim); margin-top:18px; max-width:30ch; line-height:1.3;}
+  .intro .meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:26px;}
+  .intro .meta span{font-family:var(--mono); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; border:1px solid var(--line-2); padding:6px 10px; border-radius:2px; color:var(--dim);}
+  .log{font-family:var(--mono); font-size:.86rem; line-height:1.75; color:var(--dim); margin-top:30px; min-height:9em;}
+  .log .ln{display:block;}
+  .log .ts{color:var(--faint); margin-right:10px;}
+  .log .al{color:var(--alert);}
+  .log .cur{display:inline-block; width:8px; height:1em; background:var(--gold); vertical-align:-2px; animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .systems{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:28px;}
+  @media (max-width:760px){ .systems{grid-template-columns:1fr;} }
+  .sys{border:1px solid var(--line-2); border-radius:6px; padding:18px; background:var(--ink-2); display:flex; flex-direction:column; gap:8px;}
+  .sys .ic{color:var(--gold);}
+  .sys .nm{font-family:var(--mono); font-weight:600; letter-spacing:.14em; font-size:.82rem;}
+  .sys .dm{font-family:var(--mono); font-size:.64rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gold);}
+  .sys p{font-size:.9rem; color:var(--dim);}
+  .sys .lf{font-family:var(--mono); font-size:.68rem; color:var(--faint); border-top:1px solid var(--line); padding-top:8px; margin-top:auto;}
+  .callsign{display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; max-width:560px;}
+  .callsign .field{flex:1 1 220px; font-family:var(--mono); letter-spacing:.08em;}
+  .skip{background:none; border:0; color:var(--faint); font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; text-decoration:underline; text-underline-offset:3px;}
+  .skip:hover{color:var(--paper);}
+
+  /* ---------- TITLE CARD ---------- */
+  .tcard{position:fixed; inset:0; z-index:60; background:rgba(8,10,13,.97); display:grid; place-items:center; padding:24px 16px; opacity:0; transition:opacity .45s var(--ease);}
+  .tcard.on{opacity:1;}
+  .tc-in{max-width:760px; text-align:left; width:100%;}
+  .tc-kick{display:flex; gap:14px; align-items:center; font-family:var(--mono); font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold);}
+  .tcard h1{font-family:var(--serif); font-weight:300; font-size:clamp(2.6rem,8vw,5.6rem); line-height:.98; letter-spacing:-.03em; margin-top:18px;}
+  .tcard h1 em{font-style:italic; color:var(--gold);}
+  .tc-time{font-family:var(--mono); color:var(--faint); letter-spacing:.14em; margin-top:18px; font-size:.8rem;}
+  .tc-line{font-family:var(--serif); font-size:1.25rem; color:var(--dim); margin-top:10px; max-width:42ch; font-weight:300;}
+  .tcard .btn{margin-top:30px;}
+  .tcard .tc-in > *{opacity:0; transform:translateY(10px); transition:opacity .6s var(--ease), transform .6s var(--ease);}
+  .tcard.on .tc-in > *{opacity:1; transform:none;}
+  .tcard.on .tc-in > *:nth-child(2){transition-delay:.12s;} .tcard.on .tc-in > *:nth-child(3){transition-delay:.3s;}
+  .tcard.on .tc-in > *:nth-child(4){transition-delay:.42s;} .tcard.on .tc-in > *:nth-child(5){transition-delay:.6s;}
+
+  /* ---------- NOTES ---------- */
+  .ntoast{position:fixed; left:16px; bottom:16px; z-index:70; max-width:340px; background:var(--ink-3); border:1px solid var(--gold-line); border-radius:6px; padding:14px 16px; box-shadow:0 20px 50px -20px rgba(0,0,0,.9); animation:slideIn .45s var(--ease);}
+  .ntoast .k{font-family:var(--mono); font-size:.62rem; letter-spacing:.16em; color:var(--gold); text-transform:uppercase; display:flex; gap:8px; align-items:center;}
+  .ntoast b{display:block; font-family:var(--serif); font-weight:400; font-size:1.25rem; margin-top:4px;}
+  .ntoast p{font-size:.86rem; color:var(--dim); margin-top:2px;}
+  @media (max-width:920px){ .ntoast{left:12px; right:12px; max-width:none; padding:10px 14px;} .ntoast p{display:none;} .ntoast b{font-size:1.05rem;} }
+  @media (max-width:560px){ .chart text{font-size:19px;} .map text{font-size:19px;} }
+  @keyframes slideIn{from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:none;}}
+  .drawer-bg{position:fixed; inset:0; z-index:75; background:rgba(0,0,0,.55);}
+  .drawer{position:fixed; top:0; right:0; bottom:0; z-index:76; width:min(440px,100%); background:var(--ink-2); border-left:1px solid var(--line-2); overflow:auto; padding:22px 20px 40px; animation:drawer .35s var(--ease);}
+  @keyframes drawer{from{transform:translateX(30px); opacity:0;} to{transform:none; opacity:1;}}
+  .drawer h2{font-family:var(--serif); font-weight:400; font-size:1.9rem; margin-top:8px;}
+  .notes{list-style:none; margin-top:18px; border-top:1px solid var(--line-2);}
+  .notes li{padding:14px 0; border-bottom:1px solid var(--line); display:grid; grid-template-columns:28px 1fr; gap:8px;}
+  .notes li .n{font-family:var(--mono); font-size:.7rem; color:var(--gold); padding-top:4px;}
+  .notes li b{font-family:var(--serif); font-weight:400; font-size:1.15rem;}
+  .notes li p{font-size:.9rem; color:var(--dim); margin-top:2px;}
+  .notes li.lock b, .notes li.lock p{color:var(--faint);}
+  .xbtn{float:right; background:none; border:1px solid var(--line-2); border-radius:var(--r); width:36px; height:36px; color:var(--dim); display:grid; place-items:center;}
+
+  /* ---------- REPORT ---------- */
+  .report{padding-block:44px 90px; max-width:1000px; margin:0 auto;}
+  .rep-head{display:flex; flex-wrap:wrap; justify-content:space-between; gap:18px; align-items:flex-end; border-bottom:1px solid var(--line-2); padding-bottom:22px;}
+  .rep-head h1{font-family:var(--serif); font-weight:300; font-size:clamp(2.4rem,6vw,4.2rem); line-height:1; letter-spacing:-.02em; margin-top:12px;}
+  .rep-head h1 em{font-style:italic; color:var(--gold);}
+  .idcard{border:1px solid var(--gold-line); border-radius:6px; padding:14px 16px; min-width:240px; background:var(--gold-wash);}
+  .idcard .k{font-family:var(--mono); font-size:.6rem; letter-spacing:.16em; color:var(--faint); text-transform:uppercase;}
+  .idcard .v{font-family:var(--mono); font-size:1.1rem; letter-spacing:.1em; color:var(--gold); margin-bottom:6px;}
+  .rep-sys{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:28px;}
+  @media (max-width:820px){ .rep-sys{grid-template-columns:1fr;} }
+  .rep-sys .sys{background:var(--ink-2);}
+  .big{font-family:var(--mono); font-size:2rem; font-weight:500; color:var(--paper); font-variant-numeric:tabular-nums; line-height:1.1;}
+  .big small{font-size:.9rem; color:var(--faint);}
+  .rep-sec{margin-top:44px;}
+  .rep-sec h2{font-family:var(--serif); font-weight:400; font-size:1.9rem;}
+  .meter{height:10px; background:var(--ink-4); border-radius:5px; overflow:hidden; margin-top:10px;}
+  .meter i{display:block; height:100%; background:var(--gold); transition:width 1s var(--ease);}
+  .reflect{list-style:none; counter-reset:q; display:grid; gap:12px; margin-top:16px;}
+  .reflect li{counter-increment:q; display:grid; grid-template-columns:34px 1fr; gap:8px; font-family:var(--serif); font-size:1.15rem; color:var(--dim); font-weight:300;}
+  .reflect li::before{content:counter(q, decimal-leading-zero); font-family:var(--mono); font-size:.72rem; color:var(--gold); padding-top:6px;}
+  .fb{border:1px solid var(--line-2); border-radius:8px; background:var(--ink-2); padding:22px 20px; margin-top:16px; display:grid; gap:18px;}
+  .scale{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;}
+  .scale button{width:46px; height:46px; border:1px solid var(--line-3); border-radius:4px; background:none; font-family:var(--mono); font-size:1rem; color:var(--dim);}
+  .scale button[aria-pressed="true"]{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .scale-lbl{display:flex; justify-content:space-between; max-width:270px; font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; color:var(--faint); text-transform:uppercase; margin-top:6px;}
+  .fb label, .fb .q{font-weight:500; font-size:.98rem;}
+  textarea.field{min-height:84px; resize:vertical; font-family:var(--sans);}
+  a.btn{text-decoration:none;}
+  .small{font-size:.82rem; color:var(--faint);}
+  footer.foot{position:relative; z-index:1; text-align:center; font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; color:var(--faint); padding:0 16px 34px;}
+  footer.foot a{color:var(--dim);}
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important; transition:none !important;}
+    .tcard .tc-in > *{opacity:1; transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <!-- AI Kids Lab icon set: 24px grid, built on the logo's rounded-square frame. -->
+    <symbol id="i-data" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4.5"/><path d="M8 16.5v-3M12 16.5V9.5M16 16.5V7"/></symbol>
+    <symbol id="i-vision" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4.5"/><rect x="8.5" y="8.5" width="7" height="7" rx="2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21"/></symbol>
+    <symbol id="i-language" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4.5"/><path d="M7.5 9h9M7.5 12.5h6M7.5 16h3.5"/></symbol>
+    <symbol id="i-mark" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4.5"/><rect x="8.5" y="8.5" width="7" height="7" rx="2"/><rect x="11" y="11" width="2" height="2" rx=".6"/></symbol>
+    <symbol id="i-river" viewBox="0 0 24 24"><path d="M3 8c2 0 2-1.5 4.5-1.5S9.5 8 12 8s2-1.5 4.5-1.5S19 8 21 8M3 13c2 0 2-1.5 4.5-1.5S9.5 13 12 13s2-1.5 4.5-1.5S19 13 21 13M3 18c2 0 2-1.5 4.5-1.5S9.5 18 12 18s2-1.5 4.5-1.5S19 18 21 18"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><rect x="3" y="6.5" width="18" height="13" rx="4"/><rect x="9" y="9.5" width="6" height="7" rx="2"/><path d="M8 6.5 9.5 4h5L16 6.5"/></symbol>
+    <symbol id="i-msg" viewBox="0 0 24 24"><path d="M7.5 4h9A4.5 4.5 0 0 1 21 8.5v4A4.5 4.5 0 0 1 16.5 17H11l-4.5 3.5V17A4.5 4.5 0 0 1 3 12.5v-4A4.5 4.5 0 0 1 7.5 4Z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+    <symbol id="i-boat" viewBox="0 0 24 24"><path d="M3.5 14h17l-2.2 4.2a2 2 0 0 1-1.8 1.1H7.5a2 2 0 0 1-1.8-1.1L3.5 14Z"/><path d="M12 4v10M12 5l5.5 7H12"/></symbol>
+    <symbol id="i-notes" viewBox="0 0 24 24"><rect x="4.5" y="3" width="15" height="18" rx="4"/><path d="M8.5 8h7M8.5 11.5h7M8.5 15h4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4.5"/><path d="M12 7.5v6M12 16.5v.01"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.5v4M12 16.5v4M3.5 12h4M16.5 12h4M6 6l2.6 2.6M15.4 15.4 18 18M18 6l-2.6 2.6M8.6 15.4 6 18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4.5 12h15M14 6.5l5.5 5.5-5.5 5.5"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="m16 9.5 5 5M21 9.5l-5 5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><rect x="9.5" y="7.5" width="5" height="5" rx="1.5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="6" rx="2"/><path d="M5.5 20.5v-2a5 5 0 0 1 5-5h3a5 5 0 0 1 5 5v2"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4.5v4h-4"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M20.5 3.5 3.5 10.5l7 3 3 7 7-17Z"/><path d="m10.5 13.5 4-4"/></symbol>
+  </defs>
+</svg>
+
+<canvas id="rain" aria-hidden="true"></canvas>
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="index.html" aria-label="AI Kids Lab home">
+      <svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><rect x="6" y="6" width="88" height="88" rx="14"/><rect x="34" y="34" width="32" height="32" rx="8"/><rect x="44" y="44" width="12" height="12" rx="3"/></svg>
+      <b>FLOOD DESK</b><span>NEELAPUR</span>
+    </a>
+    <ol class="track" id="track"></ol>
+    <div class="top-r">
+      <div class="clock" id="clock" aria-live="polite"><span id="clockT">18:00</span><small>IST</small></div>
+      <button class="tbtn" id="notesBtn" type="button" aria-label="Field notes"><svg class="ic sm"><use href="#i-notes"/></svg><span class="t">Notes</span> <span class="n" id="notesN">0</span></button>
+      <button class="tbtn" id="soundBtn" type="button" aria-label="Sound on"><svg class="ic sm"><use href="#i-sound"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="stage" class="wrap">
+  <noscript><p style="padding:40px 0">Flood Desk is an interactive lesson and needs JavaScript turned on.</p></noscript>
+</main>
+
+<footer class="foot">A free <a href="gamified-learning.html">gamified lesson</a> from <a href="index.html">AI Kids Lab</a> · Grade 9 · AI Reflection and the three domains of AI · Neelapur is a fictional city.</footer>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================================
+   CORE
+   ===================================================================== */
+var KEY = 'aikl-flood-desk-v1';
+function fresh(){ return {callsign:'', done:0, notes:[], stats:{}, sound:true, started:0, boats:null}; }
+var S = fresh();
+try{ var raw = localStorage.getItem(KEY); if(raw) S = Object.assign(fresh(), JSON.parse(raw)); }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+var $ = function(s, r){ return (r||document).querySelector(s); };
+var $$ = function(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var stage = $('#stage');
+function ic(n, c){ return '<svg class="ic '+(c||'')+'" aria-hidden="true"><use href="#i-'+n+'"/></svg>'; }
+function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function wait(ms){ return new Promise(function(r){ setTimeout(r, RM ? Math.min(ms, 30) : ms); }); }
+function narrow(){ return window.innerWidth <= 920; }
+
+/* ---------- sound ---------- */
+var ac = null;
+function sfx(k){
+  if(!S.sound) return;
+  try{
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    var P = {
+      tick:[[880,.03,.03]], key:[[1500,.012,.012]],
+      ok:[[660,.07,.05],[990,.13,.05]], bad:[[170,.18,.06]],
+      note:[[523,.08,.04],[784,.16,.04]],
+      big:[[262,.16,.05],[392,.16,.05],[523,.34,.05]]
+    }[k];
+    var t = ac.currentTime;
+    P.forEach(function(p){
+      var o = ac.createOscillator(), g = ac.createGain();
+      o.type = 'sine'; o.frequency.value = p[0];
+      g.gain.setValueAtTime(p[2], t); g.gain.exponentialRampToValueAtTime(.0001, t+p[1]);
+      o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t+p[1]+.02); t += p[1];
+    });
+  }catch(e){}
+}
+function soundUI(){
+  $('#soundBtn').innerHTML = ic(S.sound ? 'sound' : 'mute', 'sm');
+  $('#soundBtn').setAttribute('aria-label', S.sound ? 'Sound on' : 'Sound off');
+}
+$('#soundBtn').onclick = function(){ S.sound = !S.sound; save(); soundUI(); sfx('tick'); };
+
+/* ---------- rain ---------- */
+(function(){
+  if(RM) return;
+  var c = $('#rain'), x = c.getContext('2d'), drops = [], w, h;
+  function size(){ w = c.width = innerWidth; h = c.height = innerHeight; drops = []; for(var i=0;i<Math.round(w*h/9000);i++) drops.push({x:Math.random()*w, y:Math.random()*h, l:8+Math.random()*16, v:6+Math.random()*7}); }
+  size(); addEventListener('resize', size);
+  (function f(){
+    if(!document.hidden){
+      x.clearRect(0,0,w,h); x.strokeStyle = 'rgba(180,200,230,.16)'; x.lineWidth = 1; x.beginPath();
+      drops.forEach(function(d){ x.moveTo(d.x, d.y); x.lineTo(d.x-d.l*.18, d.y+d.l); d.y += d.v; d.x -= d.v*.18; if(d.y > h){ d.y = -20; d.x = Math.random()*(w+80); } });
+      x.stroke();
+    }
+    requestAnimationFrame(f);
+  })();
+})();
+
+/* ---------- clock & track ---------- */
+var CHAPTERS = [
+  {id:'data', icon:'data', name:'Data', time:'18:00'},
+  {id:'vision', icon:'vision', name:'Vision', time:'19:30'},
+  {id:'lang', icon:'language', name:'Language', time:'21:00'},
+  {id:'call', icon:'boat', name:'The Call', time:'22:30'}
+];
+function setClock(t){ var c = $('#clock'); $('#clockT').textContent = t; c.classList.remove('tick'); void c.offsetWidth; c.classList.add('tick'); }
+function setTrack(now){
+  $('#track').innerHTML = CHAPTERS.map(function(c, i){
+    var st = i < S.done ? 'done' : i === now ? 'now' : '';
+    return '<li><button type="button" class="trk '+st+'" data-ch="'+i+'" '+(i < S.done && i !== now ? '' : 'tabindex="-1" aria-disabled="true"')+'>'+ic(c.icon,'sm')+'<span class="lbl">'+c.name+'</span></button></li>';
+  }).join('');
+  $$('#track .trk.done').forEach(function(b){ b.onclick = function(){ var i = +b.getAttribute('data-ch'); if(i !== now) RUN[i](); }; });
+}
+
+/* ---------- field notes ---------- */
+var NOTES = {
+  ai:{t:'AI system', d:'A system that learns patterns from data and uses them to predict or decide, instead of only following rules a person wrote.'},
+  domains:{t:'The three domains of AI', d:'Statistical Data (numbers and records), Computer Vision (images and video) and Natural Language Processing (text and speech). A domain is defined by the kind of data the AI learns from.'},
+  feature:{t:'Feature', d:'A clue the model gets as input, like rainfall today. Useful features carry real information about the answer.'},
+  label:{t:'Label', d:'The answer the model learns to predict, like "flooded: yes or no". Past examples need labels so the model has something to learn from.'},
+  training:{t:'Training', d:'Adjusting a model until its outputs match labelled examples. You moved a line by hand; real systems adjust millions of numbers automatically.'},
+  testing:{t:'Testing and accuracy', d:'Checking a trained model on examples it has never seen. Accuracy = correct predictions ÷ total predictions. Only test accuracy tells you whether it really learned.'},
+  pixel:{t:'Pixel and RGB', d:'A digital image is a grid of pixels. Each pixel is three numbers from 0 to 255: how much red, green and blue light it has.'},
+  imgfeat:{t:'Image features', d:'Numbers measured from pixels, like how blue the bottom of a frame is. A vision model decides using numbers like these, not by "seeing" the way we do.'},
+  coverage:{t:'Data coverage and bias', d:'A model only knows the situations in its training data. Train on daytime photos only and it fails at night. Gaps in data become biased decisions.'},
+  token:{t:'Token', d:'A unit of text the computer handles as one piece, usually a word. Language AI starts by splitting text into tokens.'},
+  rules:{t:'Rules vs learning', d:'Hand-written keyword rules break on new words, other languages and negation ("not in danger"). A learning system picks up patterns from many labelled examples instead.'},
+  textclf:{t:'Text classification', d:'Sorting text into categories (urgent or not, spam or not, positive or negative) from the words it contains and how often they appeared in each category during training.'},
+  human:{t:'Human in the loop', d:'AI supplies evidence; people make the final call, especially when the stakes are high or the data might be missing someone.'}
+};
+var NOTE_ORDER = ['ai','domains','feature','label','training','testing','pixel','imgfeat','coverage','token','rules','textclf','human'];
+var toastT;
+function addNote(id){
+  if(S.notes.indexOf(id) >= 0) return;
+  S.notes.push(id); save(); notesCount(); sfx('note');
+  $$('.ntoast').forEach(function(t){ t.remove(); });
+  var t = document.createElement('div'); t.className = 'ntoast'; t.setAttribute('role','status');
+  t.innerHTML = '<div class="k">'+ic('notes','sm')+' Field note '+String(S.notes.length).padStart(2,'0')+' added</div><b>'+NOTES[id].t+'</b><p>'+NOTES[id].d+'</p>';
+  document.body.appendChild(t);
+  clearTimeout(toastT); toastT = setTimeout(function(){ t.remove(); }, narrow() ? 3200 : 5500);
+  t.onclick = function(){ t.remove(); };
+}
+function notesCount(){ $('#notesN').textContent = S.notes.length; }
+$('#notesBtn').onclick = function(){
+  var bg = document.createElement('div'); bg.className = 'drawer-bg';
+  var d = document.createElement('aside'); d.className = 'drawer'; d.setAttribute('role','dialog'); d.setAttribute('aria-label','Field notes');
+  d.innerHTML = '<button class="xbtn" type="button" aria-label="Close">'+ic('x','sm')+'</button><div class="kick">'+ic('notes','sm')+' Field notes · '+S.notes.length+' of '+NOTE_ORDER.length+'</div><h2>What you know so far</h2>'+
+    '<ol class="notes">'+NOTE_ORDER.map(function(id, i){
+      var got = S.notes.indexOf(id) >= 0;
+      return '<li class="'+(got?'':'lock')+'"><span class="n">'+String(i+1).padStart(2,'0')+'</span><div><b>'+(got?NOTES[id].t:'Locked')+'</b><p>'+(got?NOTES[id].d:'Keep working the shift to unlock this note.')+'</p></div></li>';
+    }).join('')+'</ol>';
+  document.body.appendChild(bg); document.body.appendChild(d);
+  function close(){ bg.remove(); d.remove(); document.removeEventListener('keydown', key); $('#notesBtn').focus(); }
+  function key(e){ if(e.key === 'Escape') close(); }
+  bg.onclick = close; d.querySelector('.xbtn').onclick = close; document.addEventListener('keydown', key);
+  d.querySelector('.xbtn').focus();
+};
+
+/* ---------- title card ---------- */
+function titleCard(o){
+  return new Promise(function(res){
+    var d = document.createElement('div'); d.className = 'tcard'; d.setAttribute('role','dialog'); d.setAttribute('aria-modal','true');
+    d.innerHTML = '<div class="tc-in"><div class="tc-kick">'+ic(o.icon,'lg')+'<span>'+o.kicker+'</span></div><h1>'+o.title+'</h1><p class="tc-time">'+o.time+'</p><p class="tc-line">'+o.line+'</p><button class="btn" type="button">'+(o.btn||'Begin')+' '+ic('arrow')+'</button></div>';
+    document.body.appendChild(d);
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ d.classList.add('on'); }); });
+    sfx('big');
+    var b = d.querySelector('button'); b.focus();
+    b.onclick = function(){ sfx('tick'); d.classList.remove('on'); setTimeout(function(){ d.remove(); }, RM ? 0 : 420); window.scrollTo(0,0); res(); };
+  });
+}
+
+/* ---------- chapter screen ---------- */
+function screen(o){
+  stage.innerHTML =
+    '<div class="grid">'+
+      '<aside class="brief">'+
+        '<div class="kick">'+ic(o.icon,'sm')+o.kicker+'</div>'+
+        '<h2>'+o.title+'</h2>'+
+        '<div class="story">'+o.story.map(function(p){ return '<p>'+p+'</p>'; }).join('')+'</div>'+
+        '<ol class="obj" id="obj">'+o.obj.map(function(t){ return '<li><span class="st"></span><span>'+t+'</span></li>'; }).join('')+'</ol>'+
+      '</aside>'+
+      '<section class="console" id="console" aria-live="polite">'+
+        '<div class="chead">'+ic(o.sysIcon,'sm')+'<b>'+o.sys+'</b><span class="ver">'+o.ver+'</span><span class="pill off" id="sysSt">Untrained</span></div>'+
+        '<div class="cbody" id="cbody"></div>'+
+      '</section>'+
+    '</div>';
+  setTrack(o.ch);
+}
+function obj(i){ $$('#obj li').forEach(function(li, k){ li.className = k < i ? 'done' : k === i ? 'now' : ''; var st = li.querySelector('.st'); st.innerHTML = k < i ? ic('check') : ''; }); }
+function status(t, k){ var p = $('#sysSt'); if(!p) return; p.textContent = t; p.className = 'pill '+k; }
+function body(html){
+  var b = $('#cbody'); b.innerHTML = html; b.classList.remove('fade'); void b.offsetWidth; b.classList.add('fade');
+  if(narrow()){ var c = $('#console'); if(c.getBoundingClientRect().top < 0 || c.getBoundingClientRect().top > innerHeight*.6) c.scrollIntoView({behavior: RM?'auto':'smooth', block:'start'}); }
+  return b;
+}
+function stats3(items){
+  return '<div class="stats">'+items.map(function(s){ return '<div class="stat"><div class="k">'+s[0]+'</div><div class="v" '+(s[2]?'style="color:'+s[2]+'"':'')+' id="'+(s[3]||'')+'">'+s[1]+'</div></div>'; }).join('')+'</div>';
+}
+
+/* =====================================================================
+   INTRO / BRIEFING
+   ===================================================================== */
+function intro(){
+  setTrack(-1); setClock('18:00');
+  var resume = S.callsign && S.done > 0 && S.done < 5;
+  stage.innerHTML =
+    '<section class="intro"><div class="intro-grid"><div class="intro-in">'+
+      '<div class="eyebrow"><b>AI Kids Lab</b><span>Grade 9</span><span>AI Reflection · The three domains of AI</span></div>'+
+      '<h1>Flood<br><em>Desk.</em></h1>'+
+      '<p class="sub">One monsoon night. Three untrained AIs. A city that needs all of them by midnight.</p>'+
+      '<div class="meta"><span>About 35 minutes</span><span>Train 3 real models</span><span>Phone or laptop</span></div>'+
+      '<div class="row mt3">'+
+        (resume ? '<button class="btn" id="resume" type="button">Resume shift as '+esc(S.callsign)+' '+ic('arrow')+'</button><button class="btn ghost" id="start" type="button">Start a new shift</button>'
+                : '<button class="btn" id="start" type="button">Start the night shift '+ic('arrow')+'</button>')+
+      '</div>'+
+    '</div>'+gauge()+'</div></section>';
+  liveGauge();
+  $('#start').onclick = function(){ var snd = S.sound; S = fresh(); S.sound = snd; save(); notesCount(); briefing(); };
+  if($('#resume')) $('#resume').onclick = function(){ RUN[Math.min(S.done, 4)](); };
+}
+
+function gauge(){
+  var y = function(m){ return 236 - m/6*220; }, t = '';
+  for(var m=0; m<=6; m++){ t += '<line x1="58" y1="'+y(m)+'" x2="66" y2="'+y(m)+'" stroke="rgba(243,239,230,.3)"/><text x="50" y="'+(y(m)+3)+'" text-anchor="end">'+m+' m</text>'; }
+  return '<aside class="gauge" aria-label="Neela river level gauge"><div class="gh"><span>Neela river · gauge 3</span><b>Rising</b></div>'+
+    '<svg viewBox="0 0 220 250" aria-hidden="true">'+t+
+      '<rect x="70" y="16" width="100" height="220" rx="10" fill="#0A1016" stroke="rgba(243,239,230,.18)"/>'+
+      '<clipPath id="gclip"><rect x="70" y="16" width="100" height="220" rx="10"/></clipPath>'+
+      '<g clip-path="url(#gclip)"><rect id="gw" x="70" y="'+y(4.1)+'" width="100" height="'+(236-y(4.1))+'" fill="#1E3A52"/><rect id="gs" x="70" y="'+y(4.1)+'" width="100" height="2" fill="rgba(90,169,230,.9)"/></g>'+
+      '<line x1="64" y1="'+y(4.8)+'" x2="182" y2="'+y(4.8)+'" stroke="#FF6B5B" stroke-dasharray="4 4"/><text x="184" y="'+(y(4.8)+3)+'" style="fill:#FF6B5B">DANGER</text>'+
+    '</svg>'+
+    '<div class="lv" id="glv">4.10<small>m · danger 4.80 m</small></div>'+
+    '<ul><li>'+ic('data')+'RIVERCAST<span class="pill off">Untrained</span></li><li>'+ic('vision')+'STREETEYE<span class="pill off">Untrained</span></li><li>'+ic('language')+'HELPLINE<span class="pill off">Untrained</span></li></ul></aside>';
+}
+function liveGauge(){
+  var lv = 4.10, t0 = performance.now();
+  (function f(now){
+    var w = $('#gw'); if(!w) return;
+    lv = Math.min(4.62, 4.10 + (now - t0)/1000*0.004) + Math.sin(now/700)*0.012;
+    var Y = 236 - lv/6*220;
+    w.setAttribute('y', Y); w.setAttribute('height', 236 - Y); $('#gs').setAttribute('y', Y);
+    $('#glv').firstChild.nodeValue = lv.toFixed(2);
+    if(!RM) requestAnimationFrame(f);
+  })(t0);
+}
+function briefing(){
+  stage.innerHTML =
+    '<section class="intro"><div class="intro-in">'+
+      '<div class="eyebrow"><b>Incoming</b><span>Neelapur district control room</span></div>'+
+      '<div class="log" id="log" aria-live="polite"></div>'+
+      '<div id="after"></div>'+
+      '<p class="mt2"><button class="skip" id="skip" type="button">Skip briefing</button></p>'+
+    '</div></section>';
+  var LINES = [
+    ['18:00:02','<span class="al">RED ALERT</span> — 210 mm of rain expected over Neelapur before midnight.'],
+    ['18:00:05','Neela river at 4.1 m. Danger mark: 4.8 m. Rising.'],
+    ['18:00:07','40 underpass cameras online. Staff watching them: 2.'],
+    ['18:00:09','Citizen helpline: 1,186 messages in the last hour.'],
+    ['18:00:11','AI systems installed: 3. Systems trained: <span class="al">0</span>.'],
+    ['18:00:14','Assigning duty officer…']
+  ];
+  var skipped = false, log = $('#log');
+  $('#skip').onclick = function(){ skipped = true; };
+  (async function(){
+    for(var i=0;i<LINES.length;i++){
+      var ln = document.createElement('span'); ln.className = 'ln'; log.appendChild(ln);
+      ln.innerHTML = '<span class="ts">'+LINES[i][0]+'</span>';
+      var span = document.createElement('span'); ln.appendChild(span);
+      var html = LINES[i][1], plain = html.replace(/<[^>]+>/g,'');
+      if(skipped || RM){ span.innerHTML = html; continue; }
+      var cur = document.createElement('span'); cur.className = 'cur'; ln.appendChild(cur);
+      for(var k=1;k<=plain.length && !skipped;k++){ span.textContent = plain.slice(0,k); if(k%3===0) sfx('key'); await wait(16); }
+      cur.remove(); span.innerHTML = html;
+      await wait(skipped ? 0 : 260);
+    }
+    $('#skip').parentNode.remove();
+    afterLog();
+  })();
+  function afterLog(){
+    $('#after').innerHTML =
+      '<div class="fade">'+
+      '<div class="story mt2"><p>You are the duty officer tonight. Three AI systems can get Neelapur through this flood, but each one is a different <b>domain of AI</b>, learns from a different kind of data, and has not learned anything yet.</p></div>'+
+      '<div class="systems">'+
+        sysCard('data','RIVERCAST','Statistical Data','Learns from numbers and records to predict what happens next.','Learns from: river and rain records')+
+        sysCard('vision','STREETEYE','Computer Vision','Learns from images to recognise what a camera is looking at.','Learns from: labelled camera photos')+
+        sysCard('language','HELPLINE','Natural Language Processing','Learns from text and speech to understand what people mean.','Learns from: labelled messages')+
+      '</div>'+
+      '<form class="callsign" id="cs"><label class="sr" for="csIn" style="position:absolute;left:-9999px">Your callsign</label><input class="field" id="csIn" maxlength="16" autocomplete="off" placeholder="Your callsign, e.g. KESTREL" value="'+esc(S.callsign)+'"><button class="btn" type="submit">Take the desk '+ic('arrow')+'</button></form>'+
+      '<p class="small mt">Your callsign appears on your field report. First names are fine.</p>'+
+      '</div>';
+    addNote('ai'); setTimeout(function(){ addNote('domains'); }, 1800);
+    var f = $('#cs'), inp = $('#csIn');
+    inp.focus({preventScroll:true});
+    f.onsubmit = function(e){
+      e.preventDefault();
+      var v = inp.value.trim().toUpperCase();
+      if(!v){ inp.focus(); inp.placeholder = 'Type a callsign first'; return; }
+      S.callsign = v; S.started = Date.now(); save(); ch1();
+    };
+  }
+}
+function sysCard(icon, name, dom, p, lf){
+  return '<div class="sys">'+ic(icon,'lg')+'<div class="nm">'+name+'</div><div class="dm">'+dom+'</div><p>'+p+'</p><div class="lf">'+lf+'</div></div>';
+}
+
+/* =====================================================================
+   CHAPTER 1 — RIVERCAST (STATISTICAL DATA)
+   ===================================================================== */
+// [rain today mm, rain in previous 3 days mm, flooded]
+var TRAIN = [[22,10,0],[35,40,0],[48,15,0],[60,70,0],[72,30,0],[85,55,0],[95,20,0],[105,60,0],[118,35,0],[128,25,0],[138,30,0],[65,95,0],
+             [78,140,1],[92,120,1],[110,105,1],[125,90,1],[140,80,1],[150,60,1],[162,75,1],[175,40,1],[188,55,1],[198,30,1],[132,110,1],[100,130,1]];
+var TEST = [[90,40,0],[150,10,0],[70,80,0],[120,95,1],[85,125,1],[170,30,1]];
+var TONIGHT = [142,96];
+var DATES = (function(){
+  var m = ['Jun','Jul','Aug','Sep'], out = [], seed = 7;
+  for(var i=0;i<TRAIN.length;i++){ seed = (seed*37+11)%97; out.push(m[seed%4]+' '+String(1+seed%28).padStart(2,'0')+', '+(2014+(i*7)%11)); }
+  return out;
+})();
+var XMAX = 220, YMAX = 160;
+
+function ch1(){
+  setClock('18:00');
+  titleCard({icon:'data', kicker:'Chapter 1 · Statistical Data', title:'The river<br><em>remembers.</em>', time:'18:00 — 19:30 · RIVERCAST', line:'Twenty-four past monsoon days. Some ended in floods. Teach RIVERCAST to tell which, before tonight decides for you.'}).then(function(){
+    screen({ch:0, icon:'data', kicker:'Chapter 1 · Statistical Data', title:'Teach RIVERCAST to predict a flood.',
+      story:['RIVERCAST has the city\'s records for 24 heavy-rain days. It can do arithmetic on them all night, but it doesn\'t know <b>which numbers matter</b> or <b>what it is supposed to predict</b>.','That part is your job. Data AI starts with a human deciding what the question is.'],
+      obj:['Read the records: find the label and the features','Train with one clue','Train with two clues','Test on days it has never seen','Make tonight\'s forecast'],
+      sys:'RIVERCAST', sysIcon:'data', ver:'v0.1 · statistical model'});
+    obj(0); records();
+  });
+
+  function records(){
+    var cols = [['date','Date'],['rain','Rain today (mm)'],['prior','Rain, past 3 days (mm)'],['flood','Flooded?']];
+    var phase = 'label', feats = {};
+    body(
+      '<div class="step">Step 1 of 5 · The records</div>'+
+      '<h3 id="q1">Which column is the answer RIVERCAST must learn to predict?</h3>'+
+      '<p class="lead" id="q1s">Tap a column heading.</p>'+
+      '<div class="tbl-wrap"><table class="rec"><thead><tr>'+cols.map(function(c){ return '<th data-c="'+c[0]+'"><button type="button">'+c[1]+'<span class="tg"></span></button></th>'; }).join('')+'</tr></thead><tbody>'+
+        TRAIN.map(function(r, i){ return '<tr><td>'+DATES[i]+'</td><td>'+r[0]+'</td><td>'+r[1]+'</td><td class="'+(r[2]?'y':'')+'">'+(r[2]?'Yes':'No')+'</td></tr>'; }).join('')+
+      '</tbody></table></div>'+
+      '<div id="fb1" class="mt"></div>'+
+      '<div class="row mt" id="act1"></div>');
+    $$('.rec th').forEach(function(th){
+      th.querySelector('button').onclick = function(){
+        var c = th.getAttribute('data-c'); sfx('tick');
+        if(phase === 'label'){
+          if(c === 'flood'){
+            th.className = 'is-label'; th.querySelector('.tg').textContent = 'Label';
+            sfx('ok'); addNote('label'); phase = 'feat';
+            $('#q1').textContent = 'Now tap every column that is a useful clue.';
+            $('#q1s').innerHTML = 'Clues are called <b>features</b>. Tap again to unselect. Then check.';
+            $('#fb1').innerHTML = '';
+            $('#act1').innerHTML = '<button class="btn" id="chk1" type="button">Check features</button>';
+            $('#chk1').onclick = checkFeats;
+          } else {
+            sfx('bad');
+            $('#fb1').innerHTML = '<div class="callout bad">'+ic('alert')+'<p><b>Not that one.</b> The answer is what we want to know <b>before</b> it happens: did the city flood that day?</p></div>';
+          }
+        } else if(phase === 'feat' && c !== 'flood'){
+          feats[c] = !feats[c];
+          th.className = feats[c] ? 'is-feat' : '';
+          th.querySelector('.tg').textContent = feats[c] ? 'Feature' : '';
+        }
+      };
+    });
+    function checkFeats(){
+      $$('.rec th').forEach(function(th){ if(th.classList.contains('is-wrong')) th.classList.remove('is-wrong'); });
+      if(feats.rain && feats.prior && !feats.date){
+        sfx('ok'); addNote('feature'); phase = 'done';
+        $('#fb1').innerHTML = '<div class="callout good">'+ic('check')+'<p><b>Exactly.</b> Two features, one label. The date is just a name for the day: rain on 14 July doesn\'t flood a city <i>because</i> it is 14 July.</p></div>';
+        $('#act1').innerHTML = '<button class="btn" id="go1" type="button">Start training '+ic('arrow')+'</button>';
+        $('#go1').onclick = function(){ obj(1); oneClue(); };
+      } else {
+        sfx('bad');
+        var msg = feats.date ? 'The <b>date</b> is not a clue — it only identifies the day. Unselect it.' : 'You\'re missing a clue. Which other number could make a river overflow?';
+        if(feats.date) $('.rec th[data-c="date"]').classList.add('is-wrong');
+        $('#fb1').innerHTML = '<div class="callout bad">'+ic('alert')+'<p>'+msg+'</p></div>';
+      }
+    }
+  }
+
+  /* ---- one clue: threshold ---- */
+  function oneClue(){
+    var t = 60, best = 0;
+    body(
+      '<div class="step">Step 2 of 5 · Train with one clue</div>'+
+      '<h3>Drag the gold line. Rain to its right means "flood".</h3>'+
+      '<p class="lead">That line <b>is</b> the model: one rule, <i>"predict a flood if today\'s rain is more than X mm"</i>. Find the X that gets the most past days right.</p>'+
+      '<div class="chart-wrap"><svg class="chart" id="c1" viewBox="0 0 640 222" role="img" aria-label="Rainfall of each past day, flood days on the top row, dry days on the bottom row, with a draggable threshold line"></svg></div>'+
+      '<label class="step mt" for="r1" style="display:block">Threshold</label><input type="range" id="r1" min="0" max="220" step="1" value="'+t+'">'+
+      '<div class="legend"><span><i class="f"></i>Flooded day</span><span><i class="d"></i>Dry day</span></div>'+
+      '<div class="mt">'+stats3([['Correct','—','','s1c'],['Missed floods','—','var(--alert)','s1m'],['False alarms','—','','s1f']])+'</div>'+
+      '<div id="fb2" class="mt"></div><div class="row mt" id="act2"></div>');
+    var svg = $('#c1');
+    function px(v){ return 40 + v/XMAX*570; }
+    function vx(p){ return Math.max(0, Math.min(XMAX, (p-40)/570*XMAX)); }
+    function draw(){
+      var g = '';
+      for(var v=0; v<=XMAX; v+=20){ g += '<line class="gr" x1="'+px(v)+'" y1="20" x2="'+px(v)+'" y2="170"/><text x="'+px(v)+'" y="190" text-anchor="middle">'+v+'</text>'; }
+      g += '<text x="40" y="216" style="letter-spacing:.1em">RAIN TODAY (MM) →</text>';
+      g += '<rect x="'+px(t)+'" y="20" width="'+(px(XMAX)-px(t))+'" height="150" fill="rgba(255,200,0,.08)"/>';
+      g += '<text x="'+(px(XMAX)-6)+'" y="34" text-anchor="end" style="fill:var(--gold)">PREDICT FLOOD</text>';
+      g += '<text x="44" y="66" style="fill:var(--dim)">FLOODED</text><text x="44" y="132" style="fill:var(--dim)">DRY</text>';
+      var placed = {};
+      TRAIN.forEach(function(r){
+        var key = r[2]+'-'+Math.round(r[0]/8), n = placed[key] = (placed[key]||0)+1;
+        var y = (r[2] ? 82 : 148) + (n-1)*-14;
+        var wrong = (r[0] >= t) !== !!r[2];
+        g += r[2] ? '<circle cx="'+px(r[0])+'" cy="'+y+'" r="7" fill="var(--gold)" '+(wrong?'stroke="var(--alert)" stroke-width="3"':'')+'/>'
+                  : '<circle cx="'+px(r[0])+'" cy="'+y+'" r="6" fill="var(--ink)" stroke="'+(wrong?'var(--alert)':'var(--paper)')+'" stroke-width="2"/>';
+      });
+      g += '<line x1="'+px(t)+'" y1="16" x2="'+px(t)+'" y2="172" stroke="var(--gold)" stroke-width="2"/>';
+      g += '<rect class="hit" x="'+(px(t)-18)+'" y="10" width="36" height="166"/>';
+      g += '<circle class="handle" cx="'+px(t)+'" cy="16" r="9"/><text x="'+px(t)+'" y="11" text-anchor="middle" style="fill:var(--paper)" dy="-8">'+Math.round(t)+' mm</text>';
+      svg.innerHTML = g;
+      var ok = 0, miss = 0, fa = 0;
+      TRAIN.forEach(function(r){ var p = r[0] >= t; if(p === !!r[2]) ok++; else if(r[2]) miss++; else fa++; });
+      $('#s1c').innerHTML = ok+'<small>/24</small>'; $('#s1m').textContent = miss; $('#s1f').textContent = fa;
+      if(ok > best){ best = ok; }
+      if(ok >= 18 && !$('#lock1')){
+        sfx('ok');
+        $('#fb2').innerHTML = '<div class="callout">'+ic('spark')+'<p><b>18 out of 24 — and that is the best any single threshold can do.</b> Look at the overlap: some days with 100 mm of rain flooded, others with 130 mm didn\'t. Today\'s rain alone isn\'t enough. Something else matters.</p></div>';
+        $('#act2').innerHTML = '<button class="btn" id="lock1" type="button">Add the second clue '+ic('arrow')+'</button>';
+        $('#lock1').onclick = function(){ S.stats.oneClue = ok; save(); obj(2); twoClues(Math.round(t)); };
+      }
+    }
+    var drag = false;
+    function move(e){ var r = svg.getBoundingClientRect(); var p = (e.clientX - r.left) / r.width * 640; t = Math.round(vx(p)); $('#r1').value = t; draw(); }
+    svg.addEventListener('pointerdown', function(e){ drag = true; svg.setPointerCapture(e.pointerId); move(e); });
+    svg.addEventListener('pointermove', function(e){ if(drag) move(e); });
+    svg.addEventListener('pointerup', function(){ drag = false; sfx('tick'); });
+    $('#r1').oninput = function(){ t = +this.value; draw(); };
+    draw();
+  }
+
+  /* ---- two clues: draggable line ---- */
+  function twoClues(t0){
+    var A = {x:t0, y:0}, B = {x:t0, y:YMAX}, done = false;
+    var L = 56, R = 620, T = 18, Bm = 380;
+    function sx(v){ return L + v/XMAX*(R-L); } function sy(v){ return Bm - v/YMAX*(Bm-T); }
+    function ix(p){ return Math.max(0, Math.min(XMAX, (p-L)/(R-L)*XMAX)); } function iy(p){ return Math.max(0, Math.min(YMAX, (Bm-p)/(Bm-T)*YMAX)); }
+    body(
+      '<div class="step">Step 3 of 5 · Train with two clues</div>'+
+      '<h3>Same days, now spread out by the rain that fell before.</h3>'+
+      '<p class="lead">Wet ground can\'t soak up more water. Drag the two <b>gold handles</b> to tilt the line until the flooded days sit on the gold side. Aim for <b>22 of 24</b> or better.</p>'+
+      '<div class="chart-wrap"><svg class="chart" id="c2" viewBox="0 0 640 420" role="img" aria-label="Scatter of past days by rain today and rain in the previous three days, with a draggable dividing line"></svg></div>'+
+      '<div class="legend"><span><i class="f"></i>Flooded day</span><span><i class="d"></i>Dry day</span><span id="lgT" hidden><i class="t"></i>Test day</span></div>'+
+      '<div class="mt">'+stats3([['Training accuracy','—','','s2a'],['Missed floods','—','var(--alert)','s2m'],['False alarms','—','','s2f']])+'</div>'+
+      '<div id="fb3" class="mt"></div><div class="row mt" id="act3"></div>');
+    var svg = $('#c2'), testShown = 0, tonight = false;
+    function side(p){ return (B.x-A.x)*(p[1]-A.y) - (B.y-A.y)*(p[0]-A.x); }
+    function ref(){ var s = side([XMAX, YMAX]); return s === 0 ? side([XMAX, 0]) : s; }
+    function pred(p){ var r = ref(), s = side(p); return r === 0 ? false : (s === 0 ? false : (s > 0) === (r > 0)); }
+    function shade(){
+      var r = ref(), poly = [[0,0],[XMAX,0],[XMAX,YMAX],[0,YMAX]], out = [];
+      for(var i=0;i<4;i++){
+        var P = poly[i], Q = poly[(i+1)%4], sp = side(P), sq = side(Q);
+        var inP = r !== 0 && sp * r >= 0, inQ = r !== 0 && sq * r >= 0;
+        if(inP) out.push(P);
+        if(inP !== inQ && sp !== sq){ var k = sp / (sp - sq); out.push([P[0]+(Q[0]-P[0])*k, P[1]+(Q[1]-P[1])*k]); }
+      }
+      return out.map(function(p){ return sx(p[0]).toFixed(1)+','+sy(p[1]).toFixed(1); }).join(' ');
+    }
+    function lineEnds(){
+      var dx = B.x-A.x, dy = B.y-A.y, ts = [];
+      [[0,'x'],[XMAX,'x'],[0,'y'],[YMAX,'y']].forEach(function(e){
+        var tt = e[1]==='x' ? (dx ? (e[0]-A.x)/dx : null) : (dy ? (e[0]-A.y)/dy : null);
+        if(tt === null) return;
+        var X = A.x+dx*tt, Y = A.y+dy*tt;
+        if(X >= -0.01 && X <= XMAX+.01 && Y >= -.01 && Y <= YMAX+.01) ts.push([X,Y]);
+      });
+      ts.sort(function(a,b){ return a[0]-b[0] || a[1]-b[1]; });
+      return ts.length >= 2 ? [ts[0], ts[ts.length-1]] : [[A.x,A.y],[B.x,B.y]];
+    }
+    function draw(){
+      var g = '';
+      for(var v=0; v<=XMAX; v+=40){ g += '<line class="gr" x1="'+sx(v)+'" y1="'+T+'" x2="'+sx(v)+'" y2="'+Bm+'"/><text x="'+sx(v)+'" y="'+(Bm+18)+'" text-anchor="middle">'+v+'</text>'; }
+      for(var w=0; w<=YMAX; w+=40){ g += '<line class="gr" x1="'+L+'" y1="'+sy(w)+'" x2="'+R+'" y2="'+sy(w)+'"/><text x="'+(L-8)+'" y="'+(sy(w)+4)+'" text-anchor="end">'+w+'</text>'; }
+      g += '<text x="'+R+'" y="'+(Bm+38)+'" text-anchor="end" style="letter-spacing:.1em">RAIN TODAY (MM) →</text>';
+      g += '<text x="'+(L+4)+'" y="'+(T+12)+'" style="letter-spacing:.1em">↑ RAIN, PAST 3 DAYS (MM)</text>';
+      g += '<polygon points="'+shade()+'" fill="rgba(255,200,0,.08)"/>';
+      var e = lineEnds();
+      g += '<line x1="'+sx(e[0][0])+'" y1="'+sy(e[0][1])+'" x2="'+sx(e[1][0])+'" y2="'+sy(e[1][1])+'" stroke="var(--gold)" stroke-width="2"/>';
+      var ok = 0, miss = 0, fa = 0;
+      TRAIN.forEach(function(r){
+        var p = pred(r), wrong = p !== !!r[2];
+        if(!wrong) ok++; else if(r[2]) miss++; else fa++;
+        g += r[2] ? '<circle cx="'+sx(r[0])+'" cy="'+sy(r[1])+'" r="7" fill="var(--gold)" '+(wrong?'stroke="var(--alert)" stroke-width="3"':'')+'/>'
+                  : '<circle cx="'+sx(r[0])+'" cy="'+sy(r[1])+'" r="6" fill="var(--ink)" stroke="'+(wrong?'var(--alert)':'var(--paper)')+'" stroke-width="2"/>';
+      });
+      for(var i=0;i<testShown;i++){
+        var q = TEST[i], qp = pred(q), qok = qp === !!q[2], X = sx(q[0]), Y = sy(q[1]);
+        g += '<rect x="'+(X-7)+'" y="'+(Y-7)+'" width="14" height="14" transform="rotate(45 '+X+' '+Y+')" fill="var(--water)" stroke="'+(qok?'var(--ok)':'var(--alert)')+'" stroke-width="3"/>';
+      }
+      if(tonight){
+        var TX = sx(TONIGHT[0]), TY = sy(TONIGHT[1]);
+        g += '<circle cx="'+TX+'" cy="'+TY+'" r="16" fill="none" stroke="var(--alert)" stroke-width="2"><animate attributeName="r" values="10;22;10" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.2;1" dur="1.8s" repeatCount="indefinite"/></circle>';
+        g += '<circle cx="'+TX+'" cy="'+TY+'" r="6" fill="var(--alert)"/><text x="'+(TX+14)+'" y="'+(TY-12)+'" style="fill:var(--paper)">TONIGHT</text>';
+      }
+      [A,B].forEach(function(h, i){ g += '<circle class="hit" data-h="'+i+'" cx="'+sx(h.x)+'" cy="'+sy(h.y)+'" r="22"/><circle class="handle" data-h="'+i+'" cx="'+sx(h.x)+'" cy="'+sy(h.y)+'" r="10"/>'; });
+      svg.innerHTML = g;
+      $('#s2a').innerHTML = ok+'<small>/24</small>'; $('#s2m').textContent = miss; $('#s2f').textContent = fa;
+      if(ok >= 22 && !done){
+        done = true; sfx('ok'); addNote('training'); status('Trained','busy');
+        $('#fb3').innerHTML = '<div class="callout good">'+ic('check')+'<p><b>'+ok+' of 24.</b> With two features the pattern appears: floods happen when <b>today\'s rain and the rain before it add up</b>. You just trained a model — real systems do the same thing automatically, with thousands of examples.</p></div>';
+        $('#act3').innerHTML = '<button class="btn" id="test1" type="button">Test it on 6 new days '+ic('arrow')+'</button><span class="small">You can keep adjusting first.</span>';
+        $('#test1').onclick = runTest;
+      }
+      return ok;
+    }
+    var dragging = -1;
+    function pt(e){ var r = svg.getBoundingClientRect(); return {x: ix((e.clientX-r.left)/r.width*640), y: iy((e.clientY-r.top)/r.height*420)}; }
+    svg.addEventListener('pointerdown', function(e){
+      var h = e.target.getAttribute && e.target.getAttribute('data-h');
+      if(h === null){
+        var p = pt(e), dA = Math.hypot(p.x-A.x, (p.y-A.y)*1.37), dB = Math.hypot(p.x-B.x, (p.y-B.y)*1.37);
+        h = dA < dB ? 0 : 1;
+      }
+      dragging = +h; svg.setPointerCapture(e.pointerId); e.preventDefault();
+    });
+    svg.addEventListener('pointermove', function(e){
+      if(dragging < 0) return;
+      var p = pt(e), H = dragging ? B : A, O = dragging ? A : B;
+      if(Math.hypot(p.x-O.x, p.y-O.y) < 12) return;
+      H.x = p.x; H.y = p.y; draw();
+    });
+    svg.addEventListener('pointerup', function(){ if(dragging >= 0) sfx('tick'); dragging = -1; });
+    draw();
+
+    async function runTest(){
+      $('#test1').disabled = true; obj(3); status('Testing','busy'); $('#lgT').hidden = false;
+      var trainAcc = draw();
+      for(var i=1;i<=TEST.length;i++){ testShown = i; draw(); sfx('tick'); await wait(420); }
+      var tok = TEST.filter(function(q){ return pred(q) === !!q[2]; }).length;
+      S.stats.data = {train: trainAcc, test: tok}; save();
+      addNote('testing');
+      $('#fb3').innerHTML = '<div class="callout '+(tok>=5?'good':'')+'">'+ic(tok>=5?'check':'spark')+'<p><b>Test accuracy: '+tok+' of 6 ('+Math.round(tok/6*100)+'%).</b> These blue days were never used in training. '+(tok>=5?'Your line works on new data, so RIVERCAST learned a real pattern rather than memorising the past.':'Some new days landed on the wrong side. A line that fits the past perfectly can still fail on the future, which is why we always test.')+'</p></div>';
+      $('#act3').innerHTML = '<button class="btn" id="fc" type="button">Forecast tonight '+ic('arrow')+'</button>';
+      $('#fc').onclick = forecast;
+    }
+    function forecast(){
+      obj(4); tonight = true; draw(); sfx('tick');
+      var f = pred(TONIGHT);
+      S.stats.forecast = f; save();
+      status('Online','on');
+      $('#fb3').innerHTML = '<div class="callout '+(f?'bad':'')+'">'+ic('alert')+'<p><b>Tonight: '+TONIGHT[0]+' mm today, '+TONIGHT[1]+' mm in the past three days. RIVERCAST says: '+(f?'FLOOD LIKELY.':'NO FLOOD.')+'</b> '+(f?'Tonight sits deep on the flood side of your line, wetter than most past flood days.':'Your line puts tonight on the dry side, but it is wetter than most past flood days. Real forecasters would question a model before trusting it.')+'</p></div>';
+      $('#act3').innerHTML = '<button class="btn" id="warn" type="button">'+ic('send')+' Issue the flood warning</button>';
+      $('#warn').onclick = function(){ S.done = Math.max(S.done, 1); save(); sfx('ok'); setClock('19:30'); ch2(); };
+    }
+  }
+}
+
+/* =====================================================================
+   CHAPTER 2 — STREETEYE (COMPUTER VISION)
+   ===================================================================== */
+function rng(seed){ var a = seed >>> 0; return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+/* Draws an underpass camera frame. p = {f: water level 0..1, n: night, c: camera no., s: seed, car} */
+function drawScene(cv, p, hud){
+  var W = cv.width, H = cv.height, x = cv.getContext('2d');
+  var R = rng(p.s * 977 + 13);
+  x.setTransform(W/320, 0, 0, H/200, 0, 0);
+  var tone = 0.94 + R()*0.12;
+  function sh(r,g,b){ return 'rgb('+Math.round(r*tone)+','+Math.round(g*tone)+','+Math.round(b*tone)+')'; }
+  // ceiling and back
+  x.fillStyle = sh(48,49,52); x.fillRect(0,0,320,200);
+  // far exit (sky)
+  var sky = x.createLinearGradient(0,58,0,102); sky.addColorStop(0, sh(196,203,209)); sky.addColorStop(1, sh(158,165,170));
+  x.fillStyle = sky; x.fillRect(128,58,64,44);
+  // far buildings in the exit
+  x.fillStyle = sh(120,124,128); x.fillRect(132,78,10,24); x.fillRect(146,70,8,32); x.fillRect(170,74,12,28); x.fillRect(184,82,6,20);
+  // ceiling slab
+  x.fillStyle = sh(92,93,92); x.beginPath(); x.moveTo(0,0); x.lineTo(320,0); x.lineTo(192,58); x.lineTo(128,58); x.closePath(); x.fill();
+  for(var k=0;k<5;k++){ var yy = 6 + k*11, xl = 128*(yy/58), xr = 320-(128*(yy/58)); x.fillStyle = 'rgba(255,236,170,.85)'; var lw = (xr-xl)*0.05; x.fillRect(160-lw/2, yy, lw, 1.6+(4-k)*.5); }
+  // walls
+  x.fillStyle = sh(138,138,134);
+  x.beginPath(); x.moveTo(0,0); x.lineTo(128,58); x.lineTo(128,102); x.lineTo(0,200); x.closePath(); x.fill();
+  x.beginPath(); x.moveTo(320,0); x.lineTo(192,58); x.lineTo(192,102); x.lineTo(320,200); x.closePath(); x.fill();
+  x.strokeStyle = 'rgba(40,40,40,.35)'; x.lineWidth = 1;
+  for(var s=0;s<6;s++){ var f = s/6, lx = 128*f*f*1.0, ly1 = 58*f, ly2 = 200-98*f; x.beginPath(); x.moveTo(lx, ly1); x.lineTo(lx, ly2); x.stroke(); x.beginPath(); x.moveTo(320-lx, ly1); x.lineTo(320-lx, ly2); x.stroke(); }
+  // grime stripe
+  x.fillStyle = 'rgba(70,60,45,.25)'; x.beginPath(); x.moveTo(0,150); x.lineTo(128,92); x.lineTo(128,102); x.lineTo(0,200); x.fill();
+  x.beginPath(); x.moveTo(320,150); x.lineTo(192,92); x.lineTo(192,102); x.lineTo(320,200); x.fill();
+  // road
+  x.fillStyle = sh(86,87,90); x.beginPath(); x.moveTo(0,200); x.lineTo(128,102); x.lineTo(192,102); x.lineTo(320,200); x.closePath(); x.fill();
+  x.fillStyle = 'rgba(235,235,225,.8)';
+  for(var d=0; d<6; d++){ var y1 = 104 + d*17, y2 = y1 + 8, w1 = 1 + (y1-102)*0.035, w2 = 1 + (y2-102)*0.035; x.beginPath(); x.moveTo(160-w1, y1); x.lineTo(160+w1, y1); x.lineTo(160+w2, y2); x.lineTo(160-w2, y2); x.fill(); }
+  // car
+  if(p.car){
+    var cx = p.car === 2 ? 96 : 206, cy = 150, col = p.car === 2 ? [70,72,76] : [214,214,210];
+    x.fillStyle = 'rgba(0,0,0,.35)'; x.fillRect(cx-36, cy+16, 72, 6);
+    x.fillStyle = sh(col[0],col[1],col[2]); x.beginPath(); x.moveTo(cx-38, cy+16); x.lineTo(cx-38, cy+2); x.lineTo(cx-24, cy-2); x.lineTo(cx-16, cy-16); x.lineTo(cx+16, cy-16); x.lineTo(cx+26, cy-2); x.lineTo(cx+38, cy+2); x.lineTo(cx+38, cy+16); x.closePath(); x.fill();
+    x.fillStyle = 'rgba(30,36,44,.9)'; x.beginPath(); x.moveTo(cx-20, cy-2); x.lineTo(cx-13, cy-13); x.lineTo(cx+13, cy-13); x.lineTo(cx+21, cy-2); x.closePath(); x.fill();
+    x.fillStyle = 'rgb(20,20,20)'; x.fillRect(cx-30, cy+14, 12, 6); x.fillRect(cx+18, cy+14, 12, 6);
+    x.fillStyle = 'rgba(255,210,120,.9)'; x.fillRect(cx-37, cy+5, 5, 3); x.fillRect(cx+32, cy+5, 5, 3);
+  }
+  // flood water
+  if(p.f > 0){
+    var wl = 200 - p.f*86;
+    var wg = x.createLinearGradient(0, wl, 0, 200); wg.addColorStop(0, sh(84,108,120)); wg.addColorStop(1, sh(60,86,100));
+    x.fillStyle = wg; x.fillRect(0, wl, 320, 200-wl);
+    x.fillStyle = 'rgba(205,220,226,.30)';
+    for(var q=0;q<40;q++){ var ry = wl + 2 + R()*(198-wl), rx = R()*320, rl = 6 + R()*22; x.fillRect(rx, ry, rl, .9); }
+    x.fillStyle = 'rgba(200,210,214,.22)'; x.fillRect(146, wl+1, 28, 200-wl);
+    x.fillStyle = 'rgba(230,236,238,.55)'; x.fillRect(0, wl, 320, 1.2);
+  }
+  // rain on the lens
+  x.strokeStyle = 'rgba(230,235,240,.16)'; x.lineWidth = .7; x.beginPath();
+  for(var r=0;r<26;r++){ var a = R()*320, b = R()*200; x.moveTo(a,b); x.lineTo(a-2, b+6+R()*6); }
+  x.stroke();
+  // night
+  if(p.n){
+    x.fillStyle = 'rgba(6,12,40,.66)'; x.fillRect(0,0,320,200);
+    for(var g2=0; g2<3; g2++){ var gx = 60 + g2*100, gy = 20; var rg = x.createRadialGradient(gx,gy,0,gx,gy,26); rg.addColorStop(0,'rgba(255,190,110,.55)'); rg.addColorStop(1,'rgba(255,190,110,0)'); x.fillStyle = rg; x.fillRect(gx-26, gy-26, 52, 52); }
+  }
+  if(hud !== false){
+    x.fillStyle = 'rgba(0,0,0,.45)'; x.fillRect(0,0,320,14);
+    x.font = '600 8px "IBM Plex Mono", monospace'; x.fillStyle = 'rgba(255,255,255,.9)'; x.textBaseline = 'middle';
+    x.fillText('CAM '+String(p.c).padStart(2,'0')+' · UNDERPASS', 16, 7);
+    x.textAlign = 'right'; x.fillText(p.n ? '23:4'+(p.s%10)+':0'+(p.s%7) : '17:2'+(p.s%10)+':1'+(p.s%7), 314, 7); x.textAlign = 'left';
+    x.fillStyle = '#ff4d3d'; x.beginPath(); x.arc(8, 7, 2.6, 0, 7); x.fill();
+  }
+  x.setTransform(1,0,0,1,0,0);
+}
+
+/* Features measured from the pixels the model actually receives. */
+var FEAT_CANVAS = document.createElement('canvas'); FEAT_CANVAS.width = 160; FEAT_CANVAS.height = 100;
+function features(p){
+  drawScene(FEAT_CANVAS, p, true);
+  var x = FEAT_CANVAS.getContext('2d'), d = x.getImageData(0, 0, 160, 100).data, blue = 0, nb = 0, lum = 0, nl = 0;
+  for(var y=8; y<100; y++){
+    for(var i=0; i<160; i++){
+      var o = (y*160+i)*4, r = d[o], g = d[o+1], b = d[o+2];
+      lum += (r+g+b)/3; nl++;
+      if(y >= 75){ blue += b - (r+g)/2; nb++; }
+    }
+  }
+  return {b: blue/nb, l: lum/nl};
+}
+function fx(f){ return [Math.max(0, f.b)/30, f.l/120]; }
+function nearest(train, q){
+  var best = null, bd = 1e9, Q = fx(q.feat);
+  train.forEach(function(t){ var T = fx(t.feat), dd = Math.hypot(T[0]-Q[0], T[1]-Q[1]); if(dd < bd){ bd = dd; best = t; } });
+  return best;
+}
+
+var CV = {
+  loupe:{f:.58, n:0, c:7, s:3, car:1},
+  day:[{f:.62,n:0,c:3,s:11,car:1},{f:0,n:0,c:5,s:12,car:1},{f:.48,n:0,c:8,s:13},{f:0,n:0,c:12,s:14},{f:.78,n:0,c:15,s:15,car:2},{f:0,n:0,c:17,s:16,car:2},{f:.52,n:0,c:21,s:17},{f:0,n:0,c:22,s:18,car:1}],
+  test:[{f:.56,n:0,c:24,s:31,car:1},{f:0,n:1,c:29,s:33},{f:0,n:0,c:26,s:32,car:2},{f:.66,n:1,c:30,s:34},{f:0,n:1,c:33,s:35,car:1},{f:.5,n:0,c:36,s:36}],
+  night:[{f:0,n:1,c:4,s:41},{f:.6,n:1,c:9,s:42,car:1},{f:0,n:1,c:11,s:43,car:2},{f:.48,n:1,c:19,s:44}]
+};
+function sceneCanvas(p, w, h){ var c = document.createElement('canvas'); c.width = w||320; c.height = h||200; drawScene(c, p); return c; }
+
+function ch2(){
+  setClock('19:30');
+  titleCard({icon:'vision', kicker:'Chapter 2 · Computer Vision', title:'Forty cameras.<br><em>Two pairs of eyes.</em>', time:'19:30 — 21:00 · STREETEYE', line:'Underpasses flood first, and cars drive straight in. STREETEYE can watch all forty feeds at once, once it learns what water looks like.'}).then(function(){
+    screen({ch:1, icon:'vision', kicker:'Chapter 2 · Computer Vision', title:'Teach STREETEYE to spot a flooded underpass.',
+      story:['STREETEYE never sees a road or a puddle. It receives <b>numbers</b>, millions of them, one set for every pixel of every frame.','To teach it, you will look at what those numbers are, label photos for it to learn from, and then find out what it gets wrong.'],
+      obj:['Look inside a camera frame','Label the training photos','Train and test STREETEYE','Fix what it got wrong'],
+      sys:'STREETEYE', sysIcon:'vision', ver:'v0.1 · image classifier'});
+    obj(0); loupe();
+  });
+
+  function loupe(){
+    body(
+      '<div class="step">Step 1 of 4 · What the camera sends</div>'+
+      '<h3>Move over the frame. Tap one pixel of water and one of road.</h3>'+
+      '<p class="lead">The magnifier shows the actual pixels. Every one is three numbers: how much <b>red</b>, <b>green</b> and <b>blue</b> light, from 0 to 255.</p>'+
+      '<div class="loupe-row"><div class="cam" id="camBox"><canvas id="cam" width="640" height="400" aria-label="Camera frame of a flooded underpass"></canvas></div>'+
+      '<div class="loupe"><canvas id="lp" width="99" height="99"></canvas><div class="rgb" id="rgb"></div></div></div>'+
+      '<div class="finds"><span class="find" id="fW"><span class="sw"></span>Water pixel</span><span class="find" id="fR"><span class="sw"></span>Road or wall pixel</span></div>'+
+      '<div id="fb4" class="mt"></div><div class="row mt" id="act4"></div>');
+    var cam = $('#cam'); drawScene(cam, CV.loupe);
+    var cx = cam.getContext('2d'), lp = $('#lp'), lx = lp.getContext('2d'), got = {};
+    lx.imageSmoothingEnabled = false;
+    function at(e){ var r = cam.getBoundingClientRect(); return {x: Math.max(0, Math.min(639, Math.round((e.clientX-r.left)/r.width*640))), y: Math.max(0, Math.min(399, Math.round((e.clientY-r.top)/r.height*400))), px:e.clientX-r.left, py:e.clientY-r.top}; }
+    function show(p){
+      var N = 11, half = 5, img = cx.getImageData(Math.max(0, Math.min(640-N, p.x-half)), Math.max(0, Math.min(400-N, p.y-half)), N, N);
+      var tmp = document.createElement('canvas'); tmp.width = N; tmp.height = N; tmp.getContext('2d').putImageData(img, 0, 0);
+      lx.clearRect(0,0,99,99); lx.drawImage(tmp, 0, 0, 99, 99);
+      lx.strokeStyle = 'rgba(0,0,0,.35)'; lx.lineWidth = 1;
+      for(var i=1;i<N;i++){ lx.beginPath(); lx.moveTo(i*9+.5,0); lx.lineTo(i*9+.5,99); lx.moveTo(0,i*9+.5); lx.lineTo(99,i*9+.5); lx.stroke(); }
+      lx.strokeStyle = '#FFC800'; lx.lineWidth = 2; lx.strokeRect(45, 45, 9, 9);
+      var c = cx.getImageData(p.x, p.y, 1, 1).data;
+      $('#rgb').innerHTML = [['R',c[0],'#ff6b5b'],['G',c[1],'#5bd6a8'],['B',c[2],'#5aa9e6']].map(function(v){ return '<div><span style="color:'+v[2]+'">'+v[0]+'</span><span class="bar"><i style="width:'+(v[1]/255*100)+'%;background:'+v[2]+'"></i></span><span>'+v[1]+'</span></div>'; }).join('');
+      return c;
+    }
+    show({x:420, y:340});
+    cam.addEventListener('pointermove', function(e){ show(at(e)); });
+    cam.addEventListener('pointerdown', function(e){
+      var p = at(e), c = show(p), r = c[0], g = c[1], b = c[2], blue = b - (r+g)/2, l = (r+g+b)/3, kind = null;
+      if(blue > 12 && p.y > 230) kind = 'W';
+      else if(Math.abs(r-g) < 14 && Math.abs(g-b) < 16 && l > 55 && l < 165 && p.y > 120) kind = 'R';
+      var t = document.createElement('span'); t.className = 'tag'+(kind?' ok':''); t.style.left = p.px+'px'; t.style.top = p.py+'px'; $('#camBox').appendChild(t);
+      setTimeout(function(){ t.remove(); }, 1400);
+      if(!kind){ sfx('tick'); $('#fb4').innerHTML = '<div class="callout">'+ic('vision')+'<p>That pixel is <b>R '+r+' · G '+g+' · B '+b+'</b>, part of a light, the car or the sky. Try the water near the bottom, or the grey road and walls.</p></div>'; return; }
+      if(got[kind]) return;
+      got[kind] = [r,g,b]; sfx('ok');
+      var el = $(kind === 'W' ? '#fW' : '#fR'); el.classList.add('got'); el.querySelector('.sw').style.background = 'rgb('+r+','+g+','+b+')';
+      el.lastChild.textContent = (kind === 'W' ? 'Water' : 'Road')+' · '+r+', '+g+', '+b;
+      if(got.W && got.R){
+        addNote('pixel');
+        $('#fb4').innerHTML = '<div class="callout good">'+ic('check')+'<p>Compare them. Road is <b>grey</b>: red, green and blue almost equal. Water here has <b>more blue than red</b>: '+got.W.join(', ')+' vs '+got.R.join(', ')+'. That difference is a number STREETEYE can learn from.</p></div>';
+        $('#act4').innerHTML = '<button class="btn" id="go4" type="button">Label training photos '+ic('arrow')+'</button>';
+        $('#go4').onclick = function(){ obj(1); label(CV.day, 'Step 2 of 4 · Label the training photos', 'Label all 8 daytime photos.', 'STREETEYE learns only from what you tell it. A wrong label teaches it something wrong, so take a careful look at each frame.', function(){ obj(2); train(); }); };
+      } else {
+        $('#fb4').innerHTML = '<div class="callout">'+ic('vision')+'<p>Got it. Now find '+(got.W ? 'a pixel of <b>road or wall</b>' : 'a pixel of <b>water</b>')+'.</p></div>';
+      }
+    });
+  }
+
+  function label(set, step, title, lead, next){
+    var order = shuffleSeeded(set.slice(), set.length*31), lab = {};
+    body(
+      '<div class="step">'+step+'</div><h3>'+title+'</h3><p class="lead">'+lead+'</p>'+
+      '<div class="shots" id="shots"></div>'+
+      '<div id="fb5" class="mt"></div><div class="row mt"><button class="btn" id="chk5" type="button" disabled>Check labels</button><span class="small" id="cnt5">0 of '+set.length+' labelled</span></div>');
+    var box = $('#shots');
+    order.forEach(function(p, i){
+      var d = document.createElement('div'); d.className = 'shot';
+      d.appendChild(sceneCanvas(p, 320, 200));
+      var lb = document.createElement('div'); lb.className = 'lb';
+      lb.innerHTML = '<button type="button" class="fl" aria-pressed="false">Flooded</button><button type="button" aria-pressed="false">Clear</button>';
+      d.appendChild(lb); box.appendChild(d);
+      var bs = lb.querySelectorAll('button');
+      [0,1].forEach(function(k){ bs[k].onclick = function(){ lab[i] = k === 0; bs[k].setAttribute('aria-pressed','true'); bs[1-k].setAttribute('aria-pressed','false'); d.classList.remove('wrong'); sfx('tick'); var n = Object.keys(lab).length; $('#cnt5').textContent = n+' of '+set.length+' labelled'; $('#chk5').disabled = n < set.length; }; });
+    });
+    $('#chk5').onclick = function(){
+      var wrong = 0;
+      order.forEach(function(p, i){ var bad = lab[i] !== (p.f > 0); box.children[i].classList.toggle('wrong', bad); if(bad) wrong++; });
+      if(wrong){ sfx('bad'); $('#fb5').innerHTML = '<div class="callout bad">'+ic('alert')+'<p><b>'+wrong+' label'+(wrong>1?'s':'')+' would teach STREETEYE the wrong thing.</b> Look again at the highlighted frames: is there water across the road?</p></div>'; return; }
+      sfx('ok');
+      set.forEach(function(p){ p.label = p.f > 0; });
+      next();
+    };
+  }
+
+  function scatter(train, test){
+    var W = 640, H = 300, L = 54, R = 620, T = 16, B = 256;
+    function sx(v){ return L + Math.min(v,1.25)/1.25*(R-L); } function sy(v){ return B - Math.min(v,1.4)/1.4*(B-T); }
+    var g = '';
+    for(var i=0;i<=5;i++){ g += '<line class="gr" x1="'+sx(i*.25)+'" y1="'+T+'" x2="'+sx(i*.25)+'" y2="'+B+'"/>'; }
+    for(var j=0;j<=4;j++){ g += '<line class="gr" x1="'+L+'" y1="'+sy(j*.35)+'" x2="'+R+'" y2="'+sy(j*.35)+'"/>'; }
+    g += '<text x="'+R+'" y="'+(B+22)+'" text-anchor="end" style="letter-spacing:.1em">BLUENESS AT ROAD LEVEL →</text><text x="'+(L+4)+'" y="'+(T+12)+'" style="letter-spacing:.1em">↑ BRIGHTNESS</text>';
+    g += '<text x="'+(L+4)+'" y="'+(B+22)+'">grey</text>';
+    train.forEach(function(t){ var v = fx(t.feat); g += t.label ? '<circle cx="'+sx(v[0])+'" cy="'+sy(v[1])+'" r="7" fill="var(--gold)"/>' : '<circle cx="'+sx(v[0])+'" cy="'+sy(v[1])+'" r="6" fill="var(--ink)" stroke="var(--paper)" stroke-width="2"/>'; });
+    (test||[]).forEach(function(t){ var v = fx(t.feat), X = sx(v[0]), Y = sy(v[1]); g += '<rect x="'+(X-7)+'" y="'+(Y-7)+'" width="14" height="14" transform="rotate(45 '+X+' '+Y+')" fill="var(--water)" stroke="'+(t.ok?'var(--ok)':'var(--alert)')+'" stroke-width="3"/>'; if(t.n) g += '<text x="'+(X+11)+'" y="'+(Y+4)+'" style="fill:var(--dim)">night</text>'; });
+    return '<div class="chart-wrap"><svg class="chart" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Training photos plotted by blueness and brightness">'+g+'</svg></div>';
+  }
+
+  function train(){
+    status('Training','busy');
+    CV.day.forEach(function(p){ p.feat = features(p); });
+    body(
+      '<div class="step">Step 3 of 4 · Train and test</div>'+
+      '<h3>STREETEYE turns each photo into two numbers.</h3>'+
+      '<p class="lead">For every training photo it measures <b>how blue the bottom of the frame is</b> and <b>how bright the frame is</b>. Each photo becomes a dot. Gold dots are the ones you labelled flooded.</p>'+
+      scatter(CV.day)+
+      '<div class="legend"><span><i class="f"></i>Flooded (training)</span><span><i class="d"></i>Clear (training)</span></div>'+
+      '<div class="callout mt">'+ic('vision')+'<p><b>How it decides:</b> for a new photo, STREETEYE finds the <b>most similar training photo</b>, the nearest dot, and copies its label. This method is called <i>nearest neighbour</i>.</p></div>'+
+      '<div class="row mt"><button class="btn" id="tst" type="button">Test on 6 live cameras '+ic('arrow')+'</button></div>');
+    addNote('imgfeat');
+    $('#tst').onclick = function(){ test(CV.day, false); };
+  }
+
+  function test(trainSet, fixed){
+    status('Testing','busy');
+    var res = CV.test.map(function(p){ p.feat = p.feat || features(p); var nn = nearest(trainSet, p); return {p:p, nn:nn, pred:nn.label, ok:nn.label === (p.f > 0)}; });
+    var ok = res.filter(function(r){ return r.ok; }).length;
+    body(
+      '<div class="step">'+(fixed ? 'Step 4 of 4 · Re-test' : 'Step 3 of 4 · Test')+'</div>'+
+      '<h3>'+(fixed ? 'Same six cameras, retrained model.' : 'Six cameras STREETEYE has never seen.')+'</h3>'+
+      '<div class="results" id="res"></div>'+
+      '<div id="sc6" class="mt"></div><div id="fb6" class="mt"></div><div class="row mt" id="act6"></div>');
+    (async function(){
+      for(var i=0;i<res.length;i++){
+        var r = res[i], row = document.createElement('div'); row.className = 'res fade';
+        row.appendChild(sceneCanvas(r.p, 240, 150));
+        var mid = document.createElement('div');
+        mid.innerHTML = '<div class="why"><span class="tagp '+(r.pred?'f':'c')+'">'+(r.pred?'Flooded':'Clear')+'</span>STREETEYE\'s call'+(r.p.n?' · <b>night</b>':'')+'</div><div class="nn">Most similar training photo:</div>';
+        var nnc = sceneCanvas(r.nn, 160, 100); mid.querySelector('.nn').appendChild(nnc);
+        mid.querySelector('.nn').insertAdjacentHTML('beforeend', '<span>'+(r.nn.label?'Flooded':'Clear')+(r.nn.n?' · night':'')+'</span>');
+        row.appendChild(mid);
+        row.insertAdjacentHTML('beforeend', '<span class="verdict '+(r.ok?'ok':'no')+'">'+(r.ok?'Correct':'Wrong — '+(r.p.f>0?'it was flooded':'road was clear'))+'</span>');
+        $('#res').appendChild(row); sfx(r.ok ? 'tick' : 'bad');
+        await wait(380);
+      }
+      $('#sc6').innerHTML = stats3([['Test accuracy', ok+'<small>/6</small>', ok===6?'var(--ok)':''],['Night cameras right', res.filter(function(r){ return r.p.n && r.ok; }).length+'<small>/'+res.filter(function(r){ return r.p.n; }).length+'</small>'],['Training photos', trainSet.length]]) +
+        scatter(trainSet, res.map(function(r){ return {feat:r.p.feat, ok:r.ok, n:r.p.n}; }));
+      if(!fixed){
+        S.stats.cvBefore = ok; save();
+        addNote('coverage');
+        $('#fb6').innerHTML = '<div class="callout bad">'+ic('alert')+'<p><b>STREETEYE called empty roads "flooded" at night.</b> Every photo you trained it on was taken in daylight. At night the whole frame turns dark and blue-tinted, which lands those dots right next to your flooded photos. STREETEYE isn\'t careless: it has simply <b>never seen a night</b>. Gaps in training data turn into wrong, and biased, decisions.</p></div>';
+        $('#act6').innerHTML = '<button class="btn" id="fix" type="button">Add night photos to training '+ic('arrow')+'</button>';
+        $('#fix').onclick = function(){ obj(3); label(CV.night, 'Step 4 of 4 · Fix the gap', 'Label 4 night-time photos.', 'Same job as before, in the dark. Look for the water line across the road.', function(){ CV.night.forEach(function(p){ p.feat = features(p); }); test(CV.day.concat(CV.night), true); }); };
+      } else {
+        S.stats.cvAfter = ok; save(); status('Online','on');
+        $('#fb6').innerHTML = '<div class="callout good">'+ic('check')+'<p><b>'+S.stats.cvBefore+'/6 before, '+ok+'/6 after.</b> You didn\'t change the algorithm at all, only the data it learned from. In computer vision, <b>what you train on matters as much as how you train</b>.</p></div>';
+        $('#act6').innerHTML = '<button class="btn" id="dep" type="button">'+ic('camera')+' Put STREETEYE on all 40 cameras</button>';
+        $('#dep').onclick = function(){ S.done = Math.max(S.done, 2); save(); sfx('ok'); setClock('21:00'); ch3(); };
+      }
+    })();
+  }
+}
+function shuffleSeeded(a, seed){ var R = rng(seed); for(var i=a.length-1;i>0;i--){ var j = Math.floor(R()*(i+1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+/* =====================================================================
+   CHAPTER 3 — HELPLINE (NATURAL LANGUAGE PROCESSING)
+   ===================================================================== */
+// [text, urgent?, English gloss for Hindi/Telugu]
+var BASE = [
+  ['water entering our house, please send help',1],
+  ['my grandmother cannot walk and the water is rising',1],
+  ['we are trapped on the roof with two kids',1],
+  ['current wire fell in the water near our gate',1],
+  ['car stuck in the underpass, water up to the windows',1],
+  ['old man fainted, road flooded, ambulance cannot reach',1],
+  ['water at chest level on the ground floor, people inside',1],
+  ['boat needed at old bridge lane, ten people stuck',1],
+  ['pregnant woman needs hospital, all roads under water',1],
+  ['emergency, basement filling with water, children inside',1],
+  ['paani ghar mein ghus gaya, bachche andar hain',1,'Water got into the house, the children are inside'],
+  ['deewar gir gayi, log andar phase hain',1,'A wall collapsed, people are stuck inside'],
+  ['madad chahiye, paani tez badh raha hai',1,'Need help, the water is rising fast'],
+  ['neeru intlo ki vachindi, pillalu unnaru',1,'Water came into the house, there are children'],
+  ['maa building lo neeru perugutondi, sahayam kavali',1,'Water is rising in our building, we need help'],
+  ['is school closed tomorrow because of the rain',0],
+  ['when will the electricity come back',0],
+  ['traffic is very slow on the highway',0],
+  ['thank you for the updates, stay safe everyone',0],
+  ['can i still order food online tonight',0],
+  ['any charging point nearby, phone battery low',0],
+  ['please share the rain forecast for the weekend',0],
+  ['is the metro running today',0],
+  ['we are safe, just wanted to say thanks',0],
+  ['not in danger, just asking about bus timings',0],
+  ['power cut since evening but we are fine',0],
+  ['kal college band hai kya',0,'Is college closed tomorrow?'],
+  ['light kab aayegi, bahut garmi hai',0,'When will the power come back, it is very hot'],
+  ['repu school unda',0,'Is there school tomorrow?'],
+  ['memu safe ga unnamu, thanks',0,'We are safe, thanks']
+];
+var YOURS = [
+  ['help, water coming in through the door, baby inside',1],
+  ['will exams be postponed because of the rain',0],
+  ['bachche chhat par hain, paani neeche bhar gaya',1,'The children are on the roof, water has filled the floor below'],
+  ['the drain on our street is blocked, please clean it later',0],
+  ['our car is floating, my father is still inside',1],
+  ['ivala office undha',0,'Is there office today?'],
+  ['grandfather needs oxygen, power is out, road under water',1],
+  ['is the airport open tonight',0],
+  ['neeru veedhi lo perugutondi, mamalni kapadandi',1,'Water is rising in the street, please save us'],
+  ['thanks for the alerts, we moved to the first floor already',0],
+  ['school bus stuck in water near the bridge, children inside',1],
+  ['koi bata sakta hai bazaar khula hai kya',0,'Can anyone tell me if the market is open?']
+];
+var INCOMING = [
+  ['paani bahut tez aa raha hai, ghar mein bachche hain',1,'Water is coming in very fast, there are children in the house'],
+  ['neeru perugutondi, maa intlo pillalu unnaru',1,'Water is rising, there are children in our house'],
+  ['my father is stuck, water rising fast near the bridge',1],
+  ['help, people trapped in a bus at the underpass',1],
+  ['is college closed tomorrow',0],
+  ['light kab aayegi, phone charge khatam',0,'When will the power come, phone battery is dead'],
+  ['not in danger, thanks for checking on us',0],
+  ['repu school holiday aa',0,'Is tomorrow a school holiday?']
+];
+var STOP = ['the','a','an','is','are','am','and','or','to','of','in','on','at','for','with','our','my','we','i','it','be','by','because','just','about','since','but','this','that','you','your','me','us','hai','hain','ka','ki','ke','kya','aa','ga','lo','ki','will','can','any','still','been','has','have','was','some','very','up','all','there','them','from','so','koi','raha'];
+function tokens(s){ return (s.toLowerCase().replace(/[’']/g,'').match(/[a-z0-9]+/g) || []); }
+function content(s){ return tokens(s).filter(function(t){ return STOP.indexOf(t) < 0; }); }
+
+function trainNB(rows){
+  var c = {1:{}, 0:{}}, n = {1:0, 0:0}, w = {1:0, 0:0}, vocab = {};
+  rows.forEach(function(r){ var y = r[1] ? 1 : 0; n[y]++; content(r[0]).forEach(function(t){ c[y][t] = (c[y][t]||0)+1; w[y]++; vocab[t] = 1; }); });
+  var V = Object.keys(vocab).length;
+  function lp(t, y){ return Math.log(((c[y][t]||0)+1) / (w[y]+V)); }
+  return {
+    vocab:vocab, c:c,
+    weight:function(t){ return vocab[t] ? lp(t,1) - lp(t,0) : 0; },
+    predict:function(s){
+      var toks = content(s), sc = Math.log(n[1]/(n[0]+n[1])) - Math.log(n[0]/(n[0]+n[1])), parts = [];
+      toks.forEach(function(t){ if(!vocab[t]) { parts.push([t, 0]); return; } var wv = lp(t,1) - lp(t,0); sc += wv; parts.push([t, wv]); });
+      return {urgent: sc > 0, score: sc, parts: parts};
+    }
+  };
+}
+
+function ch3(){
+  setClock('21:00');
+  titleCard({icon:'language', kicker:'Chapter 3 · Natural Language Processing', title:'Three thousand<br><em>messages.</em>', time:'21:00 — 22:30 · HELPLINE', line:'English, Hindi, Telugu and everything in between. Somewhere in this queue are the messages that cannot wait.'}).then(function(){
+    screen({ch:2, icon:'language', kicker:'Chapter 3 · Natural Language Processing', title:'Teach HELPLINE to find the messages that can\'t wait.',
+      story:['3,142 messages since six o\'clock. Three volunteers. At one message every ten seconds, they would finish reading on Thursday.','HELPLINE can read them all in a second, but it has to learn what <b>"urgent"</b> means in the way people actually write: fast, misspelt, and in three languages at once.'],
+      obj:['See how a computer reads a message','Try hand-written rules','Teach by example','Read the incoming queue'],
+      sys:'HELPLINE', sysIcon:'language', ver:'v0.1 · text classifier'});
+    obj(0); tokenise();
+  });
+
+  function tokenise(){
+    var M = 'PAANI ghar ke andar aa gaya hai!! Madad chahiye, bachche upar hain…';
+    body(
+      '<div class="step">Step 1 of 4 · Tokens</div>'+
+      '<h3>HELPLINE can\'t read sentences. It reads pieces.</h3>'+
+      '<p class="lead">The first job of any language AI is to split text into <b>tokens</b>, usually words, and clean them up so "PAANI" and "paani" count as the same thing.</p>'+
+      '<div class="msg mt"><div class="from">'+ic('msg','sm')+' +91 98••• ••412 · 20:58</div><div class="tx">'+M+'</div><div class="gl">Water has come into the house!! Need help, the children are upstairs…</div></div>'+
+      '<div class="row mt"><button class="btn" id="tk" type="button">Tokenise</button></div>'+
+      '<div class="toks" id="toks" aria-live="polite"></div>'+
+      '<div id="fb7" class="mt"></div>'+
+      '<div id="try7"></div>');
+    $('#tk').onclick = async function(){
+      this.disabled = true;
+      var t = tokens(M), box = $('#toks');
+      for(var i=0;i<t.length;i++){ box.insertAdjacentHTML('beforeend', '<span class="tok in">'+t[i]+'<sub>'+(i+1)+'</sub></span>'); sfx('key'); await wait(90); }
+      addNote('token');
+      $('#fb7').innerHTML = '<div class="callout">'+ic('language')+'<p><b>'+t.length+' tokens.</b> Capitals lowered, "!!" and "…" removed. Notice what is gone: the panic in "PAANI" and the "!!". Turning language into tokens makes it computable, and loses some meaning on the way.</p></div>';
+      $('#try7').innerHTML = '<label class="step mt2" for="tin" style="display:block">Try your own message</label><input class="field mt" id="tin" maxlength="140" autocomplete="off" placeholder="Type anything, in any language"><div class="toks" id="tout"></div><div class="row mt2"><button class="btn" id="go7" type="button">Try rules '+ic('arrow')+'</button></div>';
+      $('#tin').oninput = function(){ var tt = tokens(this.value); $('#tout').innerHTML = tt.map(function(x, i){ return '<span class="tok">'+esc(x)+'<sub>'+(i+1)+'</sub></span>'; }).join(''); };
+      $('#go7').onclick = function(){ obj(1); rules(); };
+    };
+  }
+
+  function rules(){
+    var BANK = ['help','water','danger','trapped','stuck','emergency','please','flood','children','rain'];
+    var TESTR = [
+      ['water entering our house, please send help',1],
+      ['not in danger, just asking about bus timings',0],
+      ['paani ghar mein ghus gaya, bachche andar hain',1,'Water got into the house, the children are inside'],
+      ['please help me find the rain forecast',0],
+      ['neeru intlo ki vachindi, pillalu bhayapadutunnaru',1,'Water came into the house, the children are scared'],
+      ['is school closed tomorrow because of the water',0],
+      ['we are on the roof, the ground floor is gone',1],
+      ['car stuck in the underpass, water up to the windows',1]
+    ];
+    var pick = {};
+    body(
+      '<div class="step">Step 2 of 4 · Rules</div>'+
+      '<h3>Pick up to 4 words. Any message containing one is marked urgent.</h3>'+
+      '<p class="lead">This is how most software worked before machine learning: a person writes the rules. Choose the words you think best catch an emergency.</p>'+
+      '<div class="bank" id="bank">'+BANK.map(function(w){ return '<button type="button" class="chip" aria-pressed="false" data-w="'+w+'">'+w+'</button>'; }).join('')+'</div>'+
+      '<div class="row mt"><button class="btn" id="run8" type="button" disabled>Run my rules on 8 messages</button><span class="small" id="pk">0 of 4 chosen</span></div>'+
+      '<div class="mlist" id="ml8"></div><div id="sc8" class="mt"></div><div id="fb8" class="mt"></div><div class="row mt" id="act8"></div>');
+    $$('#bank .chip').forEach(function(b){
+      b.onclick = function(){
+        var w = b.getAttribute('data-w'), n = Object.keys(pick).filter(function(k){ return pick[k]; }).length;
+        if(!pick[w] && n >= 4){ sfx('bad'); return; }
+        pick[w] = !pick[w]; b.setAttribute('aria-pressed', pick[w]); sfx('tick');
+        n = Object.keys(pick).filter(function(k){ return pick[k]; }).length;
+        $('#pk').textContent = n+' of 4 chosen'; $('#run8').disabled = n === 0;
+      };
+    });
+    $('#run8').onclick = async function(){
+      this.disabled = true; $$('#bank .chip').forEach(function(b){ b.disabled = true; });
+      var words = Object.keys(pick).filter(function(k){ return pick[k]; }), ok = 0, kinds = {};
+      for(var i=0;i<TESTR.length;i++){
+        var m = TESTR[i], tk = tokens(m[0]), hit = tk.filter(function(t){ return words.indexOf(t) >= 0; }), u = hit.length > 0, good = u === !!m[1];
+        if(good) ok++;
+        var why = good ? (u ? 'Matched <b>'+hit.join(', ')+'</b>.' : 'No rule words, correctly left alone.') :
+          (u ? 'Fooled by <b>'+hit.join(', ')+'</b>. The words are there, the emergency isn\'t.' :
+           (m[2] ? 'Missed. Your rules only know English words.' : 'Missed. A real emergency, described in words you didn\'t pick.'));
+        if(!good) kinds[u ? 'fool' : (m[2] ? 'lang' : 'miss')] = 1;
+        $('#ml8').insertAdjacentHTML('beforeend', '<div class="mrow fade"><div><div class="tx">'+m[0]+'</div>'+(m[2]?'<div class="gl">'+m[2]+'</div>':'')+'<div class="ex">'+why+'</div></div><span class="verdict '+(good?'ok':'no')+'">'+(u?'Urgent':'Not urgent')+(good?' ✓':' ✗')+'</span></div>');
+        sfx(good ? 'tick' : 'bad'); await wait(300);
+      }
+      S.stats.rules = ok; save();
+      $('#sc8').innerHTML = stats3([['Rule accuracy', ok+'<small>/8</small>', ok<8?'var(--alert)':''],['Languages handled','1<small>/3</small>'],['Words in your rules', words.length]]);
+      addNote('rules');
+      $('#fb8').innerHTML = '<div class="callout bad">'+ic('alert')+'<p><b>Rules break in three ways.</b> '+(kinds.fool?'A safe message used an alarming word. ':'')+(kinds.lang?'Emergencies in Hindi and Telugu slipped past. ':'')+(kinds.miss?'An emergency used words nobody thought to add. ':'')+'No list of keywords can cover how 1.4 billion people actually write. So instead of writing rules, we show HELPLINE examples and let it find the patterns itself.</p></div>';
+      $('#act8').innerHTML = '<button class="btn" id="go8" type="button">Teach by example '+ic('arrow')+'</button>';
+      $('#go8').onclick = function(){ obj(2); teach(); };
+    };
+  }
+
+  function teach(){
+    var lab = {};
+    body(
+      '<div class="step">Step 3 of 4 · Teach by example</div>'+
+      '<h3>Label 12 real messages. HELPLINE learns from your labels.</h3>'+
+      '<p class="lead">Volunteers already labelled 30 messages earlier tonight. Add yours and HELPLINE will learn <b>which words show up more in urgent messages</b>, in any language, without anyone writing a rule.</p>'+
+      '<div class="mlist" id="ml9">'+YOURS.map(function(m, i){ return '<div class="mrow"><div><div class="tx">'+m[0]+'</div>'+(m[2]?'<div class="gl">'+m[2]+'</div>':'')+'</div><div class="seg" role="group" aria-label="Label"><button type="button" class="u" data-i="'+i+'" data-v="1" aria-pressed="false">Urgent</button><button type="button" class="n" data-i="'+i+'" data-v="0" aria-pressed="false">Not urgent</button></div></div>'; }).join('')+'</div>'+
+      '<div class="row mt"><button class="btn" id="tr9" type="button" disabled>Train HELPLINE</button><span class="small" id="c9">0 of 12 labelled</span></div>'+
+      '<div id="out9"></div>');
+    $$('#ml9 .seg button').forEach(function(b){
+      b.onclick = function(){
+        var i = +b.getAttribute('data-i'); lab[i] = b.getAttribute('data-v') === '1';
+        b.parentNode.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', x === b); }); sfx('tick');
+        var n = Object.keys(lab).length; $('#c9').textContent = n+' of 12 labelled'; $('#tr9').disabled = n < 12;
+      };
+    });
+    $('#tr9').onclick = function(){
+      this.disabled = true; $$('#ml9 .seg button').forEach(function(b){ b.disabled = true; });
+      status('Training','busy');
+      var agree = YOURS.filter(function(m, i){ return lab[i] === !!m[1]; }).length;
+      var rows = BASE.concat(YOURS.map(function(m, i){ return [m[0], lab[i] ? 1 : 0]; }));
+      var nb = trainNB(rows);
+      var ws = Object.keys(nb.vocab).map(function(t){ return [t, nb.weight(t)]; });
+      var up = ws.slice().sort(function(a,b){ return b[1]-a[1]; }).slice(0,8), dn = ws.slice().sort(function(a,b){ return a[1]-b[1]; }).slice(0,8);
+      var mx = Math.max(up[0][1], -dn[0][1]);
+      function bars(list, col){ return list.map(function(w){ return '<div class="wbar"><span>'+w[0]+'</span><span class="b" style="width:'+Math.max(6, Math.abs(w[1])/mx*100)+'%;background:'+col+'"></span></div>'; }).join(''); }
+      $('#out9').innerHTML = '<div class="fade mt2">'+
+        (agree < 12 ? '<div class="callout">'+ic('spark')+'<p>You and the volunteers disagreed on <b>'+(12-agree)+'</b> message'+(12-agree>1?'s':'')+'. HELPLINE learns from your labels anyway, which is exactly how human mistakes end up inside AI.</p></div>' : '<div class="callout good">'+ic('check')+'<p>All 12 of your labels match the volunteers\'. Clean labels make a better model.</p></div>')+
+        '<div class="wbars"><div><div class="step">Words that push toward urgent</div>'+bars(up,'var(--alert)')+'</div><div><div class="step">Words that push toward not urgent</div>'+bars(dn,'var(--ok)')+'</div></div>'+
+        '<p class="small mt">Nobody typed these lists. HELPLINE counted how often each word appeared in urgent and non-urgent messages, then weighted it. Notice <b>paani</b>, <b>neeru</b> and <b>bachche</b>: it learned Hindi and Telugu because the examples were in Hindi and Telugu.</p>'+
+        '<div class="row mt"><button class="btn" id="go9" type="button">Open the incoming queue '+ic('arrow')+'</button></div></div>';
+      S.stats.labelsAgree = agree; save();
+      $('#go9').onclick = function(){ obj(3); queue(nb); };
+    };
+  }
+
+  function queue(nb){
+    body(
+      '<div class="step">Step 4 of 4 · The incoming queue</div>'+
+      '<h3>Eight new messages. HELPLINE has never seen any of them.</h3>'+
+      '<p class="lead">Each verdict shows the tokens that pushed it hardest, in red for urgent and green for not urgent. This is how you check a language model\'s reasoning.</p>'+
+      '<div class="mlist" id="ml10"></div><div id="sc10" class="mt"></div><div id="fb10" class="mt"></div><div id="try10"></div>');
+    (async function(){
+      var ok = 0;
+      for(var i=0;i<INCOMING.length;i++){
+        var m = INCOMING[i], r = nb.predict(m[0]), good = r.urgent === !!m[1];
+        if(good) ok++;
+        var top = r.parts.filter(function(p){ return p[1] !== 0; }).sort(function(a,b){ return Math.abs(b[1])-Math.abs(a[1]); }).slice(0,3);
+        $('#ml10').insertAdjacentHTML('beforeend', '<div class="mrow fade"><div><div class="tx">'+m[0]+'</div>'+(m[2]?'<div class="gl">'+m[2]+'</div>':'')+'<div class="toks">'+top.map(function(p){ return '<span class="tok '+(p[1]>0?'u':'n')+'">'+p[0]+'</span>'; }).join('')+'</div></div><span class="verdict '+(good?'ok':'no')+'">'+(r.urgent?'Urgent':'Not urgent')+(good?' ✓':' ✗')+'</span></div>');
+        sfx(good ? 'tick' : 'bad'); await wait(340);
+      }
+      S.stats.nlp = ok; save(); status('Online','on');
+      addNote('textclf');
+      $('#sc10').innerHTML = stats3([['Learned model', ok+'<small>/8</small>', ok>=7?'var(--ok)':''],['Your rules', (S.stats.rules||0)+'<small>/8</small>'],['Languages handled','3<small>/3</small>']]);
+      $('#fb10').innerHTML = '<div class="callout good">'+ic('check')+'<p><b>'+ok+' of 8 correct, in three languages</b>, and it handled "not in danger" without anyone writing a rule about the word "not". This is text classification, the same idea behind spam filters, review sorting and the first step of every chatbot.</p></div>';
+      $('#try10').innerHTML = '<label class="step mt2" for="t10" style="display:block">Try to fool HELPLINE</label><input class="field mt" id="t10" maxlength="160" autocomplete="off" placeholder="Write a message, in any language you like"><div id="o10" class="mt"></div><div class="row mt2"><button class="btn" id="go10" type="button">'+ic('send')+' Route urgent messages to rescue teams</button></div>';
+      $('#t10').oninput = function(){
+        var v = this.value.trim(); if(!v){ $('#o10').innerHTML = ''; return; }
+        var r = nb.predict(v), known = r.parts.filter(function(p){ return p[1] !== 0; });
+        $('#o10').innerHTML = '<div class="row"><span class="verdict '+(r.urgent?'no':'ok')+'">'+(r.urgent?'Urgent':'Not urgent')+'</span><span class="small">'+(known.length ? 'Pushed by: ' : 'It doesn\'t know any of these words, so it falls back on how common urgent messages are.')+'</span></div><div class="toks">'+r.parts.map(function(p){ return '<span class="tok '+(p[1]>0.05?'u':p[1]<-0.05?'n':'')+'">'+esc(p[0])+'</span>'; }).join('')+'</div>';
+      };
+      $('#go10').onclick = function(){ S.done = Math.max(S.done, 3); save(); sfx('ok'); setClock('22:30'); ch4(); };
+    })();
+  }
+}
+
+/* =====================================================================
+   CHAPTER 4 — THE CALL
+   ===================================================================== */
+var ZONES = [
+  {id:'rm', name:'Riverside Market', sub:'Trading streets on the west bank', x:236, y:196, risk:'High', cams:'4 of 5 flooded', camHi:1, msgs:46, need:120},
+  {id:'ob', name:'Old Bridge', sub:'Bridge crossing and bus depot', x:372, y:252, risk:'High', cams:'3 of 4 flooded', camHi:1, msgs:31, need:80},
+  {id:'kn', name:'Kalyan Nagar', sub:'Low-lying homes on the east bank', x:500, y:338, risk:'High', cams:'No cameras', camNone:1, msgs:3, need:150},
+  {id:'tp', name:'Tech Park', sub:'Offices and new apartments', x:128, y:98, risk:'Medium', cams:'1 of 6 flooded', msgs:22, need:15},
+  {id:'hc', name:'Hill Colony', sub:'Higher ground to the north', x:520, y:92, risk:'Low', cams:'0 of 3 flooded', msgs:9, need:0}
+];
+var BOAT = 60;
+
+function ch4(){
+  setClock('22:30');
+  titleCard({icon:'boat', kicker:'Chapter 4 · Human in the loop', title:'Three boats.<br><em>Five neighbourhoods.</em>', time:'22:30 — 00:00 · THE CALL', line:'Your three AIs have told you everything they know. They cannot decide where the boats go. That part is yours.'}).then(function(){
+    screen({ch:3, icon:'boat', kicker:'Chapter 4 · Human in the loop', title:'Send the rescue boats.',
+      story:['The river crossed its danger mark at 22:14. Neelapur has three rescue boats, and each can bring about <b>60 people</b> to safety before dawn.','For every neighbourhood you have three readings, one from each AI. Read them carefully. Then decide.'],
+      obj:['Read all three AIs for each area','Assign three boats','Dispatch, and see what dawn shows'],
+      sys:'FLOOD DESK', sysIcon:'mark', ver:'all systems'});
+    status('3 systems online','on');
+    obj(0); decide();
+  });
+
+  function mapSVG(sel, reveal){
+    var g = '<rect width="640" height="420" fill="#0A1016"/>';
+    for(var i=0;i<16;i++){ g += '<line x1="'+(i*44-20)+'" y1="0" x2="'+(i*44+60)+'" y2="420" stroke="rgba(243,239,230,.035)"/>'; }
+    for(var j=0;j<10;j++){ g += '<line x1="0" y1="'+(j*46+10)+'" x2="640" y2="'+(j*46-30)+'" stroke="rgba(243,239,230,.035)"/>'; }
+    var river = 'M -20 128 C 110 150, 170 232, 300 232 S 440 268, 520 336 S 610 410, 680 418';
+    g += '<path d="'+river+'" fill="none" stroke="rgba(90,169,230,.10)" stroke-width="96" stroke-linecap="round"/>';
+    g += '<path d="'+river+'" fill="none" stroke="#1E3A52" stroke-width="34" stroke-linecap="round"/>';
+    g += '<path d="'+river+'" fill="none" stroke="rgba(90,169,230,.55)" stroke-width="1.5" stroke-dasharray="6 10"><animate attributeName="stroke-dashoffset" from="0" to="-32" dur="2s" repeatCount="indefinite"/></path>';
+    g += '<text x="40" y="112" fill="rgba(90,169,230,.8)" font-size="11" letter-spacing="3">NEELA RIVER</text>';
+    g += '<line x1="356" y1="230" x2="392" y2="276" stroke="rgba(243,239,230,.35)" stroke-width="5"/>';
+    ZONES.forEach(function(z){
+      var s = sel[z.id], r = reveal ? 12 + Math.sqrt(z.need)*1.6 : 12;
+      if(reveal && z.need) g += '<circle cx="'+z.x+'" cy="'+z.y+'" r="'+r+'" fill="rgba(255,107,91,.16)" stroke="rgba(255,107,91,.6)"/>';
+      g += '<rect x="'+(z.x-9)+'" y="'+(z.y-9)+'" width="18" height="18" rx="5" fill="'+(s?'#FFC800':'#11141A')+'" stroke="'+(s?'#FFC800':'rgba(243,239,230,.6)')+'" stroke-width="2"/>';
+      g += '<rect x="'+(z.x-3)+'" y="'+(z.y-3)+'" width="6" height="6" rx="1.5" fill="'+(s?'#0B0D11':'rgba(243,239,230,.6)')+'"/>';
+      var lx = z.x + (z.x > 450 ? -16 : 16), anchor = z.x > 450 ? 'end' : 'start';
+      g += '<text x="'+lx+'" y="'+(z.y-4)+'" fill="#F3EFE6" font-size="12" text-anchor="'+anchor+'">'+z.name.toUpperCase()+'</text>';
+      g += '<text x="'+lx+'" y="'+(z.y+11)+'" fill="'+(reveal?(z.need?'#FF6B5B':'#7C818C'):(s?'#FFC800':'#7C818C'))+'" font-size="10" text-anchor="'+anchor+'">'+(reveal ? (z.need ? z.need+' stranded' : 'all safe') : (s ? 'BOAT ASSIGNED' : 'risk '+z.risk.toLowerCase()))+'</text>';
+    });
+    return '<svg class="map" viewBox="0 0 640 420" role="img" aria-label="Map of Neelapur along the Neela river with five neighbourhoods">'+g+'</svg>';
+  }
+
+  function decide(){
+    var sel = {};
+    function left(){ return 3 - Object.keys(sel).filter(function(k){ return sel[k]; }).length; }
+    body(
+      '<div class="step">Midnight decision</div>'+
+      '<h3>Where do the three boats go?</h3>'+
+      '<div class="row mt"><span class="small">Boats left</span><span class="boats" id="boats"></span></div>'+
+      '<div class="map-wrap" id="map"></div>'+
+      '<div class="zones" id="zones"></div>'+
+      '<div id="fb11" class="mt"></div><div class="row mt" id="act11"></div>');
+    function render(){
+      $('#map').innerHTML = mapSVG(sel, false);
+      var n = left();
+      $('#boats').innerHTML = [0,1,2].map(function(i){ return ic('boat', i < n ? '' : 'used'); }).join('');
+      $('#zones').innerHTML = ZONES.map(function(z){
+        return '<div class="zone '+(sel[z.id]?'sel':'')+'"><div class="zn">'+z.name+'<small>'+z.sub+'</small></div>'+
+          '<div class="rd '+(z.risk==='High'?'hi':'')+'">'+ic('data')+'<span>RIVERCAST<br><b>'+z.risk+' risk</b></span></div>'+
+          '<div class="rd '+(z.camHi?'hi':z.camNone?'none':'')+'">'+ic('vision')+'<span>STREETEYE<br><b>'+z.cams+'</b></span></div>'+
+          '<div class="rd '+(z.msgs>25?'hi':'')+'">'+ic('language')+'<span>HELPLINE<br><b>'+z.msgs+' urgent</b></span></div>'+
+          '<button class="btn '+(sel[z.id]?'':'ghost')+'" type="button" data-z="'+z.id+'" '+(!sel[z.id] && !n ? 'disabled' : '')+'>'+(sel[z.id]?'Recall boat':'Send boat')+'</button></div>';
+      }).join('');
+      $$('#zones [data-z]').forEach(function(b){ b.onclick = function(){ var id = b.getAttribute('data-z'); sel[id] = !sel[id]; sfx('tick'); obj(1); render(); }; });
+      $('#act11').innerHTML = '<button class="btn" id="disp" type="button" '+(n?'disabled':'')+'>'+ic('send')+' Dispatch boats</button>'+(n?'<span class="small">Assign all three boats to dispatch.</span>':'');
+      if(!n) $('#disp').onclick = function(){ dispatch(sel); };
+    }
+    render();
+  }
+
+  async function dispatch(sel){
+    obj(2); sfx('big');
+    $('#act11').innerHTML = ''; $$('#zones button').forEach(function(b){ b.disabled = true; });
+    $('#fb11').innerHTML = '<div class="callout">'+ic('clock')+'<p>Boats away at 00:04. The desk goes quiet. The rain keeps falling…</p></div>';
+    await wait(1600); setClock('03:00'); await wait(1100); setClock('06:00');
+    var reached = 0, total = 0, rows = '';
+    ZONES.forEach(function(z){ var r = sel[z.id] ? Math.min(z.need, BOAT) : 0; reached += r; total += z.need; z.reached = r; });
+    var knSent = !!sel.kn;
+    S.stats.reached = reached; S.stats.kn = knSent; S.done = Math.max(S.done, 4); save();
+    $('#map').innerHTML = mapSVG(sel, true);
+    $$('#zones .zone').forEach(function(el, i){
+      var z = ZONES[i]; el.classList.add('reveal');
+      el.insertAdjacentHTML('beforeend', '<div class="out">'+(z.need ? '<b style="color:var(--paper)">'+z.need+' people</b> were stranded here. '+(z.reached ? 'Your boat reached <b style="color:var(--ok)">'+z.reached+'</b>.' : '<span class="alc">No boat came.</span>') : 'No one was stranded. The higher ground held.')+'</div>');
+    });
+    sfx(knSent ? 'ok' : 'bad');
+    addNote('human');
+    $('#fb11').innerHTML =
+      '<div class="callout '+(knSent?'good':'bad')+'">'+ic(knSent?'check':'alert')+'<p><b>Dawn, 06:00. Your boats reached '+reached+' of '+total+' stranded people'+(reached>=180?', the most three boats could.':'.')+'</b> '+
+      (knSent ? 'You sent a boat to Kalyan Nagar even though two of your three AIs were almost silent about it. That was the right call: it had the most people stranded of anywhere in the city.'
+              : 'The most people stranded anywhere were in <b>Kalyan Nagar: 150</b>. Two of your three AIs said almost nothing about it.')+'</p></div>'+
+      '<div class="callout mt">'+ic('spark')+'<p><b>Why were the AIs quiet?</b> Kalyan Nagar has <b>no cameras</b>, so STREETEYE had nothing to look at. Fewer families there own smartphones, so only <b>3 messages</b> reached HELPLINE. The AIs weren\'t wrong about what they saw. They were blind to the people they couldn\'t see. Only RIVERCAST, working from river data that covers everyone, rated it high risk.</p></div>'+
+      '<div class="callout mt">'+ic('person')+'<p><b>This is why AI needs a human in the loop.</b> Missing data doesn\'t show up as a warning. It shows up as silence. Someone has to ask, "who isn\'t in this data?"</p></div>';
+    $('#act11').innerHTML = '<button class="btn" id="rep" type="button">Read your field report '+ic('arrow')+'</button>';
+    $('#rep').onclick = function(){ S.done = 5; save(); report(); };
+  }
+}
+
+/* =====================================================================
+   FIELD REPORT
+   ===================================================================== */
+function report(){
+  setTrack(4); setClock('06:00');
+  var st = S.stats, mins = S.started ? Math.max(1, Math.round((Date.now() - S.started)/60000)) : null;
+  var reached = st.reached || 0;
+  var date = new Date().toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'});
+  stage.innerHTML =
+    '<section class="report fade">'+
+      '<div class="rep-head"><div><div class="kick">'+ic('notes','sm')+' Field report · Neelapur Flood Desk</div><h1>The city made it<br>to <em>morning.</em></h1></div>'+
+        '<div class="idcard"><div class="k">Duty officer</div><div class="v">'+esc(S.callsign || 'OFFICER')+'</div><div class="k">Shift</div><div class="v" style="font-size:.9rem">18:00 – 06:00 · '+date+(mins?' · '+mins+' min':'')+'</div></div></div>'+
+
+      '<div class="rep-sys">'+
+        '<div class="sys">'+ic('data','lg')+'<div class="nm">RIVERCAST</div><div class="dm">Statistical Data</div><div class="big">'+(st.data?st.data.test:'–')+'<small>/6 test days</small></div><p>Learned from 24 days of rain records. You chose its features and trained the dividing line yourself. Training accuracy '+(st.data?st.data.train:'–')+'/24.</p><div class="lf">Learned from: numbers and records</div></div>'+
+        '<div class="sys">'+ic('vision','lg')+'<div class="nm">STREETEYE</div><div class="dm">Computer Vision</div><div class="big">'+(st.cvBefore!=null?st.cvBefore:'–')+' → '+(st.cvAfter!=null?st.cvAfter:'–')+'<small>/6</small></div><p>Failed at night until you added night photos. Same algorithm, better data.</p><div class="lf">Learned from: labelled camera photos</div></div>'+
+        '<div class="sys">'+ic('language','lg')+'<div class="nm">HELPLINE</div><div class="dm">Natural Language Processing</div><div class="big">'+(st.rules!=null?st.rules:'–')+' → '+(st.nlp!=null?st.nlp:'–')+'<small>/8</small></div><p>Your keyword rules, then a model trained on labelled examples in English, Hindi and Telugu.</p><div class="lf">Learned from: labelled messages</div></div>'+
+      '</div>'+
+
+      '<div class="rep-sec"><div class="kick">'+ic('boat','sm')+' People reached</div><div class="row" style="justify-content:space-between; align-items:baseline"><h2>'+reached+' of 365 stranded people</h2><span class="mono faint">best possible with 3 boats: 180</span></div><div class="meter"><i style="width:0" data-w="'+Math.round(reached/180*100)+'%"></i></div>'+
+        '<p class="dim mt">'+(st.kn ? 'You looked past the silence in the data and sent a boat to Kalyan Nagar.' : 'Kalyan Nagar, the area your data could barely see, had the most people waiting.')+'</p></div>'+
+
+      '<div class="rep-sec"><div class="kick">'+ic('notes','sm')+' What you now know · '+S.notes.length+' field notes</div><h2>The three domains of AI</h2>'+
+        '<ol class="notes">'+NOTE_ORDER.filter(function(id){ return S.notes.indexOf(id) >= 0; }).map(function(id, i){ return '<li><span class="n">'+String(i+1).padStart(2,'0')+'</span><div><b>'+NOTES[id].t+'</b><p>'+NOTES[id].d+'</p></div></li>'; }).join('')+'</ol></div>'+
+
+      '<div class="rep-sec"><div class="kick">'+ic('spark','sm')+' Reflect</div><h2>Three questions to talk about</h2><ol class="reflect">'+
+        '<li>Name one AI you used today. Which domain was it, and what data did it learn from?</li>'+
+        '<li>STREETEYE failed at night because nobody gave it night photos. What groups of people might be missing from the data behind apps you use?</li>'+
+        '<li>Should HELPLINE ever decide on its own which messages get ignored? Where should a human stay in the loop?</li>'+
+      '</ol></div>'+
+
+      '<div class="rep-sec"><div class="kick">'+ic('send','sm')+' Your feedback</div><h2>How was your shift?</h2><p class="dim mt">Two taps. It goes straight to the AI Kids Lab team on WhatsApp and helps us decide which lessons to build next.</p>'+
+        '<div class="fb">'+
+          '<div><div class="q">How much did you enjoy Flood Desk?</div><div class="scale" data-k="fun">'+[1,2,3,4,5].map(function(n){ return '<button type="button" aria-pressed="false" data-v="'+n+'">'+n+'</button>'; }).join('')+'</div><div class="scale-lbl"><span>Not much</span><span>Loved it</span></div></div>'+
+          '<div><div class="q">How well do you now understand the three domains of AI?</div><div class="scale" data-k="und">'+[1,2,3,4,5].map(function(n){ return '<button type="button" aria-pressed="false" data-v="'+n+'">'+n+'</button>'; }).join('')+'</div><div class="scale-lbl"><span>Still confused</span><span>Could teach it</span></div></div>'+
+          '<div><div class="q">Would you play another lesson like this?</div><div class="scale" data-k="more"><button type="button" aria-pressed="false" data-v="Yes" style="width:auto;padding:0 18px">Yes</button><button type="button" aria-pressed="false" data-v="Maybe" style="width:auto;padding:0 18px">Maybe</button><button type="button" aria-pressed="false" data-v="No" style="width:auto;padding:0 18px">No</button></div></div>'+
+          '<div><label for="fbc">Anything else? <span class="faint">(optional)</span></label><textarea class="field mt" id="fbc" maxlength="400" placeholder="What was the best part? What was confusing?"></textarea></div>'+
+          '<div class="row"><a class="btn" id="fbSend" href="#" target="_blank" rel="noopener" aria-disabled="true">'+ic('send')+' Send on WhatsApp</a><span class="small">Opens WhatsApp with your answers filled in. Number: +91 96420 99896</span></div>'+
+        '</div></div>'+
+
+      '<div class="row mt3"><button class="btn ghost" id="again" type="button">'+ic('redo')+' Replay the night</button><a class="btn ghost" href="gamified-learning.html">More free lessons</a></div>'+
+    '</section>';
+  requestAnimationFrame(function(){ var m = $('.meter i'); if(m) m.style.width = m.getAttribute('data-w'); });
+  sfx('big');
+
+  var fb = {fun:null, und:null, more:null};
+  $$('.scale').forEach(function(s){
+    s.querySelectorAll('button').forEach(function(b){
+      b.onclick = function(){ fb[s.getAttribute('data-k')] = b.getAttribute('data-v'); s.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', x === b); }); sfx('tick'); link(); };
+    });
+  });
+  $('#fbc').oninput = link;
+  function link(){
+    var a = $('#fbSend'), ready = fb.fun && fb.und;
+    var txt = 'Flood Desk feedback (Grade 9)\nEnjoyed: '+(fb.fun||'-')+'/5\nUnderstanding: '+(fb.und||'-')+'/5\nPlay another: '+(fb.more||'-')+
+      '\nPeople reached: '+(S.stats.reached||0)+'/180\nTime: '+(mins?mins+' min':'-')+($('#fbc').value.trim() ? '\nComment: '+$('#fbc').value.trim() : '');
+    a.href = 'https://wa.me/919642099896?text='+encodeURIComponent(txt);
+    a.setAttribute('aria-disabled', ready ? 'false' : 'true');
+    a.style.opacity = ready ? '' : '.4';
+  }
+  link();
+  $('#fbSend').addEventListener('click', function(e){ if(this.getAttribute('aria-disabled') === 'true'){ e.preventDefault(); $('.scale').scrollIntoView({block:'center'}); } });
+  $('#again').onclick = function(){ var snd = S.sound; S = fresh(); S.sound = snd; save(); notesCount(); intro(); window.scrollTo(0,0); };
+  window.scrollTo(0,0);
+}
+
+/* ===================================================================== */
+var RUN = [ch1, ch2, ch3, ch4, report];
+notesCount(); soundUI();
+if(S.done >= 5 && S.callsign){ report(); } else { intro(); }
+})();
+</script>
+</body>
+</html>
