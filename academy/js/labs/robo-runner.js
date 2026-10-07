@@ -399,7 +399,7 @@ export default {
       const title = meta.title || (err.type === 'SyntaxError' || err.type === 'IndentationError' ? `Python can’t read ${err.line ? 'line ' + err.line : 'your code'}` : `${err.type}`);
       return `<div class="fb bad"><div class="h">${ic('alert')} ${esc(title)}</div>
         ${err.line ? `<div>Line ${err.line}${ln !== null ? `: <code>${esc(ln.trim() || '(empty line)')}</code>` : ''}</div>` : ''}
-        <div class="small">${esc(err.message)}</div>
+        <div class="small">${esc(String(err.message || '').replace(/\s*\(<your code>, line \d+\)/, ''))}</div>
         ${meta.tip || err.tip ? `<div class="small"><b>Tip:</b> ${esc(meta.tip || err.tip)}</div>` : ''}</div>`;
     }
 

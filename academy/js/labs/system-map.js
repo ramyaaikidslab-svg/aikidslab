@@ -10,7 +10,7 @@ export const MAP1 = {
     T: { x: 260, y: 40, t: ['Number of', 'trees'] },
     V: { x: 80, y: 150, t: ['Vehicles on', 'the road'] },
     P: { x: 260, y: 150, t: ['Air', 'pollution'] },
-    B: { x: 260, y: 262, t: ['People with', 'breathing problems'] }
+    B: { x: 260, y: 262, t: ['Breathing', 'problems'] }
   },
   links: [
     { f: 'U', t: 'V', s: '-', why: 'More people taking buses and the metro → fewer vehicles on the road. They move in opposite directions, so −.' },
@@ -70,6 +70,9 @@ const CSS = `
 .lab-system-map .lrow .ctl{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;}
 .lab-system-map .seg button{min-height:40px; min-width:44px;}
 .lab-system-map .seg button:disabled{opacity:.35; cursor:not-allowed;}
+.lab-system-map .seg button[aria-pressed="true"]:disabled{opacity:1; cursor:default;}
+.lab-system-map .sm-topic{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); max-width:420px;}
+.lab-system-map .sm-topic button{min-height:44px;}
 .lab-system-map .arr{white-space:nowrap; color:var(--muted);}
 @media (max-width:560px){ .lab-system-map .lrow{grid-template-columns:1fr;} .lab-system-map .lrow .ctl{justify-content:flex-start;} }
 .lab-system-map .legend{display:flex; gap:14px; flex-wrap:wrap; font-size:.86rem; font-weight:700;}
@@ -93,18 +96,21 @@ function mapSVG(map, links, uid) {
   let edges = '', badges = '';
   links.forEach((l, i) => {
     const A = map.nodes[l.f], B = map.nodes[l.t];
-    const bend = l.bend ?? (has(l.t, l.f) ? 22 : 0);
-    const mx = (A.x + B.x) / 2, my = (A.y + B.y) / 2, len = Math.hypot(B.x - A.x, B.y - A.y);
+    const bend = l.bend || 0, len = Math.hypot(B.x - A.x, B.y - A.y);
     const nx = -(B.y - A.y) / len, ny = (B.x - A.x) / len;
+    // a two-way pair is drawn as two parallel arrows, shifted sideways
+    const sh = has(l.t, l.f) && !l.bend ? 20 : 0;
+    const A2 = { x: A.x + nx * sh, y: A.y + ny * sh }, B2 = { x: B.x + nx * sh, y: B.y + ny * sh };
+    const mx = (A2.x + B2.x) / 2, my = (A2.y + B2.y) / 2;
     const cx = mx + nx * bend * 2, cy = my + ny * bend * 2; // quadratic control point
-    const a = edgePoint(A, bend ? { x: cx, y: cy } : B), b = edgePoint(B, bend ? { x: cx, y: cy } : A, 9);
+    const a = edgePoint(A2, bend ? { x: cx, y: cy } : B2), b = edgePoint(B2, bend ? { x: cx, y: cy } : A2, 9);
     const col = l.state === 'wrong' ? '#D93A40' : '#15171C';
     edges += `<path d="M${a.x.toFixed(1)},${a.y.toFixed(1)} Q${cx.toFixed(1)},${cy.toFixed(1)} ${b.x.toFixed(1)},${b.y.toFixed(1)}" fill="none" stroke="${col}" stroke-width="2.5" marker-end="url(#ah-${uid}${l.state === 'wrong' ? 'r' : ''})"/>`;
     const qx = 0.25 * a.x + 0.5 * cx + 0.25 * b.x, qy = 0.25 * a.y + 0.5 * cy + 0.25 * b.y;
     badges += `<g><circle cx="${qx.toFixed(1)}" cy="${qy.toFixed(1)}" r="13" fill="${l.s === '?' ? '#fff' : SCOL[l.s]}" stroke="#15171C" stroke-width="2"/><text x="${qx.toFixed(1)}" y="${(qy + 6).toFixed(1)}" text-anchor="middle" font-size="19" style="fill:${l.s === '?' ? '#5B606A' : '#fff'}">${l.s === '?' ? '?' : SIGN[l.s]}</text></g>`;
   });
   const nodes = Object.values(map.nodes).map(n => `<g><rect x="${n.x - NW / 2}" y="${n.y - NH / 2}" width="${NW}" height="${NH}" rx="12" fill="#FFF1C2" stroke="#15171C" stroke-width="2.5"/>
-    ${n.t.map((ln, k) => `<text x="${n.x}" y="${n.y + (n.t.length === 1 ? 6 : k ? 16 : -3)}" text-anchor="middle" font-size="${ln.length > 15 ? 13 : 15}">${esc(ln)}</text>`).join('')}</g>`).join('');
+    ${n.t.map((ln, k) => `<text x="${n.x}" y="${n.y + (n.t.length === 1 ? 6 : k ? 17 : -3)}" text-anchor="middle" font-size="${ln.length > 13 ? 15 : 17}">${esc(ln)}</text>`).join('')}</g>`).join('');
   const label = links.map(l => `${map.nodes[l.f].t.join(' ')} to ${map.nodes[l.t].t.join(' ')}: ${l.s === '?' ? 'not set' : l.s === '+' ? 'plus' : 'minus'}`).join('; ');
   return `<svg class="smap" viewBox="0 0 360 300" role="img" aria-label="System map. ${esc(label || 'No links yet')}">
     <defs><marker id="ah-${uid}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#15171C"/></marker>
@@ -129,7 +135,7 @@ export default {
       const y = window.scrollY;
       ctx.el.innerHTML = `<style>${CSS}</style>
         <p class="lab-intro">A <b>system map</b> shows the elements of a problem and how they affect each other. An arrow goes from cause to effect. <b>+</b> means both change in the <b>same direction</b> (one goes up → the other goes up). <b>−</b> means they change in <b>opposite directions</b> (one goes up → the other goes down).</p>
-        <div class="banner"><span class="chip gold">Goal</span><span>Get <b>both system maps</b> fully correct.</span><span class="chip ${m1.solved ? 'ok' : 'dim'}">${m1.solved ? '✓' : '1'} Map 1</span><span class="chip ${m2.solved ? 'ok' : 'dim'}">${m2.solved ? '✓' : '2'} Map 2</span></div>
+        <div class="banner" style="flex-wrap:wrap"><span class="chip gold">Goal</span><span>Get <b>both system maps</b> fully correct.</span><span class="chip ${m1.solved ? 'ok' : 'dim'}">${m1.solved ? '✓' : '1'} Map 1</span><span class="chip ${m2.solved ? 'ok' : 'dim'}">${m2.solved ? '✓' : '2'} Map 2</span></div>
         ${map1HTML()}
         ${m1.solved ? map2HTML() : '<p class="small muted">Map 2 unlocks when Map 1 is correct.</p>'}
         <div id="smDone">${m1.solved && m2.solved ? doneHTML() : ctx.done ? '<p class="chip ok">✓ Goal already met — practise again any time</p>' : ''}</div>`;
@@ -179,7 +185,7 @@ export default {
           </div></div>`;
       }
       return `<div class="lab-box"><h4>Map 2 · Choose a problem</h4>
-        <div class="seg mt" role="group" aria-label="Choose map 2">${Object.entries(MAP2).map(([k, v]) => `<button data-topic="${k}" aria-pressed="${tp === k}" ${m2.solved ? 'disabled' : ''}>${v.emoji} ${v.title}</button>`).join('')}</div>
+        <div class="seg mt sm-topic" role="group" aria-label="Choose map 2">${Object.entries(MAP2).map(([k, v]) => `<button data-topic="${k}" aria-pressed="${tp === k}" ${m2.solved ? 'disabled' : ''}>${v.emoji} ${v.title}</button>`).join('')}</div>
         ${body}</div>`;
     }
 

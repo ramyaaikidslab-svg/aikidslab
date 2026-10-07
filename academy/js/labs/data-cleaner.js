@@ -114,7 +114,7 @@ export default {
       const a = avg(rows), clean = ORDER.every(k => used[k]);
       $('#clAvg').innerHTML = `<div class="row" style="align-items:baseline"><span class="big">${a.n ? f1(a.mean) : '—'}</span><b>cm</b></div>
         <p class="small muted">Mean of the ${a.n} heights that are filled in (blank cells are skipped).${!clean && log.length ? ` The messy table started at <b>${f1(dirty.mean)} cm</b>.` : ''}</p>
-        ${clean ? `<div class="fb good mt"><b>Clean average: ${f1(a.mean)} cm.</b> The messy data said ${f1(dirty.mean)} cm — wrong by ${f1(Math.abs(dirty.mean - a.mean))} cm!</div>` : ''}`;
+        ${clean ? `<div class="fb good mt"><div><b>Clean average: ${f1(a.mean)} cm.</b> The messy data said ${f1(dirty.mean)} cm — wrong by ${f1(Math.abs(dirty.mean - a.mean))} cm!</div></div>` : ''}`;
       // dot strip: heights on one axis
       const hs = rows.map(r => r.h).filter(h => h !== null), mx = Math.max(200, ...hs), top = mx > 1000 ? 2000 : mx > 250 ? 500 : 200;
       const X = v => 18 + v / top * 324;

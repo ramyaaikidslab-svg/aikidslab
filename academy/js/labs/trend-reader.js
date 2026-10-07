@@ -55,10 +55,10 @@ function finish(c, rng) {
   if (p - b < w / 4 || p - b > 3 * w / 4) b = Math.floor((p - w / 2) / w) * w + w / 2;
   let pos = rng.int(1, 2);
   while (b - pos * w < 0) pos--;
-  if (c.cap) while (b + (4 - pos) * w > c.cap + w && pos < 3) pos++;
+  if (c.cap) while (b + (4 - pos) * w > c.cap && pos < 3) pos++;
   const ranges = Array.from({ length: 4 }, (_, i) => [b + (i - pos) * w, b + (i - pos + 1) * w]);
   const actual = Math.min(b + 0.75 * w, Math.max(b + 0.25 * w, Math.round(p)));
-  const top = Math.max(...v, actual, ranges[3][1] * 0) * 1.12;
+  const top = Math.max(...v, actual) * 1.12;
   const step = c.cap ? 20 : niceStep(top), yMax = c.cap ? 100 : Math.ceil(top / step) * step;
   const every = Math.ceil(n / 8), labelled = v.map((_, i) => i).filter(i => i % every === 0);
   const ai = rng.pick(labelled.filter(i => i > 0)), av = v[ai], s = step / 2;
@@ -68,7 +68,7 @@ function finish(c, rng) {
 }
 
 function chartSVG(c, reveal) {
-  const W = 400, H = 240, L = 44, B = 34, T = 16, R = 14, n = c.labels.length + 1;
+  const W = 400, H = 250, L = 44, B = 34, T = 28, R = 14, n = c.labels.length + 1;
   const x = i => L + 8 + i * (W - L - R - 16) / (n - 1), y = v => H - B - v / c.yMax * (H - B - T);
   let g = '';
   for (let t = 0; t <= c.yMax + 1e-9; t += c.step) g += `<line x1="${L}" y1="${y(t)}" x2="${W - R}" y2="${y(t)}" stroke="#E6DFCF"/><text x="${L - 6}" y="${y(t) + 4}" text-anchor="end">${+t.toFixed(2)}</text>`;
@@ -97,6 +97,7 @@ export default {
       <style>
         .lab-trend{min-width:0; grid-template-columns:minmax(0,1fr);}
         .lab-trend .svgchart{max-width:640px;}
+        .lab-trend .svgchart text{font-size:13px;}
         .lab-trend .opts{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));}
         .lab-trend .steps{display:flex; gap:6px; flex-wrap:wrap;}
       </style>
@@ -144,7 +145,7 @@ export default {
         `<b>${TR[c.trend]}.</b> ${esc(c.why)}`,
         `<b>${c.values[c.ai]}${esc(c.unit)}</b> in ${esc(c.labels[c.ai])}.`,
         `${c.trend === 'seasonal' ? `January is always a low month — last two Januaries were ${c.values[0]} and ${c.values[12]}.` : c.trend === 'stable' ? `A stable trend stays near its average of ${(c.p).toFixed(1)}${esc(c.unit)}.` : `The line ${c.trend === 'up' ? 'rises' : 'falls'} by about ${Math.abs((c.values[c.values.length - 1] - c.values[0]) / (c.values.length - 1)).toFixed(1)}${esc(c.unit)} each step, so the next value should be about ${c.p.toFixed(1)}${esc(c.unit)}.`} The actual value was <b>${+c.actual.toFixed(1)}${esc(c.unit)}</b> — your prediction range was right!`][step];
-      msg = `<div class="fb good small"><b>Correct!</b> ${why}</div>`;
+      msg = `<div class="fb good small"><div><b>Correct!</b> ${why}</div></div>`;
       step++; tried = false; wrong = new Set();
       ctx.data.first = first;
       render();

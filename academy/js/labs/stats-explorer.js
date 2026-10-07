@@ -195,7 +195,7 @@ export default {
               pass(1, (ans === 'mean' ? `The mean moved by ${fmt2(dm)} but the median only by ${fmtNum(dmed)}.` : `Here the mean moved by ${fmt2(dm)} and the median by ${fmtNum(dmed)}.`) + ` The mean uses every value, so one extreme value pulls it; the median only looks at the middle. The range jumped from ${bd.range} to ${ad.range}.`);
             } else {
               ctx.sfx('bad');
-              c2Feedback = `<div class="fb bad"><b>Not quite.</b> Compare the numbers: the mean changed by ${fmt2(dm)}, the median by ${fmtNum(dmed)}.</div>`;
+              c2Feedback = `<div class="fb bad"><div><b>Not quite.</b> Compare the numbers: the mean changed by ${fmt2(dm)}, the median by ${fmtNum(dmed)}.</div></div>`;
               drawTask();
             }
           });

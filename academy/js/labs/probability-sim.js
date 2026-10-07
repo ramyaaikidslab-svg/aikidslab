@@ -211,11 +211,11 @@ export default {
         if (b.dataset.t === ans) {
           ctx.sfx('ok'); qi++;
           qfb = ''; drawQ(); drawChk();
-          if (!qDone()) $('#pbQ').insertAdjacentHTML('afterbegin', `<div class="fb good mb small"><b>Correct!</b> “${esc(txt)}”: ${esc(pt)} → ${TYPES[ans].toLowerCase()}.</div>`);
+          if (!qDone()) $('#pbQ').insertAdjacentHTML('afterbegin', `<div class="fb good mb small"><div><b>Correct!</b> “${esc(txt)}”: ${esc(pt)} → ${TYPES[ans].toLowerCase()}.</div></div>`);
           check();
         } else {
           ctx.sfx('bad'); b.classList.add('wrong'); b.disabled = true;
-          qfb = `<div class="fb bad small"><b>Not quite.</b> Count the favourable outcomes: ${esc(pt)}. Compare with 0, ½ and 1.</div>`;
+          qfb = `<div class="fb bad small"><div><b>Not quite.</b> Count the favourable outcomes: ${esc(pt)}. Compare with 0, ½ and 1.</div></div>`;
           box.querySelector('[aria-live]').innerHTML = qfb; qfb = '';
         }
       });
