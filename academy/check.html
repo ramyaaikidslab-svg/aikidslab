@@ -20,7 +20,7 @@
   <div class="card" style="width:min(100%,640px)">
     <div class="kicker">For teachers</div>
     <h1>Connection check</h1>
-    <p class="muted">Tests the Google Sheets backend exactly the way the app calls it. It only reads; nothing is written to the sheet.</p>
+    <p class="muted">Tests the database and sign-in exactly the way the app uses them. It only reads; nothing is saved.</p>
     <p class="small muted mono" id="url" style="word-break:break-all"></p>
     <button class="btn primary big block mt" id="go">Run check</button>
     <div id="out" aria-live="polite"></div>
@@ -28,33 +28,42 @@
 </main>
 <script type="module">
   import CFG from './js/config.js';
+  import { backend } from './js/core/store.js';
   const $ = s => document.querySelector(s), esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-  $('#url').textContent = CFG.BACKEND_URL || '(BACKEND_URL is empty: the app is in device-only mode)';
-  const ACCESS = 'The browser was refused before getting an answer. This almost always means the deployment\'s "Who has access" is not "Anyone". Fix: Apps Script → Deploy → Manage deployments → pencil → Who has access: Anyone, Version: New version → Deploy.';
+  $('#url').textContent = backend.kind === 'firebase' ? 'Firebase project: ' + CFG.FIREBASE.projectId : backend.kind === 'sheets' ? CFG.BACKEND_URL : '(no backend set: the app is in device-only mode)';
   function show(title, ok, note, detail) {
     $('#out').insertAdjacentHTML('beforeend', `<div class="res ${ok ? 'ok' : 'bad'}"><b>${ok ? '✓' : '✗'} ${esc(title)}</b><p class="small mt">${esc(note)}</p>${detail ? `<pre>${esc(detail)}</pre>` : ''}</div>`);
   }
-  function explainText(t) {
-    if (/Script function not found/i.test(t)) return 'The deployed version is missing a function. Paste Code.gs again, Save, then Deploy → Manage deployments → pencil → Version: New version → Deploy.';
-    if (/<html|<!doctype/i.test(t)) return 'Google answered with a web page instead of data, usually an error or sign-in page. The text below says which.';
-    return 'The answer was not in the expected format.';
+  async function firebaseChecks() {
+    // 1. Database + rules: a read-only lookup of an email that doesn't exist.
+    try {
+      const r = await backend.lookup('connection-check@example.com');
+      if (r.ok) show('1. Database and security rules', true, 'Works.' + (r.allowed ? ' Access mode: open (anyone can sign up).' : ' Access mode: allowlist.'));
+      else show('1. Database and security rules', false, r.message || r.error, JSON.stringify(r));
+    } catch (e) { show('1. Database and security rules', false, 'Could not reach Firebase. Check the internet connection, or whether a school network/extension blocks googleapis.com.', String(e)); }
+    // 2. Sign-in: try a sign-in that must fail, and look at how it fails.
+    try {
+      const { auth, au } = await backend.ready();
+      await auth.signInWithEmailAndPassword(au, 'connection-check@example.com', 'not-a-real-password-123');
+      show('2. Email sign-in', true, 'Works.');
+    } catch (e) {
+      const c = e.code || '';
+      if (/invalid-credential|user-not-found|wrong-password|invalid-login/.test(c)) show('2. Email sign-in', true, 'Works.');
+      else if (/operation-not-allowed/.test(c)) show('2. Email sign-in', false, 'Email/Password sign-in is switched off. Firebase console → Authentication → Sign-in method → Email/Password → Enable → Save.', c);
+      else if (/configuration-not-found/.test(c)) show('2. Email sign-in', false, 'Authentication is not set up. Firebase console → Authentication → Get started, then enable Email/Password.', c);
+      else if (/too-many-requests/.test(c)) show('2. Email sign-in', true, 'Works (Firebase is rate-limiting this browser for a few minutes).', c);
+      else show('2. Email sign-in', false, 'Unexpected answer from Firebase sign-in.', c || String(e));
+    }
   }
-  function pageText(t) { const d = new DOMParser().parseFromString(t, 'text/html'); return (d.body ? d.body.innerText : t).replace(/\s+\n/g, '\n').trim().slice(0, 600); }
-  async function test(title, opts) {
-    let res, text;
-    try { res = await fetch(CFG.BACKEND_URL, { redirect: 'follow', ...opts }); text = await res.text(); }
-    catch (e) { show(title, false, ACCESS, String(e)); return; }
-    let j = null; try { j = JSON.parse(text); } catch (e) {}
-    if (!j) return show(title, false, explainText(text) + ' (HTTP ' + res.status + ')', pageText(text));
-    if (j.ok) return show(title, true, 'Works.', text.slice(0, 300));
-    show(title, false, j.error === 'server_error' ? 'The script ran but hit an error. Check the sheet has all 6 tabs (run setup again if not), and send this message to your developer.' : 'The script answered with an error.', text.slice(0, 600));
+  async function sheetsCheck() {
+    try { const r = await backend.lookup('connection-check@example.com'); show('Google Sheets backend', !!r.ok, r.ok ? 'Works.' : 'The script answered with an error.', JSON.stringify(r)); }
+    catch (e) { show('Google Sheets backend', false, 'Could not reach the Apps Script web app.', String(e)); }
   }
   $('#go').onclick = async () => {
-    $('#out').innerHTML = '';
-    if (!CFG.BACKEND_URL) return show('No backend', false, 'BACKEND_URL is empty in js/config.js.');
-    $('#go').disabled = true;
-    await test('1. Basic connection (GET)', { method: 'GET' });
-    await test('2. Sign-in lookup (POST, like the app)', { method: 'POST', body: JSON.stringify({ action: 'lookup', email: 'connection-check@example.com' }), headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
+    $('#out').innerHTML = ''; $('#go').disabled = true;
+    if (backend.kind === 'firebase') await firebaseChecks();
+    else if (backend.kind === 'sheets') await sheetsCheck();
+    else show('No backend', false, 'Neither FIREBASE nor BACKEND_URL is set in js/config.js.');
     $('#go').disabled = false;
   };
 </script>

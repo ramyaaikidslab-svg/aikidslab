@@ -1,6 +1,7 @@
 // Accounts, learner state and syncing.
 //
-// Two interchangeable backends share one interface:
+// Interchangeable backends share one interface:
+//   FirebaseBackend — Firebase Auth + Firestore (js/core/firebase.js), used when CFG.FIREBASE is set.
 //   SheetsBackend — a Google Apps Script web app writing to a Google Sheet you own.
 //   LocalBackend  — this browser only (used until BACKEND_URL is configured).
 // The learner's state is always written to a local cache first, then synced, so a
@@ -9,6 +10,7 @@
 import CFG from '../config.js';
 import { today } from './util.js';
 import { hashStr } from './rng.js';
+import { FirebaseBackend } from './firebase.js';
 
 const SESSION_KEY = 'aikl-acad-session';
 const CACHE_KEY = e => 'aikl-acad-cache:' + e;
@@ -76,7 +78,8 @@ function parseState(r) {
   return r;
 }
 
-export const backend = CFG.BACKEND_URL ? new SheetsBackend(CFG.BACKEND_URL) : new LocalBackend();
+export const backend = CFG.FIREBASE && CFG.FIREBASE.apiKey ? new FirebaseBackend(CFG.FIREBASE)
+  : CFG.BACKEND_URL ? new SheetsBackend(CFG.BACKEND_URL) : new LocalBackend();
 
 /* ---------------------------------------------------------------- state */
 export function newState(profile) {
@@ -98,7 +101,7 @@ export function newState(profile) {
 }
 
 export const S = { email: '', token: '', state: null, status: 'idle', listeners: new Set() };
-let syncT = null, saving = false, pending = false;
+let syncT = null, syncAt = 0, saving = false, pending = false;
 
 export function onStatus(fn) { S.listeners.add(fn); }
 function setStatus(s) { S.status = s; S.listeners.forEach(f => f(s)); }
@@ -140,7 +143,10 @@ export function touch() {                      // call after any state change
 function schedule(ms) {
   if (backend.kind === 'local') { setStatus('saved'); return; }
   setStatus('dirty');
-  clearTimeout(syncT); syncT = setTimeout(sync, ms);
+  // Keep the earliest pending save, so steady activity can't postpone syncing forever.
+  if (syncT && syncAt <= Date.now() + ms) return;
+  clearTimeout(syncT); syncAt = Date.now() + ms;
+  syncT = setTimeout(() => { syncT = null; sync(); }, ms);
 }
 
 export async function sync(opts = {}) {
@@ -148,12 +154,13 @@ export async function sync(opts = {}) {
   if (saving) { pending = true; return false; }
   saving = true; setStatus('saving');
   try {
-    const r = await backend.save(S.email, S.token, S.state, opts);
+    clearTimeout(syncT); syncT = null;
+    const r = await backend.save(S.email, S.token, S.state, { ...opts, summary: summarise(S.state) });
     if (r && r.ok) { setStatus('saved'); return true; }
     if (r && (r.error === 'bad_token' || r.error === 'not_allowed')) { setStatus('expired'); return false; }
     throw new Error(r && r.error || 'save failed');
   } catch (e) {
-    setStatus('offline'); clearTimeout(syncT); syncT = setTimeout(sync, 30000); return false;
+    setStatus('offline'); clearTimeout(syncT); syncAt = Date.now() + 30000; syncT = setTimeout(() => { syncT = null; sync(); }, 30000); return false;
   } finally {
     saving = false;
     if (pending) { pending = false; schedule(2000); }
@@ -164,6 +171,7 @@ export async function endSession() {
   clearTimeout(syncT);
   if (S.state) { lsSet(CACHE_KEY(S.email), S.state); await sync(); }
   lsDel(SESSION_KEY);
+  if (backend.signOut) await backend.signOut();
   S.email = ''; S.token = ''; S.state = null;
 }
 

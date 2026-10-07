@@ -77,10 +77,12 @@ export function authScreen(main, onDone) {
       try {
         const r = await backend.login(email, await pinHash(email, pin));
         if (!r.ok) {
-          const m = { bad_pin: 'That PIN is not right. Try again.', locked: 'Too many wrong tries. Wait 15 minutes, or ask your teacher.', not_allowed: 'This email is not on the access list.', no_user: 'No account with this email.' }[r.error] || 'Sign-in failed. Try again.';
+          if (r.error === 'server_error') return stepPin(name, `The server had a problem (${esc(r.message || r.error)}). If this keeps happening, tell your teacher.`, reset);
+          const m = { bad_pin: 'That PIN is not right. Try again.', locked: 'Too many wrong tries. Wait a few minutes, or ask your teacher.', not_allowed: 'This email is not on the access list.', no_user: 'No account with this email.' }[r.error] || 'Sign-in failed. Try again.';
           return stepPin(name, m, reset);
         }
         await startSession(email, r.token, r.profile, r.state);
+        if (r.reset) toast('Your new PIN is set. Use it next time you sign in.', 4000);
         onDone();
       } catch (err) { busy(f, false); showErr(f, 'Could not reach the server. Check your connection and try again.'); }
     };
@@ -116,7 +118,7 @@ export function authScreen(main, onDone) {
       busy(f, true);
       try {
         const r = await backend.register({ email, name, school, section, pinHash: await pinHash(email, gN()) });
-        if (!r.ok) return stepRegister(r.error === 'exists' ? 'An account with this email already exists. Go back and sign in.' : r.error === 'not_allowed' ? 'This email is not on the access list yet.' : 'Could not create the account. Try again.');
+        if (!r.ok) return stepRegister(r.error === 'exists' ? 'An account with this email already exists. Go back and sign in.' : r.error === 'not_allowed' ? 'This email is not on the access list yet.' : `Could not create the account. Try again.${r.message ? ' (' + esc(r.message) + ')' : ''}`);
         await startSession(email, r.token, { name, school, section, email }, null);
         toast(`Welcome, ${esc(name.split(' ')[0])}! Your progress saves automatically.`, 4000);
         onDone(true);
