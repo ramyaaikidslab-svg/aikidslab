@@ -56,7 +56,8 @@ class SheetsBackend {
   async call(payload, { keepalive = false } = {}) {
     const res = await fetch(this.url, { method: 'POST', body: JSON.stringify(payload), headers: { 'Content-Type': 'text/plain;charset=utf-8' }, redirect: 'follow', keepalive });
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    return res.json();
+    const text = await res.text();
+    try { return JSON.parse(text); } catch (e) { throw new Error('Unexpected reply from server: ' + text.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160)); }
   }
   lookup(email) { return this.call({ action: 'lookup', email }); }
   register(p) { return this.call({ action: 'register', ...p }); }
