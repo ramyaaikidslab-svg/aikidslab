@@ -1,7 +1,7 @@
 import { ic, esc } from '../core/util.js';
 import * as chart from '../core/charts.js';
 
-const W = 380, H = 290;
+const W = 340, H = 280;
 const TRICKS = {
   trunc: 'The y-axis does not start at zero (truncated axis)',
   window: 'Only a cherry-picked time period is shown',
@@ -11,6 +11,7 @@ const TRICKS = {
 };
 const COL = ['#2F6FED', '#E8453C', '#109A66', '#DFA426'];
 const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const M1 = MON.map(m => m[0]);   // single letters fit 12 months on a phone
 const svg = (g, label) => `<svg class="svgchart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">${g}</svg>`;
 
 // Bars drawn from a baseline that is NOT zero.
@@ -57,7 +58,7 @@ function pie3d(labels, values, title) {
     if (front.length > 1) walls += `<path d="M${front.map(t => P(t).join(' ')).join(' L')} L${front.slice().reverse().map(t => P(t, depth).join(' ')).join(' L')} Z" fill="${shade(COL[i], .7)}" stroke="#15171C" stroke-width="1.5"/>`;
   });
   let g = `<text x="12" y="18" style="font-weight:800">${esc(title)}</text>` + walls + tops;
-  labels.forEach((lb, i) => { g += `<rect x="${12 + (i % 2) * 180}" y="${H - 34 + Math.floor(i / 2) * 18}" width="12" height="12" rx="3" fill="${COL[i]}" stroke="#15171C"/><text x="${30 + (i % 2) * 180}" y="${H - 24 + Math.floor(i / 2) * 18}">${esc(lb)}</text>`; });
+  labels.forEach((lb, i) => { g += `<rect x="${12 + (i % 2) * 160}" y="${H - 34 + Math.floor(i / 2) * 18}" width="12" height="12" rx="3" fill="${COL[i]}" stroke="#15171C"/><text x="${30 + (i % 2) * 160}" y="${H - 24 + Math.floor(i / 2) * 18}">${esc(lb)}</text>`; });
   return svg(g, `${title}: tilted 3-D pie chart with no percentages`);
 }
 
@@ -86,16 +87,16 @@ export default {
         id: 'window', src: 'Business Buzz',
         head: 'Kulfi Corner is booming! Sales up more than 4× — the business is taking off!',
         bad: () => chart.line(MON.slice(0, 5), [[12, 16, 28, 42, 55]], { W, H, title: 'Kulfis sold (hundreds)' }),
-        good: () => chart.line(MON, [[12, 16, 28, 42, 55, 48, 22, 18, 20, 19, 14, 12]], { W, H, title: 'Kulfis sold (hundreds), whole year' }),
+        good: () => chart.line(M1, [[12, 16, 28, 42, 55, 48, 22, 18, 20, 19, 14, 12]], { W, H, title: 'Kulfis sold (hundreds), whole year' }),
         hint: 'How many months does the chart show? What happens in the rest of the year?',
-        why: 'Only January to May is shown, the hot months when kulfi sales always rise. Across the whole year, sales go back down after summer. It is a seasonal pattern, not a business taking off.',
+        why: 'Only January to May is shown: the months when the weather gets hotter and kulfi sales always rise. Across the whole year, sales go back down after summer. It is a seasonal pattern, not a business taking off.',
         ask: 'Is this the whole time period, or just the part that fits the story?'
       },
       {
         id: 'units', src: 'Teen Talk Weekly',
         head: 'Shocking! Students spend 3× more time on phones than on books!',
         bad: () => bareBars(['Phone', 'Books'], [6, 2]),
-        good: () => chart.bar(['Phone', 'Books'], [6, 14], { W, H, title: 'Hours per WEEK (survey of Class 9B)', ylabel: 'hours per week', color: '#109A66' }),
+        good: () => chart.bar(['Phone', 'Books'], [6, 14], { W, H, title: 'Hours per WEEK (survey of Class 9B)', color: '#109A66' }),
         hint: '6 and 2… 6 what? 2 what? Is anything missing?',
         why: 'The chart had no units. In the survey, phone time was 6 hours per week but book time was 2 hours per day. In the same unit, that is 6 vs 14 hours per week, so students actually read more!',
         ask: 'What are the units, and are they the same for every bar?'
@@ -112,8 +113,8 @@ export default {
       {
         id: 'cause', src: 'The Town Crier',
         head: 'Umbrella sales CAUSE traffic jams, data proves!',
-        bad: () => chart.line(MON, [[3, 3, 2, 4, 6, 20, 28, 26, 19, 9, 4, 3], [8, 7, 7, 9, 10, 22, 30, 29, 21, 12, 9, 8]], { W, H, title: 'Umbrellas sold vs traffic jams', names: ['Umbrellas ×100', 'Jam reports'] }),
-        good: () => chart.line(MON, [[3, 3, 2, 4, 6, 20, 28, 26, 19, 9, 4, 3], [8, 7, 7, 9, 10, 22, 30, 29, 21, 12, 9, 8], [1, 1, 1, 2, 4, 18, 30, 28, 20, 8, 3, 1]], { W, H, title: 'Add the hidden cause: rainfall', names: ['Umbrellas ×100', 'Jam reports', 'Rain (cm)'] }),
+        bad: () => chart.line(M1, [[3, 3, 2, 4, 6, 20, 28, 26, 19, 9, 4, 3], [8, 7, 7, 9, 10, 22, 30, 29, 21, 12, 9, 8]], { W, H, title: 'Umbrellas sold vs traffic jams', names: ['Umbrellas ×100', 'Jam reports'] }),
+        good: () => chart.line(M1, [[3, 3, 2, 4, 6, 20, 28, 26, 19, 9, 4, 3], [8, 7, 7, 9, 10, 22, 30, 29, 21, 12, 9, 8], [1, 1, 1, 2, 4, 18, 30, 28, 20, 8, 3, 1]], { W, H, title: 'Add the hidden cause: rainfall', names: ['Umbrellas ×100', 'Jam reports', 'Rain (cm)'] }),
         hint: 'Two things rise together. Does one really make the other happen, or could something else cause both?',
         why: 'Both rise in June to September because of the monsoon rain. Rain makes people buy umbrellas and also slows traffic. Moving together (correlation) does not prove that one causes the other (causation).',
         ask: 'Could a third thing be causing both?'

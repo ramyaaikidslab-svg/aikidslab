@@ -76,7 +76,7 @@ export default {
 <div class="mini"><h4>🌐 Web development</h4><p>Frameworks such as Django and Flask run the server side of websites.</p></div>
 <div class="mini"><h4>⚙️ Automation</h4><p>Short scripts do boring jobs, like renaming 500 photos or filling a report.</p></div></div>
 <p>Python is also used for school robotics, scientific research, games and teaching programming.</p>
-<div class="key"><b>Key idea</b> Python is a general-purpose language, and it is the most common language for building AI.</div>`
+<div class="key"><b>Key idea</b> Python is a general-purpose language, and one of the most popular languages for building AI.</div>`
         },
         { kind: 'check', concepts: ['python-why'], n: 2 },
         {
@@ -157,6 +157,7 @@ if on_gem():
         { id: 'u5-01-q12', c: 'algorithm', t: 'multi', d: 2, q: 'Select all that apply. Which are features of a good algorithm?', o: ['Each step is clear and unambiguous', 'The steps are in the correct order', 'It finishes after a limited number of steps', 'It must be written in Python', 'It must be as long as possible'], a: [0, 1, 2], ex: 'Good algorithms are clear, correctly ordered and finite. They can be written in any language or in plain words, and shorter is usually better.' },
         { id: 'u5-01-q13', c: 'algorithm', t: 'mcq', d: 3, q: 'Riya’s algorithm to find the tallest student: (1) Note the first student’s height as “tallest so far”. (2) Go to the next student. (3) After the last student, announce “tallest so far”. What is missing?', o: ['Compare each student with “tallest so far” and update it if they are taller', 'Ask every student their name', 'Sort the students by roll number first', 'Measure the first student a second time'], a: 0, mis: { 1: 'Names do not help find the tallest. The comparison step is what is missing.', 2: 'Sorting by roll number does not change heights. Without a comparison the answer is always the first student.' }, ex: 'Without a compare-and-update step, “tallest so far” never changes, so the algorithm would always announce the first student.' },
         // python-why
+        { id: 'u5-01-q33', c: 'algorithm', t: 'mcq', d: 3, q: 'Arjun writes an algorithm for crossing the road outside school: (1) Cross the road. (2) Look right, left and right again. (3) Wait for a safe gap in the traffic. What is wrong with it?', o: ['The steps are in the wrong order: crossing must come after looking and waiting', 'It has too few steps to count as an algorithm', 'An algorithm cannot be about real life, only computers', 'Step 2 should be removed to make it shorter'], a: 0, mis: { 1: 'Three clear steps can be a perfectly good algorithm. The problem is their order.', 2: 'Algorithms describe any step-by-step process, from recipes to road safety.' }, ex: 'All the right steps are there, but in the wrong order, and here that could be dangerous. In an algorithm, order matters.' },
         { id: 'u5-01-q14', c: 'python-why', t: 'mcq', d: 1, q: 'Who created the Python programming language?', o: ['Guido van Rossum', 'Charles Babbage', 'Alan Turing', 'Tim Berners-Lee'], a: 0, ex: 'Guido van Rossum created Python; it was first released in 1991. Babbage designed early mechanical computers, Turing was a computing pioneer, and Berners-Lee invented the World Wide Web.' },
         { id: 'u5-01-q15', c: 'python-why', t: 'multi', d: 1, q: 'Select all that apply. Why is Python a popular first language?', o: ['Its code is easy to read and close to English', 'It is free and open source', 'It has many ready-made libraries', 'It runs on only one kind of computer', 'It never shows error messages'], a: [0, 1, 2], ex: 'Python is readable, free and has huge libraries. It runs on Windows, macOS and Linux, and it does show error messages, which help you fix bugs.' },
         { id: 'u5-01-q16', c: 'python-why', t: 'match', d: 2, q: 'Match each field to a way Python is used in it.', pairs: [['Artificial Intelligence', 'Training models that recognise images or speech'], ['Data science', 'Analysing data and drawing charts'], ['Web development', 'Running the server side of websites'], ['Automation', 'Scripts that rename hundreds of files automatically']], ex: 'Python is general-purpose: AI (TensorFlow, PyTorch), data science (pandas, matplotlib), web (Django, Flask) and automation scripts.' },
@@ -376,9 +377,14 @@ print(runs)`, o: ['46', '40', 'runs + 6', '406'], a: 0, mis: { 1: 'Line 2 update
 b = a
 a = 9
 print(b)`, o: ['5', '9', 'a', '14'], a: 0, mis: { 1: 'b = a copied the value 5 at that moment. Changing a later does not change b.' }, ex: 'When b = a ran, a was 5, so b got 5. Changing a to 9 afterwards does not affect b.' },
-        { id: 'u5-02-q17', c: 'variables', t: 'mcq', d: 2, q: 'What is the output?', code: `city = "Pune"
+        { id: 'u5-02-q17', c: 'variables', t: 'mcq', d: 3, q: 'What is the output?', code: `city = "Pune"
 print("city")
 print(city)`, o: ['city\nPune', 'Pune\nPune', 'city\ncity', 'Pune\ncity'], a: 0, mis: { 1: '"city" in quotes is just the text city, not the variable.' }, ex: 'print("city") prints the word city. print(city) without quotes prints the value stored in the variable: Pune.' },
+        { id: 'u5-02-q34', c: 'variables', t: 'mcq', d: 3, q: 'Sana tries to swap two values. What is the output?', code: `a = 3
+b = 7
+a = b
+b = a
+print(a, b)`, o: ['7 7', '7 3', '3 7', '3 3'], a: 0, mis: { 1: 'After a = b, the old value 3 is gone. So b = a copies 7 back into b.' }, ex: 'a = b makes a 7 and the 3 is lost; then b = a copies 7 into b. To swap, first save one value in a third variable.' },
         { id: 'u5-02-q18', c: 'variables', t: 'num', d: 2, q: 'What number does this program print?', code: `x = 3
 x = x * 4
 x = x - 2
@@ -1465,7 +1471,7 @@ print("5 x 5 =", 5 * 5)</pre>
 <p>Some bugs only show up with the right test value. The program can run without any error message and still give a <b>wrong answer</b>: a <i>logic error</i>.</p>
 <pre class="code">km = input("Distance in km: ")
 print(km * 1000)</pre>
-<p>Type 5, and this prints <code>5</code> one thousand times instead of 5000, because <code>km</code> is a string. No error appears; only testing catches it.</p>`
+<p>Type 5, and this prints the digit 5 repeated a thousand times (<code>555…5</code>) instead of 5000, because <code>km</code> is a string and <code>*</code> repeats text. No error appears; only testing catches it.</p>`
         },
         { kind: 'code', ex: 'py-report-card' },
         { kind: 'code', ex: 'py-pocket-money' },

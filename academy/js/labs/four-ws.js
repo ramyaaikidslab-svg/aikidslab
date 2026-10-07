@@ -8,7 +8,7 @@ const WS = [
   { id: 'where', label: 'Where', desc: 'context / situation' },
   { id: 'why', label: 'Why', desc: 'value of solving it' }
 ];
-const WCOL = { who: 'var(--blue-wash)', what: 'var(--coral-wash)', where: 'var(--green-wash)', why: 'var(--violet-wash)' };
+const WCOL = { who: 'var(--blue-wash)', what: 'var(--gold-wash)', where: 'var(--green-wash)', why: 'var(--violet-wash)' };
 
 export const SCEN = [
   {
