@@ -137,6 +137,21 @@
   .nav-cta:hover, .navlinks a.nav-cta:hover{background:transparent; color:var(--gold);}
   .nav-cta .short{display:none;}
   @media (max-width:1040px){ .navlinks a:not(.nav-cta){display:none;} }
+  /* The free gamified lesson stays in the header at every width; the
+     other text links collapse below 1040px. */
+  .navlinks a.nav-play{color:var(--gold); display:inline-flex; align-items:center; gap:8px;}
+  .navlinks a.nav-play:hover{color:var(--gold-bright);}
+  .navlinks a.nav-play[aria-current="page"]::after{right:0;}
+  .nav-play .short{display:none;}
+  .free-tag{font-family:var(--mono); font-size:0.6rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; background:var(--gold); color:var(--ink); padding:2px 6px; border-radius:var(--r); line-height:1.4;}
+  @media (max-width:1040px){ .navlinks{gap:22px;} .navlinks a.nav-play{display:inline-flex;} }
+  @media (max-width:560px){
+    .navlinks{gap:14px;}
+    .nav-play .full, .nav-play .free-tag{display:none;}
+    .nav-play .short{display:inline;}
+    .navlinks a.nav-play{font-size:0.82rem; font-weight:600; padding-bottom:0;}
+    .navlinks a.nav-play::after{display:none;}
+  }
   @media (max-width:560px){
     .nav-cta .full{display:none;}
     .nav-cta .short{display:inline;}
