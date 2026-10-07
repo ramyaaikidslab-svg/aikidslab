@@ -4,7 +4,7 @@
 
 const PAL = ['#2F6FED', '#E8453C', '#109A66', '#DFA426', '#7B4DFF', '#0E9C9C', '#15171C'];
 const e = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-function niceMax(v) { if (v <= 0) return 1; const p = Math.pow(10, Math.floor(Math.log10(v))); const n = v / p; return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * p; }
+function niceMax(v) { if (v <= 0) return 1; const p = Math.pow(10, Math.floor(Math.log10(v))); const n = v / p; const step = [1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10].find(s => n <= s + 1e-9); return +(step * p).toFixed(10); }
 function ticks(max, n = 5) { const step = max / n; return Array.from({ length: n + 1 }, (_, i) => +(i * step).toFixed(6)); }
 function fmt(v) { return Math.abs(v) >= 1000 ? (v / 1000).toFixed(v % 1000 ? 1 : 0) + 'k' : (+v.toFixed(2)).toString(); }
 
