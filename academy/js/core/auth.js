@@ -8,8 +8,8 @@ const side = `<div class="auth-side">
   <div class="kicker">${esc(CFG.COURSE)}</div>
   <h2>Learn AI by <em>doing</em> it.</h2>
   <ul>
-    <li>${ic('check')} 40 topics across all five Part B units, plus a capstone you build yourself</li>
-    <li>${ic('check')} 30+ hands-on labs and real Python in your browser</li>
+    <li>${ic('check')} 39 topics across all five Part B units, including a capstone you build yourself</li>
+    <li>${ic('check')} 34 hands-on labs and real Python in your browser</li>
     <li>${ic('check')} Your own questions — and every mistake comes back to be fixed</li>
     <li>${ic('check')} A certificate for every topic you master</li>
     <li>${ic('check')} Pick up exactly where you left off, on any device</li>

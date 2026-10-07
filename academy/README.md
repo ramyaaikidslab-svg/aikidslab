@@ -6,7 +6,7 @@ Static files only (works on GitHub Pages); no build step; no AI/LLM calls at run
 Live path: `/academy/` (e.g. `https://www.aikidslab.co/academy/`).
 
 ## What learners get
-- **40 topics** covering all five Part B units plus a hands-on capstone (≈ 48 hours).
+- **39 topics**: 35 across the five Part B units plus 4 hands-on capstone projects (≈ 50 hours of estimated active time).
 - Lesson cards, quick checks, **34 interactive labs**, practice, and a **mastery check** per topic (80% to pass).
 - **Real Python in the browser** (self-hosted Pyodide) with auto-graded exercises, including every program in the CBSE practical list, and a downloadable Practical File PDF.
 - **Unique questions per learner**: selections, option order and numbers are seeded from the learner's email, and 14 generators create fresh numeric/code questions.

@@ -57,7 +57,7 @@ export function unitPage(main, uid) {
   main.innerHTML = `<div class="u-${u.color}">
     <a class="btn sm" href="#/">${ic('back', 'sm')} Dashboard</a>
     <div class="uhead mt">
-      <div class="kicker">${u.id === 'cp' ? 'Capstone' : 'Unit ' + u.id.slice(1)} · ${esc(u.syllabus || '')}</div>
+      <div class="kicker">${u.id === 'cp' ? 'Capstone · ' : ''}${esc(u.syllabus || '')}</div>
       <h1>${esc(u.title)}</h1>
       <div class="row mt"><div class="bar" style="flex:1;min-width:180px"><i style="width:${p.pct}%"></i></div><b>${p.done} / ${p.total} mastered</b></div>
     </div>

@@ -61,14 +61,23 @@ export function renderTopic(main, topicId, stepParam, nav) {
     main.querySelector('[data-pbar]').style.width = pct + '%';
   }
   function go(k) { nav(`#/t/${t.id}/${k}`); }
-  function complete(k) { if (!ts.steps[k]) { ts.steps[k] = true; touch(); } sidebar(); }
+  function complete(k) { if (!ts.steps[k]) { ts.steps[k] = true; touch(); } sidebar(); maybeFinishCapstone(); }
 
   function navRow(canNext, { skippable = false } = {}) {
     const last = i === steps.length - 1;
     const row = h(`<div class="navrow">
       <div class="row">${i > 0 ? `<button class="btn sm" data-prev>${ic('back', 'sm')} Back</button>` : ''}${skippable ? `<button class="linkbtn" data-skip>Skip for now</button>` : ''}</div>
-      ${last ? (ts.done ? `<a class="btn primary" href="#/u/${u.id}">Back to ${esc(u.short)} ${ic('arrow')}</a>` : '') : `<button class="btn primary" data-next ${canNext ? '' : 'disabled'}>Next ${ic('arrow')}</button>`}
+      ${last ? (ts.done || !steps.some(x => x.kind === 'quiz') ? `<a class="btn ${ts.done ? 'primary' : ''}" href="#/u/${u.id}">Back to ${esc(u.short)} ${ic('arrow')}</a>` : '') : `<button class="btn primary" data-next ${canNext ? '' : 'disabled'}>Next ${ic('arrow')}</button>`}
     </div>`);
+    // On the last step of a project topic, show what's still missing for the certificate.
+    if (last && !ts.done && !steps.some(x => x.kind === 'quiz')) {
+      const missing = steps.map((x, k) => k).filter(k => k !== i && !ts.steps[k]);
+      if (missing.length) {
+        const note = h(`<div class="warn mt"><b>Almost there.</b> To earn this project's certificate, finish: ${missing.map(k => `<button class="linkbtn" data-jump="${k}">${esc(stepLabel(t, steps[k]))}</button>`).join(', ')}.</div>`);
+        note.querySelectorAll('[data-jump]').forEach(b => b.onclick = () => go(+b.dataset.jump));
+        const wrapRow = h('<div></div>'); wrapRow.appendChild(note); wrapRow.appendChild(row); return wrapRow;
+      }
+    }
     row.querySelector('[data-prev]') && (row.querySelector('[data-prev]').onclick = () => go(i - 1));
     row.querySelector('[data-next]') && (row.querySelector('[data-next]').onclick = () => { complete(i); go(i + 1); });
     row.querySelector('[data-skip]') && (row.querySelector('[data-skip]').onclick = () => { ts.step = Math.max(ts.step, i + 1); touch(); toast('Skipped for now — come back any time from the step list.'); go(i + 1); });
