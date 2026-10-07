@@ -3,7 +3,7 @@ export default {
   // Paste your Google Apps Script web-app URL here (see academy/backend/SETUP.md).
   // While empty, the Academy runs in device-only mode: accounts and progress are
   // kept in this browser only.
-  BACKEND_URL: '',
+  BACKEND_URL: 'https://script.google.com/macros/s/AKfycbxhfw8lmE6cwQc_2IX2eH1unyXKlTqOs6KTUUXK8GecXewGw30Oi0aImGUcgPKXLLRA4g/exec',
 
   APP_NAME: 'AI Kids Lab Academy',
   COURSE: 'Artificial Intelligence (417) · Class IX · Part B',
