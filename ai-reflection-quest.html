@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#15171C">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="ai-kids-lab-icon-badge.png">
+<title>AI Reflection Quest</title>
+<meta name="description" content="An interactive, game-style lesson for Grades 7–9: find the AI in everyday life and master its three domains — Data, Computer Vision and Natural Language Processing.">
+<link rel="canonical" href="https://www.aikidslab.co/ai-reflection-quest.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI Kids Lab">
+<meta property="og:locale" content="en_IN">
+<meta property="og:url" content="https://www.aikidslab.co/ai-reflection-quest.html">
+<meta property="og:title" content="AI Reflection Quest">
+<meta property="og:description" content="Eight levels. Three AI superpowers. Find the AI hiding in your day — and beat the boss robot.">
+<meta property="og:image" content="https://www.aikidslab.co/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Student-facing activity page. Self-contained on purpose: it does not
+     load assets/site.css, which is styled for the school-leader pages. It
+     keeps the brand ink and gold and adds one colour per AI domain. */
+  :root{
+    color-scheme: only light;
+    --ink:#15171C;
+    --ink-2:#2A2F3A;
+    --muted:#5B606A;
+    --paper:#FFF8E7;
+    --card:#FFFFFF;
+    --gold:#FFC800;
+    --gold-deep:#DFA426;
+    --gold-wash:#FFF1C2;
+
+    --data:#2F6FED;  --data-wash:#E4ECFF;
+    --cv:#E8453C;    --cv-wash:#FFE5E2;
+    --nlp:#109A66;   --nlp-wash:#D9F5E8;
+
+    --good:#109A66; --good-wash:#DDF7EA;
+    --bad:#D93A40;  --bad-wash:#FFE3E4;
+
+    --b:3px solid var(--ink);
+    --sh:4px 4px 0 var(--ink);
+    --sh-sm:2px 2px 0 var(--ink);
+    --r:18px;
+    --head:'Baloo 2','Trebuchet MS',system-ui,sans-serif;
+    --body:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --emoji:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    font-family:var(--body); font-weight:500; color:var(--ink); line-height:1.5; font-size:17px;
+    background-color:var(--paper);
+    background-image:radial-gradient(rgba(21,23,28,0.07) 1.2px, transparent 1.3px);
+    background-size:22px 22px;
+    min-height:100vh;
+  }
+  h1,h2,h3{font-family:var(--head); font-weight:800; line-height:1.1; letter-spacing:-0.01em;}
+  h1{font-size:clamp(2.3rem,7vw,4rem);}
+  h2{font-size:clamp(1.6rem,4.5vw,2.3rem);}
+  h3{font-size:1.35rem;}
+  p{text-wrap:pretty;}
+  button{font:inherit; color:inherit;}
+  :focus-visible{outline:3px solid var(--data); outline-offset:3px;}
+  .wrap{max-width:980px; margin:0 auto; padding:0 16px;}
+
+  /* ---------- HUD ---------- */
+  .hud{position:sticky; top:0; z-index:40; background:var(--ink); color:#fff; border-bottom:3px solid var(--gold);}
+  .hud .wrap{display:flex; align-items:center; gap:10px; height:62px;}
+  .brand{display:flex; align-items:center; gap:9px; font-weight:800; letter-spacing:.12em; font-size:.74rem; text-transform:uppercase; color:#fff; text-decoration:none; margin-right:auto; white-space:nowrap;}
+  .brand svg{width:26px; height:26px; flex-shrink:0;}
+  .brand svg rect:first-child{fill:none; stroke:var(--gold); stroke-width:10;}
+  .brand svg rect:nth-child(2){fill:var(--gold);}
+  .brand svg rect:last-child{fill:var(--ink);}
+  .pill{display:inline-flex; align-items:center; gap:6px; background:var(--ink-2); border:2px solid rgba(255,255,255,.18); border-radius:999px; padding:5px 12px; font-weight:800; font-size:.92rem; white-space:nowrap; cursor:pointer;}
+  .pill.xp{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .pill.bump{animation:bump .5s;}
+  .iconbtn{background:none; border:2px solid rgba(255,255,255,.25); border-radius:12px; width:40px; height:40px; color:#fff; font-size:1.1rem; cursor:pointer; flex-shrink:0;}
+  .iconbtn:hover{border-color:var(--gold);}
+  @media (max-width:560px){ .brand .full{display:none;} .pill .lbl{display:none;} .hud .wrap{gap:7px;} }
+  @keyframes bump{30%{transform:scale(1.25);} 100%{transform:scale(1);}}
+
+  main{padding:28px 0 80px;}
+
+  /* ---------- BUTTONS & CARDS ---------- */
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:var(--body); font-weight:800; font-size:1rem; background:#fff; border:var(--b); border-radius:14px; padding:11px 18px; box-shadow:var(--sh); cursor:pointer; transition:transform .08s, box-shadow .08s, background .2s; text-align:center; touch-action:manipulation;}
+  .btn:hover:not(:disabled){background:#FFFDF5;}
+  .btn:active:not(:disabled){transform:translate(3px,3px); box-shadow:1px 1px 0 var(--ink);}
+  .btn.primary{background:var(--gold);}
+  .btn.primary:hover:not(:disabled){background:#FFD43B;}
+  .btn.dark{background:var(--ink); color:#fff;}
+  .btn.big{font-size:1.2rem; padding:16px 22px; border-radius:16px;}
+  .btn:disabled{opacity:.45; cursor:not-allowed;}
+  .btn.sel{background:var(--ink); color:#fff;}
+  .card{background:var(--card); border:var(--b); border-radius:var(--r); box-shadow:var(--sh); padding:22px;}
+  .kicker{display:inline-block; font-weight:800; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-deep);}
+  .muted{color:var(--muted);}
+  .row{display:flex; flex-wrap:wrap; gap:12px; align-items:center;}
+  .center{text-align:center;}
+  .mt{margin-top:18px;} .mt2{margin-top:28px;}
+  .pop{animation:pop .35s cubic-bezier(.2,1.4,.4,1);}
+  @keyframes pop{0%{transform:scale(.85); opacity:0;} 100%{transform:scale(1); opacity:1;}}
+  .shake{animation:shake .4s;}
+  @keyframes shake{20%,60%{transform:translateX(-8px);} 40%,80%{transform:translateX(8px);}}
+
+  .dtag{display:inline-flex; align-items:center; gap:5px; font-weight:800; font-size:.82rem; padding:3px 10px; border-radius:999px; border:2px solid currentColor; white-space:nowrap; vertical-align:middle;}
+  .dtag.data{color:var(--data); background:var(--data-wash);}
+  .dtag.cv{color:var(--cv); background:var(--cv-wash);}
+  .dtag.nlp{color:var(--nlp); background:var(--nlp-wash);}
+
+  /* ---------- INTRO ---------- */
+  .hero{text-align:center; padding:18px 0 8px;}
+  .hero .robot{font-size:5rem; font-family:var(--emoji); display:inline-block; animation:float 3s ease-in-out infinite;}
+  @keyframes float{50%{transform:translateY(-10px) rotate(-4deg);}}
+  .hero h1 span{background:var(--gold); padding:0 .2em; border-radius:10px; box-decoration-break:clone; -webkit-box-decoration-break:clone;}
+  .hero .lede{max-width:44ch; margin:14px auto 0; font-size:1.12rem;}
+  .powers{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:28px 0;}
+  .power{border:var(--b); border-radius:var(--r); padding:16px; box-shadow:var(--sh); text-align:center;}
+  .power .pi{font-size:2.4rem; font-family:var(--emoji);}
+  .power b{display:block; font-family:var(--head); font-size:1.2rem; line-height:1.15;}
+  .power small{font-weight:800; font-size:.8rem; letter-spacing:.08em; text-transform:uppercase;}
+  .power.data{background:var(--data-wash);} .power.data small{color:var(--data);}
+  .power.cv{background:var(--cv-wash);} .power.cv small{color:var(--cv);}
+  .power.nlp{background:var(--nlp-wash);} .power.nlp small{color:var(--nlp);}
+  .power.locked{filter:grayscale(1); opacity:.5;}
+  @media (max-width:640px){ .powers{grid-template-columns:1fr;} .power{display:flex; align-items:center; gap:14px; text-align:left;} }
+  .join{max-width:560px; margin:0 auto;}
+  .join label{display:block; font-weight:800; margin-bottom:8px;}
+  .input{width:100%; font:inherit; font-weight:700; font-size:1.1rem; border:var(--b); border-radius:14px; padding:12px 14px; background:#fff;}
+  textarea.input{min-height:84px; resize:vertical;}
+  .avatars{display:flex; flex-wrap:wrap; gap:10px;}
+  .avatars button{font-family:var(--emoji); font-size:1.9rem; width:58px; height:58px; border:var(--b); border-radius:16px; background:#fff; cursor:pointer; box-shadow:var(--sh-sm);}
+  .avatars button[aria-pressed="true"]{background:var(--gold); transform:translateY(-3px); box-shadow:var(--sh);}
+
+  /* ---------- MAP ---------- */
+  .welcome{display:flex; gap:16px; align-items:center; flex-wrap:wrap;}
+  .welcome .av{font-family:var(--emoji); font-size:2.6rem; width:74px; height:74px; display:grid; place-items:center; background:var(--gold); border:var(--b); border-radius:20px; box-shadow:var(--sh); flex-shrink:0;}
+  .rankbar{height:16px; background:#fff; border:var(--b); border-radius:999px; overflow:hidden; margin-top:8px; max-width:420px;}
+  .rankbar i{display:block; height:100%; background:repeating-linear-gradient(45deg,var(--gold),var(--gold) 10px,#FFD94D 10px,#FFD94D 20px); transition:width .6s;}
+  .path{position:relative; margin-top:30px; display:grid; gap:16px;}
+  .node{display:flex; align-items:center; gap:16px; background:#fff; border:var(--b); border-radius:var(--r); box-shadow:var(--sh); padding:14px 18px; text-align:left; width:min(100%,640px); cursor:pointer; transition:transform .12s;}
+  .node:nth-child(even){margin-left:auto;}
+  .node:hover:not(.locked){transform:translateY(-3px);}
+  .node .ni{font-family:var(--emoji); font-size:2rem; width:60px; height:60px; border:var(--b); border-radius:50%; display:grid; place-items:center; background:var(--gold-wash); flex-shrink:0;}
+  .node.done .ni{background:var(--gold);}
+  .node.locked{cursor:not-allowed; opacity:.55; box-shadow:var(--sh-sm);}
+  .node.locked .ni{background:#eee;}
+  .node.current{outline:4px dashed var(--gold-deep); outline-offset:5px;}
+  .node .nt{flex:1;}
+  .node .nt b{font-family:var(--head); font-size:1.25rem; display:block; line-height:1.15;}
+  .node .nt span{color:var(--muted); font-size:.95rem;}
+  .node .ns{font-weight:800; font-size:.85rem; white-space:nowrap;}
+  .node.final{background:var(--ink); color:#fff;}
+  .node.final .nt span{color:#C4C7CE;}
+  @media (max-width:560px){ .node{padding:12px; gap:12px;} .node .ni{width:50px; height:50px; font-size:1.6rem;} .node .ns{display:none;} }
+
+  /* ---------- LEVEL SHELL ---------- */
+  .lvl-head{display:flex; align-items:center; gap:14px; margin-bottom:20px; flex-wrap:wrap;}
+  .lvl-head .t{flex:1; min-width:200px;}
+  .steps{display:flex; gap:6px;}
+  .steps i{width:28px; height:10px; border-radius:6px; border:2px solid var(--ink); background:#fff;}
+  .steps i.on{background:var(--gold);}
+  .steps i.done{background:var(--ink);}
+  .intro-card{display:flex; gap:18px; align-items:flex-start;}
+  .intro-card .big{font-family:var(--emoji); font-size:3.2rem; line-height:1;}
+  .intro-card p+p{margin-top:10px;}
+  .rule{background:var(--gold-wash); border:var(--b); border-radius:14px; padding:12px 16px; margin-bottom:18px;}
+  .dots{display:flex; gap:6px; justify-content:center; margin:6px 0 16px; flex-wrap:wrap;}
+  .dots i{width:12px; height:12px; border-radius:50%; border:2px solid var(--ink); background:#fff;}
+  .dots i.done{background:var(--ink);} .dots i.now{background:var(--gold);}
+
+  .big-card{max-width:520px; margin:0 auto; text-align:center; padding:28px 22px;}
+  .big-emoji{font-family:var(--emoji); font-size:4.4rem; line-height:1.1;}
+  .big-card h3{font-size:1.7rem; margin-top:6px;}
+  .big-card p{margin-top:6px; color:var(--muted);}
+  .choice-row{display:flex; gap:14px; justify-content:center; margin-top:20px; flex-wrap:wrap;}
+  .choice-row .btn{min-width:170px;}
+
+  .feedback{border:var(--b); border-radius:14px; padding:14px 16px; margin:18px auto 0; max-width:640px;}
+  .feedback.good{background:var(--good-wash);}
+  .feedback.bad{background:var(--bad-wash);}
+  .feedback .btn{margin-top:12px;}
+
+  /* ---------- DAY IN THE LIFE ---------- */
+  .scene-top{display:flex; align-items:center; gap:14px;}
+  .scene-top .time{font-family:var(--head); font-weight:800; font-size:1.1rem; background:var(--ink); color:var(--gold); padding:4px 12px; border-radius:10px;}
+  .items{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:16px;}
+  @media (max-width:640px){ .items{grid-template-columns:1fr;} }
+  .item{display:flex; gap:12px; align-items:flex-start; text-align:left; background:#fff; border:var(--b); border-radius:14px; padding:12px 14px; cursor:pointer; box-shadow:var(--sh-sm); font-weight:700;}
+  .item .ie{font-family:var(--emoji); font-size:1.7rem; line-height:1;}
+  .item[aria-pressed="true"]{background:var(--gold-wash); box-shadow:var(--sh); outline:3px solid var(--gold-deep);}
+  .item.r-good{background:var(--good-wash); outline:3px solid var(--good);}
+  .item.r-bad{background:var(--bad-wash); outline:3px solid var(--bad);}
+  .item.r-miss{background:#fff; outline:3px dashed var(--bad);}
+  .item .how{display:block; font-weight:500; font-size:.92rem; color:var(--ink-2); margin-top:6px;}
+  .item .how .dtag{margin-right:4px;}
+
+  /* ---------- FLIP CARDS ---------- */
+  .flips{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  @media (max-width:820px){ .flips{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:500px){ .flips{grid-template-columns:1fr;} }
+  .flip{display:block; width:100%; perspective:900px; background:none; border:0; padding:0; cursor:pointer; min-height:220px; text-align:left;}
+  .flip .in{display:block; position:relative; width:100%; height:100%; min-height:220px; transition:transform .55s; transform-style:preserve-3d;}
+  .flip.on .in{transform:rotateY(180deg);}
+  .flip .f, .flip .bk{position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border:var(--b); border-radius:var(--r); box-shadow:var(--sh); padding:16px; display:flex; flex-direction:column;}
+  .flip .f{background:#fff; align-items:center; justify-content:center; text-align:center; gap:6px;}
+  .flip .f .fe{font-family:var(--emoji); font-size:3rem;}
+  .flip .f b{font-family:var(--head); font-size:1.2rem; line-height:1.15;}
+  .flip .f small{font-weight:800; color:var(--muted); font-size:.8rem;}
+  .flip .bk{transform:rotateY(180deg); font-size:.93rem; gap:8px; overflow:auto;}
+  .flip.data .bk{background:var(--data-wash);} .flip.cv .bk{background:var(--cv-wash);} .flip.nlp .bk{background:var(--nlp-wash);}
+  .flip .bk b{font-weight:800;}
+
+  /* ---------- RPS ---------- */
+  .arena{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px; text-align:center;}
+  .arena .hand{font-family:var(--emoji); font-size:4.2rem; line-height:1.1; min-height:4.7rem;}
+  .arena .who{font-weight:800; text-transform:uppercase; letter-spacing:.1em; font-size:.8rem;}
+  .arena .sc{font-family:var(--head); font-size:2.2rem; font-weight:800;}
+  .vs{font-family:var(--head); font-weight:800; font-size:1.4rem; background:var(--ink); color:var(--gold); width:52px; height:52px; display:grid; place-items:center; border-radius:50%;}
+  .hands{display:flex; gap:12px; justify-content:center; margin-top:18px;}
+  .hands .btn{font-family:var(--emoji); font-size:2.4rem; width:86px; height:86px; padding:0;}
+  .verdict{font-family:var(--head); font-size:1.4rem; font-weight:800; text-align:center; margin-top:14px; min-height:1.8em;}
+  .predict{text-align:center; margin-top:4px; color:var(--ink-2); min-height:1.6em;}
+  .brain{background:var(--data-wash); border:var(--b); border-radius:var(--r); padding:16px; margin-top:20px;}
+  .brain table{width:100%; border-collapse:collapse; margin-top:8px; font-weight:700;}
+  .brain th, .brain td{border:2px solid var(--ink); padding:6px; text-align:center; background:#fff;}
+  .brain th{background:var(--ink); color:#fff; font-size:.85rem;}
+  .brain td.hot{background:var(--gold);}
+  .brain .em{font-family:var(--emoji);}
+
+  /* ---------- PIXELS ---------- */
+  .pix-wrap{display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:start;}
+  @media (max-width:700px){ .pix-wrap{grid-template-columns:1fr;} }
+  .pgrid{display:grid; grid-template-columns:repeat(10,1fr); border:var(--b); border-radius:12px; overflow:hidden; touch-action:none; user-select:none; -webkit-user-select:none; background:#fff; aspect-ratio:1;}
+  .pgrid div{border-right:1px solid rgba(0,0,0,.1); border-bottom:1px solid rgba(0,0,0,.1);}
+  .ngrid{display:grid; grid-template-columns:repeat(10,1fr); border:var(--b); border-radius:12px; overflow:hidden; background:#fff; aspect-ratio:1; font-family:ui-monospace,Menlo,monospace; font-weight:700;}
+  .ngrid div{display:grid; place-items:center; font-size:clamp(.55rem,1.6vw,.8rem); border-right:1px solid rgba(0,0,0,.08); border-bottom:1px solid rgba(0,0,0,.08);}
+  .brushes{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px;}
+  .brushes .btn{padding:8px 12px; font-size:.9rem;}
+  .swatch{display:inline-block; width:16px; height:16px; border:2px solid var(--ink); border-radius:4px;}
+  .gtitle{font-weight:800; margin-bottom:8px;}
+
+  .zoom{display:grid; grid-template-columns:auto 1fr; gap:22px; align-items:center;}
+  @media (max-width:640px){ .zoom{grid-template-columns:1fr; justify-items:center;} }
+  .zoom canvas{width:240px; height:240px; border:var(--b); border-radius:16px; box-shadow:var(--sh); image-rendering:pixelated; background:#fff;}
+  .opts{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .opts .btn{width:100%;}
+  .meter-res{font-weight:800; margin:8px 0 12px;}
+
+  /* ---------- NLP ---------- */
+  .tokens{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; min-height:36px;}
+  .tok{padding:4px 10px; border-radius:10px; border:2px solid var(--ink); background:#f1f1f1; font-weight:800; font-size:.95rem;}
+  .tok sup{font-size:.7rem; margin-left:3px;}
+  .tok.pos{background:var(--good-wash); border-color:var(--good); color:#0B6B47;}
+  .tok.neg{background:var(--bad-wash); border-color:var(--bad); color:#A3262B;}
+  .tok.flip{text-decoration:line-through wavy;}
+  .tok.negator{background:#EDE4FF; border-color:#6B46C1; color:#4C2E96;}
+  .tok.boost{background:var(--gold-wash); border-color:var(--gold-deep);}
+  .mood{display:flex; align-items:center; gap:14px; margin-top:16px;}
+  .mood .face{font-family:var(--emoji); font-size:3rem; width:70px; text-align:center;}
+  .mood .bar{flex:1; height:22px; border:var(--b); border-radius:999px; position:relative; background:linear-gradient(90deg,var(--bad-wash),#fff 50%,var(--good-wash));}
+  .mood .bar i{position:absolute; top:-6px; width:8px; height:28px; background:var(--ink); border-radius:4px; transition:left .35s; transform:translateX(-50%);}
+  .missions{display:grid; gap:8px; margin-top:14px;}
+  .mission{display:flex; gap:10px; align-items:center; padding:10px 12px; border:2px solid var(--ink); border-radius:12px; background:#fff; font-weight:700;}
+  .mission.now{background:var(--gold-wash); border-width:3px;}
+  .mission.done{background:var(--good-wash); color:#0B6B47;}
+  .mission.later{opacity:.5;}
+  .legend{display:flex; gap:8px; flex-wrap:wrap; font-size:.85rem; margin-top:10px;}
+
+  .sentence{font-family:var(--head); font-size:clamp(1.3rem,4vw,1.8rem); font-weight:700; min-height:2.6em; border:var(--b); border-radius:14px; background:#fff; padding:12px 16px;}
+  .sentence .cursor{display:inline-block; width:3px; height:1.1em; background:var(--ink); vertical-align:-3px; margin-left:4px; animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .suggest{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px;}
+  @media (max-width:500px){ .suggest{grid-template-columns:1fr;} }
+  .sg{display:flex; flex-direction:column; align-items:stretch; gap:6px; padding:12px; font-size:1.1rem;}
+  .sg .pb{height:8px; background:#eee; border-radius:4px; overflow:hidden; border:1px solid var(--ink);}
+  .sg .pb i{display:block; height:100%; background:var(--nlp);}
+  .sg small{font-weight:700; color:var(--muted); font-size:.8rem;}
+
+  /* ---------- SORTER ---------- */
+  .sorter-top{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; font-weight:800;}
+  .timer{font-family:var(--head); font-size:1.5rem; background:var(--ink); color:var(--gold); padding:2px 14px; border-radius:12px;}
+  .combo{color:var(--cv);}
+  .bins{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:18px;}
+  .bin{border:var(--b); border-radius:var(--r); box-shadow:var(--sh); padding:14px 8px; cursor:pointer; text-align:center; font-weight:800; display:flex; flex-direction:column; align-items:center; gap:2px;}
+  .bin .be{font-family:var(--emoji); font-size:2rem;}
+  .bin small{font-size:.75rem; letter-spacing:.06em; text-transform:uppercase;}
+  .bin .cnt{font-family:var(--head); font-size:1.3rem;}
+  .bin.data{background:var(--data-wash);} .bin.cv{background:var(--cv-wash);} .bin.nlp{background:var(--nlp-wash);}
+  .bin:active{transform:translate(3px,3px); box-shadow:1px 1px 0 var(--ink);}
+  .bin.flash{animation:bump .4s;}
+  @media (max-width:500px){ .bin{padding:10px 4px;} .bin .lbl{font-size:.82rem;} }
+
+  /* ---------- MASHUP ---------- */
+  .toggles{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:18px;}
+  .toggles .btn[aria-pressed="true"].data{background:var(--data); color:#fff;}
+  .toggles .btn[aria-pressed="true"].cv{background:var(--cv); color:#fff;}
+  .toggles .btn[aria-pressed="true"].nlp{background:var(--nlp); color:#fff;}
+  .explain{list-style:none; display:grid; gap:8px; margin-top:10px;}
+  .explain li{display:flex; gap:8px; align-items:flex-start;}
+
+  /* ---------- BOSS ---------- */
+  .boss{display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center;}
+  .boss .bot{font-family:var(--emoji); font-size:5rem; line-height:1; display:inline-block;}
+  .boss .bot.hit{animation:hit .5s;}
+  @keyframes hit{0%{filter:none;} 20%{transform:translateX(-10px) rotate(-8deg); filter:brightness(2);} 50%{transform:translateX(10px) rotate(6deg);} 100%{transform:none;}}
+  .hp{height:22px; border:var(--b); border-radius:999px; background:#fff; overflow:hidden;}
+  .hp i{display:block; height:100%; background:linear-gradient(90deg,var(--bad),#FF7A59); transition:width .5s;}
+  .hearts{font-family:var(--emoji); font-size:1.5rem; letter-spacing:4px;}
+  .q{font-family:var(--head); font-size:1.4rem; font-weight:700; line-height:1.25; margin:20px 0 14px;}
+  .answers{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  @media (max-width:600px){ .answers{grid-template-columns:1fr;} }
+  .answers .btn{justify-content:flex-start; text-align:left; font-weight:700;}
+  .answers .btn.right{background:var(--good-wash); border-color:var(--good);}
+  .answers .btn.wrong{background:var(--bad-wash); border-color:var(--bad);}
+
+  /* ---------- FINALE ---------- */
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;}
+  .chips .btn{padding:7px 12px; font-size:.9rem; box-shadow:var(--sh-sm);}
+  .idea{background:var(--ink); color:#fff; border-radius:var(--r); padding:22px; border:3px solid var(--gold); box-shadow:6px 6px 0 var(--gold);}
+  .idea h3{color:var(--gold); font-size:1.7rem;}
+  .idea dl{display:grid; grid-template-columns:auto 1fr; gap:6px 14px; margin-top:12px;}
+  .idea dt{font-weight:800; color:#C4C7CE;}
+  .cert{background:#fff; border:6px double var(--ink); outline:3px solid var(--gold); outline-offset:-14px; border-radius:6px; padding:44px 28px; text-align:center; position:relative;}
+  .cert .seal{font-family:var(--emoji); font-size:3.2rem;}
+  .cert h2{font-size:clamp(1.8rem,5vw,2.6rem);}
+  .cert .nm{font-family:var(--head); font-size:clamp(2rem,6vw,3rem); font-weight:800; border-bottom:3px solid var(--gold); display:inline-block; padding:0 18px; margin:10px 0;}
+  .cert .bdg{font-family:var(--emoji); font-size:1.8rem; letter-spacing:6px; margin-top:10px;}
+  .recap{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px; text-align:left;}
+  @media (max-width:640px){ .recap{grid-template-columns:1fr;} }
+  .recap div{border:2px solid var(--ink); border-radius:12px; padding:12px; font-size:.92rem;}
+  .recap .data{background:var(--data-wash);} .recap .cv{background:var(--cv-wash);} .recap .nlp{background:var(--nlp-wash);}
+  .recap b{display:block; font-family:var(--head); font-size:1.1rem;}
+
+  /* ---------- MODAL, TOAST, FX ---------- */
+  .modal-bg{position:fixed; inset:0; background:rgba(21,23,28,.6); z-index:60; display:grid; place-items:center; padding:16px; overflow:auto;}
+  .modal{background:var(--paper); border:var(--b); border-radius:22px; box-shadow:6px 6px 0 var(--ink); max-width:520px; width:100%; padding:28px 22px; text-align:center;}
+  .modal .badge-big{font-family:var(--emoji); font-size:4.5rem; width:120px; height:120px; margin:0 auto 10px; display:grid; place-items:center; background:var(--gold); border:var(--b); border-radius:50%; box-shadow:var(--sh); animation:spinIn .8s cubic-bezier(.2,1.4,.4,1);}
+  @keyframes spinIn{0%{transform:scale(0) rotate(-180deg);} 100%{transform:none;}}
+  .modal p{margin-top:10px;}
+  .modal .row{justify-content:center; margin-top:18px;}
+  .takeaway{background:#fff; border:2px solid var(--ink); border-radius:12px; padding:12px; margin-top:14px; text-align:left;}
+  .shelf{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:14px;}
+  .shelf div{border:2px solid var(--ink); border-radius:12px; padding:8px 4px; font-size:.75rem; font-weight:800; background:#fff;}
+  .shelf div span{display:block; font-family:var(--emoji); font-size:1.8rem;}
+  .shelf div.off{opacity:.35; filter:grayscale(1);}
+  .floater{position:fixed; z-index:70; pointer-events:none; font-family:var(--head); font-weight:800; font-size:1.5rem; color:var(--gold-deep); -webkit-text-stroke:1px var(--ink); animation:floatUp 1s forwards;}
+  @keyframes floatUp{to{transform:translateY(-60px); opacity:0;}}
+  #confetti{position:fixed; inset:0; pointer-events:none; z-index:65;}
+  .toast{position:fixed; left:50%; bottom:22px; transform:translateX(-50%); z-index:70; background:var(--ink); color:#fff; border:3px solid var(--gold); border-radius:14px; padding:12px 18px; font-weight:700; max-width:min(92vw,560px); box-shadow:var(--sh); animation:pop .3s;}
+
+  footer.foot{text-align:center; color:var(--muted); font-size:.9rem; padding:0 16px 40px;}
+  footer.foot a{color:inherit; font-weight:800;}
+  .linkbtn{background:none; border:0; text-decoration:underline; cursor:pointer; color:var(--muted); font-weight:700;}
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important; transition:none !important;}
+  }
+  @media print{
+    body{background:#fff;}
+    .hud, footer.foot, .no-print, .modal-bg, .toast{display:none !important;}
+    main{padding:0;}
+    .cert{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hud">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="AI Kids Lab home"><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="6" y="6" width="88" height="88" rx="14"/><rect x="34" y="34" width="32" height="32" rx="8"/><rect x="44" y="44" width="12" height="12" rx="3"/></svg><span class="full">AI Kids Lab</span></a>
+    <button class="pill xp" id="hudXp" type="button" title="Experience points">⭐ <span id="xpVal">0</span><span class="lbl">&nbsp;XP</span></button>
+    <button class="pill" id="hudBadges" type="button" title="Your badges">🏅 <span id="bdgVal">0</span>/8</button>
+    <button class="iconbtn" id="soundBtn" type="button" aria-label="Sound on">🔊</button>
+    <button class="iconbtn" id="mapBtn" type="button" aria-label="Quest map">🗺️</button>
+  </div>
+</header>
+
+<main class="wrap" id="stage" aria-live="polite">
+  <noscript><div class="card"><h2>Turn on JavaScript to play</h2><p>The AI Reflection Quest is an interactive game and needs JavaScript in your browser.</p></div></noscript>
+</main>
+
+<footer class="foot">An <a href="index.html">AI Kids Lab</a> activity · AI Reflection: the three domains of AI · Your progress saves on this device only.</footer>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script>
+(function(){
+'use strict';
+
+/* =====================================================================
+   STATE
+   ===================================================================== */
+var KEY = 'aikl-ai-reflection-quest-v1';
+function fresh(){ return {name:'', avatar:'🦊', xp:0, done:{}, sound:true, idea:null}; }
+var S = fresh();
+try{ var raw = localStorage.getItem(KEY); if(raw){ S = Object.assign(fresh(), JSON.parse(raw)); } }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+var $ = function(s, r){ return (r||document).querySelector(s); };
+var $$ = function(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+var stage = $('#stage');
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+var DOM = {
+  data:{name:'Data', short:'Data', icon:'🔢', tag:'AI that COUNTS & PREDICTS'},
+  cv:{name:'Computer Vision', short:'Computer Vision', icon:'👁️', tag:'AI that SEES'},
+  nlp:{name:'Natural Language Processing', short:'NLP', icon:'💬', tag:'AI that TALKS & UNDERSTANDS'}
+};
+function tag(d){ return '<span class="dtag '+d+'">'+DOM[d].icon+' '+DOM[d].short+'</span>'; }
+
+var RANKS = [[0,'AI Rookie'],[150,'AI Explorer'],[400,'AI Detective'],[750,'AI Expert'],[1100,'AI Champion']];
+function rankOf(xp){ var r=RANKS[0], next=null; for(var i=0;i<RANKS.length;i++){ if(xp>=RANKS[i][0]){ r=RANKS[i]; next=RANKS[i+1]||null; } } return {name:r[1], floor:r[0], next:next}; }
+
+/* =====================================================================
+   SOUND, XP, CONFETTI, MODAL, TOAST
+   ===================================================================== */
+var actx = null;
+function beep(kind){
+  if(!S.sound) return;
+  try{
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    var seqs = {
+      good:[[660,.08],[990,.14]], bad:[[200,.12],[150,.18]], click:[[520,.05]],
+      win:[[523,.1],[659,.1],[784,.1],[1047,.3]], hit:[[300,.05],[600,.05],[900,.1]]
+    };
+    var t = actx.currentTime;
+    seqs[kind].forEach(function(s){
+      var o = actx.createOscillator(), g = actx.createGain();
+      o.type = kind==='bad' ? 'sawtooth' : 'triangle';
+      o.frequency.value = s[0];
+      g.gain.setValueAtTime(.12, t);
+      g.gain.exponentialRampToValueAtTime(.001, t+s[1]);
+      o.connect(g); g.connect(actx.destination);
+      o.start(t); o.stop(t+s[1]+.02); t += s[1];
+    });
+  }catch(e){}
+}
+
+function hud(){
+  $('#xpVal').textContent = S.xp;
+  $('#bdgVal').textContent = LEVELS.filter(function(l){ return S.done[l.id]; }).length;
+  $('#soundBtn').textContent = S.sound ? '🔊' : '🔇';
+  $('#soundBtn').setAttribute('aria-label', S.sound ? 'Sound on' : 'Sound off');
+}
+function addXP(n, ev){
+  S.xp += n; save(); hud();
+  var pill = $('#hudXp'); pill.classList.remove('bump'); void pill.offsetWidth; pill.classList.add('bump');
+  var f = document.createElement('div'); f.className = 'floater'; f.textContent = '+'+n+' XP';
+  var x, y;
+  if(ev && ev.clientX){ x = ev.clientX; y = ev.clientY; }
+  else { var r = pill.getBoundingClientRect(); x = r.left; y = r.bottom + 10; }
+  f.style.left = Math.max(10, Math.min(window.innerWidth-110, x-30))+'px'; f.style.top = (y-20)+'px';
+  document.body.appendChild(f); setTimeout(function(){ f.remove(); }, 1000);
+}
+
+function confetti(){
+  if(reduceMotion) return;
+  var c = $('#confetti'), ctx = c.getContext('2d');
+  c.width = innerWidth; c.height = innerHeight;
+  var cols = ['#FFC800','#2F6FED','#E8453C','#109A66','#15171C'];
+  var ps = []; for(var i=0;i<140;i++){ ps.push({x:innerWidth/2, y:innerHeight/3, vx:(Math.random()-.5)*16, vy:Math.random()*-14-4, s:6+Math.random()*7, c:cols[i%5], r:Math.random()*6, vr:(Math.random()-.5)*.4}); }
+  var t0 = performance.now();
+  (function frame(t){
+    ctx.clearRect(0,0,c.width,c.height);
+    ps.forEach(function(p){ p.x+=p.vx; p.y+=p.vy; p.vy+=.45; p.vx*=.99; p.r+=p.vr; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r); ctx.fillStyle=p.c; ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2); ctx.restore(); });
+    if(t - t0 < 2600) requestAnimationFrame(frame); else ctx.clearRect(0,0,c.width,c.height);
+  })(t0);
+}
+
+function modal(html){
+  closeModal();
+  var bg = document.createElement('div'); bg.className = 'modal-bg';
+  bg.innerHTML = '<div class="modal pop" role="dialog" aria-modal="true">'+html+'</div>';
+  document.body.appendChild(bg);
+  bg.addEventListener('click', function(e){
+    var g = e.target.closest('[data-go]');
+    if(g){ closeModal(); route(g.getAttribute('data-go')); }
+    else if(e.target === bg || e.target.closest('[data-close]')){ closeModal(); }
+  });
+  var first = bg.querySelector('button'); if(first) first.focus();
+  return bg;
+}
+function closeModal(){ $$('.modal-bg').forEach(function(m){ m.remove(); }); }
+
+var toastTimer;
+function toast(html, ms){
+  $$('.toast').forEach(function(t){ t.remove(); });
+  var t = document.createElement('div'); t.className='toast'; t.innerHTML = html; document.body.appendChild(t);
+  clearTimeout(toastTimer); toastTimer = setTimeout(function(){ t.remove(); }, ms||3200);
+}
+
+/* =====================================================================
+   LEVELS
+   ===================================================================== */
+var LEVELS = [
+  {id:'l1', icon:'🤖', title:'AI or Not?', blurb:'Can you tell a smart machine from a simple one?', badge:{icon:'🔍', name:'AI Spotter'},
+   takeaway:'AI <b>learns from data</b> and makes smart guesses. A normal machine follows the <b>same fixed rule</b> every single time.', run:runL1},
+  {id:'l2', icon:'🌞', title:'A Day Full of AI', blurb:'Find the AI hiding in a normal school day.', badge:{icon:'🕵️', name:'Day Detective'},
+   takeaway:'You use AI dozens of times a day — on your phone, on the road, at school. Most of it is invisible!', run:runL2},
+  {id:'l3', icon:'🔢', title:'Data Lab', blurb:'Play Rock-Paper-Scissors against an AI that learns YOU.', badge:{icon:'📊', name:'Pattern Hunter'}, domain:'data',
+   takeaway:'<b>Data</b> is AI\'s food. The more data AI gets, the better it finds <b>patterns</b> and <b>predicts</b> what comes next.', run:runL3},
+  {id:'l4', icon:'👁️', title:'Vision Lab', blurb:'See pictures the way a computer sees them.', badge:{icon:'🦅', name:'Eagle Eye'}, domain:'cv',
+   takeaway:'<b>Computer Vision</b>: to a computer, every picture is a <b>grid of numbers (pixels)</b>. AI learns to find colours → edges → shapes → objects.', run:runL4},
+  {id:'l5', icon:'💬', title:'Language Lab', blurb:'Make an AI happy, sad — and then trick it.', badge:{icon:'🧙', name:'Word Wizard'}, domain:'nlp',
+   takeaway:'<b>NLP</b> helps computers <b>read, understand, translate and talk</b> in human language. Context (like sarcasm) is the hard part!', run:runL5},
+  {id:'l6', icon:'⚡', title:'Speed Sorter', blurb:'Sort real AI apps into the right domain — fast!', badge:{icon:'⚡', name:'Speed Sorter'},
+   takeaway:'Ask: does it work with <b>numbers & records</b> (Data), <b>pictures & video</b> (Vision), or <b>words & speech</b> (NLP)?', run:runL6},
+  {id:'l7', icon:'🧩', title:'Mash-up Mission', blurb:'Big AI systems combine superpowers. Which ones?', badge:{icon:'🧩', name:'Mash-up Master'},
+   takeaway:'The coolest AI uses <b>more than one domain</b> together — a self-driving car <b>sees</b> (Vision) and <b>predicts</b> (Data).', run:runL7},
+  {id:'l8', icon:'👾', title:'Boss: Defeat GLITCH', blurb:'Use everything you learned to beat the boss robot.', badge:{icon:'🏆', name:'Glitch Buster'},
+   takeaway:'Three domains, one memory trick: <b>Data COUNTS</b>, <b>Vision SEES</b>, <b>Language TALKS</b>.', run:runL8}
+];
+function levelById(id){ for(var i=0;i<LEVELS.length;i++){ if(LEVELS[i].id===id) return LEVELS[i]; } return null; }
+function unlocked(i){ return i===0 || !!S.done[LEVELS[i-1].id]; }
+
+function shell(lv, step, steps, inner){
+  var n = LEVELS.indexOf(lv)+1, dots = '';
+  for(var i=0;i<steps;i++){ dots += '<i class="'+(i<step?'done':i===step?'on':'')+'"></i>'; }
+  stage.innerHTML =
+    '<div class="lvl-head">'+
+      '<button class="btn" data-nav="map" type="button">← Map</button>'+
+      '<div class="t"><span class="kicker">Level '+n+' · '+lv.badge.name+' badge</span><h2>'+lv.icon+' '+lv.title+'</h2></div>'+
+      (steps>1 ? '<div class="steps" aria-label="Step '+(step+1)+' of '+steps+'">'+dots+'</div>' : '')+
+    '</div>'+inner;
+}
+
+function complete(lv, summary){
+  var first = !S.done[lv.id];
+  S.done[lv.id] = true; save();
+  if(first) addXP(50);
+  hud(); beep('win'); confetti();
+  var idx = LEVELS.indexOf(lv), next = LEVELS[idx+1];
+  modal(
+    '<div class="badge-big">'+lv.badge.icon+'</div>'+
+    '<span class="kicker">Level '+(idx+1)+' complete</span>'+
+    '<h2>'+(first?'Badge unlocked: ':'')+lv.badge.name+'</h2>'+
+    '<p>'+summary+'</p>'+
+    (lv.domain ? '<p>'+tag(lv.domain)+' power card unlocked on your map!</p>' : '')+
+    '<div class="takeaway">🧠 <b>Remember:</b> '+lv.takeaway+'</div>'+
+    (first ? '<p><b>+50 XP</b> level bonus</p>' : '')+
+    '<div class="row">'+
+      (next ? '<button class="btn primary" data-go="'+next.id+'" type="button">Next: '+next.title+' →</button>'
+            : '<button class="btn primary" data-go="finale" type="button">🎓 Claim your certificate →</button>')+
+      '<button class="btn" data-go="map" type="button">Map</button>'+
+    '</div>'
+  );
+}
+
+/* =====================================================================
+   ROUTER
+   ===================================================================== */
+function route(where){
+  closeModal();
+  if(where==='map') renderMap();
+  else if(where==='intro') renderIntro();
+  else if(where==='finale') renderFinale();
+  else { var lv = levelById(where); if(lv) lv.run(lv); }
+  window.scrollTo(0,0);
+}
+document.addEventListener('click', function(e){
+  var n = e.target.closest('[data-nav]');
+  if(n){ beep('click'); route(n.getAttribute('data-nav')); }
+});
+$('#mapBtn').onclick = function(){ beep('click'); route(S.name ? 'map' : 'intro'); };
+$('#soundBtn').onclick = function(){ S.sound = !S.sound; save(); hud(); beep('click'); };
+$('#hudXp').onclick = function(){
+  var r = rankOf(S.xp);
+  modal('<div class="badge-big">⭐</div><h2>'+S.xp+' XP</h2><p>Rank: <b>'+r.name+'</b>'+(r.next?'<br>'+(r.next[0]-S.xp)+' XP more to become <b>'+r.next[1]+'</b>':'<br>Top rank reached!')+'</p><p class="muted">Earn XP by answering right, finishing levels and keeping combos.</p><div class="row"><button class="btn primary" data-close type="button">OK</button></div>');
+};
+$('#hudBadges').onclick = function(){
+  modal('<h2>🏅 Your Badges</h2><div class="shelf">'+LEVELS.map(function(l){ return '<div class="'+(S.done[l.id]?'':'off')+'"><span>'+l.badge.icon+'</span>'+l.badge.name+'</div>'; }).join('')+'</div><div class="row"><button class="btn primary" data-close type="button">Close</button></div>');
+};
+
+/* =====================================================================
+   INTRO
+   ===================================================================== */
+var AVATARS = ['🦊','🐼','🤖','🦉','🐯','🐬','🦄','🐸'];
+function powerCards(lockAware){
+  return '<div class="powers">'+['data','cv','nlp'].map(function(d){
+    var lab = LEVELS.filter(function(l){ return l.domain===d; })[0];
+    var locked = lockAware && !S.done[lab.id];
+    return '<div class="power '+d+(locked?' locked':'')+'"><div class="pi">'+(locked?'🔒':DOM[d].icon)+'</div><div><b>'+DOM[d].name+'</b><small>'+DOM[d].tag+'</small></div></div>';
+  }).join('')+'</div>';
+}
+function renderIntro(){
+  stage.innerHTML =
+    '<section class="hero">'+
+      '<div class="robot" aria-hidden="true">🤖</div>'+
+      '<span class="kicker">AI Reflection · Grades 7–9</span>'+
+      '<h1>AI <span>Reflection Quest</span></h1>'+
+      '<p class="lede">AI is hiding all around you. Finish 8 levels to find it, unlock its <b>3 superpowers</b>, and defeat the boss robot <b>GLITCH</b>.</p>'+
+    '</section>'+
+    powerCards(false)+
+    '<div class="card join">'+
+      '<label for="nm">Agent name</label>'+
+      '<input class="input" id="nm" maxlength="24" autocomplete="off" placeholder="Type your first name" value="'+esc(S.name)+'">'+
+      '<label class="mt" id="avl">Pick your sidekick</label>'+
+      '<div class="avatars" role="group" aria-labelledby="avl">'+AVATARS.map(function(a){ return '<button type="button" aria-pressed="'+(a===S.avatar)+'" data-av="'+a+'">'+a+'</button>'; }).join('')+'</div>'+
+      '<button class="btn primary big mt2" id="go" type="button" style="width:100%">🚀 Start the Quest</button>'+
+    '</div>';
+  $$('[data-av]').forEach(function(b){ b.onclick = function(){ S.avatar = b.getAttribute('data-av'); $$('[data-av]').forEach(function(x){ x.setAttribute('aria-pressed', x===b); }); beep('click'); }; });
+  var nm = $('#nm');
+  function go(){
+    var v = nm.value.trim();
+    if(!v){ nm.classList.remove('shake'); void nm.offsetWidth; nm.classList.add('shake'); nm.focus(); toast('Type your name first, Agent! 🕵️'); return; }
+    S.name = v; save(); beep('win'); route('map');
+  }
+  $('#go').onclick = go;
+  nm.addEventListener('keydown', function(e){ if(e.key==='Enter') go(); });
+}
+
+/* =====================================================================
+   MAP
+   ===================================================================== */
+function renderMap(){
+  if(!S.name){ renderIntro(); return; }
+  var r = rankOf(S.xp);
+  var pct = r.next ? Math.round((S.xp - r.floor) / (r.next[0] - r.floor) * 100) : 100;
+  var cur = -1; for(var i=0;i<LEVELS.length;i++){ if(!S.done[LEVELS[i].id]){ cur = i; break; } }
+  var nodes = LEVELS.map(function(l, i){
+    var open = unlocked(i), done = !!S.done[l.id];
+    var cls = 'node'+(done?' done':'')+(!open?' locked':'')+(i===cur?' current':'');
+    return '<button type="button" class="'+cls+'" data-lv="'+l.id+'" '+(open?'':'aria-disabled="true"')+'>'+
+      '<span class="ni">'+(open?(done?l.badge.icon:l.icon):'🔒')+'</span>'+
+      '<span class="nt"><b>'+(i+1)+'. '+l.title+'</b><span>'+l.blurb+'</span></span>'+
+      '<span class="ns">'+(done?'✅ Replay':open?'▶ Play':'Locked')+'</span></button>';
+  }).join('');
+  var allDone = !!S.done.l8;
+  nodes += '<button type="button" class="node final'+(allDone?'':' locked')+'" data-lv="finale" '+(allDone?'':'aria-disabled="true"')+'>'+
+    '<span class="ni">'+(allDone?'🎓':'🔒')+'</span><span class="nt"><b>Finale: Invent Your Own AI</b><span>Design an AI for your world and earn your certificate.</span></span><span class="ns">'+(allDone?'▶ Go':'Locked')+'</span></button>';
+
+  stage.innerHTML =
+    '<div class="welcome">'+
+      '<div class="av">'+S.avatar+'</div>'+
+      '<div style="flex:1; min-width:220px">'+
+        '<span class="kicker">Agent '+esc(S.name)+'</span>'+
+        '<h2>'+(cur===-1?'Quest complete! 🎉':cur===0?'Your mission starts here':'Welcome back!')+'</h2>'+
+        '<div class="muted"><b>'+r.name+'</b> · '+S.xp+' XP'+(r.next?' · '+(r.next[0]-S.xp)+' XP to '+r.next[1]:'')+'</div>'+
+        '<div class="rankbar" role="progressbar" aria-valuenow="'+pct+'" aria-valuemin="0" aria-valuemax="100"><i style="width:'+pct+'%"></i></div>'+
+      '</div>'+
+    '</div>'+
+    '<h3 class="mt2">Your AI power cards</h3><p class="muted">Finish each lab to unlock its superpower.</p>'+
+    powerCards(true)+
+    '<h3>Quest map</h3>'+
+    '<div class="path">'+nodes+'</div>'+
+    '<p class="center mt2"><button class="linkbtn" id="reset" type="button">Start over with a new agent</button></p>';
+  $$('[data-lv]').forEach(function(b){
+    b.onclick = function(){
+      if(b.getAttribute('aria-disabled')){ beep('bad'); toast('🔒 Finish the level before this one to unlock it.'); return; }
+      beep('click'); route(b.getAttribute('data-lv'));
+    };
+  });
+  $('#reset').onclick = function(){
+    modal('<h2>Start over?</h2><p>This clears your XP, badges and name on this device.</p><div class="row"><button class="btn primary" id="yesReset" type="button">Yes, reset</button><button class="btn" data-close type="button">Cancel</button></div>');
+    $('#yesReset').onclick = function(){ var snd = S.sound; S = fresh(); S.sound = snd; save(); hud(); closeModal(); route('intro'); };
+  };
+}
+
+/* =====================================================================
+   SHARED: FLIP CARDS ("AI in real life")
+   ===================================================================== */
+function flipGrid(d, cards){
+  return '<div class="flips">'+cards.map(function(c, i){
+    return '<button type="button" class="flip '+d+'" data-flip="'+i+'" aria-label="'+esc(c.t)+': tap to flip">'+
+      '<span class="in"><span class="f"><span class="fe">'+c.e+'</span><b>'+c.t+'</b><small>TAP TO FLIP</small></span>'+
+      '<span class="bk"><span><b>📥 Learns from:</b> '+c.from+'</span><span><b>🎯 It can:</b> '+c.does+'</span>'+(c.where?'<span><b>🌍 Seen in:</b> '+c.where+'</span>':'')+'</span></span></button>';
+  }).join('')+'</div>';
+}
+function bindFlips(onAll){
+  var seen = {};
+  $$('[data-flip]').forEach(function(b){
+    b.onclick = function(e){
+      b.classList.toggle('on'); beep('click');
+      var k = b.getAttribute('data-flip');
+      if(!seen[k]){ seen[k] = true; addXP(5, e); if(Object.keys(seen).length === $$('[data-flip]').length) onAll(); }
+    };
+  });
+}
+
+/* =====================================================================
+   LEVEL 1 — AI OR NOT?
+   ===================================================================== */
+var L1 = [
+  {e:'🧮', n:'Calculator', d:'Type 25 × 4 and press =', ai:false, why:'it follows fixed maths rules. 25 × 4 is always 100 — it never learns anything new.'},
+  {e:'🗺️', n:'Google Maps traffic', d:'"Heavy traffic ahead — 12 min slower"', ai:true, dom:'data', why:'it learns from the speed of millions of phones on the road and predicts delays.'},
+  {e:'🌀', n:'Ceiling fan', d:'Turn the regulator to speed 3', ai:false, why:'speed 3 is always speed 3. It cannot learn or decide anything.'},
+  {e:'🔓', n:'Face unlock', d:'Your phone opens when it sees YOUR face', ai:true, dom:'cv', why:'it learned the unique shape of your face and checks every new photo against it.'},
+  {e:'⏰', n:'Alarm clock', d:'Rings at exactly 6:30 am', ai:false, why:'it just follows the time you set. Same rule every day.'},
+  {e:'▶️', n:'YouTube "Up next"', d:'Picks the next video you might like', ai:true, dom:'data', why:'it learns from what you and millions of others watched, liked and skipped.'},
+  {e:'💡', n:'Timer street light', d:'Switches on at 6 pm every evening', ai:false, why:'a timer is a fixed rule — "at 6 pm, switch on". Tricky one!'},
+  {e:'🗣️', n:'"Hey Google, will it rain?"', d:'Understands your question and answers', ai:true, dom:'nlp', why:'it turns your voice into words, understands the meaning and replies in human language.'},
+  {e:'📺', n:'TV remote', d:'Press 5 to go to channel 5', ai:false, why:'button 5 always means channel 5. No learning involved.'},
+  {e:'⌨️', n:'Phone keyboard suggestions', d:'Type "happy" → it suggests "birthday"', ai:true, dom:'nlp', why:'it learned which words usually come next by studying huge amounts of text.'}
+];
+function runL1(lv){
+  var items = shuffle(L1.slice()), i = 0, right = 0;
+  function card(){
+    var it = items[i];
+    shell(lv, 0, 1,
+      '<div class="rule">🧠 <b>Rule of thumb:</b> if it <b>learns from data</b> and makes a smart guess → <b>AI</b>. If it follows the <b>same fixed rule</b> every time → <b>not AI</b>.</div>'+
+      '<div class="dots">'+items.map(function(_, k){ return '<i class="'+(k<i?'done':k===i?'now':'')+'"></i>'; }).join('')+'</div>'+
+      '<div class="card big-card pop"><div class="big-emoji">'+it.e+'</div><h3>'+it.n+'</h3><p>'+it.d+'</p></div>'+
+      '<div class="choice-row"><button class="btn big" data-a="1" type="button">🤖 It\'s AI</button><button class="btn big" data-a="0" type="button">⚙️ Not AI</button></div>'+
+      '<div id="fb"></div>');
+    $$('[data-a]').forEach(function(b){ b.onclick = function(e){ answer(b.getAttribute('data-a')==='1', e, b); }; });
+  }
+  function answer(a, e, btn){
+    var it = items[i], ok = a === it.ai;
+    $$('[data-a]').forEach(function(b){ b.disabled = true; });
+    btn.classList.add('sel');
+    if(ok){ right++; addXP(10, e); beep('good'); } else { beep('bad'); $('.big-card').classList.add('shake'); }
+    $('#fb').innerHTML = '<div class="feedback '+(ok?'good':'bad')+' pop"><b>'+(ok?'✅ Correct!':'❌ Not quite.')+'</b> '+
+      (it.ai ? 'This <b>is AI</b> '+tag(it.dom)+' — ' : 'This is <b>not AI</b> — ')+it.why+
+      '<br><button class="btn primary" id="nx" type="button">'+(i<items.length-1?'Next →':'Finish level 🏁')+'</button></div>';
+    $('#nx').focus();
+    $('#nx').onclick = function(){ i++; if(i<items.length) card(); else complete(lv, 'You judged <b>'+right+' of '+items.length+'</b> machines correctly.'); };
+  }
+  card();
+}
+
+/* =====================================================================
+   LEVEL 2 — A DAY FULL OF AI
+   ===================================================================== */
+var L2 = [
+  {time:'7:00 AM', e:'🛏️', title:'Wake up!', story:'Riya wakes up and grabs her phone. Which of these use AI?', items:[
+    {e:'🔓', t:'Phone unlocks when she looks at it', d:'cv', how:'Compares the camera image with the face it learned.'},
+    {e:'⏰', t:'Alarm rings at 7:00 sharp'},
+    {e:'🎵', t:'Music app plays a "Daily Mix" made just for her', d:'data', how:'Learned her taste from every song she played or skipped.'},
+    {e:'🪥', t:'Electric toothbrush buzzes for 2 minutes'}]},
+  {time:'8:00 AM', e:'🚌', title:'Off to school', story:'Dad drives Riya to school through busy roads.', items:[
+    {e:'🗺️', t:'Maps says "Take the flyover — saves 9 min"', d:'data', how:'Predicts traffic from live and past road data.'},
+    {e:'🚦', t:'Traffic signal turns green every 60 seconds'},
+    {e:'📷', t:'Road camera reads a speeding car\'s number plate', d:'cv', how:'Finds the plate in the video and reads each letter.'},
+    {e:'📻', t:'Car radio plays FM 93.5'}]},
+  {time:'11:00 AM', e:'🏫', title:'At school', story:'Hindi class, then a science project.', items:[
+    {e:'🌐', t:'Translator app turns a Hindi poem into English', d:'nlp', how:'Understands the meaning of each sentence and rewrites it in another language.'},
+    {e:'🧮', t:'Calculator finds 17 × 23'},
+    {e:'📸', t:'Attendance camera marks students present by face', d:'cv', how:'Recognises each student\'s face from photos it was trained on.'},
+    {e:'🔔', t:'School bell rings for lunch'}]},
+  {time:'2:00 PM', e:'🍕', title:'Snack time', story:'Riya\'s brother orders food online.', items:[
+    {e:'🛵', t:'App predicts "Arriving in 28 min"', d:'data', how:'Learned from distance, traffic and thousands of past deliveries.'},
+    {e:'💬', t:'Chatbot answers "Where is my order?"', d:'nlp', how:'Reads the typed question, works out what he wants, writes a reply.'},
+    {e:'🚪', t:'Doorbell rings when pressed'},
+    {e:'🧊', t:'Fridge keeps the drinks cold'}]},
+  {time:'6:00 PM', e:'📱', title:'Free time', story:'Homework done — time for some screen time!', items:[
+    {e:'▶️', t:'YouTube recommends the next video', d:'data', how:'Predicts what she\'ll enjoy from her watch history.'},
+    {e:'🐶', t:'Selfie filter sticks puppy ears on her head', d:'cv', how:'Finds her eyes, nose and head in every video frame — 30 times a second!'},
+    {e:'🔤', t:'Keyboard fixes "teh" into "the"', d:'nlp', how:'Learned common spellings and which words fit the sentence.'},
+    {e:'🔊', t:'Volume button makes the sound louder'}]},
+  {time:'9:00 PM', e:'🌙', title:'Bedtime', story:'One last thing before sleep…', items:[
+    {e:'🗣️', t:'"Alexa, set an alarm for 6 am"', d:'nlp', how:'Turns speech into text, then understands the request.'},
+    {e:'🏦', t:'Bank texts Mom: "Was this ₹40,000 payment you?"', d:'data', how:'Spotted a payment that doesn\'t match her normal spending pattern.'},
+    {e:'💡', t:'Light switch turns off the lamp'},
+    {e:'🌡️', t:'Thermometer shows 28°C'}]}
+];
+function runL2(lv){
+  var si = 0, found = 0, total = 0;
+  L2.forEach(function(s){ s.items.forEach(function(it){ if(it.d) total++; }); });
+  function scene(){
+    var s = L2[si], items = shuffle(s.items.slice());
+    shell(lv, si, L2.length,
+      '<div class="card pop">'+
+        '<div class="scene-top"><span class="time">'+s.time+'</span><h3>'+s.e+' '+s.title+'</h3></div>'+
+        '<p class="mt">'+s.story+' <b>Tap every item that uses AI</b>, then check.</p>'+
+        '<div class="items">'+items.map(function(it, k){ return '<button type="button" class="item" aria-pressed="false" data-k="'+k+'"><span class="ie">'+it.e+'</span><span>'+it.t+'<span class="how" hidden></span></span></button>'; }).join('')+'</div>'+
+        '<div class="row mt"><button class="btn primary" id="chk" type="button">🔎 Check my picks</button><span class="muted" id="sc"></span></div>'+
+      '</div>');
+    var checked = false;
+    $$('.item').forEach(function(b){ b.onclick = function(){ if(checked) return; b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')!=='true'); beep('click'); }; });
+    $('#chk').onclick = function(e){
+      if(!checked){
+        checked = true; var good = 0, bad = 0, miss = 0;
+        $$('.item').forEach(function(b){
+          var it = items[+b.getAttribute('data-k')], on = b.getAttribute('aria-pressed')==='true', how = $('.how', b);
+          if(it.d){ how.hidden = false; how.innerHTML = tag(it.d)+' '+it.how; }
+          else if(on){ how.hidden = false; how.textContent = 'Not AI — it follows a fixed rule.'; }
+          if(it.d && on){ b.classList.add('r-good'); good++; }
+          else if(it.d){ b.classList.add('r-miss'); miss++; }
+          else if(on){ b.classList.add('r-bad'); bad++; }
+          b.setAttribute('aria-pressed','false'); b.style.cursor = 'default';
+        });
+        found += good;
+        if(good) addXP(good*8, e);
+        if(!bad && !miss){ beep('good'); toast('🎯 Perfect scene!'); } else beep('bad');
+        $('#sc').innerHTML = '✅ '+good+' found'+(miss?' · 🔍 '+miss+' missed':'')+(bad?' · ❌ '+bad+' not AI':'');
+        this.textContent = si < L2.length-1 ? 'Next scene →' : 'Finish the day 🏁';
+      } else {
+        si++; if(si < L2.length){ scene(); window.scrollTo(0,0); }
+        else complete(lv, 'You found <b>'+found+' of '+total+'</b> hidden AIs in just one day. Imagine how many you meet in a whole year!');
+      }
+    };
+  }
+  scene();
+}
+
+/* =====================================================================
+   LEVEL 3 — DATA LAB
+   ===================================================================== */
+var DATA_CARDS = [
+  {e:'🌦️', t:'Weather forecast', from:'Years of temperature, rain, wind and cloud records.', does:'Predict whether it will rain tomorrow.', where:'IMD forecasts, weather apps'},
+  {e:'🎬', t:'Video & music suggestions', from:'What you and millions of others watched, liked or skipped.', does:'Guess the next thing you\'ll enjoy.', where:'YouTube, Netflix, Spotify'},
+  {e:'💳', t:'Fraud alerts', from:'Your normal spending: amounts, places, times.', does:'Flag a strange payment — like ₹50,000 abroad at 3 am.', where:'Banks, UPI apps'},
+  {e:'🏏', t:'Live win predictor', from:'Thousands of past matches: runs, wickets, overs, pitch.', does:'Show each team\'s chance of winning, ball by ball.', where:'IPL and World Cup broadcasts'},
+  {e:'🌾', t:'Farm planning', from:'Rainfall, soil tests, past harvests and market prices.', does:'Help farmers choose what to plant and when to sell.', where:'Agri-advisory apps in India'},
+  {e:'🛵', t:'Delivery time', from:'Distance, traffic, restaurant speed, past orders.', does:'Predict "arriving in 28 minutes".', where:'Swiggy, Zomato, Blinkit'}
+];
+function runL3(lv){
+  intro();
+  function intro(){
+    shell(lv, 0, 3,
+      '<div class="card intro-card pop"><div class="big">🔢</div><div>'+
+        '<span class="dtag data">🔢 Domain 1 · Data</span>'+
+        '<h3 class="mt">Data is AI\'s food 🍔</h3>'+
+        '<p><b>Data</b> means facts and records: numbers, tables, scores, clicks, history. AI in this domain looks at lots of data, finds <b>patterns</b>, and uses them to <b>predict</b> what happens next.</p>'+
+        '<p>Humans think they are random… but we leave patterns everywhere. Let\'s prove it!</p>'+
+        '<p><b>Challenge:</b> play 15 rounds of Rock-Paper-Scissors against an AI. It starts knowing <b>nothing</b> about you — it learns only from the data of your moves.</p>'+
+        '<button class="btn primary big mt" id="go" type="button">✊ Let\'s play!</button>'+
+      '</div></div>');
+    $('#go').onclick = rps;
+  }
+  function rps(){
+    var MV = {r:'✊', p:'✋', s:'✌️'}, NM = {r:'Rock', p:'Paper', s:'Scissors'};
+    var BEATS = {r:'s', p:'r', s:'p'}, COUNTER = {r:'p', p:'s', s:'r'}, K = ['r','p','s'];
+    var mem = {r:{r:0,p:0,s:0}, p:{r:0,p:0,s:0}, s:{r:0,p:0,s:0}}, tot = {r:0,p:0,s:0};
+    var last = null, round = 0, ROUNDS = 15, sc = {you:0, ai:0, draw:0}, hits = [];
+    function predict(){
+      if(!last) return null;
+      var src = mem[last], sum = src.r+src.p+src.s;
+      if(!sum){ src = tot; sum = src.r+src.p+src.s; }
+      if(!sum) return null;
+      var max = Math.max(src.r, src.p, src.s);
+      var best = K.filter(function(k){ return src[k]===max; });
+      return best[Math.floor(Math.random()*best.length)];
+    }
+    function brain(){
+      return '<div class="brain"><b>🧠 Inside the AI\'s memory</b> <span class="muted">(this is its data!)</span>'+
+        '<table><thead><tr><th>After you played…</th><th colspan="3">…next you played</th></tr><tr><th></th>'+K.map(function(k){ return '<th class="em">'+MV[k]+'</th>'; }).join('')+'</tr></thead><tbody>'+
+        K.map(function(a){
+          var row = mem[a], mx = Math.max(row.r,row.p,row.s);
+          return '<tr><td><span class="em">'+MV[a]+'</span> '+NM[a]+'</td>'+K.map(function(b){ return '<td class="'+(mx>0&&row[b]===mx?'hot':'')+'">'+row[b]+'</td>'; }).join('')+'</tr>';
+        }).join('')+
+        '</tbody></table><p class="muted mt" style="font-size:.9rem">The AI looks at your last move, finds what you <b>usually</b> play next (yellow), and plays the move that beats it.</p></div>';
+    }
+    function draw(you, ai, verdict, pred){
+      shell(lv, 1, 3,
+        '<div class="card">'+
+          '<div class="row" style="justify-content:space-between"><b>Round '+Math.min(round+1, ROUNDS)+' / '+ROUNDS+'</b><span class="muted">🤝 Draws: '+sc.draw+'</span></div>'+
+          '<div class="arena mt"><div><div class="who">'+S.avatar+' You</div><div class="hand">'+(you?MV[you]:'❔')+'</div><div class="sc">'+sc.you+'</div></div>'+
+          '<div class="vs">VS</div>'+
+          '<div><div class="who">🤖 AI</div><div class="hand">'+(ai?MV[ai]:'❔')+'</div><div class="sc">'+sc.ai+'</div></div></div>'+
+          '<div class="verdict">'+(verdict||'Pick your move!')+'</div>'+
+          '<div class="predict">'+(pred||'')+'</div>'+
+          (round < ROUNDS ? '<div class="hands">'+K.map(function(k){ return '<button class="btn" data-m="'+k+'" type="button" aria-label="'+NM[k]+'">'+MV[k]+'</button>'; }).join('')+'</div>' : '<div class="center mt"><button class="btn primary big" id="res" type="button">See what the AI learned →</button></div>')+
+        '</div>'+brain());
+      $$('[data-m]').forEach(function(b){ b.onclick = function(){ play(b.getAttribute('data-m')); }; });
+      if($('#res')) $('#res').onclick = results;
+    }
+    function play(u){
+      var pred = predict();
+      var ai = pred ? COUNTER[pred] : K[Math.floor(Math.random()*3)];
+      hits.push(pred === u);
+      if(last) mem[last][u]++;
+      tot[u]++; last = u; round++;
+      var v;
+      if(u === ai){ sc.draw++; v = '🤝 Draw!'; beep('click'); }
+      else if(BEATS[u] === ai){ sc.you++; v = '🎉 You win this round!'; beep('good'); }
+      else { sc.ai++; v = '🤖 AI wins this round!'; beep('bad'); }
+      var p = pred ? '🔮 AI predicted you\'d play <b>'+MV[pred]+' '+NM[pred]+'</b>, so it played '+MV[ai]+(pred===u?' — <b>and it was right!</b>':' — wrong guess!')
+                   : '🎲 No data about you yet, so the AI guessed randomly.';
+      draw(u, ai, v, p);
+    }
+    function results(){
+      var early = hits.slice(0,5).filter(Boolean).length, late = hits.slice(-5).filter(Boolean).length;
+      var aiWon = sc.ai > sc.you;
+      addXP(30);
+      shell(lv, 1, 3,
+        '<div class="card pop center">'+
+          '<div class="big-emoji">'+(aiWon?'🤖':'🏅')+'</div>'+
+          '<h2>'+(aiWon?'The AI beat you '+sc.ai+'–'+sc.you+'!':sc.you>sc.ai?'You beat the AI '+sc.you+'–'+sc.ai+'!':'It\'s a tie '+sc.you+'–'+sc.ai+'!')+'</h2>'+
+          '<p class="mt">The AI guessed your move right <b>'+early+' times in rounds 1–5</b> and <b>'+late+' times in rounds 11–15</b>.</p>'+
+          '<p class="mt">'+(late>early?'📈 See? <b>More data → better predictions.</b> It learned your habits.'
+             :aiWon?'It didn\'t need much data — you have a pattern!'
+             :'You were hard to predict — nice! But with 1,000 rounds of data, the AI would find your pattern.')+'</p>'+
+          '<div class="takeaway">🧠 This is exactly how a shopping app knows what you might buy next, and how a bank spots a payment that "doesn\'t look like you". <b>Collect data → find a pattern → predict.</b></div>'+
+          '<button class="btn primary big mt" id="nx" type="button">Where else is Data AI? →</button>'+
+        '</div>');
+      $('#nx').onclick = cards;
+    }
+    draw();
+  }
+  function cards(){
+    shell(lv, 2, 3,
+      '<div class="rule">🌍 <b>Data AI in real life.</b> Flip every card to unlock the badge. Notice: each one <b>learns from records</b> and <b>predicts</b>.</div>'+
+      flipGrid('data', DATA_CARDS)+
+      '<div class="center mt2"><button class="btn primary big" id="fin" type="button" disabled>Flip all 6 cards to finish</button></div>');
+    bindFlips(function(){ var f = $('#fin'); f.disabled = false; f.textContent = 'Finish Data Lab 🏁'; });
+    $('#fin').onclick = function(){ complete(lv, 'You played against a learning AI and saw how it turns <b>data into predictions</b>.'); };
+  }
+}
+
+/* =====================================================================
+   LEVEL 4 — VISION LAB
+   ===================================================================== */
+var CV_CARDS = [
+  {e:'🔓', t:'Face unlock', from:'Your face, turned into a map of numbers (distance between eyes, nose shape…).', does:'Open the phone only for you.', where:'Phones, airport DigiYatra gates'},
+  {e:'🚗', t:'Self-driving cars', from:'Millions of road images labelled "car", "person", "lane", "signal".', does:'Spot everything on the road in real time.', where:'Tesla, Waymo; driver-assist in Indian cars'},
+  {e:'🍃', t:'Crop doctor', from:'Thousands of photos of healthy and sick leaves.', does:'Tell a farmer which disease a plant has from one photo.', where:'Plant-disease apps used by Indian farmers'},
+  {e:'🩻', t:'Medical scans', from:'X-rays and scans labelled by expert doctors.', does:'Highlight possible problems for a doctor to check.', where:'Hospitals and TB screening'},
+  {e:'🐯', t:'Tiger census', from:'Camera-trap photos of tigers in the forest.', does:'Identify each tiger by its unique stripe pattern — like a fingerprint!', where:'India\'s national tiger count'},
+  {e:'🔍', t:'Google Lens', from:'Billions of labelled pictures from the internet.', does:'Name a plant, find a product, or copy text from a photo.', where:'Your phone camera'}
+];
+var ZOOM = [
+  {e:'🍉', a:'Watermelon', o:['Watermelon','Football','Apple','Leaf']},
+  {e:'🐘', a:'Elephant', o:['Elephant','Rock','Cloud','Rhino']},
+  {e:'🌻', a:'Sunflower', o:['Sunflower','Sun','Pizza','Lion']},
+  {e:'🚒', a:'Fire truck', o:['Fire truck','Tomato','Bus','House']},
+  {e:'🐧', a:'Penguin', o:['Penguin','Bottle','Crow','Panda']},
+  {e:'🌈', a:'Rainbow', o:['Rainbow','Bridge','Candy','Flag']}
+];
+var RES = [3, 5, 8, 14, 40], PTS = [50, 40, 30, 20, 10];
+function runL4(lv){
+  intro();
+  function intro(){
+    shell(lv, 0, 4,
+      '<div class="card intro-card pop"><div class="big">👁️</div><div>'+
+        '<span class="dtag cv">👁️ Domain 2 · Computer Vision</span>'+
+        '<h3 class="mt">How does a computer "see"? 🤔</h3>'+
+        '<p>You see a cat. A computer sees… <b>numbers!</b> Every photo is a grid of tiny squares called <b>pixels</b>, and every pixel is stored as a number for how bright (and what colour) it is.</p>'+
+        '<p><b>Computer Vision</b> is the AI domain that learns to understand those numbers: find faces, read signs, spot objects, even drive cars.</p>'+
+        '<button class="btn primary big mt" id="go" type="button">🎨 Become a pixel artist</button>'+
+      '</div></div>');
+    $('#go').onclick = pixels;
+  }
+  function pixels(){
+    var N = 10, V = [], brush = 0, painting = false, painted = 0;
+    for(var i=0;i<N*N;i++) V.push(255);
+    var PRE = {
+      smile:['..........','..##..##..','..##..##..','..........','..........','.#......#.','.##....##.','..######..','...####...','..........'],
+      heart:['..........','.##...##..','####.####.','#########.','#########.','.#######..','..#####...','...###....','....#.....','..........'],
+      house:['....##....','...####...','..######..','.########.','..#....#..','..#.##.#..','..#.##.#..','..#....#..','..######..','..........']
+    };
+    shell(lv, 1, 4,
+      '<div class="rule">🎨 <b>Paint on the left.</b> Watch the right side — that is <b>exactly what the computer stores</b>. 0 = black, 255 = white, in between = grey.</div>'+
+      '<div class="pix-wrap">'+
+        '<div><div class="gtitle">👀 What YOU see</div>'+
+          '<div class="brushes" role="group" aria-label="Brush">'+
+            '<button class="btn sel" data-b="0" type="button"><span class="swatch" style="background:#000"></span> Black 0</button>'+
+            '<button class="btn" data-b="140" type="button"><span class="swatch" style="background:rgb(140,140,140)"></span> Grey 140</button>'+
+            '<button class="btn" data-b="255" type="button"><span class="swatch" style="background:#fff"></span> Eraser 255</button>'+
+          '</div>'+
+          '<div class="pgrid" id="pg"></div>'+
+          '<div class="row mt"><button class="btn" data-pre="smile" type="button">😊 Smiley</button><button class="btn" data-pre="heart" type="button">❤️ Heart</button><button class="btn" data-pre="house" type="button">🏠 House</button><button class="btn" id="clr" type="button">🧽 Clear</button></div>'+
+        '</div>'+
+        '<div><div class="gtitle">🤖 What the COMPUTER sees</div><div class="ngrid" id="ng"></div>'+
+          '<p class="muted mt" style="font-size:.92rem">A real phone photo has about <b>12 million</b> pixels — and 3 numbers each (Red, Green, Blue)! That\'s 36 million numbers for one selfie. 🤯</p></div>'+
+      '</div>'+
+      '<div class="center mt2"><button class="btn primary big" id="nx" type="button" disabled>Paint at least 8 pixels to continue</button></div>');
+    var pg = $('#pg'), ng = $('#ng'), html = '', nhtml = '';
+    for(var k=0;k<N*N;k++){ html += '<div data-i="'+k+'"></div>'; nhtml += '<div></div>'; }
+    pg.innerHTML = html; ng.innerHTML = nhtml;
+    var pc = pg.children, nc = ng.children;
+    function paintCell(k, v){
+      V[k] = v; pc[k].style.background = 'rgb('+v+','+v+','+v+')';
+      nc[k].textContent = v; nc[k].style.background = 'rgb('+v+','+v+','+v+')'; nc[k].style.color = v < 128 ? '#fff' : '#15171C';
+    }
+    for(var j=0;j<N*N;j++) paintCell(j, 255);
+    function count(){
+      painted = V.filter(function(v){ return v < 255; }).length;
+      var nx = $('#nx'); if(painted >= 8 && nx.disabled){ nx.disabled = false; nx.textContent = 'Next: Zoom Detective →'; beep('good'); }
+    }
+    function at(e){ var el = document.elementFromPoint(e.clientX, e.clientY); return el && el.parentNode === pg ? +el.getAttribute('data-i') : -1; }
+    pg.addEventListener('pointerdown', function(e){ painting = true; var k = at(e); if(k>=0){ paintCell(k, brush); count(); } e.preventDefault(); });
+    pg.addEventListener('pointermove', function(e){ if(!painting) return; var k = at(e); if(k>=0 && V[k] !== brush){ paintCell(k, brush); count(); } });
+    window.addEventListener('pointerup', function(){ painting = false; });
+    $$('[data-b]').forEach(function(b){ b.onclick = function(){ brush = +b.getAttribute('data-b'); $$('[data-b]').forEach(function(x){ x.classList.toggle('sel', x===b); }); }; });
+    $$('[data-pre]').forEach(function(b){ b.onclick = function(){ var p = PRE[b.getAttribute('data-pre')]; for(var r=0;r<N;r++) for(var c=0;c<N;c++) paintCell(r*N+c, p[r][c]==='#'?0:255); beep('click'); count(); }; });
+    $('#clr').onclick = function(){ for(var k=0;k<N*N;k++) paintCell(k, 255); count(); };
+    $('#nx').onclick = function(){ addXP(20); zoom(); };
+  }
+  function zoom(){
+    var rounds = shuffle(ZOOM.slice()), ri = 0, lvl = 0, total = 0;
+    function render(){
+      var z = rounds[ri], opts = shuffle(z.o.slice());
+      shell(lv, 2, 4,
+        '<div class="rule">🔎 <b>Zoom Detective:</b> the AI only gets a few pixels. Guess the object as <b>early</b> as you can — fewer pixels = more points!</div>'+
+        '<div class="card"><div class="zoom">'+
+          '<canvas id="cz" width="240" height="240" aria-label="Pixelated mystery picture"></canvas>'+
+          '<div><span class="kicker">Picture '+(ri+1)+' of '+rounds.length+'</span>'+
+            '<div class="meter-res" id="mr"></div>'+
+            '<div class="opts">'+opts.map(function(o){ return '<button class="btn" data-o="'+esc(o)+'" type="button">'+o+'</button>'; }).join('')+'</div>'+
+            '<div class="row mt"><button class="btn dark" id="more" type="button">🔍 Add more pixels</button><span class="muted">Score so far: <b>'+total+'</b></span></div>'+
+          '</div></div></div>'+
+        '<div id="fb"></div>');
+      paint();
+      $('#more').onclick = function(){ if(lvl < RES.length-1){ lvl++; paint(); beep('click'); } };
+      $$('[data-o]').forEach(function(b){ b.onclick = function(e){ guess(b, e); }; });
+    }
+    function paint(){
+      var z = rounds[ri], r = RES[lvl];
+      var big = document.createElement('canvas'); big.width = big.height = 160;
+      var bx = big.getContext('2d'); bx.fillStyle = '#fff'; bx.fillRect(0,0,160,160);
+      bx.textAlign = 'center'; bx.textBaseline = 'middle'; bx.font = '128px '+getComputedStyle(document.body).getPropertyValue('--emoji');
+      bx.fillText(z.e, 80, 88);
+      var src = big, sz = 160;
+      while(sz/2 > r){ var h = document.createElement('canvas'); sz = Math.max(r, Math.floor(sz/2)); h.width = h.height = sz; var hx = h.getContext('2d'); hx.imageSmoothingEnabled = true; hx.drawImage(src, 0, 0, sz, sz); src = h; }
+      var sm = document.createElement('canvas'); sm.width = sm.height = r; var sx = sm.getContext('2d'); sx.imageSmoothingEnabled = true; sx.drawImage(src, 0, 0, r, r);
+      var cz = $('#cz'), cx = cz.getContext('2d'); cx.imageSmoothingEnabled = false; cx.clearRect(0,0,240,240); cx.drawImage(sm, 0, 0, 240, 240);
+      if(r <= 14){ cx.strokeStyle = 'rgba(21,23,28,.25)'; cx.lineWidth = 1; for(var i=1;i<r;i++){ var p = Math.round(i*240/r)+.5; cx.beginPath(); cx.moveTo(p,0); cx.lineTo(p,240); cx.moveTo(0,p); cx.lineTo(240,p); cx.stroke(); } }
+      $('#mr').innerHTML = '📐 '+r+' × '+r+' = <b>'+(r*r)+' pixels</b> · worth <b>'+PTS[lvl]+'</b> points';
+      $('#more').disabled = lvl >= RES.length-1;
+    }
+    function guess(b, e){
+      var z = rounds[ri];
+      if(b.getAttribute('data-o') === z.a){
+        var pts = PTS[lvl], px = RES[lvl]*RES[lvl]; total += pts; addXP(Math.round(pts/5), e); beep('good');
+        lvl = RES.length-1; paint();
+        $$('[data-o]').forEach(function(x){ x.disabled = true; }); b.classList.add('sel'); $('#more').disabled = true;
+        $('#fb').innerHTML = '<div class="feedback good pop"><b>✅ It\'s a '+z.a.toLowerCase()+'!</b> You got it with <b>'+px+' pixels</b> → +'+pts+' points.<br><button class="btn primary" id="nx" type="button">'+(ri<rounds.length-1?'Next picture →':'What did we learn? →')+'</button></div>';
+        $('#nx').onclick = function(){ ri++; lvl = 0; if(ri < rounds.length) render(); else lesson(total); };
+      } else {
+        beep('bad'); b.disabled = true; b.classList.add('shake');
+        if(lvl < RES.length-1){ lvl++; paint(); toast('❌ Not that one — here are more pixels!'); }
+      }
+    }
+    render();
+  }
+  function lesson(total){
+    shell(lv, 2, 4,
+      '<div class="card pop intro-card"><div class="big">🧠</div><div>'+
+        '<h3>Zoom score: '+total+' points!</h3>'+
+        '<p>You just did what a vision AI does. With few pixels you used <b>colours</b> (green + red = watermelon?). With more pixels you saw <b>edges</b> and <b>shapes</b>. Then you recognised the <b>object</b>.</p>'+
+        '<p>A vision AI learns in the same layers — <b>colours → edges → shapes → objects</b> — after studying thousands of labelled example photos.</p>'+
+        '<button class="btn primary big mt" id="nx" type="button">Where else is Computer Vision? →</button>'+
+      '</div></div>');
+    $('#nx').onclick = cards;
+  }
+  function cards(){
+    shell(lv, 3, 4,
+      '<div class="rule">🌍 <b>Computer Vision in real life.</b> Flip every card. Notice: each one learns from <b>images or video</b>.</div>'+
+      flipGrid('cv', CV_CARDS)+
+      '<div class="center mt2"><button class="btn primary big" id="fin" type="button" disabled>Flip all 6 cards to finish</button></div>');
+    bindFlips(function(){ var f = $('#fin'); f.disabled = false; f.textContent = 'Finish Vision Lab 🏁'; });
+    $('#fin').onclick = function(){ complete(lv, 'You turned pictures into numbers and recognised objects from pixels — just like Computer Vision AI.'); };
+  }
+}
+
+/* =====================================================================
+   LEVEL 5 — LANGUAGE LAB
+   ===================================================================== */
+var LEX = {
+  good:2, great:3, awesome:3, amazing:3, happy:3, love:3, loved:3, like:2, liked:2, fun:2, best:3, nice:2, cool:2, yay:3,
+  wonderful:3, excellent:3, beautiful:2, enjoy:2, enjoyed:2, glad:2, excited:3, win:2, won:2, delicious:3, smile:2, laugh:2,
+  brilliant:3, fantastic:3, perfect:3, proud:2, lucky:2, kind:2, thanks:2, thank:2, easy:1, favourite:2, favorite:2, holiday:2,
+  party:2, cute:2, wow:2, yummy:3, friends:1, friend:1, tasty:2, helpful:2, beautifully:2, celebrate:2,
+  bad:-2, sad:-3, hate:-3, hated:-3, angry:-3, terrible:-3, awful:-3, boring:-2, bored:-2, worst:-3, cry:-2, cried:-2, crying:-2,
+  sick:-2, hurt:-2, lost:-2, lose:-2, broke:-2, broken:-2, fail:-3, failed:-3, scared:-2, afraid:-2, tired:-1, ugly:-2, mad:-2,
+  upset:-2, annoying:-2, horrible:-3, pain:-2, late:-1, alone:-2, difficult:-1, problem:-2, wrong:-2, sorry:-1, miss:-1,
+  missed:-1, fell:-1, nightmare:-3, disgusting:-3, stupid:-2, ruined:-3, worried:-2, worse:-2, dirty:-1, slow:-1, cold:-1, stuck:-1
+};
+var NEGATORS = ['not','no','never','dont','don\'t','isnt','isn\'t','wasnt','wasn\'t','didnt','didn\'t','cant','can\'t','cannot','wont','won\'t','doesnt','doesn\'t','arent','aren\'t','hardly'];
+var BOOST = ['very','really','so','extremely','totally','super','soooo','too'];
+function sentiment(text){
+  var toks = (text.toLowerCase().replace(/[’‘]/g,"'").match(/[a-z']+|[.!?,]/g) || []);
+  var out = [], score = 0, neg = 0, boost = 1, flippedPositive = false;
+  toks.forEach(function(t){
+    if(/^[.!?,]$/.test(t)){ neg = 0; boost = 1; return; }
+    var o = {t:t, cls:''};
+    if(NEGATORS.indexOf(t) >= 0){ o.cls = 'negator'; neg = 3; out.push(o); return; }
+    if(BOOST.indexOf(t) >= 0){ o.cls = 'boost'; boost = 1.5; out.push(o); if(neg) neg--; return; }
+    if(LEX[t] !== undefined){
+      var v = LEX[t] * boost;
+      if(neg > 0){ if(LEX[t] > 0) flippedPositive = true; v = -v; o.cls = (v>0?'pos':'neg')+' flip'; neg = 0; }
+      else o.cls = v > 0 ? 'pos' : 'neg';
+      o.v = Math.round(v*10)/10; score += v; boost = 1;
+    } else if(neg) neg--;
+    out.push(o);
+  });
+  return {toks:out, score:Math.round(score*10)/10, flipped:flippedPositive, words:out.length};
+}
+var CORPUS = [
+  'i love to play cricket with my friends','i love to eat mango ice cream','i love my dog','my dog loves to play in the park',
+  'my friends and i play football after school','we go to school by bus','we go to the park on sunday','the robot can see the ball',
+  'the robot can talk to people','the robot can help my teacher','my teacher is very kind','my teacher gave us homework',
+  'i want to build a robot','i want to eat pizza','i want to play video games','ai can help farmers grow crops',
+  'ai can help doctors find disease','ai can see pictures and read words','happy birthday to you','happy birthday my friend',
+  'i am happy today','i am going to school','i am going to build an app','the cat is sleeping on the bed','the cat can jump very high',
+  'we play cricket in the park','my mom makes tasty dosa','my mom loves to read books','i like to read books about space',
+  'the rocket flew to the moon','we will go to the moon one day','i want to go to the moon','the robot is my best friend'
+];
+var NLP_CARDS = [
+  {e:'🗣️', t:'Voice assistants', from:'Thousands of hours of people speaking, matched with text.', does:'Turn your voice into words, understand them, and talk back.', where:'Alexa, Siri, Google Assistant'},
+  {e:'🌐', t:'Translation', from:'Millions of sentences written in two languages side by side.', does:'Translate Tamil ↔ Hindi ↔ English in seconds.', where:'Google Translate, Bhashini (India\'s language AI)'},
+  {e:'🤖', t:'AI chatbots', from:'Huge amounts of text: books, websites, conversations.', does:'Answer questions, explain topics, help write — by predicting the next word, again and again.', where:'ChatGPT, Gemini, Claude'},
+  {e:'⌨️', t:'Autocorrect', from:'Which words people usually type, and in what order.', does:'Fix "teh" → "the" and suggest your next word.', where:'Every phone keyboard'},
+  {e:'📧', t:'Spam filter', from:'Emails people marked as "spam" or "not spam".', does:'Spot words like "You WON ₹1 crore! Click NOW" and hide the email.', where:'Gmail, Outlook'},
+  {e:'🎬', t:'Auto-captions', from:'Speech recordings paired with what was said.', does:'Write subtitles for videos as people speak.', where:'YouTube, video calls'}
+];
+function runL5(lv){
+  intro();
+  function intro(){
+    shell(lv, 0, 4,
+      '<div class="card intro-card pop"><div class="big">💬</div><div>'+
+        '<span class="dtag nlp">💬 Domain 3 · NLP</span>'+
+        '<h3 class="mt">Natural Language Processing</h3>'+
+        '<p><b>Natural language</b> = the languages humans speak and write: English, Hindi, Telugu, Tamil… <b>Processing</b> = the computer working with it.</p>'+
+        '<p>So <b>NLP</b> is the AI domain that helps computers <b>read, understand, translate and talk</b> — in text <i>and</i> in voice. But human language is tricky. Let\'s see how tricky!</p>'+
+        '<button class="btn primary big mt" id="go" type="button">😄 Open the Mood Reader</button>'+
+      '</div></div>');
+    $('#go').onclick = mood;
+  }
+  function mood(){
+    var M = [
+      {t:'Make the AI feel <b>HAPPY</b> 😄 — write a happy sentence.', ok:function(r){ return r.score > 0; }, done:'It found happy words and added up their scores. Simple!'},
+      {t:'Now make it <b>SAD</b> 😢 — write a sad sentence.', ok:function(r){ return r.score < 0; }, done:'Sad words have negative scores. The total went below zero.'},
+      {t:'Use <b>"not"</b> or <b>"never"</b> to flip a happy word (try <i>"This movie is not good"</i>).', ok:function(r){ return r.flipped && r.score < 0; }, done:'"not good" means bad! Good NLP must look at words <b>together</b>, not one at a time.'},
+      {t:'😏 <b>Trick the AI!</b> Write something <b>sarcastic</b> — it sounds happy, but means something bad. (e.g. <i>"Oh great, I lost my homework again. Just perfect."</i>)', sarcasm:true, done:'You fooled it! The AI only counted words. Humans understand <b>context</b> and <b>tone</b>. Modern AI chatbots learn context by reading billions of sentences — and even they still get sarcasm wrong sometimes.'}
+    ];
+    var mi = 0;
+    shell(lv, 1, 4,
+      '<div class="card">'+
+        '<h3>🔮 The Mood Reader <span class="muted" style="font-size:1rem">(a sentiment-analysis AI)</span></h3>'+
+        '<p class="muted">It splits your sentence into words (<b>tokens</b>), gives feeling-words a score, and adds them up.</p>'+
+        '<label for="tx" class="gtitle mt" style="display:block">Type a sentence:</label>'+
+        '<input class="input" id="tx" maxlength="160" autocomplete="off" placeholder="I love playing cricket with my friends">'+
+        '<div class="tokens" id="tk" aria-live="polite"></div>'+
+        '<div class="legend"><span class="tok pos">happy +</span><span class="tok neg">sad −</span><span class="tok negator">flipper</span><span class="tok boost">booster ×1.5</span><span class="tok">no feeling</span></div>'+
+        '<div class="mood"><div class="face" id="fc">😐</div><div class="bar"><i id="nd" style="left:50%"></i></div></div>'+
+        '<p class="center mt" id="lbl"><b>Mood: Neutral</b> · score 0</p>'+
+      '</div>'+
+      '<div class="card mt2"><h3>🎯 Missions</h3><div class="missions" id="ms"></div><div id="mact" class="mt"></div></div>'+
+      '<div id="mnext"></div>');
+    var tx = $('#tx');
+    function missions(){
+      $('#ms').innerHTML = M.map(function(m, k){ return '<div class="mission '+(k<mi?'done':k===mi?'now':'later')+'"><span>'+(k<mi?'✅':k===mi?'👉':'🔒')+'</span><span>'+m.t+'</span></div>'; }).join('');
+      var act = $('#mact');
+      if(mi >= M.length){ act.innerHTML = ''; return; }
+      act.innerHTML = M[mi].sarcasm
+        ? '<button class="btn primary" id="sar" type="button" disabled>😏 It says Happy — but I was being sarcastic!</button>'
+        : '<p class="muted">Missions check themselves as you type.</p>';
+      if($('#sar')) $('#sar').onclick = function(e){ pass(e); };
+    }
+    function pass(e){
+      var m = M[mi]; addXP(15, e); beep('good');
+      toast('✅ '+m.done, 6500);
+      mi++; missions();
+      if(mi >= M.length){
+        $('#mnext').innerHTML = '<div class="feedback good pop"><b>🎉 All missions complete!</b> '+M[3].done+'<br><button class="btn primary" id="nx" type="button">Next: Predict the next word →</button></div>';
+        $('#nx').onclick = predictor;
+      }
+    }
+    function update(){
+      var r = sentiment(tx.value);
+      $('#tk').innerHTML = r.toks.map(function(o){ return '<span class="tok '+o.cls+'">'+esc(o.t)+(o.v!==undefined?'<sup>'+(o.v>0?'+':'')+o.v+'</sup>':'')+'</span>'; }).join('');
+      var lab = r.score > 0 ? 'Happy' : r.score < 0 ? 'Sad' : 'Neutral';
+      $('#fc').textContent = r.score > 2 ? '😄' : r.score > 0 ? '🙂' : r.score < -2 ? '😢' : r.score < 0 ? '🙁' : '😐';
+      $('#nd').style.left = (50 + Math.max(-6, Math.min(6, r.score)) / 6 * 46) + '%';
+      $('#lbl').innerHTML = '<b>Mood: '+lab+'</b> · score '+(r.score>0?'+':'')+r.score;
+      if(mi < M.length){
+        var m = M[mi];
+        if(m.sarcasm){ var s = $('#sar'); if(s) s.disabled = !(r.score > 0 && r.words >= 4); }
+        else if(m.ok(r)) pass();
+      }
+    }
+    tx.addEventListener('input', update);
+    missions(); update(); tx.focus();
+  }
+  function predictor(){
+    var bi = {}, starts = {};
+    CORPUS.forEach(function(s){
+      var w = s.split(' '); starts[w[0]] = (starts[w[0]]||0)+1;
+      for(var i=0;i<w.length;i++){ var a = w[i], b = w[i+1] || '⏹'; bi[a] = bi[a] || {}; bi[a][b] = (bi[a][b]||0)+1; }
+    });
+    var words = [], picks = 0;
+    function render(){
+      var src = words.length ? (bi[words[words.length-1]] || {}) : starts;
+      var sum = 0, list = Object.keys(src).map(function(k){ sum += src[k]; return [k, src[k]]; }).sort(function(a,b){ return b[1]-a[1]; }).slice(0,3);
+      var ended = words.length && (!list.length || (list.length===1 && list[0][0]==='⏹'));
+      shell(lv, 2, 4,
+        '<div class="rule">⌨️ <b>Be the phone keyboard.</b> This AI read '+CORPUS.length+' short sentences and counted <b>which word usually comes next</b>. Tap a suggestion to build a sentence (at least 5 words).</div>'+
+        '<div class="sentence">'+(words.length?esc(words.join(' ')):'<span class="muted">Tap a word to start…</span>')+'<span class="cursor"></span></div>'+
+        (ended ? '<p class="mt"><b>⏹ The AI thinks your sentence is finished!</b></p>' :
+        '<div class="suggest">'+list.map(function(p){ var pct = Math.round(p[1]/sum*100); return '<button class="btn sg" data-w="'+esc(p[0])+'" type="button"><span>'+(p[0]==='⏹'?'⏹ end':esc(p[0]))+'</span><span class="pb"><i style="width:'+pct+'%"></i></span><small>'+pct+'% likely</small></button>'; }).join('')+'</div>')+
+        '<div class="row mt"><button class="btn" id="rst" type="button">↺ Start over</button><button class="btn primary" id="dn" type="button" '+(words.length>=5?'':'disabled')+'>✅ Done</button></div>'+
+        '<div class="takeaway mt2">🤯 <b>Fun fact:</b> big AI chatbots work on the same idea — <b>predict the next word</b> — but they learned from <b>trillions</b> of words instead of '+CORPUS.length+' sentences, so they can write whole essays.</div>');
+      $$('[data-w]').forEach(function(b){ b.onclick = function(e){ var w = b.getAttribute('data-w'); beep('click'); if(w==='⏹'){ if(words.length) finish(e); return; } words.push(w); picks++; render(); }; });
+      $('#rst').onclick = function(){ words = []; render(); };
+      $('#dn').onclick = finish;
+    }
+    function finish(e){
+      if(words.length < 5){ toast('Add a few more words first — at least 5!'); return; }
+      addXP(20, e);
+      modal('<div class="badge-big">⌨️</div><h2>"'+esc(words.join(' '))+'"</h2><p>The AI didn\'t <i>understand</i> this sentence — it only knew which words <b>often follow</b> each other in its data. That\'s a <b>language model</b>!</p><div class="row"><button class="btn primary" id="go2" type="button">Where else is NLP? →</button></div>');
+      $('#go2').onclick = function(){ closeModal(); cards(); window.scrollTo(0,0); };
+    }
+    render();
+  }
+  function cards(){
+    shell(lv, 3, 4,
+      '<div class="rule">🌍 <b>NLP in real life.</b> Flip every card. Notice: each one works with <b>words — written or spoken</b>.</div>'+
+      flipGrid('nlp', NLP_CARDS)+
+      '<div class="center mt2"><button class="btn primary big" id="fin" type="button" disabled>Flip all 6 cards to finish</button></div>');
+    bindFlips(function(){ var f = $('#fin'); f.disabled = false; f.textContent = 'Finish Language Lab 🏁'; });
+    $('#fin').onclick = function(){ complete(lv, 'You read moods, flipped meanings, fooled an AI with sarcasm and built a sentence like a language model.'); };
+  }
+}
+
+/* =====================================================================
+   LEVEL 6 — SPEED SORTER
+   ===================================================================== */
+var SORT = [
+  {e:'🌧️', t:'Predicting tomorrow\'s rain from 30 years of weather records', d:'data'},
+  {e:'🛒', t:'"Customers who bought this also bought…"', d:'data'},
+  {e:'🏏', t:'Showing which team will probably win the match', d:'data'},
+  {e:'💳', t:'Catching a fake card payment', d:'data'},
+  {e:'⚡', t:'Predicting how much electricity a city will need tonight', d:'data'},
+  {e:'📈', t:'Spotting which students may need extra help from test scores', d:'data'},
+  {e:'🔓', t:'Unlocking a phone with your face', d:'cv'},
+  {e:'🚘', t:'Reading number plates from traffic-camera video', d:'cv'},
+  {e:'🍃', t:'Finding crop disease from a photo of a leaf', d:'cv'},
+  {e:'🩻', t:'Spotting a broken bone in an X-ray', d:'cv'},
+  {e:'🐅', t:'Identifying tigers from their stripes in camera photos', d:'cv'},
+  {e:'🍎', t:'Self-checkout camera recognising the fruit you bought', d:'cv'},
+  {e:'🌐', t:'Translating a Tamil story into Hindi', d:'nlp'},
+  {e:'🎙️', t:'Voice-typing a WhatsApp message', d:'nlp'},
+  {e:'🏦', t:'Bank chatbot answering "How do I reset my PIN?"', d:'nlp'},
+  {e:'📰', t:'Summarising a long news article in 3 lines', d:'nlp'},
+  {e:'📧', t:'Moving "You WON a lottery!!" emails to spam', d:'nlp'},
+  {e:'🎬', t:'Writing subtitles for a YouTube video automatically', d:'nlp'}
+];
+function runL6(lv){
+  var deck, i, streak, best, right, tleft, timer, counts;
+  function start(){
+    shell(lv, 0, 1,
+      '<div class="card intro-card pop"><div class="big">⚡</div><div>'+
+        '<h3>Sort 15 real AI apps into their domain!</h3>'+
+        '<p>Ask yourself: does this AI work with…</p>'+
+        '<ul class="explain mt"><li>'+tag('data')+' <span><b>numbers, records & history</b> → predicts</span></li><li>'+tag('cv')+' <span><b>pictures & video</b> → sees</span></li><li>'+tag('nlp')+' <span><b>words & speech</b> → talks</span></li></ul>'+
+        '<p class="mt">⏱️ 90 seconds. Get <b>3 in a row</b> for a 🔥 combo (double XP). Time left at the end = bonus XP.</p>'+
+        '<button class="btn primary big mt" id="go" type="button">⚡ Start sorting!</button>'+
+      '</div></div>');
+    $('#go').onclick = play;
+  }
+  function play(){
+    deck = shuffle(SORT.slice()).slice(0, 15); i = 0; streak = 0; best = 0; right = 0; tleft = 90; counts = {data:0, cv:0, nlp:0};
+    clearInterval(timer);
+    timer = setInterval(function(){
+      if(!document.body.contains($('#tm'))){ clearInterval(timer); return; }
+      tleft = Math.max(0, tleft-1); $('#tm').textContent = '⏱️ '+tleft+'s';
+      if(tleft === 0) clearInterval(timer);
+    }, 1000);
+    draw();
+  }
+  function draw(){
+    var c = deck[i];
+    shell(lv, 0, 1,
+      '<div class="sorter-top"><span>Card '+(i+1)+' / '+deck.length+'</span><span class="combo" id="cb">'+(streak>=3?'🔥 Combo ×2':streak?'Streak: '+streak:'')+'</span><span class="timer" id="tm">⏱️ '+tleft+'s</span></div>'+
+      '<div class="card big-card pop mt" id="sc"><div class="big-emoji">'+c.e+'</div><h3 style="font-size:1.35rem">'+c.t+'</h3></div>'+
+      '<div class="bins">'+['data','cv','nlp'].map(function(d){ return '<button type="button" class="bin '+d+'" data-bin="'+d+'"><span class="be">'+DOM[d].icon+'</span><span class="lbl">'+DOM[d].short+'</span><small>'+(d==='data'?'counts':d==='cv'?'sees':'talks')+'</small><span class="cnt">'+counts[d]+'</span></button>'; }).join('')+'</div>');
+    var busy = false;
+    $$('[data-bin]').forEach(function(b){
+      b.onclick = function(e){
+        if(busy) return; busy = true;
+        var d = b.getAttribute('data-bin');
+        counts[c.d]++;
+        if(d === c.d){ right++; streak++; best = Math.max(best, streak); addXP(streak>=3?10:5, e); beep('good'); }
+        else { streak = 0; beep('bad'); $('#sc').classList.add('shake'); toast('❌ That one is '+tag(c.d)+' — '+(c.d==='data'?'it predicts from records & numbers.':c.d==='cv'?'it works with pictures or video.':'it works with words or speech.'), 2600); }
+        b.classList.add('flash');
+        setTimeout(function(){ i++; if(i < deck.length) draw(); else end(); }, d===c.d ? 350 : 900);
+      };
+    });
+  }
+  function end(){
+    clearInterval(timer);
+    var bonus = Math.round(tleft/3);
+    if(bonus) addXP(bonus);
+    complete(lv, 'You sorted <b>'+right+' / '+deck.length+'</b> correctly, best streak <b>'+best+'</b>'+(bonus?', with <b>'+tleft+'s</b> left (+'+bonus+' XP time bonus)':'')+'.');
+  }
+  start();
+}
+
+/* =====================================================================
+   LEVEL 7 — MASH-UP MISSION
+   ===================================================================== */
+var MASH = [
+  {e:'🚗', t:'A self-driving car', s:'It drives through city traffic on its own.', d:['cv','data'],
+   why:{cv:'Cameras <b>see</b> lanes, people, signals and other cars.', data:'It <b>predicts</b> what other drivers will do and plans the safest path.'}},
+  {e:'🗣️', t:'"Hey Siri, how long will it take to reach school?"', s:'You ask out loud; it answers with a time.', d:['nlp','data'],
+   why:{nlp:'It <b>understands your spoken question</b> and speaks the answer.', data:'It <b>predicts travel time</b> from traffic data.'}},
+  {e:'📷', t:'Google Lens translating a Japanese menu', s:'Point the camera — English appears on the screen.', d:['cv','nlp'],
+   why:{cv:'It <b>finds and reads the letters</b> in the camera picture.', nlp:'It <b>translates</b> the words from Japanese to English.'}},
+  {e:'🎬', t:'YouTube auto-captions', s:'Subtitles appear as the person speaks.', d:['nlp'],
+   why:{nlp:'It turns <b>speech into text</b>. No pictures or predictions needed — just language!'}},
+  {e:'👨‍🌾', t:'A Kisan helper app', s:'A farmer photographs a sick leaf, asks a question in Telugu by voice, and gets a harvest forecast.', d:['cv','nlp','data'],
+   why:{cv:'It <b>looks at the leaf photo</b> to find the disease.', nlp:'It <b>understands the spoken Telugu question</b>.', data:'It <b>predicts the harvest</b> from weather and crop records.'}},
+  {e:'🍿', t:'Netflix "Top picks for you"', s:'A row of shows chosen just for you.', d:['data'],
+   why:{data:'It <b>predicts</b> what you\'ll like from your viewing history. Pure Data!'}},
+  {e:'🏪', t:'A smart shop camera', s:'It counts customers walking in and predicts the busiest hours.', d:['cv','data'],
+   why:{cv:'It <b>sees and counts people</b> in the video.', data:'It <b>finds patterns</b> in those counts to predict rush hours.'}}
+];
+function runL7(lv){
+  var items = MASH.slice(), i = 0, perfect = 0;
+  function draw(){
+    var m = items[i], sel = {};
+    shell(lv, 0, 1,
+      '<div class="rule">🧩 Real AI systems often combine superpowers. Select <b>every</b> domain this system needs — no more, no less.</div>'+
+      '<div class="dots">'+items.map(function(_, k){ return '<i class="'+(k<i?'done':k===i?'now':'')+'"></i>'; }).join('')+'</div>'+
+      '<div class="card big-card pop"><div class="big-emoji">'+m.e+'</div><h3>'+m.t+'</h3><p>'+m.s+'</p></div>'+
+      '<div class="toggles">'+['data','cv','nlp'].map(function(d){ return '<button type="button" class="btn big '+d+'" aria-pressed="false" data-d="'+d+'">'+DOM[d].icon+' '+DOM[d].short+'</button>'; }).join('')+'</div>'+
+      '<div class="center mt"><button class="btn primary big" id="chk" type="button">✔ Lock it in</button></div>'+
+      '<div id="fb"></div>');
+    $$('[data-d]').forEach(function(b){ b.onclick = function(){ if($('#chk').disabled) return; var d = b.getAttribute('data-d'); sel[d] = !sel[d]; b.setAttribute('aria-pressed', !!sel[d]); beep('click'); }; });
+    $('#chk').onclick = function(e){
+      var picked = Object.keys(sel).filter(function(k){ return sel[k]; });
+      if(!picked.length){ toast('Pick at least one domain!'); return; }
+      this.disabled = true;
+      var ok = picked.length === m.d.length && picked.every(function(p){ return m.d.indexOf(p) >= 0; });
+      if(ok){ perfect++; addXP(20, e); beep('good'); } else beep('bad');
+      $('#fb').innerHTML = '<div class="feedback '+(ok?'good':'bad')+' pop"><b>'+(ok?'✅ Perfect combo!':'❌ The right combo is: '+m.d.map(tag).join(' + '))+'</b>'+
+        '<ul class="explain">'+m.d.map(function(d){ return '<li>'+tag(d)+'<span>'+m.why[d]+'</span></li>'; }).join('')+'</ul>'+
+        '<button class="btn primary" id="nx" type="button">'+(i<items.length-1?'Next system →':'Finish level 🏁')+'</button></div>';
+      $('#nx').focus();
+      $('#nx').onclick = function(){ i++; if(i < items.length) draw(); else complete(lv, 'You got <b>'+perfect+' of '+items.length+'</b> combos exactly right.'); };
+    };
+  }
+  draw();
+}
+
+/* =====================================================================
+   LEVEL 8 — BOSS
+   ===================================================================== */
+var BOSSQ = [
+  {q:'Which AI domain helps a computer understand pictures and videos?', a:'Computer Vision', o:['Data','Computer Vision','NLP','Robotics'], why:'Vision = AI that SEES.'},
+  {q:'An AI predicts tomorrow\'s temperature from 50 years of weather records. Which domain?', a:'Data', o:['Data','Computer Vision','NLP','None — it\'s not AI'], why:'Learning from records to predict = Data.'},
+  {q:'To a computer, a photo is really…', a:'A grid of numbers called pixels', o:['A grid of numbers called pixels','A tiny painting','A list of words','A sound wave'], why:'Every pixel is stored as a number (0–255 for each colour).'},
+  {q:'What does NLP stand for?', a:'Natural Language Processing', o:['Natural Language Processing','New Learning Program','Number Logic Prediction','Neural Light Pixels'], why:'Natural Language = human languages like Hindi or English.'},
+  {q:'Why did the Rock-Paper-Scissors AI get better as you played?', a:'It collected data about your moves and found your pattern', o:['It collected data about your moves and found your pattern','It could see your hand through the camera','It was cheating by reading your mind','It got luckier'], why:'More data → better predictions.'},
+  {q:'Which one is NOT AI?', a:'A calculator doing 2 + 2', o:['A calculator doing 2 + 2','Face unlock','Maps predicting traffic','Autocorrect'], why:'A calculator follows fixed rules and never learns.'},
+  {q:'Why is sarcasm hard for a simple Mood Reader AI?', a:'The words sound happy, but the meaning depends on context', o:['The words sound happy, but the meaning depends on context','Sarcastic sentences are too long','It can\'t read capital letters','Sarcasm uses numbers'], why:'Understanding context and tone is one of the hardest parts of NLP.'},
+  {q:'A farmer\'s app reads a leaf photo AND answers voice questions. It uses…', a:'Computer Vision + NLP', o:['Computer Vision + NLP','Only Data','Only NLP','Only Computer Vision'], why:'Photo → Vision. Voice question → NLP.'},
+  {q:'What is the "food" that every AI learns from?', a:'Data', o:['Data','Electricity','Wi-Fi','Batteries'], why:'All three domains learn from data — numbers, images or text.'},
+  {q:'Your keyboard suggests "birthday" after you type "happy". How?', a:'It learned which words usually come next from lots of text', o:['It learned which words usually come next from lots of text','Someone typed it for you','It reads your mind','It checks the calendar'], why:'That\'s a language model — predicting the next word.'},
+  {q:'Google Lens translating a signboard uses which domains?', a:'Computer Vision + NLP', o:['Computer Vision + NLP','Data only','NLP only','Computer Vision only'], why:'It reads letters from the image (Vision), then translates (NLP).'},
+  {q:'Which task needs Computer Vision?', a:'Counting cars in a traffic video', o:['Counting cars in a traffic video','Translating a letter into French','Predicting next month\'s sales from a spreadsheet','Answering a typed question'], why:'Video = pictures = Vision.'}
+];
+function runL8(lv){
+  var qs, qi, hp, hearts;
+  function start(){
+    qs = shuffle(BOSSQ.slice()); qi = 0; hp = 100; hearts = 3;
+    shell(lv, 0, 1,
+      '<div class="card intro-card pop"><div class="big">👾</div><div>'+
+        '<h3>GLITCH has scrambled the AI Lab!</h3>'+
+        '<p>GLITCH thinks kids can\'t understand AI. Prove it wrong! Every right answer hits GLITCH for <b>10 damage</b>. You have <b>3 hearts</b> ❤️ — a wrong answer costs one.</p>'+
+        '<button class="btn primary big mt" id="go" type="button">⚔️ Battle!</button>'+
+      '</div></div>');
+    $('#go').onclick = draw;
+  }
+  function draw(){
+    var q = qs[qi], opts = shuffle(q.o.slice());
+    shell(lv, 0, 1,
+      '<div class="card">'+
+        '<div class="boss"><span class="bot" id="bot">👾</span><div>'+
+          '<div class="row" style="justify-content:space-between"><b>GLITCH</b><b>'+hp+' HP</b></div>'+
+          '<div class="hp"><i style="width:'+hp+'%"></i></div>'+
+          '<div class="row mt" style="justify-content:space-between"><span class="hearts" aria-label="'+hearts+' hearts left">'+'❤️'.repeat(hearts)+'🤍'.repeat(3-hearts)+'</span><span class="muted">'+S.avatar+' '+esc(S.name)+'</span></div>'+
+        '</div></div>'+
+        '<div class="q">'+q.q+'</div>'+
+        '<div class="answers">'+opts.map(function(o){ return '<button class="btn" type="button" data-ans="'+esc(o)+'">'+o+'</button>'; }).join('')+'</div>'+
+        '<div id="fb"></div>'+
+      '</div>');
+    $$('[data-ans]').forEach(function(b){
+      b.onclick = function(e){
+        var ok = b.getAttribute('data-ans') === q.a;
+        $$('[data-ans]').forEach(function(x){ x.disabled = true; if(x.getAttribute('data-ans') === q.a) x.classList.add('right'); });
+        if(ok){
+          hp -= 10; addXP(10, e); beep('hit');
+          var bot = $('#bot'); bot.classList.add('hit');
+          $('.hp i').style.width = hp+'%';
+        } else { hearts--; b.classList.add('wrong'); beep('bad'); $('.card').classList.add('shake'); }
+        var over = hp <= 0, lost = hearts <= 0;
+        $('#fb').innerHTML = '<div class="feedback '+(ok?'good':'bad')+' pop"><b>'+(ok?'💥 Direct hit!':'💔 Ouch!')+'</b> '+q.why+'<br><button class="btn primary" id="nx" type="button">'+(over?'Finish GLITCH →':lost?'See what happened':'Next attack →')+'</button></div>';
+        $('#nx').focus();
+        $('#nx').onclick = function(){
+          if(over) complete(lv, 'GLITCH is defeated with <b>'+hearts+' heart'+(hearts===1?'':'s')+'</b> to spare. The AI Lab is safe!');
+          else if(lost) defeat();
+          else { qi++; draw(); }
+        };
+      };
+    });
+  }
+  function defeat(){
+    shell(lv, 0, 1,
+      '<div class="card pop center"><div class="big-emoji">🤖💤</div><h2>GLITCH survived… this time.</h2>'+
+      '<p class="mt">You knocked it down to <b>'+hp+' HP</b>. Every mistake taught you something — that\'s how AI learns too! Try again with a fresh set of hearts.</p>'+
+      '<button class="btn primary big mt" id="again" type="button">🔁 Rematch</button></div>');
+    $('#again').onclick = start;
+  }
+  start();
+}
+
+/* =====================================================================
+   FINALE — INVENT YOUR OWN AI + CERTIFICATE
+   ===================================================================== */
+var PROBLEMS = [
+  {t:'Help my grandparents read tiny medicine labels', d:['cv','nlp']},
+  {t:'Stop food waste in the school canteen', d:['data']},
+  {t:'Sort dry and wet waste automatically', d:['cv']},
+  {t:'Answer students\' questions in their home language', d:['nlp']},
+  {t:'Find my lost things at home', d:['cv']},
+  {t:'Warn farmers before a pest attack', d:['data','cv']}
+];
+function renderFinale(){
+  if(!S.done.l8){ route('map'); return; }
+  var sel = {}; (S.idea && S.idea.d || []).forEach(function(d){ sel[d] = true; });
+  stage.innerHTML =
+    '<div class="lvl-head"><button class="btn" data-nav="map" type="button">← Map</button><div class="t"><span class="kicker">Finale</span><h2>🎓 Invent Your Own AI</h2></div></div>'+
+    '<div class="card no-print">'+
+      '<p>Real AI starts with a <b>real problem</b>. Think about your home, school or town. What could an AI help with?</p>'+
+      '<label class="gtitle mt" for="pb" style="display:block">1. The problem I want to solve</label>'+
+      '<textarea class="input" id="pb" maxlength="160" placeholder="e.g. Kids in my class forget to drink water">'+esc(S.idea?S.idea.p:'')+'</textarea>'+
+      '<div class="chips"><span class="muted" style="font-size:.85rem; align-self:center">Need an idea?</span>'+PROBLEMS.map(function(p, k){ return '<button type="button" class="btn" data-pp="'+k+'">'+p.t+'</button>'; }).join('')+'</div>'+
+      '<span class="gtitle mt" style="display:block">2. Superpowers it needs</span>'+
+      '<div class="toggles" style="justify-content:flex-start; margin-top:0">'+['data','cv','nlp'].map(function(d){ return '<button type="button" class="btn '+d+'" aria-pressed="'+!!sel[d]+'" data-d="'+d+'">'+DOM[d].icon+' '+DOM[d].short+'</button>'; }).join('')+'</div>'+
+      '<label class="gtitle mt" for="dt" style="display:block">3. What data would it learn from?</label>'+
+      '<input class="input" id="dt" maxlength="120" placeholder="e.g. Photos of water bottles, times kids drink water" value="'+esc(S.idea?S.idea.data:'')+'">'+
+      '<label class="gtitle mt" for="an" style="display:block">4. Give your AI a cool name</label>'+
+      '<input class="input" id="an" maxlength="30" placeholder="e.g. AquaBuddy" value="'+esc(S.idea?S.idea.n:'')+'">'+
+      '<button class="btn primary big mt2" id="mk" type="button" style="width:100%">✨ Create my AI idea card</button>'+
+    '</div>'+
+    '<div id="out"></div>';
+  $$('[data-d]').forEach(function(b){ b.onclick = function(){ var d = b.getAttribute('data-d'); sel[d] = !sel[d]; b.setAttribute('aria-pressed', !!sel[d]); beep('click'); }; });
+  $$('[data-pp]').forEach(function(b){ b.onclick = function(){ var p = PROBLEMS[+b.getAttribute('data-pp')]; $('#pb').value = p.t; sel = {}; p.d.forEach(function(d){ sel[d] = true; }); $$('[data-d]').forEach(function(x){ x.setAttribute('aria-pressed', !!sel[x.getAttribute('data-d')]); }); beep('click'); }; });
+  $('#mk').onclick = function(e){
+    var p = $('#pb').value.trim(), dt = $('#dt').value.trim(), n = $('#an').value.trim() || 'My AI';
+    var ds = ['data','cv','nlp'].filter(function(d){ return sel[d]; });
+    if(!p){ toast('Write the problem first (step 1)!'); $('#pb').focus(); return; }
+    if(!ds.length){ toast('Pick at least one superpower (step 2)!'); return; }
+    if(!dt){ toast('Every AI needs data — fill in step 3!'); $('#dt').focus(); return; }
+    var firstTime = !S.idea;
+    S.idea = {p:p, d:ds, data:dt, n:n}; save();
+    if(firstTime) addXP(50, e);
+    beep('win'); confetti();
+    showOut();
+  };
+  if(S.idea) showOut();
+  function showOut(){
+    var id = S.idea, date = new Date().toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'});
+    $('#out').innerHTML =
+      '<div class="idea mt2 pop"><span class="kicker">AI idea card</span><h3>🤖 '+esc(id.n)+'</h3>'+
+        '<dl><dt>Problem</dt><dd>'+esc(id.p)+'</dd><dt>Superpowers</dt><dd>'+id.d.map(tag).join(' ')+'</dd><dt>Learns from</dt><dd>'+esc(id.data)+'</dd><dt>Inventor</dt><dd>'+S.avatar+' '+esc(S.name)+'</dd></dl></div>'+
+      '<div class="cert mt2">'+
+        '<div class="seal">🏆</div><span class="kicker">AI Kids Lab</span>'+
+        '<h2>Certificate of AI Reflection</h2>'+
+        '<p class="mt">This certifies that</p><div class="nm">'+esc(S.name)+'</div>'+
+        '<p>has completed the <b>AI Reflection Quest</b>, earning <b>'+S.xp+' XP</b> and the rank of <b>'+rankOf(S.xp).name+'</b>,<br>and has mastered the three domains of AI.</p>'+
+        '<div class="bdg" aria-label="Badges earned">'+LEVELS.map(function(l){ return S.done[l.id] ? l.badge.icon : ''; }).join('')+'</div>'+
+        '<div class="recap">'+
+          '<div class="data"><b>🔢 Data</b>AI that <b>counts & predicts</b> from records. <i>Weather, recommendations, fraud alerts.</i></div>'+
+          '<div class="cv"><b>👁️ Computer Vision</b>AI that <b>sees</b> pictures as pixels. <i>Face unlock, self-driving cars, crop doctors.</i></div>'+
+          '<div class="nlp"><b>💬 NLP</b>AI that <b>talks & understands</b> language. <i>Translators, voice assistants, chatbots.</i></div>'+
+        '</div>'+
+        '<p class="muted mt">Inventor of <b>'+esc(id.n)+'</b> · '+date+'</p>'+
+      '</div>'+
+      '<div class="row mt2 no-print" style="justify-content:center"><button class="btn primary big" id="pr" type="button">🖨️ Print / save certificate</button><button class="btn big" data-nav="map" type="button">🗺️ Back to map</button></div>'+
+      '<div class="card mt2 no-print"><h3>🪞 Reflect</h3><p class="muted">Talk about these with a friend or write them in your notebook:</p><ol style="margin:10px 0 0 20px; display:grid; gap:6px"><li>Which AI did you use <b>today</b>, and which domain was it?</li><li>What could go wrong if <b>'+esc(id.n)+'</b> learned from bad or unfair data?</li><li>Which domain surprised you the most — and why?</li></ol></div>';
+    $('#pr').onclick = function(){ window.print(); };
+    $('#out').scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'start'});
+  }
+}
+
+/* ===================================================================== */
+hud();
+route(S.name ? 'map' : 'intro');
+})();
+</script>
+</body>
+</html>
