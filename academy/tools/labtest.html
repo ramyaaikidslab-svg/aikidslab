@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab test harness</title>
+<link rel="stylesheet" href="../css/app.css">
+</head>
+<body>
+<main class="wrap">
+  <p class="small muted" id="info">Loading lab…</p>
+  <div class="stage mt"><div id="lab" class="lab"></div></div>
+  <pre id="log" class="console mt" aria-live="polite"></pre>
+</main>
+<script type="module">
+  import { rngFrom } from '../js/core/rng.js';
+  import { sfx, toast } from '../js/core/util.js';
+  import * as python from '../js/core/python.js';
+  import { loadPDF } from '../js/core/pdf.js';
+  const id = new URLSearchParams(location.search).get('lab');
+  const log = m => { document.getElementById('log').textContent += m + '\n'; window.__labLog = (window.__labLog || []).concat(m); };
+  window.__completeCount = 0;
+  try {
+    const mod = (await import(`../js/labs/${id}.js`)).default;
+    document.getElementById('info').textContent = 'Lab: ' + id + ' — ' + mod.title;
+    const data = {};
+    const ctx = {
+      el: document.getElementById('lab'), rng: rngFrom('test-seed', id), user: { name: 'Test Learner' },
+      data, save() { log('save ' + JSON.stringify(data).length + ' bytes'); }, done: false,
+      complete(summary) { window.__completeCount++; log('COMPLETE: ' + summary); },
+      sfx, toast, python, pdf: loadPDF
+    };
+    window.__cleanup = mod.mount(ctx);
+    log('mounted');
+  } catch (e) { log('ERROR ' + e.stack); }
+</script>
+</body>
+</html>

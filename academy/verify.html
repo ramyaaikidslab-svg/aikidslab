@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#15171C">
+<title>Verify a Certificate · AI Kids Lab Academy</title>
+<meta name="description" content="Check that an AI Kids Lab Academy certificate is genuine.">
+<link rel="icon" href="../favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="./"><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="6" y="6" width="88" height="88" rx="14"/><rect x="34" y="34" width="32" height="32" rx="8"/><rect x="44" y="44" width="12" height="12" rx="3"/></svg><b>AI Kids Lab</b><span>Academy</span></a></div></header>
+<main class="wrap auth">
+  <div class="card" style="width:min(100%,520px)">
+    <div class="kicker">Certificate check</div>
+    <h1>Verify a certificate</h1>
+    <form class="stack mt2" id="f">
+      <div class="field"><label for="id">Certificate ID</label><input class="input mono" id="id" placeholder="AIKL-T1A2B3C4" autocomplete="off" required></div>
+      <button class="btn primary big block" type="submit">Check</button>
+      <div id="out" aria-live="polite"></div>
+    </form>
+  </div>
+</main>
+<script type="module">
+  import CFG from './js/config.js';
+  const out = document.getElementById('out'), inp = document.getElementById('id');
+  const q = new URLSearchParams(location.search).get('id'); if (q) inp.value = q;
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  async function check() {
+    const id = inp.value.trim().toUpperCase();
+    if (!/^AIKL-[A-Z0-9]{8}$/.test(id)) { out.innerHTML = '<div class="fb bad">That doesn\'t look like a certificate ID. It starts with AIKL- followed by 8 letters/numbers.</div>'; return; }
+    if (!CFG.BACKEND_URL) { out.innerHTML = '<div class="fb bad">Online verification isn\'t switched on for this Academy yet.</div>'; return; }
+    out.innerHTML = '<p class="muted">Checking…</p>';
+    try {
+      const r = await (await fetch(CFG.BACKEND_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'verify', id }) })).json();
+      out.innerHTML = r.ok
+        ? `<div class="fb good"><div class="h">✓ Genuine certificate</div><div><b>${esc(r.name)}</b> earned <b>${esc(r.title)}</b> on ${new Date(r.issuedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}.</div><div class="small">ID ${esc(r.id)}</div></div>`
+        : '<div class="fb bad"><div class="h">Not found</div><div>No certificate with this ID is on record. Check the ID for typos.</div></div>';
+    } catch (e) { out.innerHTML = '<div class="fb bad">Could not reach the verification service. Try again later.</div>'; }
+  }
+  document.getElementById('f').onsubmit = e => { e.preventDefault(); check(); };
+  if (q) check();
+</script>
+</body>
+</html>
