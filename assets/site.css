@@ -137,6 +137,51 @@
   .nav-cta:hover, .navlinks a.nav-cta:hover{background:transparent; color:var(--gold);}
   .nav-cta .short{display:none;}
   @media (max-width:1040px){ .navlinks a:not(.nav-cta){display:none;} }
+  /* The free gamified lesson stays in the header at every width; the
+     other text links collapse below 1040px. */
+  .navlinks a.nav-play{color:var(--gold); display:inline-flex; align-items:center; gap:8px;}
+  .navlinks a.nav-play:hover{color:var(--gold-bright);}
+  .navlinks a.nav-play[aria-current="page"]::after{right:0;}
+  .nav-play .short{display:none;}
+  .free-tag{font-family:var(--mono); font-size:0.6rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; background:var(--gold); color:var(--ink); padding:2px 6px; border-radius:var(--r); line-height:1.4;}
+  @media (max-width:1040px){ .navlinks{gap:18px;} .navlinks a.nav-play{display:inline-flex;} }
+  @media (max-width:560px){
+    .navlinks{gap:12px;}
+    .nav-play .full, .nav-play .free-tag{display:none;}
+    .nav-play .short{display:inline;}
+    .navlinks a.nav-play{font-size:0.86rem; font-weight:600; padding-bottom:0;}
+    .navlinks a.nav-play::after{display:none;}
+    /* On phones WhatsApp moves into the menu; the floating button stays. */
+    .navlinks a.nav-cta{display:none;}
+  }
+
+  /* ---------- MOBILE MENU ----------
+     Built by site.js from the header's own links, so every page gets it
+     without its markup changing. Shown below 1040px, where the inline
+     text links are hidden. */
+  .nav-toggle{
+    display:none; width:42px; height:42px; flex-shrink:0; cursor:pointer;
+    background:none; border:1px solid var(--line-dark-strong); border-radius:var(--r);
+    flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  }
+  .nav-toggle span{display:block; width:18px; height:2px; background:var(--paper); transition:transform .3s var(--ease), opacity .2s;}
+  .nav-toggle:hover{border-color:var(--gold);}
+  header.menu-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  header.menu-open .nav-toggle span:nth-child(2){opacity:0;}
+  header.menu-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  .mobile-menu{background:var(--ink); border-top:1px solid var(--line-dark); max-height:calc(100vh - 66px); overflow-y:auto;}
+  .mobile-menu .wrap{display:flex; flex-direction:column; padding-top:6px; padding-bottom:22px;}
+  .mobile-menu a{color:var(--paper-dim); font-size:1.02rem; padding:15px 0; border-bottom:1px solid var(--line-dark); transition:color .2s;}
+  .mobile-menu a:hover, .mobile-menu a[aria-current="page"]{color:var(--paper);}
+  .mobile-menu a.nav-play{color:var(--gold); display:flex; align-items:center; gap:10px;}
+  .mobile-menu .nav-play .full, .mobile-menu .nav-play .free-tag{display:inline;}
+  .mobile-menu .nav-play .short{display:none;}
+  .mobile-menu a.menu-cta{
+    margin-top:20px; border:1px solid var(--gold); background:var(--gold); color:#1A1305;
+    text-align:center; font-weight:600; font-size:0.95rem; border-radius:var(--r); padding:14px 18px;
+  }
+  @media (max-width:1040px){ .nav-toggle{display:inline-flex;} }
+  @media (min-width:1041px){ .mobile-menu{display:none !important;} }
   @media (max-width:560px){
     .nav-cta .full{display:none;}
     .nav-cta .short{display:inline;}
