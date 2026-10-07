@@ -113,7 +113,8 @@ export default {
     function wheel(x, y, r) { g.fillStyle = '#15171C'; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.fillStyle = '#B9BEC6'; g.beginPath(); g.arc(x, y, r * .45, 0, 7); g.fill(); }
     function vehicle(v, x, base) {
       const c = COLS.find(q => q.k === v.col), dir = v.lane === 0 ? 1 : -1;
-      g.save(); g.translate(x, base); g.scale(dir, 1);
+      const sc = W > 700 ? 1.15 : 1;
+      g.save(); g.translate(x, base); g.scale(dir * sc, sc);
       g.lineWidth = 2; g.strokeStyle = '#15171C';
       if (v.type === 'car') {
         g.fillStyle = c.fill;
@@ -142,7 +143,7 @@ export default {
       g.fillStyle = '#8E949C'; g.fillRect(0, roadT, W, roadB - roadT);
       g.strokeStyle = '#FFF'; g.lineWidth = 3; g.setLineDash([18, 14]); g.beginPath(); g.moveTo(0, (roadT + roadB) / 2); g.lineTo(W, (roadT + roadB) / 2); g.stroke(); g.setLineDash([]);
       // vehicles
-      const bases = [roadT + (roadB - roadT) * .45, roadB - 4];
+      const bases = [roadT + (roadB - roadT) * .42, roadB - 4];
       [0, 1].forEach(lane => TR.list.forEach(v => {
         if (v.lane !== lane) return;
         const p = (simT - v.t) / LANE_T[lane];
