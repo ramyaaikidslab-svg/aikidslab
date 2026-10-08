@@ -106,3 +106,42 @@ function toggleFaq(el){
   });
   window.addEventListener('resize', function(){ if(window.innerWidth > 1040 && !panel.hidden) set(false); }, {passive:true});
 })();
+
+/* Quick checks inside blog posts. Markup: <div class="qc" data-qc> with
+   option buttons (the right one carries data-ok, each carries data-why)
+   and a .qc-fb paragraph; an optional [data-qc-tally] shows the score. */
+(function(){
+  var boxes = document.querySelectorAll('[data-qc]');
+  if(!boxes.length) return;
+  var right = 0, done = 0, total = boxes.length;
+  var tally = document.querySelector('[data-qc-tally]');
+  function updateTally(){
+    if(!tally) return;
+    tally.hidden = false;
+    var score = tally.querySelector('[data-qc-score]');
+    if(score) score.textContent = right + ' of ' + done + (done < total ? ' so far' : '') + ' \u00b7 ' + (right * 10) + ' XP';
+  }
+  Array.prototype.forEach.call(boxes, function(box){
+    var fb = box.querySelector('.qc-fb');
+    var opts = box.querySelectorAll('.qc-opts button');
+    Array.prototype.forEach.call(opts, function(b){
+      b.addEventListener('click', function(){
+        if(box.classList.contains('answered')) return;
+        box.classList.add('answered'); done++;
+        var ok = b.hasAttribute('data-ok');
+        Array.prototype.forEach.call(opts, function(x){
+          x.disabled = true;
+          if(x.hasAttribute('data-ok')) x.classList.add('right');
+        });
+        if(ok) right++; else b.classList.add('wrong');
+        fb.textContent = '';
+        var lead = document.createElement('span');
+        if(ok){ lead.className = 'gx-chip good'; lead.innerHTML = '<i class="fa-solid fa-check"></i>+10 XP'; }
+        else { lead.className = 'miss'; lead.textContent = 'Not quite.'; }
+        fb.appendChild(lead);
+        fb.appendChild(document.createTextNode(b.getAttribute('data-why') || ''));
+        updateTally();
+      });
+    });
+  });
+})();

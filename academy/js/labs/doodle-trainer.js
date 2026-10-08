@@ -248,7 +248,7 @@ export default {
         <p style="font-family:var(--head);font-weight:800;font-size:1.4rem">Draw a <span style="color:${COLS[want]}">${esc(D.classes[want])}</span></p>
         <p class="small" aria-live="polite">${last ? `Last one: you drew <b>${esc(D.classes[last[0]])}</b>, model said <b>${esc(D.classes[last[1]])}</b> ${last[0] === last[1] ? '✓' : '✗'}` : ''}</p>
         <div class="row"><button class="btn primary" id="dtSubmit" disabled>Submit drawing ${ic('arrow')}</button><button class="btn sm" id="dtQuit">Back to testing</button></div>`);
-      $('#dtPadH').textContent = `Test drawing ${i + 1}`;
+      $('#dtPadH').textContent = `Test ${i + 1} of ${evalList.length}: draw a ${D.classes[want]}`;
       $('#dtSubmit').onclick = () => {
         const bits = grab(); if (!bits) return;
         evalRes.push([want, predict(bits).pred]); ctx.sfx('tick');

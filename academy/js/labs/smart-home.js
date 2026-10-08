@@ -339,7 +339,7 @@ export default {
     }
 
     function updateProgress() {
-      $('#shCount').textContent = `Working commands: ${okCount} / ${GOAL_OK} · Intents used: ${used.size} / ${GOAL_INTENTS}`;
+      $('#shCount').textContent = `Working commands: ${okCount} / ${GOAL_OK} · Different intents: ${Math.min(used.size, GOAL_INTENTS)} / ${GOAL_INTENTS}`;
       const pct = (Math.min(okCount, GOAL_OK) / GOAL_OK) * 0.6 + (Math.min(used.size, GOAL_INTENTS) / GOAL_INTENTS) * 0.4;
       $('#shMeter').style.width = Math.round(pct * 100) + '%';
       $('#shUsed').innerHTML = INTENTS.filter(i => i !== 'None').map(i => `<span class="chip ${used.has(i) ? 'ok' : 'dim'}">${used.has(i) ? '✓ ' : ''}${i}</span>`).join('');

@@ -31,6 +31,7 @@ export function renderQuestion(item, el, { salt = 0, onAnswer, label = '' } = {}
       <div class="row"><button class="btn primary" data-check disabled>Check answer</button></div>
       <div class="qfb" aria-live="polite"></div>
     </div>`;
+  el.querySelectorAll('.stem table').forEach(tb => { const w = document.createElement('div'); w.className = 'tblwrap'; tb.before(w); w.appendChild(tb); });
   const body = el.querySelector('.qbody'), checkBtn = el.querySelector('[data-check]');
   const ready = v => { checkBtn.disabled = !v; };
 
@@ -62,8 +63,13 @@ export function renderQuestion(item, el, { salt = 0, onAnswer, label = '' } = {}
   } else if (type === 'match') {
     const rights = rng.shuffle(item.pairs.map(p => p[1]));
     state.ch = {};
-    body.innerHTML = `<div class="olist">${item.pairs.map((p, i) => `<div class="mrow" data-r="${i}"><span>${p[0]}</span><select class="input" data-m="${i}" aria-label="Match for ${esc(p[0].replace(/<[^>]+>/g, ''))}"><option value="">Choose…</option>${rights.map(r => `<option value="${esc(r)}">${esc(r.replace(/<[^>]+>/g, ''))}</option>`).join('')}</select></div>`).join('')}</div>`;
-    body.querySelectorAll('select').forEach(s => s.onchange = () => { state.ch[s.dataset.m] = s.value; ready(Object.values(state.ch).filter(Boolean).length === item.pairs.length); });
+    body.innerHTML = `<div class="olist">${item.pairs.map((p, i) => `<div class="mrow" data-r="${i}"><span>${p[0]}</span><select class="input" data-m="${i}" aria-label="Match for ${esc(p[0].replace(/<[^>]+>/g, ''))}"><option value="">Choose…</option>${rights.map(r => `<option value="${esc(r)}">${esc(r.replace(/<[^>]+>/g, ''))}</option>`).join('')}</select><small class="mpick" aria-hidden="true"></small></div>`).join('')}</div>`;
+    body.querySelectorAll('select').forEach(s => s.onchange = () => {
+      state.ch[s.dataset.m] = s.value;
+      // Phones cut long choices off in the closed dropdown, so echo the full text underneath.
+      const pick = s.nextElementSibling; if (pick) pick.textContent = s.value ? '\u2192 ' + s.options[s.selectedIndex].text : '';
+      ready(Object.values(state.ch).filter(Boolean).length === item.pairs.length);
+    });
   } else if (type === 'bins') {
     const items = rng.shuffle(item.items.map((x, i) => i)); state.ch = {};
     body.innerHTML = `<div class="olist">${items.map(i => `<div class="brow" data-r="${i}"><span>${item.items[i][0]}</span><span class="seg" role="group">${item.bins.map((b, k) => `<button data-i="${i}" data-b="${k}" aria-pressed="false">${b}</button>`).join('')}</span></div>`).join('')}</div>`;

@@ -410,7 +410,7 @@ answers = ["School runs ...", "The library ...", "The canteen ..."]</pre>
           html: `<p>This is Part D project 2 of your syllabus: <b>choose an issue linked to the Sustainable Development Goals</b> and work through it like an AI developer.</p>
 <ol class="flow"><li><b>Scope</b><span>Make a 4Ws problem canvas and write a problem statement.</span></li><li><b>Map</b><span>Find the data features and draw a system map of how they affect each other.</span></li><li><b>Visualise</b><span>Collect data, store it in a spreadsheet and show it in a chart.</span></li><li><b>Solve</b><span>Suggest an AI-enabled solution, as a prototype or as research work.</span></li></ol>
 <p>These are the first stages of the AI Project Cycle: Problem Scoping, Data Acquisition, Data Exploration, then planning the Modelling, Evaluation and Deployment.</p>
-<div class="key"><b>Key idea</b> At the end, the SDG Project lab turns your work into a 2-page PDF report.</div>`
+<div class="key"><b>Key idea</b> At the end, the SDG Project lab turns your work into a short PDF report (about 3 pages).</div>`
         },
         {
           kind: 'card',
@@ -630,7 +630,7 @@ answers = ["School runs ...", "The library ...", "The canteen ..."]</pre>
           kind: 'lab',
           lab: 'portfolio',
           title: 'Portfolio Builder',
-          intro: 'Fill in the templates and save at least 3 entries. Then download your portfolio as a PDF. It includes your SDG project if you have made one.'
+          intro: 'Fill in the templates and complete at least 3 entries, then download your portfolio as a PDF to finish this lab. It includes your SDG project if you have made one. For your CBSE portfolio (minimum 5 activities), aim to complete all 4 templates plus the SDG project.'
         },
         {
           kind: 'card',

@@ -66,6 +66,19 @@ const fmtDate = d => d.toLocaleDateString('en-IN', { day: 'numeric', month: 'lon
 
 /* ---------- lab ---------- */
 
+// Update a row of buttons in place (so a tap that lands during an update is not lost).
+function morph(box, html) {
+  const t = document.createElement('div'); t.innerHTML = html;
+  const a = [...box.children], b = [...t.children];
+  if (a.length !== b.length) { box.innerHTML = html; return; }
+  a.forEach((el, i) => {
+    const n = b[i];
+    [...el.attributes].forEach(x => { if (!n.hasAttribute(x.name)) el.removeAttribute(x.name); });
+    [...n.attributes].forEach(x => { if (el.getAttribute(x.name) !== x.value) el.setAttribute(x.name, x.value); });
+    if (el.innerHTML !== n.innerHTML) el.innerHTML = n.innerHTML;
+  });
+}
+
 export default {
   title: 'My AI Portfolio',
   mount(ctx) {
@@ -244,10 +257,10 @@ export default {
     const body = root.querySelector('#pfBody');
 
     function updateTabs() {
-      root.querySelector('#pfTabs').innerHTML = TABS.map(([k, n, icn]) => {
+      morph(root.querySelector('#pfTabs'), TABS.map(([k, n, icn]) => {
         const okk = READY[k] ? READY[k]() : (d.pdf && readyKeys().length >= 3);
         return `<button type="button" role="tab" class="pf-tab${okk ? ' ok' : ''}" data-tab="${k}" aria-selected="${d.tab === k}" aria-label="${n}${okk ? ' (complete)' : ''}">${okk ? ic('check') : ic(icn)}<span class="l">${n}</span></button>`;
-      }).join('');
+      }).join(''));
     }
     let tabT = 0;
     const updateTabsSoon = () => { clearTimeout(tabT); tabT = setTimeout(updateTabs, 250); };

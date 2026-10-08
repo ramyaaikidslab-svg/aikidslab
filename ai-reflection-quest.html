@@ -839,10 +839,10 @@ function runQuiz(cfg){
       var di = -1;
       for(k=0;k<st.redo.length;k++){ if(st.redo[k].due <= st.log.length){ di = k; break; } }
       if(di < 0) break;
-      r = st.redo.splice(di, 1)[0]; q = variant(r); if(!q) r = null;
+      r = st.redo.splice(di, 1)[0]; q = r.q || variant(r); if(!q) r = null;
     }
     while(!q && st.plan.length){ q = st.plan.shift(); }
-    while(!q && st.redo.length){ r = st.redo.shift(); q = variant(r); if(!q) r = null; }
+    while(!q && st.redo.length){ r = st.redo.shift(); q = r.q || variant(r); if(!q) r = null; }
     if(!q && cfg.mode === 'boss'){
       var spare = ALLQ.filter(function(x){ return !st.used[x.id]; });
       if(spare.length){ q = pick(spare); st.used[q.id] = true; }
@@ -935,9 +935,13 @@ function runQuiz(cfg){
     } else {
       openMiss(o.m, q.c, q.id);
       if((st.rc[o.m] || 0) < 2){
-        st.rc[o.m] = (st.rc[o.m] || 0) + 1;
-        st.redo.push({m:o.m, c:q.c, due:st.log.length + (cfg.mode==='review' ? 0 : boss ? 1 : 2), from:q.id});
-        requeued = true;
+        // Reserve the follow-up question now, so the promise below is always kept.
+        var vq = variant({m:o.m, c:q.c, from:q.id});
+        if(vq){
+          st.rc[o.m] = (st.rc[o.m] || 0) + 1;
+          st.redo.push({m:o.m, c:q.c, due:st.log.length + (cfg.mode==='review' ? 0 : boss ? 1 : 2), from:q.id, q:vq});
+          requeued = true;
+        }
       }
       if(boss){ st.hearts--; var hs = $('.hearts'); if(hs){ hs.textContent = '❤️'.repeat(Math.max(0,st.hearts))+'🤍'.repeat(3-Math.max(0,st.hearts)); hs.setAttribute('aria-label', st.hearts+' hearts left'); } }
       beep('bad');
@@ -945,7 +949,8 @@ function runQuiz(cfg){
       html = '<b>'+(boss ? '💔 Ouch!' : '❌ Not quite.')+'</b><br><span class="trap">⚠️ Trap: '+MISC[o.m].name+'</span>'+
         '<p>'+o.w+'</p>'+
         (whyMiss ? '' : '<p class="ans">✔ Answer: <b>'+right.t+'</b>'+(right.w ? ' — '+right.w : '')+'</p>')+
-        (requeued ? '<p class="redo-note">🔁 This idea will come back soon, with a different example.</p>' : '');
+        (requeued ? '<p class="redo-note">🔁 This idea will come back soon, with a different example.</p>'
+                  : '<p class="redo-note saved-note">📌 Saved to your mistake list. You\'ll get to fix it in a later review.</p>');
     }
     var more = st.plan.length || st.redo.length;
     var label = boss ? (st.hits >= BOSS_HITS ? 'Finish GLITCH →' : st.hearts <= 0 ? 'See what happened' : 'Next attack →')

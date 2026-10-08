@@ -156,7 +156,12 @@ export async function sync(opts = {}) {
   try {
     clearTimeout(syncT); syncT = null;
     const r = await backend.save(S.email, S.token, S.state, { ...opts, summary: summarise(S.state) });
-    if (r && r.ok) { setStatus('saved'); return true; }
+    if (r && r.ok) {
+      setStatus('saved');
+      // Certificates issued while offline are registered (for verify.html) once a save succeeds.
+      Object.values(S.state.certs || {}).filter(c => !c.synced).forEach(c => backend.cert(S.email, S.token, c).then(x => { if (x && x.ok) c.synced = 1; }).catch(() => {}));
+      return true;
+    }
     if (r && (r.error === 'bad_token' || r.error === 'not_allowed')) { setStatus('expired'); return false; }
     throw new Error(r && r.error || 'save failed');
   } catch (e) {

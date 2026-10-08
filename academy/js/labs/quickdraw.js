@@ -218,7 +218,7 @@ export default {
     function showGuesses(res) {
       lastRes = res;
       const top = res.ranked.slice(0, 3);
-      $('#qdLive').textContent = top.length ? `· AI: ${SNAME[top[0].id]} ${Math.round(top[0].score * 100)}%` : '';
+      $('#qdLive').textContent = top.length ? `${state === 'drawing' ? '· ' : ''}AI: ${SNAME[top[0].id]} ${Math.round(top[0].score * 100)}%` : '';
       $('#qdGuess').innerHTML = top.length ? top.map(r => `<div class="gbar ${r.id === target() ? 'hit' : ''}"><span>${esc(SNAME[r.id])}</span><div class="meter"><i style="width:${Math.round(r.score * 100)}%"></i></div><span>${Math.round(r.score * 100)}%</span></div>`).join('')
         : '<p class="small muted">Start drawing — guesses appear here.</p>';
       if (res.cand && top.length) {
