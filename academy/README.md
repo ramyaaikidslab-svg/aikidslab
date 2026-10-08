@@ -49,6 +49,13 @@ python3 tools/check_exercises.py   # every Python exercise solution runs; requir
 node tools/check_gens.mjs 1500     # generators: options distinct, Python answers match CPython
 node tools/mock-sheets.mjs test    # backend logic against a fake Google Sheet
 ```
+Browser end-to-end tests (Playwright; repo root served on :8765, Firebase emulators for the account tests, see `backend/FIREBASE.md`):
+```bash
+PW=$(npm root -g)/playwright node tools/labs-e2e.cjs mobile     # every lab played to completion (also: mobile360, desktop)
+PW=$(npm root -g)/playwright node tools/firebase-e2e.cjs        # accounts, rules, teacher dashboard, allowlist
+PW=$(npm root -g)/playwright node tools/course-e2e.cjs mobile   # sign-up + all 39 topics as a learner (also: desktop)
+PW=$(npm root -g)/playwright node tools/after-e2e.cjs           # after the course run: gym, certificates, verify, practical file, resume, PIN reset, teacher
+```
 Labs can be tried one at a time: `tools/labtest.html?lab=<id>` via a local server (`python3 -m http.server` from the repo root).
 
 ## Editing content
