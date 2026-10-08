@@ -143,8 +143,11 @@
   .navlinks a.nav-play:hover{color:var(--gold-bright);}
   .navlinks a.nav-play[aria-current="page"]::after{right:0;}
   .nav-play .short{display:none;}
+  /* Equal specificity with the rule above, so restate the hide for the bar. */
+  @media (max-width:1040px){ .navlinks a.nav-play{display:none;} }
   .free-tag{font-family:var(--mono); font-size:0.6rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; background:var(--gold); color:var(--ink); padding:2px 6px; border-radius:var(--r); line-height:1.4;}
-  @media (max-width:1040px){ .navlinks{gap:18px;} .navlinks a.nav-play{display:inline-flex;} }
+  /* Below 1040px the free lesson lives in the menu (first item) and in each page's hero, not in the bar. */
+  @media (max-width:1040px){ .navlinks{gap:18px;} }
   @media (max-width:560px){
     .navlinks{gap:12px;}
     .nav-play .full, .nav-play .free-tag{display:none;}
@@ -829,6 +832,7 @@
   @media (max-width:980px){.amplify{grid-template-columns:1fr 1fr;}}
   @media (max-width:560px){.amplify{grid-template-columns:1fr;}}
   .amp{padding:32px 28px; background:#fff;}
+  .amp.lead{grid-column:1/-1; background:var(--gold-wash);}
   .amp .n{display:block; font-family:var(--mono); font-size:0.66rem; letter-spacing:0.16em; color:var(--gold-ink); margin-bottom:16px;}
   .amp h3{font-size:1.1rem; font-weight:500; margin-bottom:10px;}
   .amp p{font-size:0.93rem; color:var(--muted);}
@@ -856,3 +860,120 @@
   .trust-cta:hover .trust-cta-main::after{transform:translateX(6px);}
   .trust-cta-sub{font-size:0.94rem; color:#5A4C2C; max-width:62ch;}
   @media (max-width:560px){ .trust-cta{padding:22px 20px;} }
+
+  /* ---------- GAMIFIED UI ----------
+     Small game motifs (XP, streaks, levels, badges) drawn in the site's own
+     palette, so the page reads "learning that feels like play" without
+     losing the editorial tone a school expects. */
+  .gx-chip{
+    display:inline-flex; align-items:center; gap:7px; white-space:nowrap;
+    font-family:var(--mono); font-size:0.68rem; font-weight:500; letter-spacing:0.08em; text-transform:uppercase;
+    padding:5px 11px; border-radius:100px; border:1px solid rgba(223,164,38,0.55);
+    background:rgba(223,164,38,0.10); color:var(--gold-ink);
+  }
+  .gx-chip i{font-size:0.92em; color:var(--gold);}
+  .gx-chip.dark{background:rgba(21,23,28,0.92); color:var(--paper); border-color:rgba(223,164,38,0.6);}
+  .gx-chip.good{background:#EAF6EE; color:#1F6B3A; border-color:#9ED3B0;} .gx-chip.good i{color:#1F8A4A;}
+  .gx-bar{height:8px; border-radius:100px; background:rgba(255,255,255,0.12); overflow:hidden;}
+  .gx-bar > span{display:block; height:100%; width:var(--w,60%); border-radius:inherit; background:linear-gradient(90deg,var(--gold),var(--gold-bright));}
+  .has-js .gx-bar.anim > span{animation:gxFill 2.4s var(--ease) .6s both;}
+  @keyframes gxFill{from{width:8%;} to{width:var(--w,60%);}}
+
+  /* Hero: a live-looking lesson card in front of a classroom photo */
+  .play-stage{position:relative; height:520px;}
+  .play-stage .stage-photo{position:absolute; top:0; left:0; width:70%; height:300px; border-radius:var(--r); overflow:hidden; border:1px solid var(--line-dark-strong); box-shadow:0 30px 60px -34px rgba(0,0,0,0.95);}
+  .play-stage .stage-photo img{width:100%; height:100%; object-fit:cover;}
+  .game-card{
+    position:absolute; right:0; bottom:0; width:80%; max-width:420px;
+    background:var(--paper); color:var(--ink); border-radius:14px; padding:18px 18px 16px;
+    border:1px solid rgba(223,164,38,0.55);
+    box-shadow:0 40px 80px -36px rgba(0,0,0,0.95), 0 0 0 6px rgba(223,164,38,0.10);
+  }
+  .gc-hud{display:flex; align-items:center; gap:10px; font-family:var(--mono); font-size:0.72rem; color:var(--muted);}
+  .gc-hud b{color:var(--ink); font-weight:600;}
+  .gc-hud .streak i{color:#E8590C;} .gc-hud .xp i{color:var(--gold);} .gc-hud .hearts{margin-left:auto; color:#D6336C; letter-spacing:2px;}
+  .gc-level{display:flex; justify-content:space-between; align-items:baseline; margin:12px 0 6px; font-family:var(--mono); font-size:0.64rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-ink);}
+  .game-card .gx-bar{background:var(--paper-2);}
+  .gc-q{font-family:var(--serif); font-size:1.12rem; line-height:1.3; margin:14px 0 12px;}
+  .gc-opts{display:grid; gap:8px;}
+  .gc-opt{display:flex; align-items:center; gap:10px; border:1px solid var(--line-strong); border-radius:10px; padding:9px 12px; font-size:0.9rem; background:#fff;}
+  .gc-opt .k{width:22px; height:22px; border-radius:6px; border:1px solid var(--line-strong); display:inline-flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:0.7rem; color:var(--muted); flex:none;}
+  .gc-opt.right{border-color:#2F9E5B; background:#EAF6EE;} .gc-opt.right .k{background:#2F9E5B; border-color:#2F9E5B; color:#fff;}
+  .gc-feedback{display:flex; align-items:center; gap:8px; margin-top:12px; font-size:0.84rem; color:#1F6B3A; font-weight:500;}
+  .gc-feedback .gx-chip{margin-left:auto;}
+  .float-chip{position:absolute; z-index:3; box-shadow:0 18px 30px -18px rgba(0,0,0,0.8);}
+  .float-chip.f1{left:-18px; top:104px;} .float-chip.f2{right:2%; top:24px;} .float-chip.f3{left:22px; top:-16px;}
+  .has-js .float-chip{animation:gxFloat 5s ease-in-out infinite;} .has-js .float-chip.f2{animation-delay:-1.6s;} .has-js .float-chip.f3{animation-delay:-3.2s;}
+  @keyframes gxFloat{0%,100%{transform:translateY(0);} 50%{transform:translateY(-7px);}}
+  @media (max-width:940px){ .play-stage{height:500px; max-width:560px;} }
+  @media (max-width:560px){
+    .play-stage{height:auto;}
+    .play-stage .stage-photo{position:relative; width:100%; height:180px;}
+    .game-card{position:relative; width:auto; max-width:none; margin:-48px 10px 0;}
+    .float-chip.f1, .float-chip.f3{display:none;}
+    .float-chip.f2{top:12px; right:12px;}
+  }
+
+  /* Hero: second call to action, the free lesson */
+  .btn-play{
+    display:inline-flex; align-items:center; gap:11px; background:var(--paper); color:var(--ink);
+    font-weight:600; padding:16px 22px; font-size:0.97rem; border:1px solid var(--paper); border-radius:var(--r);
+    transition:transform .3s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease);
+  }
+  .btn-play i{color:var(--gold-ink);}
+  .btn-play:hover{transform:translateY(-2px); background:#fff; box-shadow:0 16px 32px -18px rgba(255,255,255,0.55);}
+  .btn-play small{font-family:var(--mono); font-size:0.62rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-ink); border-left:1px solid var(--line-strong); padding-left:11px; font-weight:500;}
+  .hero-ctas{gap:12px;}
+  .hero-ctas .btn-wa{padding-left:24px; padding-right:24px;}
+  @media (max-width:560px){ .hero-ctas > a{width:100%; justify-content:center;} .hero{padding:56px 0 72px;} }
+
+  /* "Think Duolingo, for AI" section */
+  .loop-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px; counter-reset:loop;}
+  @media (max-width:980px){ .loop-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:560px){
+    .loop-grid{grid-template-columns:1fr; gap:14px;}
+    /* Compact on phones: the icon sits beside the text instead of above it */
+    .loop-card{padding:20px 18px 18px 84px;}
+    .loop-card .node{position:absolute; left:20px; top:22px; margin:0; width:42px; height:42px;}
+    .loop-card .gx-chip{margin-top:12px;}
+  }
+  .loop-card{position:relative; background:#fff; border:1px solid var(--line); border-radius:12px; padding:26px 22px 22px; transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);}
+  .loop-card:hover{transform:translateY(-3px); box-shadow:var(--shadow-lift); border-color:rgba(223,164,38,0.6);}
+  .loop-card .node{width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:var(--ink); color:var(--gold-bright); font-size:1.05rem; box-shadow:0 0 0 5px var(--gold-wash), 0 0 0 6px rgba(223,164,38,0.45); margin-bottom:20px;}
+  .loop-card h3{font-size:1.14rem; font-weight:600; margin-bottom:10px;}
+  .loop-card p{font-size:0.93rem; color:var(--muted); line-height:1.6;}
+  .loop-card .gx-chip{margin-top:16px;}
+  .loop-card::after{content:""; position:absolute; top:48px; right:-23px; width:24px; height:2px; background:repeating-linear-gradient(90deg,var(--gold) 0 5px,transparent 5px 9px);}
+  .loop-card:last-child::after{display:none;}
+  @media (max-width:980px){ .loop-card::after{display:none;} }
+  .play-showcase{margin-top:56px; display:grid; grid-template-columns:1.05fr 0.95fr; gap:0; border-radius:14px; overflow:hidden; background:var(--ink); color:var(--paper); border:1px solid rgba(223,164,38,0.45);}
+  @media (max-width:860px){ .play-showcase{grid-template-columns:1fr;} }
+  .play-showcase .shot{position:relative; min-height:300px; background:var(--ink-2);}
+  .play-showcase .shot img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  .play-showcase .shot .gx-chip{position:absolute; left:18px; top:18px;}
+  .play-showcase .txt{padding:40px 38px;}
+  @media (max-width:520px){ .play-showcase .txt{padding:30px 22px;} }
+  .play-showcase h3{font-size:clamp(1.5rem,2.6vw,1.95rem); font-weight:400; color:var(--paper);}
+  .play-showcase ul{list-style:none; margin:18px 0 26px; display:grid; gap:10px;}
+  .play-showcase li{display:flex; gap:12px; color:var(--paper-dim); font-size:0.96rem;}
+  .play-showcase li i{color:var(--gold); margin-top:5px; width:16px; text-align:center;}
+  .mech-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:34px;}
+
+  /* A thin ticker of game moments between sections */
+  .quest-ticker{background:var(--ink); border-top:1px solid rgba(223,164,38,0.25); border-bottom:1px solid rgba(223,164,38,0.25); overflow:hidden; padding:14px 0;}
+  .quest-ticker .track{display:flex; gap:14px; width:max-content;}
+  .has-js .quest-ticker .track{animation:gxTick 46s linear infinite;}
+  .quest-ticker:hover .track{animation-play-state:paused;}
+  @keyframes gxTick{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+
+  /* Model cards and rollout steps get a small game marker */
+  .model-card .gx-chip{margin-bottom:14px;}
+  .model-also{margin-top:38px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; color:var(--paper-dim); font-size:0.9rem;}
+  .model-also > span:first-child{font-family:var(--mono); font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--paper-faint); margin-right:4px;}
+  .step .lvl{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:0.66rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-ink); margin-bottom:10px;}
+  .step .lvl i{color:var(--gold);}
+  .board-note{margin:22px 0 44px; color:var(--muted); font-size:0.94rem;}
+
+  @media (prefers-reduced-motion: reduce){
+    .float-chip, .quest-ticker .track, .gx-bar.anim > span{animation:none !important;}
+  }
