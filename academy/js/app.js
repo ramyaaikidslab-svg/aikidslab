@@ -120,5 +120,7 @@ async function boot() {
 boot();
 
 // Keep the top bar's gym count fresh while the app is open.
-setInterval(() => { if (S.state && !$('.menu')) { const due = dueConcepts().length; const d = top.querySelector('.tpill .dot'); if ((due && !d) || (d && +d.textContent !== due) || (!due && d)) topbar(); } }, 60000);
+function refreshDue() { if (S.state && !$('.menu')) { const due = dueConcepts().length; const d = top.querySelector('.tpill .dot'); if ((due && !d) || (d && +d.textContent !== due) || (!due && d)) topbar(); } }
+setInterval(refreshDue, 60000);
+addEventListener('aikl-due', refreshDue);   // sent after a Mistake Gym session
 addEventListener('online', () => { if (S.state) sync(); });

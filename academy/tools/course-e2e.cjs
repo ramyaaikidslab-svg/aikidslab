@@ -181,7 +181,7 @@ async function runLab(page, labId, topicId) {
     try {
       await drv(page, { root: '[data-lab]', press, MOBILE, sleep, shot: n => MOBILE && shot(page, SHOTS + '/labs', labId + '-' + n), layout: w => checkLayout(page, `lab ${labId} ${w}`) });
       done = await page.waitForFunction(() => { const b = document.querySelector('.navrow [data-next]'); return b && !b.disabled; }, null, { timeout: 15000 }).then(() => true).catch(() => false);
-    } catch (e) { fails.push(`lab ${labId}: driver error ${String(e.message).split('\n')[0]}`); }
+    } catch (e) { fails.push(`lab ${labId}: driver error ${String(e.message).split('\n').slice(0, 3).join(' ')}`); }
   }
   await checkLayout(page, `lab ${labId} (end)`);
   if (MOBILE) await shot(page, SHOTS + '/labs', labId + '-end');

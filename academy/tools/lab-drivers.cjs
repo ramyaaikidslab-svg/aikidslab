@@ -20,9 +20,7 @@ async function tryUntil(page, h, optSel, done, max = 8) {
 
 // Draw a path on a canvas; pts are [x, y] in 0..1 of the canvas box.
 async function draw(page, sel, pts, steps = 4) {
-  const box = await page.locator(sel).first().boundingBox();
-  const P = ([x, y]) => [box.x + x * box.width, box.y + y * box.height];
-  await page.locator(sel).first().scrollIntoViewIfNeeded();
+  await page.locator(sel).first().evaluate(el => el.scrollIntoView({ block: 'center' }));   // clear of the sticky top bar
   const b2 = await page.locator(sel).first().boundingBox();
   const Q = ([x, y]) => [b2.x + x * b2.width, b2.y + y * b2.height];
   const [x0, y0] = Q(pts[0]);
@@ -31,7 +29,7 @@ async function draw(page, sel, pts, steps = 4) {
   await page.mouse.up();
 }
 async function tapAt(page, sel, x, y) {
-  await page.locator(sel).first().scrollIntoViewIfNeeded();
+  await page.locator(sel).first().evaluate(el => el.scrollIntoView({ block: 'center' }));
   const b = await page.locator(sel).first().boundingBox();
   await page.mouse.click(b.x + x * b.width, b.y + y * b.height);
 }
@@ -490,21 +488,28 @@ const SHAPES = {
 const jitter = (pts, k) => pts.map(([x, y], i) => [x + 0.03 * Math.sin(k * 7 + i), y + 0.03 * Math.cos(k * 5 + i)]);
 D['doodle-trainer'] = async (page, h) => {
   const r = h.root, cv = `${r} #dtCv`;
-  await page.fill(`${r} #dtN0`, 'Circle'); await page.fill(`${r} #dtN1`, 'Square'); await page.fill(`${r} #dtN2`, 'Zigzag');
-  await h.press(page, `${r} #dtNames button[type=submit]`);
-  for (let c = 0; c < 3; c++) for (let k = 0; k < 6; k++) {
-    await draw(page, cv, jitter(SHAPES[c](), k));
-    await h.press(page, `${r} [data-add="${c}"]`);
+  // The lab resumes where the learner left off, so work from whatever phase is on screen.
+  if (await vis(page, `${r} #dtN0`)) {
+    await page.fill(`${r} #dtN0`, 'Circle'); await page.fill(`${r} #dtN1`, 'Square'); await page.fill(`${r} #dtN2`, 'Zigzag');
+    await h.press(page, `${r} #dtNames button[type=submit]`);
   }
-  await h.shot('collected');
-  await h.press(page, `${r} #dtTrain`);
+  const names = await page.evaluate(root => [...document.querySelectorAll(root + ' .dt-class b')].map(b => b.textContent.trim()), r);
+  const shapeOf = n => ({ Circle: 0, Square: 1, Zigzag: 2 })[n] ?? 0;
+  if (await vis(page, `${r} [data-add]`)) {
+    for (let c = 0; c < 3; c++) {
+      const have = parseInt(await page.locator(`${r} .dt-class .chip`).nth(c).innerText(), 10) || 0;
+      for (let k = have; k < 6; k++) { await draw(page, cv, jitter(SHAPES[shapeOf(names[c])](), k)); await h.press(page, `${r} [data-add="${c}"]`); }
+    }
+    await h.shot('collected');
+    await h.press(page, `${r} #dtTrain`);
+  }
+  if (await vis(page, `${r} #dtQuit`)) await h.press(page, `${r} #dtQuit`);
   await page.waitForSelector(`${r} #dtEval`, { timeout: 5000 });
   await draw(page, cv, SHAPES[0]());
   await h.press(page, `${r} #dtEval`);
   for (let k = 0; k < 9; k++) {
-    const want = await txt(page, `${r} #dtRight p span`);
-    const c = ['Circle', 'Square', 'Zigzag'].indexOf(want.trim());
-    await draw(page, cv, jitter(SHAPES[c](), k + 11));
+    const want = (await txt(page, `${r} #dtRight p span`)).trim();
+    await draw(page, cv, jitter(SHAPES[shapeOf(want)](), k + 11));
     await h.press(page, `${r} #dtSubmit`);
   }
   await h.shot('result');
@@ -549,12 +554,15 @@ D['sdg-project'] = async (page, h) => {
 
 D.portfolio = async (page, h) => {
   const r = h.root;
+  await h.press(page, `${r} [data-tab="letter"]`);   // the lab reopens on the last tab used
   await h.press(page, `${r} [data-prompt="0"]`);
   await page.fill(`${r} [data-k="letter.t"]`, 'Dear future me, today I learned how AI learns from data and why fairness matters. I hope you still ask good questions and use AI kindly.');
   await h.press(page, `${r} [data-tab="home"]`);
-  for (let k = 0; k < 3; k++) {
+  for (let k = await count(page, `${r} [data-row]`); k < 3; k++) {   // the lab keeps earlier work, so add only what is missing
     await h.press(page, page.locator(`${r} [data-pal]`).nth(k));
     await h.press(page, `${r} [data-place="${k}"]`);
+  }
+  for (let k = 0; k < 3; k++) {
     await page.fill(`${r} [data-k="home.dev.${k}.u"]`, 'motion and time');
     await page.fill(`${r} [data-k="home.dev.${k}.dc"]`, 'when to switch on');
   }

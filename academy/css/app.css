@@ -243,6 +243,8 @@ pre.code, .codeblock{font-family:var(--mono); font-size:.92rem; line-height:1.55
 .mrow{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:10px; align-items:center; background:#fff; border:var(--b2); border-radius:12px; padding:8px 10px; font-weight:700;}
 .mrow.right{background:var(--good-wash); border-color:var(--good);} .mrow.wrong{background:var(--bad-wash); border-color:var(--bad);}
 @media (max-width:560px){ .mrow{grid-template-columns:1fr;} }
+.mpick{display:none;}
+@media (max-width:560px){ .mpick:not(:empty){display:block; font-weight:600; font-size:.88rem; color:var(--muted); line-height:1.35; margin-top:-2px;} }
 .brow{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; align-items:center; background:#fff; border:var(--b2); border-radius:12px; padding:8px 10px; font-weight:700;}
 .brow.right{background:var(--good-wash); border-color:var(--good);} .brow.wrong{background:var(--bad-wash); border-color:var(--bad);}
 @media (max-width:620px){ .brow{grid-template-columns:1fr;} }

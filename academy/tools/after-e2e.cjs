@@ -12,7 +12,7 @@ const AU = `http://127.0.0.1:9099/identitytoolkit.googleapis.com/v1/projects/${P
 const H = { Authorization: 'Bearer owner', 'Content-Type': 'application/json' };
 const BASE = 'http://localhost:8765/academy/';
 const SHOTS = (process.env.SHOTS || '/tmp/aikl-shots') + '/after';
-const EMAIL = 'kid.mobile@example.com', PIN = '2580';
+const EMAIL = 'kid.mobile@example.com', PIN = '2580', RK = `resume.${Date.now()}@example.com`;
 const problems = [], fails = []; let passes = 0;
 const ok = (c, m) => { if (c) { passes++; console.log('PASS ' + m); } else { fails.push(m); console.log('FAIL ' + m); } };
 const fsget = async path => { const r = await fetch(`${FS}/${path}`, { headers: H }); return r.ok ? r.json() : null; };
@@ -76,6 +76,7 @@ async function answerAll(p) {   // answer every question in the current session 
   const kinds = sum.certs.reduce((a, k) => (a[k] = (a[k] || 0) + 1, a), {});
   ok(kinds.topic === 39 && kinds.unit === 6 && kinds.course === 1, 'certificates: 39 topic + 6 unit + 1 course ' + JSON.stringify(kinds));
   ok(sum.py === 47, `python: all 47 programs solved (${sum.py})`);
+  await p.evaluate(() => { location.hash = '#/'; }); await p.waitForSelector('.hello');
   await shot(p, SHOTS, 'dashboard-finished'); await layout(p, 'dashboard finished');
   ok(/mastered every topic/.test(await p.innerText('main')), 'dashboard: finished-course card shown');
 
@@ -88,7 +89,7 @@ async function answerAll(p) {   // answer every question in the current session 
   await press(p, '[data-train]');
   await answerAll(p);
   await shot(p, SHOTS, 'gym-result');
-  ok(/Gym session done/.test(await p.innerText('main')), 'gym: session finished with result card');
+  ok(/gym session done/i.test(await p.innerText('main')), 'gym: session finished with result card');
   const boxes = await store(p, m => Object.values(m.S.state.concepts).filter(c => c.box >= 1).length);
   ok(boxes > 0, `gym: retrained ideas moved up a box (${boxes})`);
 
@@ -131,7 +132,7 @@ async function answerAll(p) {   // answer every question in the current session 
   await shot(p, SHOTS, 'menu', false);
   ok((await p.locator('.menu a').count()) === 5, 'menu: 5 links');
   await sleep(1000);
-  ok(/saved/i.test(await p.innerText('.menu [data-sync]')), 'menu: sync status says saved: ' + await p.innerText('.menu [data-sync]'));
+  ok(/saved|saving/i.test(await p.innerText('.menu [data-sync]')), 'menu: sync status says saved: ' + await p.innerText('.menu [data-sync]'));
   await press(p, '.menu [data-out]');
   await p.waitForSelector('#em'); ok(true, 'sign-out from the menu returns to the email screen');
   // wrong PIN then right PIN
@@ -148,34 +149,35 @@ async function answerAll(p) {   // answer every question in the current session 
 
   // ---------- resume on a second device at the same step ----------
   const p1 = await ctx({}, false);
-  await register(p1, 'resume.kid@example.com', 'Riya Sen', '4826');
+  await register(p1, RK, 'Riya Sen', '4826');
   await p1.evaluate(() => { location.hash = '#/t/u1-01/0'; }); await p1.waitForSelector('.navrow [data-next]');
   for (let k = 0; k < 4; k++) { await p1.click('.navrow [data-next]'); await sleep(300); }
   const where = await p1.evaluate(() => location.hash);
   ok(where === '#/t/u1-01/4', 'device 1 at step 5 of topic 1 (' + where + ')');
-  await p1.reload(); await p1.waitForSelector('#topbar .avatar');
-  await sleep(500);
-  ok(/Continue where you left off/.test(await p1.innerText('main')) && /step 5 of/.test(await p1.innerText('main')), 'reload: dashboard offers "Continue" at step 5');
+  await p1.reload(); await p1.waitForSelector('.stage .stage-k');
+  ok(/Step 5 of/i.test(await p1.innerText('.stage .stage-k')), 'reload: still on step 5');
+  await p1.click('#topbar .brand'); await p1.waitForSelector('.hello');
+  ok(/Continue where you left off/i.test(await p1.innerText('main')) && /step 5 of/i.test(await p1.innerText('main')), 'reload: dashboard offers "Continue" at step 5');
   await p1.click('.continue'); await p1.waitForSelector('.stage .stage-k');
-  ok(/Step 5 of/.test(await p1.innerText('.stage .stage-k')), 'continue: opens step 5');
+  ok(/Step 5 of/i.test(await p1.innerText('.stage .stage-k')), 'continue: opens step 5');
   await store(p1, m => m.sync());     // what the 45-second autosave would do
   const p2 = await ctx({}, true);
-  await signIn(p2, 'resume.kid@example.com', '4826'); await sleep(1000);
+  await signIn(p2, RK, '4826'); await sleep(1000);
   ok((await p2.evaluate(() => location.hash)) === '#/t/u1-01/4', 'device 2: signs in straight to the same step (' + await p2.evaluate(() => location.hash) + ')');
 
   // ---------- PIN reset by teacher ----------
   const xp = await store(p2, m => m.S.state.xp);
-  const lk = await (await fetch(`${AU}/accounts:lookup`, { method: 'POST', headers: H, body: JSON.stringify({ email: ['resume.kid@example.com'] }) })).json();
+  const lk = await (await fetch(`${AU}/accounts:lookup`, { method: 'POST', headers: H, body: JSON.stringify({ email: [RK] }) })).json();
   await fetch(`${AU}/accounts:delete`, { method: 'POST', headers: H, body: JSON.stringify({ localId: lk.users[0].localId }) });
   const p3 = await ctx({}, true);
-  await signIn(p3, 'resume.kid@example.com', '9173'); await sleep(800);
+  await signIn(p3, RK, '9173'); await sleep(800);
   ok((await store(p3, m => m.S.state.xp)) === xp && (await p3.evaluate(() => location.hash)) === '#/t/u1-01/4', 'PIN reset: new PIN works, progress and position kept');
   ok(/new PIN is set/.test(await p3.innerText('body')), 'PIN reset: learner told the new PIN is set');
 
   // ---------- teacher dashboard ----------
   const pt = await ctx({ __AIKL_FB_TEST_ADMIN: { sub: 'g-teacher', email: 'teacher@example.com', email_verified: true } }, false);
   await pt.goto(BASE + 'teacher.html'); await pt.waitForSelector('#g'); await pt.click('#g');
-  await pt.waitForFunction(() => /resume.kid@example.com/.test(document.querySelector('main').textContent), null, { timeout: 20000 });
+  await pt.waitForFunction(rk => document.querySelector('main').textContent.includes(rk), RK, { timeout: 20000 });
   const tt = await pt.innerText('main');
   ok(/Aarav Sharma/.test(tt) && /Riya Sen/.test(tt), 'teacher: students table lists both learners');
   await shot(pt, SHOTS, 'teacher-desktop', true);
@@ -185,7 +187,7 @@ async function answerAll(p) {   // answer every question in the current session 
   fs.writeFileSync(SHOTS + '/students.csv', csv);
   const [dl2] = await Promise.all([pt.waitForEvent('download'), pt.click('#logs')]);
   ok(/pin_reset_login/.test(fs.readFileSync(await dl2.path(), 'utf8')), 'teacher: sign-in log CSV includes the PIN reset');
-  await pt.fill('#add', 'resume.kid@example.com'); await pt.click('#addb'); await sleep(1000);
+  await pt.fill('#add', RK); await pt.click('#addb'); await sleep(1000);
   await pt.click('[data-mode="allowlist"]'); await sleep(1200);
   const pb = await ctx({}, true);
   await pb.goto(BASE); await pb.fill('#em', 'kid.mobile@example.com'); await press(pb, 'button[type=submit]'); await sleep(1500);

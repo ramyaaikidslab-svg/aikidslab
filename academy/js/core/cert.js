@@ -62,8 +62,10 @@ export async function drawCert(canvas, c) {
   x.fillText(c.kind === 'course' ? 'AI Ready — Class IX' : 'Certificate of Achievement', W / 2, 450);
   x.font = '700 40px "Nunito", sans-serif'; x.fillStyle = '#5B606A'; x.fillText('This certifies that', W / 2, 545);
   // name
-  x.font = '800 120px "Baloo 2", sans-serif'; x.fillStyle = '#15171C';
+  x.fillStyle = '#15171C';
   const name = c.name || S.state.profile.name;
+  let fs = 120;                              // shrink long names so they fit inside the frame
+  do { x.font = `800 ${fs}px "Baloo 2", sans-serif`; fs -= 6; } while (fs > 50 && x.measureText(name).width > 1560);
   x.fillText(name, W / 2, 680);
   const nw = Math.min(1300, x.measureText(name).width + 120);
   x.fillStyle = '#FFC800'; x.fillRect(W / 2 - nw / 2, 708, nw, 10);

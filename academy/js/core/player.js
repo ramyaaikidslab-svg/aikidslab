@@ -92,7 +92,10 @@ export function renderTopic(main, topicId, stepParam, nav) {
     stage.innerHTML = '';
     stage.appendChild(h(`<div class="stage-k">${ic(KIND_ICON[s.kind] || 'book', 'sm')} Step ${i + 1} of ${steps.length}</div>`));
     if (s.kind === 'card' || s.kind === 'project') {
-      stage.appendChild(h(`<div class="fade-in"><h3>${esc(s.title)}</h3><div class="lesson">${s.html}</div></div>`));
+      const card = h(`<div class="fade-in"><h3>${esc(s.title)}</h3><div class="lesson">${s.html}</div></div>`);
+      // Wide tables scroll sideways inside the card instead of stretching the page on phones.
+      card.querySelectorAll('table').forEach(tb => { if (!tb.parentElement.classList.contains('tblwrap')) { const w = document.createElement('div'); w.className = 'tblwrap'; tb.before(w); w.appendChild(tb); } });
+      stage.appendChild(card);
       stage.appendChild(navRow(true));
       if (i === steps.length - 1) { complete(i); maybeFinishCapstone(); }
     } else if (s.kind === 'check') {

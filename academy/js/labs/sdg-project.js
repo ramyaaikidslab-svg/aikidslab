@@ -210,6 +210,19 @@ const hexRgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
 
 /* ---------- lab ---------- */
 
+// Update a row of buttons in place (so a tap that lands during an update is not lost).
+function morph(box, html) {
+  const t = document.createElement('div'); t.innerHTML = html;
+  const a = [...box.children], b = [...t.children];
+  if (a.length !== b.length) { box.innerHTML = html; return; }
+  a.forEach((el, i) => {
+    const n = b[i];
+    [...el.attributes].forEach(x => { if (!n.hasAttribute(x.name)) el.removeAttribute(x.name); });
+    [...n.attributes].forEach(x => { if (el.getAttribute(x.name) !== x.value) el.setAttribute(x.name, x.value); });
+    if (el.innerHTML !== n.innerHTML) el.innerHTML = n.innerHTML;
+  });
+}
+
 export default {
   title: 'SDG Data Project: build an AI solution',
   mount(ctx) {
@@ -719,7 +732,7 @@ export default {
 
     function updateTabs() {
       const done = ok.map(f => f());
-      root.querySelector('#sdgTabs').innerHTML = STEPS.map(([sh, t], i) => `<button type="button" class="sdg-tab${done[i] ? ' ok' : ''}" data-go="${i}" ${i === d.step ? 'aria-current="step"' : ''} aria-label="Step ${i + 1}: ${esc(t)}${done[i] ? ' (done)' : ''}"><span class="n">${i + 1}${done[i] ? ic('check') : ''}</span><span class="l">${sh}</span></button>`).join('');
+      morph(root.querySelector('#sdgTabs'), STEPS.map(([sh, t], i) => `<button type="button" class="sdg-tab${done[i] ? ' ok' : ''}" data-go="${i}" ${i === d.step ? 'aria-current="step"' : ''} aria-label="Step ${i + 1}: ${esc(t)}${done[i] ? ' (done)' : ''}"><span class="n">${i + 1}${done[i] ? ic('check') : ''}</span><span class="l">${sh}</span></button>`).join(''));
       root.querySelector('#sdgMeter').style.width = Math.round(done.filter(Boolean).length / STEPS.length * 100) + '%';
     }
 

@@ -121,8 +121,9 @@ export function mountCode(el, ex, { onPass } = {}) {
       } else fail();
     } catch (e) {
       box.innerHTML = `<div class="test no">${ic('alert')}<div>Python is not available right now. Reload the page and try again.</div></div>`;
+    } finally {
+      btn.disabled = false;   // also after a syntax error (early return above), so the learner can fix it and check again
     }
-    btn.disabled = false;
   };
   function fail() {
     sfx('bad'); rec.tries = (rec.tries || 0) + 1; touch();
