@@ -75,7 +75,7 @@ function route() {
   closeModal(); $('.menu')?.remove();
   if (!S.state) {
     leavePlayer(); topbar();
-    authScreen(main, (isNew) => { topbar(); nav(isNew ? '#/' : (S.state.last && S.state.last !== '#/' ? S.state.last : '#/')); route(); });
+    authScreen(main, (isNew) => { topbar(); nav(isNew ? '#/' : (S.state.last && S.state.last !== '#/' ? S.state.last : '#/')); });
     return;
   }
   topbar();

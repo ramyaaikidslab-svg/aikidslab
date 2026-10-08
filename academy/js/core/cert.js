@@ -21,7 +21,7 @@ export function issue(kind, ref, title, extra = {}) {
   S.state.certs[id] = c;
   addXP(kind === 'topic' ? 100 : kind === 'unit' ? 300 : 1000);
   touch();
-  backend.cert(S.email, S.token, c).catch(() => {});
+  backend.cert(S.email, S.token, c).then(r => { if (r && r.ok) { c.synced = 1; touch(); } }).catch(() => {});
   return c;
 }
 
@@ -82,7 +82,7 @@ export async function drawCert(canvas, c) {
   x.fillText('Date: ' + fmtDate(c.at), 200, H - 210);
   x.fillText('Certificate ID: ' + c.id, 200, H - 160);
   x.textAlign = 'right'; x.fillStyle = '#5B606A'; x.font = '700 28px "Nunito", sans-serif';
-  x.fillText(CFG.BACKEND_URL ? 'Verify at ' + CFG.SITE.replace('https://', '') + '/academy/verify.html' : CFG.SITE.replace('https://', ''), W - 200, H - 160);
+  x.fillText(backend.kind !== 'local' ? 'Verify at ' + CFG.SITE.replace('https://', '') + '/academy/verify.html' : CFG.SITE.replace('https://', ''), W - 200, H - 160);
   x.font = '800 34px "Nunito", sans-serif'; x.fillStyle = '#15171C'; x.fillText(CFG.ORG, W - 200, H - 210);
   return canvas;
 }
