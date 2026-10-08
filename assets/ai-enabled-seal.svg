@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-label="AI-Enabled School, certified by AI Kids Lab, 2026 to 27">
+  <defs>
+    <path id="ringTop" d="M60 160 A100 100 0 0 1 260 160"/>
+    <path id="ringBot" d="M48 160 A112 112 0 0 0 272 160"/>
+  </defs>
+  <circle cx="160" cy="160" r="156" fill="#15171C"/>
+  <circle cx="160" cy="160" r="146" fill="none" stroke="#DFA426" stroke-width="2"/>
+  <circle cx="160" cy="160" r="122" fill="none" stroke="#DFA426" stroke-width="1" stroke-opacity="0.55"/>
+  <text font-family="IBM Plex Mono, ui-monospace, monospace" font-size="19" font-weight="500" letter-spacing="5" fill="#FFC800" text-anchor="middle"><textPath href="#ringTop" startOffset="50%">AI-ENABLED SCHOOL</textPath></text>
+  <text font-family="IBM Plex Mono, ui-monospace, monospace" font-size="15" letter-spacing="3" fill="#C4C7CE" text-anchor="middle"><textPath href="#ringBot" startOffset="50%">AI KIDS LAB · 2026–27</textPath></text>
+  <polygon points="160.00,90.00 175.27,103.01 195.00,99.38 201.72,118.28 220.62,125.00 216.99,144.73 230.00,160.00 216.99,175.27 220.62,195.00 201.72,201.72 195.00,220.62 175.27,216.99 160.00,230.00 144.73,216.99 125.00,220.62 118.28,201.72 99.38,195.00 103.01,175.27 90.00,160.00 103.01,144.73 99.38,125.00 118.28,118.28 125.00,99.38 144.73,103.01" fill="#DFA426" stroke="#DFA426" stroke-width="14" stroke-linejoin="round"/>
+  <path d="M128 162 L150 184 L194 138" fill="none" stroke="#15171C" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
