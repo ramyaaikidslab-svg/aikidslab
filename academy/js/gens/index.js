@@ -171,7 +171,7 @@ export const GENS = {
       }
       const right = frac(n, d), val = w => { const [x, y] = w.split('/').map(Number); return x / y; };
       const cands = [frac(Math.max(1, d - n), d), frac(n, d + n), frac(Math.min(n + 1, d), d), frac(Math.max(1, n - 1), d), `${d}/${n}`, '1/2', '1/3', '2/3', '1/4', '3/4', '1/5'];
-      const wrongs = uniq(cands).filter(w => Math.abs(val(w) - n / d) > 1e-9);
+      const wrongs = uniq(cands).filter(w => Math.abs(val(w) - n / d) > 1e-9 && val(w) > 0 && val(w) < 1);   // keep distractors that look like real probabilities (no 4/1 or 1/1)
       return { ...mcq(rng, right, rng.shuffle(wrongs)), d: 2, q, ex };
     }
   },

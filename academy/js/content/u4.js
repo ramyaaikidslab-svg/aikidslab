@@ -15,7 +15,7 @@ export default {
       'Classify different kinds of generative AI by the content they create',
       'Use clues and source-checking to judge whether an image is real or AI-generated'
     ],
-    hook: 'One of these two photos of a flooded street was never taken by any camera. Can you tell which?',
+    hook: 'Some viral photos of flooded streets were never taken by any camera. Could you tell which ones?',
     concepts: {
       'genai-def': 'What generative AI is',
       'genai-output': 'Kinds of content generative AI creates',
@@ -137,7 +137,7 @@ export default {
       'Compare generative AI with conventional AI',
       'Describe next-token prediction, GANs (generator and discriminator) and diffusion in simple terms'
     ],
-    hook: 'Your phone keyboard already guesses your next word. A chatbot does the same thing — billions of times better.',
+    hook: 'Your phone keyboard already guesses your next word. A chatbot does the same thing, trained on vastly more text.',
     concepts: {
       'genai-vs-conv': 'Generative AI vs conventional AI',
       'learn-patterns': 'Learning patterns from large data',
