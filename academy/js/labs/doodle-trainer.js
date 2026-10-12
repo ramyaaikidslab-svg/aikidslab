@@ -266,7 +266,7 @@ export default {
         <div class="tblwrap"><table class="tbl dt-cm"><caption class="small muted" style="caption-side:top;text-align:left;padding-bottom:6px">Confusion matrix: rows = what you drew (actual), columns = what the model said (predicted)</caption>
           <thead><tr><th><span class="tiny">actual ↓<br>predicted →</span></th>${D.classes.map(n => `<th>${esc(n)}</th>`).join('')}</tr></thead>
           <tbody>${cm.map((row, a) => `<tr><th scope="row" style="background:${COLS[a]}">${esc(D.classes[a])}</th>${row.map((v, p) => `<td class="${a === p ? 'diag' : v ? 'off' : ''}">${v}${a === p ? ' ✓' : ''}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
-        <div class="formula">Accuracy = correct ÷ total = ${right} ÷ ${evalRes.length} = ${acc}%</div>
+        <div class="formula">Accuracy = correct ÷ total × 100% = ${right} ÷ ${evalRes.length} × 100% ${right * 100 % evalRes.length ? '≈' : '='} ${acc}%</div>
         <p class="small">${acc === 100 ? 'Perfect on this test set! Try harder test drawings to see where it breaks.' : `Most mistakes: <b>${esc(D.classes[worst.c])}</b>. Adding more varied training drawings of it usually helps.`} Off-diagonal cells are mistakes; the green diagonal is correct.</p>
         <div class="row"><button class="btn sm" id="dtMore">Add training data</button><button class="btn sm" id="dtAgain">${ic('refresh')} Evaluate again</button></div>`, false);
       $('#dtMore').onclick = () => { phase = 'collect'; render(); };

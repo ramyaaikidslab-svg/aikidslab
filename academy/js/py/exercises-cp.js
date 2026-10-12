@@ -344,7 +344,7 @@ print("Bot: Goodbye! Have a great day.")
   {
     id: 'py-bot-7',
     topic: 'cp-02',
-    title: 'Final HelpBot: names, capitals and a tidy finish',
+    title: 'Final HelpBot: names, capital letters and a tidy finish',
     task: `<p>Your final version. Users type <code>Library</code>, <code>BYE</code> or <code>Where is the CANTEEN?</code> — a keyword rule written in small letters misses these. Fix it with the string method <code>.lower()</code>, which gives a copy of the text in small letters: <code>"Where is the LIBRARY".lower()</code> is <code>"where is the library"</code>.</p>
 <p>Start from step 6 and change only these parts:</p>
 <ol>

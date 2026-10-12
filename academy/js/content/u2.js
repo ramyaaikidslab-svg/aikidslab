@@ -378,7 +378,7 @@ export default {
 <div class="mini"><h4>📶 Careful on public Wi-Fi</h4><p>Avoid banking or typing passwords on station or café Wi-Fi.</p></div>
 <div class="mini"><h4>📲 Permissions &amp; backups</h4><p>A torch app doesn’t need your contacts. Back up important files.</p></div>
 </div>
-<p>If something goes wrong, tell a trusted adult quickly. In India, cyber fraud can be reported on the national helpline <b>1930</b> or at <code>cybercrime.gov.in</code>. CBSE has also published a <b>Cyber Safety</b> handbook, listed as a reference in your syllabus.</p>` },
+<p>If something goes wrong, tell a trusted adult quickly. In India, cyber fraud can be reported on the national helpline <b>1930</b> or at <code>cybercrime.gov.in</code>. CBSE has also published a <b>Cyber Safety</b> handbook for students.</p>` },
 
         { kind: 'check', concepts: ['best-practice'], n: 2 },
 
@@ -726,9 +726,9 @@ export default {
           a: 0, mis: { 2: 'Rainfall is measured, so it can be 212.7 mm. Being a number does not make data discrete.', 3: 'Both are numbers on which arithmetic makes sense, so both are quantitative.' },
           ex: 'Days are counted (discrete); rainfall is measured and can take decimal values (continuous).' },
         { id: 'u2-03-q18', c: 'discrete-continuous', t: 'mcq', d: 3, q: 'A weather station records every 10 minutes: air temperature, humidity in %, and the number of lightning strikes nearby. Which of these is discrete?',
-          o: ['The number of lightning strikes', 'The air temperature', 'The relative humidity in %', 'The exact time of each reading'],
+          o: ['The number of lightning strikes', 'The air temperature', 'The relative humidity in %', 'The wind speed in km/h'],
           a: 0, mis: { 2: 'Humidity is measured and can be 63.4%, so it is continuous even though it is a percentage.' },
-          ex: 'Lightning strikes are counted in whole numbers. Temperature, humidity and time are measured, so they are continuous.' },
+          ex: 'Lightning strikes are counted in whole numbers. Temperature, humidity and wind speed are measured, so they are continuous.' },
         { id: 'u2-03-q19', c: 'discrete-continuous', t: 'tf', d: 2, q: 'Continuous data can take any value within a range, including decimals such as 152.75 cm.',
           a: true, ex: 'True. Measured quantities like height can be as precise as the measuring tool allows.' },
         { id: 'u2-03-q20', c: 'discrete-continuous', t: 'mcq', d: 3, q: 'A school-bus app shows “Arriving in 4.5 min” and “Seats free: 12”. Which statement is correct?',
@@ -1251,9 +1251,9 @@ export default {
           o: ['Remove those 3 rows; very little data is lost', 'Delete the whole age column from the survey', 'Fill the 3 gaps with 0', 'Throw away the whole survey and start again'],
           a: 0, mis: { 1: 'Deleting the whole column loses 9,997 good values to fix 3 gaps.', 2: 'An age of 0 is wrong, not unknown, and pulls the average down.' },
           ex: 'When only a tiny share of rows have gaps, removing them loses almost nothing and keeps the data accurate.' },
-        { id: 'u2-05-q18', c: 'cleaning', t: 'mcq', d: 3, q: 'A dataset of monthly family incomes in a town includes one billionaire. Some incomes are missing. Which value is safer for filling the gaps?',
+        { id: 'u2-05-q18', c: 'cleaning', t: 'mcq', d: 3, q: 'A dataset of monthly family incomes in a town includes one extremely rich family that earns hundreds of times more than the rest. Some incomes are missing. Which value is safer for filling the gaps?',
           o: ['The median, because the extreme value barely affects it', 'The mean, because it uses every single value in the data', 'The largest income, to be generous', 'Zero, because the income is unknown'],
-          a: 0, mis: { 1: 'The billionaire would pull the mean far above what a typical family earns.', 3: 'Zero is a real income value, not “unknown”, and would distort results.' },
+          a: 0, mis: { 1: 'That one very rich family would pull the mean far above what a typical family earns.', 3: 'Zero is a real income value, not “unknown”, and would distort results.' },
           ex: 'The median is the middle value, so one huge income hardly changes it. The mean would be dragged up by the outlier.' },
         { id: 'u2-05-q19', c: 'cleaning', t: 'tf', d: 2, q: 'Filling every missing value with 0 is always a safe way to clean data.',
           a: false, ex: 'False. Zero is a real value. Using it for “unknown” can badly distort averages — think of a height of 0 cm.' },
@@ -1305,7 +1305,7 @@ export default {
           ex: 'Converting to percentages puts both sections on one scale, so the comparison is fair.' },
         { id: 'u2-05-q33', c: 'transform', t: 'tf', d: 2, q: 'Converting all temperatures in a dataset to °C before analysis is an example of data transformation.',
           a: true, ex: 'True. Unit conversion is part of data transformation, making all values consistent.' },
-        { id: 'u2-05-q34', c: 'transform', t: 'mcq', d: 2, q: 'A dataset has family income (in lakhs of rupees, large numbers) and number of children (small numbers). Why normalise both?',
+        { id: 'u2-05-q34', c: 'transform', t: 'mcq', d: 2, q: 'A dataset has family income in rupees (large numbers, such as 4,50,000) and number of children (small numbers, such as 2). Why normalise both?',
           o: ['So the big-number feature doesn’t dominate just because of scale', 'So that the two features end up with exactly the same values', 'So that the number of children becomes a decimal', 'So the dataset takes up less storage space'],
           a: 0, mis: { 1: 'Normalisation keeps each value’s position within its own range; it does not make the features identical.' },
           ex: 'Without scaling, a feature measured in big numbers can overpower others in a model simply because its numbers are larger.' },
@@ -1479,7 +1479,7 @@ export default {
           ex: 'First read the data, then describe the pattern, then explain it, and finally use it to decide.' },
         { id: 'u2-06-q05', c: 'interp-def', t: 'mcq', d: 3, q: 'After a “Healthy Week” poster campaign, canteen fruit sales rose from 40 to 65 a day. It is also mango season. Which is the most careful interpretation?',
           o: ['The campaign may have helped, but mango season could also explain it', 'The posters definitely caused every single extra fruit sale that week', 'The data shows nothing because posters cannot be measured', 'Fruit sales will now keep rising forever'],
-          a: 0, mis: { 1: 'Another explanation — mango season — is possible, so “definitely” goes beyond the evidence.', 3: 'Two weeks of data cannot support a prediction about forever.' },
+          a: 0, mis: { 1: 'Another explanation — mango season — is possible, so “definitely” goes beyond the evidence.', 3: 'One short before-and-after comparison cannot support a prediction about forever.' },
           ex: 'Good interpretation states what happened and suggests causes without claiming more than the data can prove.' },
         { id: 'u2-06-q06', c: 'interp-def', t: 'mcq', d: 1, q: 'What does good data interpretation produce?',
           o: ['Conclusions that can guide decisions', 'A longer list of raw numbers', 'A new password for the dataset', 'A larger file size'],
@@ -1577,10 +1577,10 @@ export default {
           ex: 'Raincoat sales rise before and during the monsoon and fall afterwards. Comparing with previous years would show the repeating pattern.' },
         { id: 'u2-06-q33', c: 'trends', t: 'tf', d: 2, q: 'One unusually high month is enough to call it an upward trend.',
           a: false, ex: 'False. A trend needs a consistent pattern over many time points. One spike could be a festival, an event or an error.' },
-        { id: 'u2-06-q34', c: 'trends', t: 'mcq', d: 3, q: 'A sweet shop compares its October (Diwali month) sales with its September sales and announces “huge growth”. What is a fairer comparison?',
-          o: ['Compare this October with last October', 'Compare October with the quietest month of the year', 'Compare only the most expensive sweets', 'Compare October with next January’s forecast'],
+        { id: 'u2-06-q34', c: 'trends', t: 'mcq', d: 3, q: 'A sweet shop compares its sales in the month of Diwali with the month before and announces “huge growth”. What is a fairer comparison?',
+          o: ['Compare this year’s Diwali month with last year’s Diwali month', 'Compare the Diwali month with the quietest month of the year', 'Compare only the most expensive sweets', 'Compare the Diwali month with next January’s forecast'],
           a: 0, mis: { 1: 'Comparing a festival month with the quietest month exaggerates the difference even more.' },
-          ex: 'Festival months are seasonal peaks. Comparing the same month across years shows real growth.' },
+          ex: 'Festival months are seasonal peaks. Comparing the same festival period across years shows real growth.' },
 
         // causation
         { id: 'u2-06-q35', c: 'causation', t: 'mcq', d: 1, q: 'When two variables are <b>correlated</b>, it means…',

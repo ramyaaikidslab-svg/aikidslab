@@ -24,7 +24,7 @@ const PROJECTS = {
       { q: 'How should the model be built?', o: [
         { t: 'Train a deep-learning model on the graded images so it learns the signs of diabetic retinopathy itself.', ok: 1, why: 'Correct. This is a learning-based approach: the machine finds the patterns from examples.' },
         { t: 'Write an if-else rule by hand for every possible retina photo that could ever be taken.', why: 'No one can write rules for every possible photo. Patterns this complex are learned from data.' },
-        { t: 'Make the model guess randomly, so that every patient has the same chance of being flagged.', why: 'Random guessing is not fair. It would miss sick patients. A model must learn from data.' }] },
+        { t: 'Make the model guess randomly, so that every patient has the same chance of being flagged.', why: 'Random guessing ignores what each photo shows, so it would miss sick patients. A model must learn from data.' }] },
       { q: 'How should the team evaluate the model?', o: [
         { t: 'Test it on retina images it has never seen and compare its answers with ophthalmologists\' grades, paying special attention to missed cases (False Negatives).', ok: 1, why: 'Yes. Testing data must be new to the model, and in health screening a False Negative (missing a sick eye) is the dangerous error.' },
         { t: 'Test it only on the images it was trained on, because those grades are already known to be correct.', why: 'The model has already seen those, so the score would look better than it really is. Use unseen testing data.' },
@@ -106,7 +106,7 @@ export default {
     const bothDone = () => prog.blind >= 6 && prog.edu >= 6;
 
     el.innerHTML = `<style>${CSS}</style>
-      <p class="lab-intro">Every AI project moves through six stages. Walk two real-world projects through the cycle: at each stage, pick what the team should do.</p>
+      <p class="lab-intro">Every AI project moves through six stages. Walk two projects, one real and one for you to plan, through the cycle: at each stage, pick what the team should do.</p>
       <div class="banner">${ic('target')}<div><b>Goal:</b> complete all 6 stages for <b>both</b> projects.${ctx.done ? ' <span class="chip ok">Already completed — replay any time</span>' : ''}</div></div>
       <div class="ptabs" id="tabs"></div>
       <div class="lab-grid">
@@ -181,7 +181,7 @@ export default {
       if (si >= 6) {
         const other = cur === 'blind' ? 'edu' : 'blind';
         QB.innerHTML = `<h4>${P.emoji} ${P.name}: all 6 stages done</h4>
-          <p>Deployment is not the end. Once the model is in use, the team <b>monitors</b> it and collects <b>feedback</b>, which sends them back to Problem Scoping to improve it. That is why it is drawn as a <b>cycle</b>.</p>
+          <p>Deployment is not the end. Once the model is in use, the team <b>monitors</b> it and collects <b>feedback</b>, which can send them back to an earlier stage, even Problem Scoping, to improve it. That is why it is drawn as a <b>cycle</b>.</p>
           <div class="row mt">${prog[other] < 6 ? `<button class="btn primary" id="goOther">${PROJECTS[other].emoji} Now try ${PROJECTS[other].name} ${ic('arrow')}</button>` : ''}
           <button class="btn sm" id="redo">${ic('refresh')} Walk this project again</button></div>`;
         const go = QB.querySelector('#goOther');

@@ -22,7 +22,7 @@ const DEV = {
   voice: { n: 'Voice assistant', dom: 'NLP', u: 'My spoken commands', dc: 'What I asked for, e.g. play music or set a reminder' },
   cam: { n: 'Security camera', dom: 'CV', u: 'Video of the front door', dc: 'Is this a family member or a stranger? Send an alert' },
   fan: { n: 'Smart fan / thermostat', dom: 'Data', u: 'Room temperature and who is in the room', dc: 'Fan speed or AC temperature' },
-  vac: { n: 'Robot vacuum', dom: 'CV', u: 'Distance sensors and a map of the floor', dc: 'Which path to clean next and how to avoid obstacles' },
+  vac: { n: 'Robot vacuum', dom: 'CV', u: 'Camera and distance sensors, and a map of the floor', dc: 'Which path to clean next and how to avoid obstacles' },
   fridge: { n: 'Smart fridge', dom: 'CV', u: 'Camera inside and weight of items', dc: 'Which food is running low; adds it to a shopping list' }
 };
 const ICONS = {

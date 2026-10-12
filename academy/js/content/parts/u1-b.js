@@ -264,7 +264,7 @@ else:
         mis: { 1: 'Computers store images easily, as grids of numbers.', 2: 'PIN codes stay the same; the problem is the variety of handwriting.', 3: 'Rules can handle digits; the problem is the endless styles of writing them.' },
         ex: 'Every person writes a “7” or a “4” a little differently. A learning-based model can learn these patterns from many labelled examples instead.' },
       { id: 'u1-07-q25', c: 'learning-based', t: 'mcq', d: 3,
-        q: 'A learning-based model sorts ripe and unripe tomatoes. It was trained only on red tomatoes from one farm. A farmer brings a variety that stays slightly green when ripe. What is most likely?',
+        q: 'A learning-based model sorts ripe and unripe tomatoes. It was trained only on photos of one variety from one farm, which always turns fully red when ripe. A farmer brings a variety that stays slightly green when ripe. What is most likely?',
         o: ['It makes more mistakes, because it never saw examples like these', 'It works perfectly, because learning-based models never make mistakes', 'It rewrites its own rules overnight without being given any new data', 'It switches itself into a rule-based model for the new tomatoes'],
         a: 0,
         mis: { 1: 'A learning-based model is only as good as its examples.', 2: 'It can adapt, but only when it is trained again with new examples.' },

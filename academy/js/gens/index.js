@@ -132,7 +132,7 @@ export const GENS = {
       const ctxt = rng.pick(['runs scored by a batter in her last matches', 'marks (out of 20) in weekly tests', 'minutes a bus was late each day', 'mangoes picked from each tree']);
       const which = rng.pick(['mean', 'median', 'mode', 'range']);
       const base = `Data — ${ctxt}: <b>${data.join(', ')}</b>.`;
-      if (which === 'mean') return { t: 'num', d: 2, tol: 0.05, q: `${base} Find the <b>mean</b> (to 1 decimal place).`, a: mean, ex: `Sum = ${sum}, count = ${n}, mean = ${sum} ÷ ${n} = ${mean}.` };
+      if (which === 'mean') return { t: 'num', d: 2, tol: 0.05, q: `${base} Find the <b>mean</b> (to 1 decimal place).`, a: mean, ex: `Sum = ${sum}, count = ${n}, mean = ${sum} ÷ ${n} ${Math.abs(mean * n - sum) > 1e-9 ? `≈ ${mean} (to 1 decimal place)` : `= ${mean}`}.` };
       if (which === 'median') return { t: 'num', d: 2, q: `${base} Find the <b>median</b>.`, a: median, ex: `Sorted: ${s.join(', ')}. ${n % 2 ? `The middle (position ${(n + 1) / 2}) value is ${median}.` : `Even count, so average the two middle values: (${s[n / 2 - 1]} + ${s[n / 2]}) ÷ 2 = ${median}.`}` };
       if (which === 'mode') return { t: 'num', d: 1, q: `${base} Find the <b>mode</b>.`, a: mode, ex: `${mode} appears twice; every other value appears once, so the mode is ${mode}.` };
       return { t: 'num', d: 1, q: `${base} Find the <b>range</b>.`, a: range, ex: `Range = highest − lowest = ${s[n - 1]} − ${s[0]} = ${range}.` };

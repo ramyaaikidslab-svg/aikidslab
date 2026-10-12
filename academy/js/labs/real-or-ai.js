@@ -139,7 +139,7 @@ const CARDS = [
     verify: 'Does this shop exist? Look it up on a map or find other photos of the same street.' },
   { art: 'earrings', verdict: 'ai', cap: 'Close-up from a portrait shared as “my cousin’s wedding photo”.',
     clues: ['The two earrings are completely different in shape, colour and metal.', 'She is wearing a bindi.', 'Her hair is dark.'],
-    why: 'Generators draw each side of a face separately and often forget that pairs (earrings, eyes, collars) should match.',
+    why: 'Image generators often fail to keep pairs consistent, so earrings, eyes or collar points that should match come out different.',
     caveat: 'Some people wear mismatched earrings on purpose, so this is a clue, not proof.',
     verify: 'Ask the person who shared it, or look for other photos from the same wedding.' },
   { art: 'mirror', verdict: 'ai', cap: 'A photo of a girl standing next to a mirror.',

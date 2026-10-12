@@ -30,7 +30,7 @@ export default {
           kind: 'card',
           title: 'What you will build',
           html: `<p>In Unit 1 you learnt that a <b>learning-based</b> model finds the rules itself from examples. Now you will make one.</p>
-<p>You will build an <b>image classifier</b>: a model that looks at a picture and says which group, or <b>class</b>, it belongs to. Think of an app that tells a tomato leaf from a diseased one, or a bin that tells paper from plastic.</p>
+<p>You will build an <b>image classifier</b>: a model that looks at a picture and says which group, or <b>class</b>, it belongs to. Think of an app that tells a healthy tomato leaf from a diseased one, or a bin that tells paper from plastic.</p>
 <div class="cols"><div class="mini"><h4>🖍️ In this app</h4><p>Draw doodles, train a model on them, test it and read its confusion matrix.</p></div><div class="mini"><h4>💻 At home or school</h4><p>Repeat the same steps with real photos in Teachable Machine.</p></div></div>
 <div class="key"><b>Key idea</b> This is Part D project 1 of your syllabus: “Create an AI model using tools like Teachable Machine or Machine Learning for Kids.”</div>`
         },
@@ -623,7 +623,7 @@ answers = ["School runs ...", "The library ...", "The canteen ..."]</pre>
         {
           kind: 'card',
           title: 'Ideas for each template',
-          html: `<div class="cols"><div class="mini"><h4>✉️ Letter to Future Self</h4><p>How might AI change your school, city and dream career in 10 years? What skills will you build? What worries you?</p></div><div class="mini"><h4>🏠 Smart Home Floor Plan</h4><p>Place AI devices in each room. Note the data each one uses and one privacy setting you would turn on.</p></div><div class="mini"><h4>📣 Future Job Advertisement</h4><p>Invent a job that AI could create, such as a drone-farming technician. List its duties, skills and the subjects to study.</p></div><div class="mini"><h4>🏥 AI in Different Sectors</h4><p>For health, farming, education, transport or banking, give one use of AI, one benefit, one risk and a link to an SDG.</p></div></div>`
+          html: `<div class="cols"><div class="mini"><h4>✉️ Letter to Future Self</h4><p>How might AI change your school, city and dream career by 2035? What skills will you build? What worries you?</p></div><div class="mini"><h4>🏠 Smart Home Floor Plan</h4><p>Place AI devices in each room. Note the data each one uses and one privacy setting you would turn on.</p></div><div class="mini"><h4>📣 Future Job Advertisement</h4><p>Invent a job that AI could create, such as a drone-farming technician. List its duties, skills and the subjects to study.</p></div><div class="mini"><h4>🏥 AI in Different Sectors</h4><p>For health, farming, education, transport or banking, give one use of AI, one benefit, one risk and a link to an SDG.</p></div></div>`
         },
         { kind: 'check', concepts: ['portfolio'], n: 2 },
         {
