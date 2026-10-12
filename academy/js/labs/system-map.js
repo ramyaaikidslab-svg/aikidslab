@@ -16,7 +16,7 @@ export const MAP1 = {
     { f: 'U', t: 'V', s: '-', why: 'More people taking buses and the metro → fewer vehicles on the road. They move in opposite directions, so −.' },
     { f: 'V', t: 'P', s: '+', why: 'More vehicles → more exhaust smoke → more air pollution. Same direction, so +.' },
     { f: 'T', t: 'P', s: '-', why: 'More trees trap dust and absorb gases → less air pollution. Opposite directions, so −.' },
-    { f: 'P', t: 'T', s: '-', why: 'More pollution damages trees → fewer healthy trees. Opposite, so −. With the arrow above, this makes a loop: less trees → more pollution → even fewer trees!' },
+    { f: 'P', t: 'T', s: '-', why: 'More pollution damages trees → fewer healthy trees. Opposite, so −. With the arrow above, this makes a loop: fewer trees → more pollution → even fewer trees!' },
     { f: 'P', t: 'B', s: '+', why: 'More air pollution → more people with asthma and coughs. Same direction, so +.' }
   ]
 };

@@ -350,7 +350,7 @@ export default {
     function finish() {
       if ($('#shDone').innerHTML) return;
       $('#shDone').innerHTML = `<div class="lab-done">${ic('check')}<div>${ctx.done && !completed && !(okCount >= GOAL_OK && used.size >= GOAL_INTENTS) ? 'Goal already met earlier — keep experimenting! ' : 'Goal met! '}
-        You saw how <b>Natural Language Processing (NLP)</b> turns language into action: the AI finds the <b>intent</b> (what you want) and the <b>entities</b> (which room, what level), then the house acts. Real tools like <b>Microsoft LUIS</b> learn this from many example sentences instead of hand-written rules.</div></div>`;
+        You saw how <b>Natural Language Processing (NLP)</b> turns language into action: the AI finds the <b>intent</b> (what you want) and the <b>entities</b> (which room, what level), then the house acts. Real tools like <b>Microsoft LUIS</b> (now replaced by Microsoft’s Conversational Language Understanding) learn this from many example sentences instead of hand-written rules.</div></div>`;
       if (!ctx.done && !completed && okCount >= GOAL_OK && used.size >= GOAL_INTENTS) {
         completed = true;
         ctx.sfx('win');

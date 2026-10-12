@@ -149,7 +149,7 @@ export function mountCode(el, ex, { onPass } = {}) {
   return () => py.pyState.listeners.delete(status);
 }
 
-const NODE_NAME = { For: 'a <code>for</code> loop', While: 'a <code>while</code> loop', If: 'an <code>if</code> statement', List: 'a list', Subscript: 'list indexing like <code>a[0]</code>', Slice: 'slicing like <code>a[1:3]</code>', AugAssign: 'a shortcut like <code>+=</code>', Compare: 'a comparison', BoolOp: '<code>and</code>/<code>or</code>' };
+const NODE_NAME = { For: 'a <code>for</code> loop', While: 'a <code>while</code> loop', If: 'an <code>if</code> statement', List: 'a list', Subscript: 'list indexing like <code>a[0]</code>', Slice: 'slicing like <code>a[1:3]</code>', AugAssign: 'a shortcut like <code>+=</code>', Compare: 'a comparison', BoolOp: '<code>and</code>/<code>or</code>', UnaryOp: 'a negative index such as <code>num[-1]</code>', BinOp: 'a calculation such as <code>a + b</code>' };
 
 const expCache = new Map();
 async function expected(id, solution, inputs) {

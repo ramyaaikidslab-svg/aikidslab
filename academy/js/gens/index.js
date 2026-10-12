@@ -51,8 +51,9 @@ const CONTEXTS_CM = [
   { what: 'an app that predicts whether it will rain in your town', pos: 'rain', neg: 'no rain' }
 ];
 function cmTable(c, tp, fn, fp, tn) {
-  return `<div class="tblwrap"><table class="tbl"><thead><tr><th></th><th>Predicted: ${c.pos}</th><th>Predicted: ${c.neg}</th></tr></thead>` +
-    `<tbody><tr><th>Actual: ${c.pos}</th><td>${tp}</td><td>${fn}</td></tr><tr><th>Actual: ${c.neg}</th><td>${fp}</td><td>${tn}</td></tr></tbody></table></div>`;
+  // CBSE layout: rows = Prediction, columns = Reality (actual).
+  return `<div class="tblwrap"><table class="tbl"><thead><tr><th></th><th>Reality: ${c.pos}</th><th>Reality: ${c.neg}</th></tr></thead>` +
+    `<tbody><tr><th>Prediction: ${c.pos}</th><td>${tp}</td><td>${fp}</td></tr><tr><th>Prediction: ${c.neg}</th><td>${fn}</td><td>${tn}</td></tr></tbody></table></div>`;
 }
 
 export const GENS = {
@@ -61,7 +62,7 @@ export const GENS = {
     make(rng) {
       const c = rng.pick(CONTEXTS_CM), tp = rng.int(8, 40), fn = rng.int(1, 12), fp = rng.int(1, 12), tn = rng.int(10, 45);
       const kind = rng.int(0, 3), table = cmTable(c, tp, fn, fp, tn);
-      const intro = `This confusion matrix shows ${c.what} (rows = actual, columns = predicted).${table}`;
+      const intro = `This confusion matrix shows ${c.what} (rows = Prediction, columns = Reality).${table}`;
       if (kind === 0) return { t: 'num', d: 2, q: `${intro}How many cases did the model predict as <b>${c.pos}</b>?`, a: tp + fp, ex: `Predicted ${c.pos} = True Positives + False Positives = ${tp} + ${fp} = ${tp + fp}.` };
       if (kind === 1) return { t: 'num', d: 2, q: `${intro}How many cases were <b>actually ${c.pos}</b>?`, a: tp + fn, ex: `Actually ${c.pos} = True Positives + False Negatives = ${tp} + ${fn} = ${tp + fn}.` };
       if (kind === 2) return { t: 'num', d: 2, q: `${intro}How many predictions were <b>correct</b>?`, a: tp + tn, ex: `Correct predictions are on the diagonal: TP + TN = ${tp} + ${tn} = ${tp + tn}.` };
@@ -79,7 +80,7 @@ export const GENS = {
       tp = rng.int(10, 50); fn = rng.int(1, 15); fp = rng.int(1, 15); tn = rng.int(10, 50); total = tp + fn + fp + tn;
       const acc = Math.round((tp + tn) / total * 1000) / 10;
       return { t: 'num', d: 2, tol: 0.05, unit: '%',
-        q: `Calculate the accuracy of ${c.what} (rows = actual, columns = predicted). Give the answer as a percentage to 1 decimal place.${cmTable(c, tp, fn, fp, tn)}`,
+        q: `Calculate the accuracy of ${c.what} (rows = Prediction, columns = Reality). Give the answer as a percentage to 1 decimal place.${cmTable(c, tp, fn, fp, tn)}`,
         a: acc, ex: `Accuracy = (TP + TN) ÷ total × 100 = (${tp} + ${tn}) ÷ ${total} × 100 = ${acc}%.` };
     }
   },
@@ -132,7 +133,7 @@ export const GENS = {
       const ctxt = rng.pick(['runs scored by a batter in her last matches', 'marks (out of 20) in weekly tests', 'minutes a bus was late each day', 'mangoes picked from each tree']);
       const which = rng.pick(['mean', 'median', 'mode', 'range']);
       const base = `Data — ${ctxt}: <b>${data.join(', ')}</b>.`;
-      if (which === 'mean') return { t: 'num', d: 2, tol: 0.05, q: `${base} Find the <b>mean</b> (to 1 decimal place).`, a: mean, ex: `Sum = ${sum}, count = ${n}, mean = ${sum} ÷ ${n} = ${mean}.` };
+      if (which === 'mean') return { t: 'num', d: 2, tol: 0.05, q: `${base} Find the <b>mean</b> (to 1 decimal place).`, a: mean, ex: `Sum = ${sum}, count = ${n}, mean = ${sum} ÷ ${n} ${Math.abs(mean * n - sum) > 1e-9 ? `≈ ${mean} (to 1 decimal place)` : `= ${mean}`}.` };
       if (which === 'median') return { t: 'num', d: 2, q: `${base} Find the <b>median</b>.`, a: median, ex: `Sorted: ${s.join(', ')}. ${n % 2 ? `The middle (position ${(n + 1) / 2}) value is ${median}.` : `Even count, so average the two middle values: (${s[n / 2 - 1]} + ${s[n / 2]}) ÷ 2 = ${median}.`}` };
       if (which === 'mode') return { t: 'num', d: 1, q: `${base} Find the <b>mode</b>.`, a: mode, ex: `${mode} appears twice; every other value appears once, so the mode is ${mode}.` };
       return { t: 'num', d: 1, q: `${base} Find the <b>range</b>.`, a: range, ex: `Range = highest − lowest = ${s[n - 1]} − ${s[0]} = ${range}.` };
@@ -171,7 +172,7 @@ export const GENS = {
       }
       const right = frac(n, d), val = w => { const [x, y] = w.split('/').map(Number); return x / y; };
       const cands = [frac(Math.max(1, d - n), d), frac(n, d + n), frac(Math.min(n + 1, d), d), frac(Math.max(1, n - 1), d), `${d}/${n}`, '1/2', '1/3', '2/3', '1/4', '3/4', '1/5'];
-      const wrongs = uniq(cands).filter(w => Math.abs(val(w) - n / d) > 1e-9);
+      const wrongs = uniq(cands).filter(w => Math.abs(val(w) - n / d) > 1e-9 && val(w) > 0 && val(w) < 1);   // keep distractors that look like real probabilities (no 4/1 or 1/1)
       return { ...mcq(rng, right, rng.shuffle(wrongs)), d: 2, q, ex };
     }
   },
@@ -265,9 +266,9 @@ export const GENS = {
       } else if (kind === 1) {
         const n = rng.int(3, 6), st = rng.pick([2, 3]);
         const vals = []; for (let i = 0; i < n * st; i += st) vals.push(i);
-        code = `for i in range(0, ${n * st}, ${st}):\n    print(i, end=" ")`; out = vals.join(' ');
-        wrongs = uniq([vals.concat(n * st).join(' '), vals.slice(1).join(' '), Array.from({ length: n }, (_, k) => k).join(' ')]).filter(w => w !== out);
-        ex = `range(0, ${n * st}, ${st}) starts at 0, adds ${st} each time, and stops before ${n * st}: ${out}.`;
+        code = `for i in range(0, ${n * st}, ${st}):\n    print(i)`; out = vals.join('\n');
+        wrongs = uniq([vals.concat(n * st).join('\n'), vals.slice(1).join('\n'), Array.from({ length: n }, (_, k) => k).join('\n')]).filter(w => w !== out);
+        ex = `range(0, ${n * st}, ${st}) starts at 0, adds ${st} each time, and stops before ${n * st}: ${vals.join(', ')}, each on its own line.`;
       } else {
         const x = rng.int(1, 3), lim = rng.pick([20, 30, 50, 100]);
         let v = x, c = 0; while (v < lim) { v *= 2; c++; }

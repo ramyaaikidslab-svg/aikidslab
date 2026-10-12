@@ -17,7 +17,7 @@ const FLAG_WHY = {
   generic: 'Your real bank knows your name. "Dear Customer" is sent to thousands of people at once.',
   urgent: 'Pressure ("today", "within 1 hour", "suspended") is meant to stop you from thinking or checking.',
   link: 'The real website is not this address. Fake sites copy the look of real ones to steal your details.',
-  askOtp: 'No bank or app ever asks for your OTP or PIN. Anyone who has them can empty your account.',
+  askOtp: 'No bank or app will ever ask you to share your OTP or PIN by message, call or link. Anyone who has them can empty your account.',
   prize: 'You cannot win a lucky draw you never entered.',
   fee: 'Genuine prizes and deliveries do not ask for a small "fee" through a link or UPI. That is how the money is stolen.'
 };

@@ -100,12 +100,12 @@ export default {
 
     function matrixHTML(counts, verified, caption) {
       const cell = (k, cls) => `<td class="${verified ? cls : ''}"><small>${k}</small><b>${counts[k]}</b><small>${NAME[k]}</small></td>`;
-      return `<table class="cm-mx" aria-label="Confusion matrix: rows are actual, columns are predicted">
+      return `<table class="cm-mx" aria-label="Confusion matrix: rows are the prediction, columns are reality (actual)">
         <caption class="small muted" style="caption-side:bottom;text-align:left;padding-top:4px">${caption}</caption>
-        <thead><tr><th class="ax" scope="col"></th><th class="ax" scope="colgroup" colspan="2">Predicted by the AI →</th></tr>
-        <tr><th class="ax" scope="col">Actual ↓</th><th scope="col">Predicted<br>Ripe</th><th scope="col">Predicted<br>Not ripe</th></tr></thead>
-        <tbody><tr><th scope="row">Actually<br>Ripe</th>${cell('TP', 't')}${cell('FN', 'f')}</tr>
-        <tr><th scope="row">Actually<br>Not ripe</th>${cell('FP', 'f')}${cell('TN', 't')}</tr></tbody></table>`;
+        <thead><tr><th class="ax" scope="col"></th><th class="ax" scope="colgroup" colspan="2">Reality (actual) →</th></tr>
+        <tr><th class="ax" scope="col">Prediction ↓</th><th scope="col">Really<br>Ripe</th><th scope="col">Really<br>Not ripe</th></tr></thead>
+        <tbody><tr><th scope="row">AI predicted<br>Ripe</th>${cell('TP', 't')}${cell('FP', 'f')}</tr>
+        <tr><th scope="row">AI predicted<br>Not ripe</th>${cell('FN', 'f')}${cell('TN', 't')}</tr></tbody></table>`;
     }
 
     function tally(arr) { const t = { TP: 0, FP: 0, TN: 0, FN: 0 }; arr.forEach(x => { if (x) t[x]++; }); return t; }

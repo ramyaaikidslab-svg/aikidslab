@@ -101,7 +101,7 @@ const DILEMMAS = [
       { n: 'Parent', v: 'A camera in my child\'s bedroom during a test feels like a lot.' }
     ],
     choices: [
-      { t: 'Automatically fail anyone the AI flags', v: { rules: 2 }, c: ['Strict and quick.', 'Innocent students with habits or disabilities could be punished.', 'No human checks the AI\'s decision, so no one is accountable.'] },
+      { t: 'Automatically fail anyone the AI flags', v: { rules: 1 }, c: ['Strict and quick.', 'Innocent students with habits or disabilities could be punished.', 'No human checks the AI\'s decision, so no one is accountable.'] },
       { t: 'Flag only; a teacher watches the clip before any decision', v: { fairness: 2 }, c: ['A human checks before anyone is punished.', 'Takes teachers\' time.', 'Students should know how flagging works (transparency).'] },
       { t: 'Switch the camera AI off and set open-book questions instead', v: { privacy: 2 }, c: ['No webcam recording in students\' homes.', 'Test questions must be redesigned to check understanding.', 'Some kinds of cheating may still be possible.'] }
     ]

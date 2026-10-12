@@ -49,7 +49,7 @@ export default {
 
     ctx.el.innerHTML = `<style>${CSS}</style>
       <div class="lab-gan-paint stack">
-        <p class="lab-intro">In <b>GAN Paint</b> you don’t draw pixels. You tell the AI <i>what</i> to put <i>where</i>, and the generator draws it. It also knows <b>context</b>: it will refuse to paint things where they never appear in real photos.</p>
+        <p class="lab-intro">In <b>GAN Paint</b> you don’t draw pixels. You tell the AI <i>what</i> to put <i>where</i>, and the generator draws it. It also knows <b>context</b>: it usually won’t paint things where they never appear in real photos.</p>
         ${ctx.done ? '<p class="chip ok">Already completed — replay any time</p>' : ''}
         <div class="row between"><b>Goal: use ${GOAL} different object brushes successfully</b><span class="chip gold" id="gpCount"></span></div>
         <div class="gp-brushes" role="group" aria-label="Brushes">${BRUSHES.map(b => `<button class="gp-brush" data-b="${b.k}" aria-pressed="${b.k === brush}"><span aria-hidden="true">${b.emoji}</span>${b.name}</button>`).join('')}</div>

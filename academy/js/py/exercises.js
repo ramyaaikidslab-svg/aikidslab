@@ -391,7 +391,7 @@ print("Perimeter =", perimeter)
     practical: 'INPUT',
     title: 'Area of a triangle',
     task: `<p><b>CBSE practical:</b> calculate the area of a triangle from its base and height.</p>
-<ol><li>Read the <b>base</b>, then the <b>height</b>, each with <code>float(input(...))</code> so decimals work. (Your question text can be any words, but keep numbers out of it.)</li>
+<ol><li>Read the <b>base</b>, then the <b>height</b>, each with <code>float(input(...))</code> so decimals work.</li>
 <li>Calculate <code>area = 0.5 * base * height</code>.</li>
 <li>Print one line. For base 10 and height 4:</li></ol>
 <pre class="code">Area of triangle = 20.0</pre>`,
@@ -421,7 +421,7 @@ print("Area of triangle =", area)
     practical: 'INPUT',
     title: 'Average marks of 3 subjects',
     task: `<p><b>CBSE practical:</b> calculate the average marks of 3 subjects.</p>
-<ol><li>Read the English, Maths and Science marks (whole numbers) in that order with <code>int(input(...))</code>. Keep numbers out of your question text.</li>
+<ol><li>Read the English, Maths and Science marks (whole numbers) in that order with <code>int(input(...))</code>.</li>
 <li>Find the <code>total</code> and the <code>average</code> (total ÷ 3). Round the average to 2 decimal places with <code>round(average, 2)</code>.</li>
 <li>Print two lines. For 80, 90 and 86:</li></ol>
 <pre class="code">Total = 256
@@ -579,7 +579,7 @@ else:
     starter: `marks = int(input("Enter marks out of 100: "))
 # Use if / elif / else to find the grade
 `,
-    tests: [{ inputs: ['95'] }, { inputs: ['82'] }, { inputs: ['75'] }, { inputs: ['60'] }, { inputs: ['45'] }, { inputs: ['12'] }],
+    tests: [{ inputs: ['95'] }, { inputs: ['90'] }, { inputs: ['82'] }, { inputs: ['75'] }, { inputs: ['60'] }, { inputs: ['45'] }, { inputs: ['40'] }, { inputs: ['12'] }],
     match: 'exact',
     need: { calls: ['print'], nodes: ['If'] },
     hints: [
@@ -965,7 +965,7 @@ print("Sum =", total)
     practical: 'INPUT',
     title: 'Discounted amount',
     task: `<p><b>CBSE practical:</b> calculate the discounted amount with discount %.</p>
-<ol><li>Read the <b>price</b>, then the <b>discount percent</b>, each with <code>float(input(...))</code>. Keep numbers out of your question text.</li>
+<ol><li>Read the <b>price</b>, then the <b>discount percent</b>, each with <code>float(input(...))</code>.</li>
 <li><code>discount = price * discount_percent / 100</code> and <code>amount = price - discount</code>.</li>
 <li>Print two lines. For price 1200 and discount 10:</li></ol>
 <pre class="code">Discount = 120.0
@@ -999,7 +999,7 @@ print("Amount to pay =", amount)
     title: 'Surface area and volume of a cuboid',
     task: `<p><b>CBSE practical:</b> calculate the surface area and volume of a cuboid.</p>
 <div class="formula">Surface area = 2 × (l×b + b×h + h×l) &nbsp;·&nbsp; Volume = l × b × h</div>
-<ol><li>Read length, breadth and height in that order with <code>float(input(...))</code>. Keep numbers out of your question text.</li>
+<ol><li>Read length, breadth and height in that order with <code>float(input(...))</code>.</li>
 <li>Print two lines. For 5, 3 and 2:</li></ol>
 <pre class="code">Surface area = 62.0
 Volume = 30.0</pre>`,
@@ -1143,7 +1143,7 @@ print("Days above 50:", count)
     starter: `units = int(input("Units used: "))
 # Use if / elif / else to calculate bill, then print it
 `,
-    tests: [{ inputs: ['80'] }, { inputs: ['150'] }, { inputs: ['250'] }, { inputs: ['100'] }],
+    tests: [{ inputs: ['80'] }, { inputs: ['150'] }, { inputs: ['250'] }, { inputs: ['100'] }, { inputs: ['200'] }],
     match: 'exact',
     need: { calls: ['print'], nodes: ['If'] },
     hints: [

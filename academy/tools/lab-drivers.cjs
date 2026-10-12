@@ -200,7 +200,7 @@ D['confusion-matrix'] = async (page, h) => {
     await h.press(page, `${r} [data-i="0"][data-o="${said ? (really ? 'TP' : 'FP') : (really ? 'FN' : 'TN')}"]`);
     await h.press(page, `${r} #chk`);
   }
-  const vals = await page.evaluate(root => [...document.querySelectorAll(root + ' .cm-mx td b')].map(b => +b.textContent), r); // TP FN FP TN
+  const vals = await page.evaluate(root => [...document.querySelectorAll(root + ' .cm-mx td b')].map(b => +b.textContent), r); // TP FP FN TN (CBSE layout: rows = Prediction, columns = Reality)
   const acc = Math.round((vals[0] + vals[3]) / 12 * 1000) / 10;
   await page.fill(`${r} #accIn`, String(vals[0] + vals[3])); await h.press(page, `${r} #accBtn`);   // a common slip first
   await page.fill(`${r} #accIn`, acc.toFixed(1)); await h.press(page, `${r} #accBtn`);

@@ -1561,7 +1561,7 @@ MCQ('m3','dom-mix','💊','A health app reads a photo of a printed prescription 
   [['👁️ Only Vision','onedomain','Reading the photo is Vision, but writing reminders in another language is NLP.'],
    ['💬 Only NLP','onedomain','The words first have to be found in a photo: that part is Vision.'],
    ['👁️ Vision + 🔢 Data','gadget','Writing the reminder in the patient\'s language is a words job: NLP.']]);
-MCQ('m4','dom-mix','🚗','A self-driving car on a busy road',
+MCQ('m4','dom-mix','🚗','A self-driving car on a busy road: it watches the lanes and people, and plans its path by predicting what other vehicles will do',
   ['👁️ Vision + 🔢 Data','Cameras see lanes and people; it predicts what others will do and plans its path.'],
   [['👁️ Only Vision','onedomain','Seeing isn\'t enough. It must predict other drivers\' moves (Data).'],
    ['🔢 Only Data','onedomain','It must see the road first: Vision.'],
@@ -1687,7 +1687,7 @@ function runL1(lv, step){
     shell(lv, 'how',
       '<div class="card intro-card pop"><div class="big" aria-hidden="true">🤖</div><div>'+
         '<h3>Is every "smart" machine AI?</h3>'+
-        '<p>Lifts, timers, sensors, apps… lots of machines work <b>automatically</b>. Only some of them are <b>AI</b>. By the end of this level you\'ll have a test that never fails.</p>'+
+        '<p>Lifts, timers, sensors, apps… lots of machines work <b>automatically</b>. Only some of them are <b>AI</b>. By the end of this level you\'ll have a simple test you can use on any machine.</p>'+
       '</div></div>'+
       '<div class="hiw mt2"><span class="kicker">🔧 How it really works</span><h3>Rule-follower vs learner</h3>'+
         '<p><b>Predict first:</b> if you ask each machine the same thing three times, which one might give <b>different</b> answers?</p>'+
@@ -2348,7 +2348,7 @@ var SORT = [
   {e:'🛒', t:'"Customers who bought this also bought…"', d:'data'},
   {e:'🏏', t:'Showing which team will probably win the match', d:'data'},
   {e:'⚡', t:'Predicting how much electricity a city will need tonight', d:'data'},
-  {e:'🌦️', t:'Spotting which crops may sell for more next month from market prices', d:'data'},
+  {e:'🌾', t:'Predicting which crops may sell for more next month from market prices', d:'data'},
   {e:'📈', t:'Spotting which students may need extra help from their test scores', d:'data'},
   {e:'🔓', t:'Unlocking a phone with your face', d:'cv'},
   {e:'🍅', t:'A camera sorting good and bad tomatoes on a belt', d:'cv'},
@@ -2368,7 +2368,7 @@ var MASH = [
    why:{nlp:'It <b>understands your typed words</b>.', data:'It <b>predicts</b> what you\'ll buy from shopping data.'}},
   {e:'🍿', t:'"Top picks for you" on a streaming app', s:'A row of shows chosen just for you.', d:['data'],
    why:{data:'It <b>predicts</b> what you\'ll like from viewing history. Pure Data! No pictures or words needed.'}},
-  {e:'🌐', t:'Live captions on a video call', s:'Your teacher speaks Hindi and English subtitles appear.', d:['nlp'],
+  {e:'🌐', t:'Live captions on a video call', s:'Your teacher speaks in Hindi, and English subtitles appear.', d:['nlp'],
    why:{nlp:'Speech → text → translation: all <b>language</b> work. The video pictures aren\'t used.'}},
   {e:'👵', t:'A reading helper for Grandma', s:'Point the camera at a medicine label and it reads the words aloud in Tamil.', d:['cv','nlp'],
    why:{cv:'It <b>finds and reads the letters</b> in the camera image.', nlp:'It <b>translates and speaks</b> them in Tamil.'}}

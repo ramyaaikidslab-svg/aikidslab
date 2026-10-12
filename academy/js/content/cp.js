@@ -30,7 +30,7 @@ export default {
           kind: 'card',
           title: 'What you will build',
           html: `<p>In Unit 1 you learnt that a <b>learning-based</b> model finds the rules itself from examples. Now you will make one.</p>
-<p>You will build an <b>image classifier</b>: a model that looks at a picture and says which group, or <b>class</b>, it belongs to. Think of an app that tells a tomato leaf from a diseased one, or a bin that tells paper from plastic.</p>
+<p>You will build an <b>image classifier</b>: a model that looks at a picture and says which group, or <b>class</b>, it belongs to. Think of an app that tells a healthy tomato leaf from a diseased one, or a bin that tells paper from plastic.</p>
 <div class="cols"><div class="mini"><h4>🖍️ In this app</h4><p>Draw doodles, train a model on them, test it and read its confusion matrix.</p></div><div class="mini"><h4>💻 At home or school</h4><p>Repeat the same steps with real photos in Teachable Machine.</p></div></div>
 <div class="key"><b>Key idea</b> This is Part D project 1 of your syllabus: “Create an AI model using tools like Teachable Machine or Machine Learning for Kids.”</div>`
         },
@@ -84,8 +84,8 @@ export default {
         {
           kind: 'card',
           title: 'Reading your confusion matrix',
-          html: `<p>With 3 classes, the confusion matrix is a 3 × 3 table. Rows show what you <b>actually drew</b>. Columns show what the model <b>predicted</b>.</p>
-<table class="tbl"><thead><tr><th>Actual ↓ / Predicted →</th><th>Sun</th><th>Fish</th><th>House</th></tr></thead><tbody><tr><td><b>Sun</b></td><td>3</td><td>0</td><td>0</td></tr><tr><td><b>Fish</b></td><td>1</td><td>2</td><td>0</td></tr><tr><td><b>House</b></td><td>0</td><td>1</td><td>2</td></tr></tbody></table>
+          html: `<p>With 3 classes, the confusion matrix is a 3 × 3 table. As in CBSE’s 2 × 2 matrix, rows show what the model <b>predicted</b> and columns show what you <b>actually drew</b> (reality). Some tools, such as Teachable Machine, flip this, so always read the labels.</p>
+<table class="tbl"><thead><tr><th>Prediction ↓ / Reality →</th><th>Sun</th><th>Fish</th><th>House</th></tr></thead><tbody><tr><td><b>Sun</b></td><td>3</td><td>1</td><td>0</td></tr><tr><td><b>Fish</b></td><td>0</td><td>2</td><td>1</td></tr><tr><td><b>House</b></td><td>0</td><td>0</td><td>2</td></tr></tbody></table>
 <p>The <b>diagonal</b> (top-left to bottom-right) holds the correct predictions: 3 + 2 + 2 = 7 out of 9. Every other cell is a mistake, and it tells you <i>which</i> classes get mixed up.</p>
 <div class="formula">Accuracy = correct predictions ÷ total predictions × 100% = 7 ÷ 9 × 100% ≈ 77.8%</div>`
         },
@@ -151,11 +151,11 @@ export default {
         },
         {
           id: 'cp-01-q07', c: 'cp-eval', t: 'mcq', d: 2,
-          q: 'In a confusion matrix where rows are the actual class and columns are the predicted class, where are the <b>correct</b> predictions?',
+          q: 'In a confusion matrix where rows are the predicted class and columns are the actual class (reality), where are the <b>correct</b> predictions?',
           o: ['On the diagonal from top-left to bottom-right', 'In the first row only', 'In the last column only', 'In the cells outside the diagonal'],
           a: 0,
           mis: { 3: 'Cells outside the diagonal are where the actual and predicted classes differ, so they are mistakes.' },
-          ex: 'A diagonal cell has the same class for its row and its column: drawn as a fish and predicted as a fish. Every other cell shows a mix-up.'
+          ex: 'A diagonal cell has the same class for its row and its column: predicted as a fish and drawn as a fish. Every other cell shows a mix-up.'
         },
         {
           id: 'cp-01-q08', c: 'cp-eval', t: 'mcq', d: 3,
@@ -278,7 +278,7 @@ answers = ["School runs ...", "The library ...", "The canteen ..."]</pre>
 <tr><td><b>New wording</b></td><td>Fails unless a keyword matches</td><td>Can often handle wording it has not seen</td></tr>
 <tr><td><b>Needs</b></td><td>Someone to write every rule</td><td>Lots of example data and training</td></tr>
 <tr><td><b>Risk</b></td><td>Says “sorry” too often</td><td>Can give a confident but wrong answer</td></tr></tbody></table>
-<p>The smart-home lab in Unit 1 worked like a learning-based tool such as Microsoft LUIS: it found the <b>intent</b> and <b>entities</b> in a sentence. Generative AI chatbots such as ChatGPT and Gemini go further and write new replies from patterns learnt from huge amounts of text.</p>`
+<p>The smart-home lab in Unit 1 worked like a learning-based tool such as Microsoft LUIS (now replaced by Microsoft’s Conversational Language Understanding): it found the <b>intent</b> and <b>entities</b> in a sentence. Generative AI chatbots such as ChatGPT and Gemini go further and write new replies from patterns learnt from huge amounts of text.</p>`
         },
         { kind: 'check', concepts: ['bot-types'], n: 2 },
         {
@@ -623,7 +623,7 @@ answers = ["School runs ...", "The library ...", "The canteen ..."]</pre>
         {
           kind: 'card',
           title: 'Ideas for each template',
-          html: `<div class="cols"><div class="mini"><h4>✉️ Letter to Future Self</h4><p>How might AI change your school, city and dream career in 10 years? What skills will you build? What worries you?</p></div><div class="mini"><h4>🏠 Smart Home Floor Plan</h4><p>Place AI devices in each room. Note the data each one uses and one privacy setting you would turn on.</p></div><div class="mini"><h4>📣 Future Job Advertisement</h4><p>Invent a job that AI could create, such as a drone-farming technician. List its duties, skills and the subjects to study.</p></div><div class="mini"><h4>🏥 AI in Different Sectors</h4><p>For health, farming, education, transport or banking, give one use of AI, one benefit, one risk and a link to an SDG.</p></div></div>`
+          html: `<div class="cols"><div class="mini"><h4>✉️ Letter to Future Self</h4><p>How might AI change your school, city and dream career by 2035? What skills will you build? What worries you?</p></div><div class="mini"><h4>🏠 Smart Home Floor Plan</h4><p>Place AI devices in each room. Note the data each one uses and one privacy setting you would turn on.</p></div><div class="mini"><h4>📣 Future Job Advertisement</h4><p>Invent a job that AI could create, such as a drone-farming technician. List its duties, skills and the subjects to study.</p></div><div class="mini"><h4>🏥 AI in Different Sectors</h4><p>For health, farming, education, transport or banking, give one use of AI, one benefit, one risk and a link to an SDG.</p></div></div>`
         },
         { kind: 'check', concepts: ['portfolio'], n: 2 },
         {

@@ -1,5 +1,5 @@
 // Unit 1, part B: topics u1-07 to u1-11 (Modelling, Evaluation, Deployment, Ethics, Bias & Access).
-// Confusion-matrix layout used throughout: rows = Actual, columns = Predicted.
+// Confusion-matrix layout used throughout (CBSE): rows = Prediction, columns = Reality (actual).
 export default [
   // ───────────────────────────── u1-07 ─────────────────────────────
   {
@@ -264,7 +264,7 @@ else:
         mis: { 1: 'Computers store images easily, as grids of numbers.', 2: 'PIN codes stay the same; the problem is the variety of handwriting.', 3: 'Rules can handle digits; the problem is the endless styles of writing them.' },
         ex: 'Every person writes a “7” or a “4” a little differently. A learning-based model can learn these patterns from many labelled examples instead.' },
       { id: 'u1-07-q25', c: 'learning-based', t: 'mcq', d: 3,
-        q: 'A learning-based model sorts ripe and unripe tomatoes. It was trained only on red tomatoes from one farm. A farmer brings a variety that stays slightly green when ripe. What is most likely?',
+        q: 'A learning-based model sorts ripe and unripe tomatoes. It was trained only on photos of one variety from one farm, which always turns fully red when ripe. A farmer brings a variety that stays slightly green when ripe. What is most likely?',
         o: ['It makes more mistakes, because it never saw examples like these', 'It works perfectly, because learning-based models never make mistakes', 'It rewrites its own rules overnight without being given any new data', 'It switches itself into a rule-based model for the new tomatoes'],
         a: 0,
         mis: { 1: 'A learning-based model is only as good as its examples.', 2: 'It can adapt, but only when it is trained again with new examples.' },
@@ -402,17 +402,17 @@ else:
 <div class="key"><b>Key idea</b> Read the name backwards. The second word is what the model <b>predicted</b> (Positive = yes, Negative = no). The first word says whether that prediction was <b>right</b> (True) or <b>wrong</b> (False).</div>` },
       { kind: 'check', concepts: ['why-eval', 'four-outcomes'], n: 3 },
       { kind: 'card', title: 'The confusion matrix', html: `
-<p>A <b>confusion matrix</b> is a table that arranges the counts of TP, FN, FP and TN for a model in one place.</p>
-<p><b>Layout used in this course: rows = Actual (reality), columns = Predicted.</b></p>
+<p>A <b>confusion matrix</b> is a table that arranges the counts of TP, FP, FN and TN for a model in one place.</p>
+<p><b>Layout used in this course (the same as CBSE): rows = Prediction, columns = Reality (actual).</b></p>
 <div class="tblwrap"><table class="tbl">
-  <thead><tr><th>Rows: Actual · Columns: Predicted</th><th>Predicted Yes</th><th>Predicted No</th></tr></thead>
+  <thead><tr><th>Rows: Prediction · Columns: Reality</th><th>Reality Yes</th><th>Reality No</th></tr></thead>
   <tbody>
-    <tr><th>Actual Yes</th><td>TP</td><td>FN</td></tr>
-    <tr><th>Actual No</th><td>FP</td><td>TN</td></tr>
+    <tr><th>Prediction Yes</th><td>TP</td><td>FP</td></tr>
+    <tr><th>Prediction No</th><td>FN</td><td>TN</td></tr>
   </tbody>
 </table></div>
 <p>The diagonal (TP and TN) holds the <b>correct</b> predictions. The other two boxes hold the <b>mistakes</b>.</p>
-<div class="warn"><b>Careful</b> Some books put Predicted in the rows and Actual in the columns. Then FP and FN swap places. Always read the labels before reading the numbers.</div>` },
+<div class="warn"><b>Careful</b> This course uses CBSE’s layout. Some other books and websites flip it, with Reality in the rows and Prediction in the columns. Then FP and FN swap places. Always read the labels before reading the numbers.</div>` },
       { kind: 'card', title: 'Filling a matrix: 20 days of rain', html: `
 <p>Arjun tests his model on 20 new days it has never seen.</p>
 <ul>
@@ -420,10 +420,10 @@ else:
   <li>It stayed dry on <b>10</b> days. The model wrongly predicted rain on 3 and correctly said “no rain” on 7.</li>
 </ul>
 <div class="tblwrap"><table class="tbl">
-  <thead><tr><th>Rows: Actual · Columns: Predicted</th><th>Predicted Rain</th><th>Predicted No rain</th></tr></thead>
+  <thead><tr><th>Rows: Prediction · Columns: Reality</th><th>Reality Rain</th><th>Reality No rain</th></tr></thead>
   <tbody>
-    <tr><th>Actual Rain</th><td>TP = 8</td><td>FN = 2</td></tr>
-    <tr><th>Actual No rain</th><td>FP = 3</td><td>TN = 7</td></tr>
+    <tr><th>Prediction Rain</th><td>TP = 8</td><td>FP = 3</td></tr>
+    <tr><th>Prediction No rain</th><td>FN = 2</td><td>TN = 7</td></tr>
   </tbody>
 </table></div>
 <div class="eg"><b>Check</b> 8 + 2 + 3 + 7 = 20. The four boxes must always add up to the number of test cases.</div>` },
@@ -441,10 +441,10 @@ else:
       { kind: 'card', title: 'When accuracy fools you', html: `
 <p>A clinic tests a disease-screening model on <b>100</b> people. Only <b>5</b> really have the disease. The model is lazy: it says “No disease” for everyone.</p>
 <div class="tblwrap"><table class="tbl">
-  <thead><tr><th>Rows: Actual · Columns: Predicted</th><th>Predicted Disease</th><th>Predicted No disease</th></tr></thead>
+  <thead><tr><th>Rows: Prediction · Columns: Reality</th><th>Reality Disease</th><th>Reality No disease</th></tr></thead>
   <tbody>
-    <tr><th>Actual Disease</th><td>TP = 0</td><td>FN = 5</td></tr>
-    <tr><th>Actual No disease</th><td>FP = 0</td><td>TN = 95</td></tr>
+    <tr><th>Prediction Disease</th><td>TP = 0</td><td>FP = 0</td></tr>
+    <tr><th>Prediction No disease</th><td>FN = 5</td><td>TN = 95</td></tr>
   </tbody>
 </table></div>
 <p>Accuracy = (0 + 95) ÷ 100 × 100% = <b>95%</b>. It sounds excellent, but the model found <b>none</b> of the 5 sick people.</p>
@@ -575,43 +575,43 @@ else:
         q: 'How many boxes does the confusion matrix of a yes/no model have?',
         o: ['4', '2', '3', '6'],
         a: 0,
-        ex: 'One box for each outcome: TP, FN, FP and TN, arranged in 2 rows × 2 columns.' },
+        ex: 'One box for each outcome: TP, FP, FN and TN, arranged in 2 rows × 2 columns.' },
       { id: 'u1-08-q21', c: 'conf-matrix', t: 'mcq', d: 2,
-        q: 'Layout: <b>rows = Actual, columns = Predicted</b>.<table class="tbl"><thead><tr><th></th><th>Predicted Yes</th><th>Predicted No</th></tr></thead><tbody><tr><th>Actual Yes</th><td>30</td><td>5</td></tr><tr><th>Actual No</th><td>10</td><td>55</td></tr></tbody></table>How many <b>False Negatives</b> are there?',
+        q: 'Layout: <b>rows = Prediction, columns = Reality</b>.<table class="tbl"><thead><tr><th></th><th>Reality Yes</th><th>Reality No</th></tr></thead><tbody><tr><th>Prediction Yes</th><td>30</td><td>10</td></tr><tr><th>Prediction No</th><td>5</td><td>55</td></tr></tbody></table>How many <b>False Negatives</b> are there?',
         o: ['5', '10', '30', '55'],
         a: 0,
-        mis: { 1: '10 is in row Actual No, column Predicted Yes — that box is the False Positives.', 2: '30 is Actual Yes and Predicted Yes — the True Positives.', 3: '55 is Actual No and Predicted No — the True Negatives.' },
-        ex: 'A False Negative is Actual Yes but Predicted No: row Actual Yes, column Predicted No, which holds 5.' },
+        mis: { 1: '10 is in row Prediction Yes, column Reality No — that box is the False Positives.', 2: '30 is Prediction Yes and Reality Yes — the True Positives.', 3: '55 is Prediction No and Reality No — the True Negatives.' },
+        ex: 'A False Negative is Prediction No but Reality Yes: row Prediction No, column Reality Yes (bottom-left), which holds 5.' },
       { id: 'u1-08-q22', c: 'conf-matrix', t: 'num', d: 2,
-        q: 'Layout: <b>rows = Actual, columns = Predicted</b>.<table class="tbl"><thead><tr><th></th><th>Predicted Yes</th><th>Predicted No</th></tr></thead><tbody><tr><th>Actual Yes</th><td>30</td><td>5</td></tr><tr><th>Actual No</th><td>10</td><td>55</td></tr></tbody></table>How many test cases were there in total?',
+        q: 'Layout: <b>rows = Prediction, columns = Reality</b>.<table class="tbl"><thead><tr><th></th><th>Reality Yes</th><th>Reality No</th></tr></thead><tbody><tr><th>Prediction Yes</th><td>30</td><td>10</td></tr><tr><th>Prediction No</th><td>5</td><td>55</td></tr></tbody></table>How many test cases were there in total?',
         a: 100,
         ex: 'Every test case lands in exactly one box, so add all four: 30 + 5 + 10 + 55 = 100.' },
       { id: 'u1-08-q23', c: 'conf-matrix', t: 'mcq', d: 2,
-        q: 'In a confusion matrix with <b>rows = Actual and columns = Predicted</b>, where are the correct predictions?',
-        o: ['On the diagonal, from top-left to bottom-right', 'In the top row only: the boxes for Actual Yes', 'In the right column only: the boxes for Predicted No', 'On the other diagonal, from top-right to bottom-left'],
+        q: 'In a confusion matrix with <b>rows = Prediction and columns = Reality</b>, where are the correct predictions?',
+        o: ['On the diagonal, from top-left to bottom-right', 'In the top row only: the boxes for Prediction Yes', 'In the right column only: the boxes for Reality No', 'On the other diagonal, from top-right to bottom-left'],
         a: 0,
-        mis: { 1: 'The top row holds both TP (correct) and FN (a mistake).', 2: 'The Predicted No column holds both FN (a mistake) and TN (correct).', 3: 'The top-right and bottom-left boxes are FN and FP — the mistakes.' },
-        ex: 'The top-left box (Actual Yes, Predicted Yes) is TP and the bottom-right box (Actual No, Predicted No) is TN. That diagonal is where prediction matches reality; the other two boxes are the mistakes.' },
+        mis: { 1: 'The top row holds both TP (correct) and FP (a mistake).', 2: 'The Reality No column holds both FP (a mistake) and TN (correct).', 3: 'The top-right and bottom-left boxes are FP and FN — the mistakes.' },
+        ex: 'The top-left box (Prediction Yes, Reality Yes) is TP and the bottom-right box (Prediction No, Reality No) is TN. That diagonal is where prediction matches reality; the other two boxes are the mistakes.' },
       { id: 'u1-08-q24', c: 'conf-matrix', t: 'match', d: 2,
-        q: 'Layout: <b>rows = Actual, columns = Predicted</b>. Match each box to the outcome it holds.',
-        pairs: [['Row Actual Yes, column Predicted Yes', 'True Positive'], ['Row Actual Yes, column Predicted No', 'False Negative'], ['Row Actual No, column Predicted Yes', 'False Positive'], ['Row Actual No, column Predicted No', 'True Negative']],
-        ex: 'Read the row for reality and the column for the prediction. Matching yes/yes or no/no is True; a mismatch is False, named after the prediction.' },
+        q: 'Layout: <b>rows = Prediction, columns = Reality</b>. Match each box to the outcome it holds.',
+        pairs: [['Row Prediction Yes, column Reality Yes', 'True Positive'], ['Row Prediction Yes, column Reality No', 'False Positive'], ['Row Prediction No, column Reality Yes', 'False Negative'], ['Row Prediction No, column Reality No', 'True Negative']],
+        ex: 'Read the row for the prediction and the column for reality. Matching yes/yes or no/no is True; a mismatch is False, named after the prediction.' },
       { id: 'u1-08-q25', c: 'conf-matrix', t: 'mcq', d: 2,
-        q: 'Layout: <b>rows = Actual, columns = Predicted</b>.<table class="tbl"><thead><tr><th></th><th>Predicted Ripe</th><th>Predicted Unripe</th></tr></thead><tbody><tr><th>Actual Ripe</th><td>22</td><td>3</td></tr><tr><th>Actual Unripe</th><td>6</td><td>19</td></tr></tbody></table>How many <b>False Positives</b> are there?',
+        q: 'Layout: <b>rows = Prediction, columns = Reality</b>.<table class="tbl"><thead><tr><th></th><th>Reality Ripe</th><th>Reality Unripe</th></tr></thead><tbody><tr><th>Prediction Ripe</th><td>22</td><td>6</td></tr><tr><th>Prediction Unripe</th><td>3</td><td>19</td></tr></tbody></table>How many <b>False Positives</b> are there?',
         o: ['6', '3', '22', '19'],
         a: 0,
-        mis: { 1: '3 is Actual Ripe but Predicted Unripe — those are False Negatives.', 2: '22 is the True Positives: ripe and predicted ripe.', 3: '19 is the True Negatives: unripe and predicted unripe.' },
-        ex: 'A False Positive is predicted “Ripe” (positive) but actually unripe: row Actual Unripe, column Predicted Ripe, which holds 6.' },
+        mis: { 1: '3 is Prediction Unripe but Reality Ripe — those are False Negatives.', 2: '22 is the True Positives: ripe and predicted ripe.', 3: '19 is the True Negatives: unripe and predicted unripe.' },
+        ex: 'A False Positive is predicted “Ripe” (positive) but actually unripe: row Prediction Ripe, column Reality Unripe (top-right), which holds 6.' },
       { id: 'u1-08-q26', c: 'conf-matrix', t: 'num', d: 3,
         q: 'A mango-sorting model is tested on 50 mangoes. It predicted 20 ripe mangoes as ripe, 4 ripe mangoes as unripe, and 6 unripe mangoes as ripe. The rest were unripe mangoes correctly predicted as unripe. How many <b>True Negatives</b> are there?',
         a: 20,
         ex: 'TP = 20, FN = 4 and FP = 6 add up to 30. The four boxes must total 50, so TN = 50 − 30 = 20.' },
       { id: 'u1-08-q27', c: 'conf-matrix', t: 'mcq', d: 3,
-        q: 'Sana’s textbook draws the matrix with <b>Predicted in the rows and Actual in the columns</b>. Her teacher’s worksheet uses <b>Actual in the rows and Predicted in the columns</b>. What must she remember?',
-        o: ['The FP and FN boxes swap places, so always read the labels first', 'The counts change, so her accuracy will come out different', 'Only one layout is correct, so the textbook must be wrong', 'The TP and TN boxes swap places, so correct ones look wrong'],
+        q: 'Sana’s CBSE book (and this course) draws the matrix with <b>Prediction in the rows and Reality in the columns</b>. A website she finds uses <b>Reality in the rows and Prediction in the columns</b>. What must she remember?',
+        o: ['The FP and FN boxes swap places, so always read the labels first', 'The counts change, so her accuracy will come out different', 'Only one layout is correct, so the website must be wrong', 'The TP and TN boxes swap places, so correct ones look wrong'],
         a: 0,
         mis: { 1: 'The four counts stay the same, so accuracy does not change.', 2: 'Both layouts are used; neither is wrong if it is labelled.', 3: 'TP and TN stay on the diagonal in both layouts. It is FP and FN that swap.' },
-        ex: 'Swapping rows and columns keeps TP and TN on the diagonal but moves FP and FN into each other’s boxes. Reading the labels avoids mixing them up.' },
+        ex: 'Swapping rows and columns keeps TP and TN on the diagonal but moves FP and FN into each other’s boxes. CBSE uses Prediction rows and Reality columns, but reading the labels first avoids mixing them up in any book.' },
 
       // accuracy
       { id: 'u1-08-q28', c: 'accuracy', t: 'mcq', d: 1,
@@ -629,7 +629,7 @@ else:
         a: 75, unit: '%',
         ex: 'Correct = 18 + 12 = 30. Total = 18 + 12 + 6 + 4 = 40. Accuracy = 30 ÷ 40 × 100% = 75%.' },
       { id: 'u1-08-q31', c: 'accuracy', t: 'num', d: 2,
-        q: 'Layout: <b>rows = Actual, columns = Predicted</b>.<table class="tbl"><thead><tr><th></th><th>Predicted Yes</th><th>Predicted No</th></tr></thead><tbody><tr><th>Actual Yes</th><td>30</td><td>5</td></tr><tr><th>Actual No</th><td>10</td><td>55</td></tr></tbody></table>What is the model’s accuracy, in %?',
+        q: 'Layout: <b>rows = Prediction, columns = Reality</b>.<table class="tbl"><thead><tr><th></th><th>Reality Yes</th><th>Reality No</th></tr></thead><tbody><tr><th>Prediction Yes</th><td>30</td><td>10</td></tr><tr><th>Prediction No</th><td>5</td><td>55</td></tr></tbody></table>What is the model’s accuracy, in %?',
         a: 85, unit: '%',
         ex: 'Correct predictions are on the diagonal: 30 + 55 = 85. Total = 30 + 5 + 10 + 55 = 100. Accuracy = 85 ÷ 100 × 100% = 85%.' },
       { id: 'u1-08-q32', c: 'accuracy', t: 'num', d: 3,

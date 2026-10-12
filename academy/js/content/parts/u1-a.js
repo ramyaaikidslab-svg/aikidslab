@@ -114,7 +114,7 @@ export default [
 </div>
 <div class="def"><dfn>Intent</dfn> The goal or action behind a sentence.</div>
 <div class="def"><dfn>Entity</dfn> A specific detail in the sentence, such as a place, a number, a time or an object.</div>
-<p>Language-understanding tools such as Microsoft LUIS (used in the CBSE activity) are trained on many example sentences, so they recognise the same intent however you phrase it.</p>` },
+<p>Language-understanding tools such as Microsoft LUIS (used in the CBSE activity; Microsoft has since replaced it with a newer service called Conversational Language Understanding) are trained on many example sentences, so they recognise the same intent however you phrase it.</p>` },
 
       { kind: 'card', title: 'Same intent, many sentences', html: `
 <p>People never speak in one fixed format. All of these mean the same thing:</p>
@@ -321,7 +321,7 @@ export default [
         q: '“Set the study light to 40 percent.” Which are the <b>entities</b>?',
         o: ['Room: study and Level: 40%', 'Intent: SetLevel and Dim', 'Room: study and Intent: SetLevel', 'Device: light and Unit: percent'],
         a: 0,
-        mis: { 1: 'SetLevel and Dim are intents (actions), not entities (details).', 2: 'Study is an entity, but SetLevel is the intent.' },
+        mis: { 1: 'SetLevel and Dim are intents (actions), not entities (details).', 2: 'Study is an entity, but SetLevel is the intent.', 3: 'This tool only controls lights, so “light” adds no new detail, and “percent” alone is not a value. The details it needs are the room and the level (40%).' },
         ex: 'Entities are the specific details the action needs: which room (study) and what level (40%). SetLevel is the intent.' },
       { id: 'u1-01-q33', c: 'intent-entity', t: 'tf', d: 1,
         q: 'An entity is a specific detail in a sentence, such as a room name or a number.',
@@ -1707,7 +1707,7 @@ export default [
 <div class="mini"><h4>Flow chart</h4><p>Boxes and arrows that show the steps of a process.</p></div>
 </div>` },
 
-      { kind: 'lab', lab: 'chart-chooser', title: 'Chart Chooser', intro: 'For six small datasets, pick a bar, line, pie, scatter or histogram and see your chart drawn instantly, with feedback on whether it answers the question. Switch charts until it does — get at least 5 of the 6 right.' },
+      { kind: 'lab', lab: 'chart-chooser', title: 'Chart Chooser', intro: 'For six small datasets, pick a bar, line, pie, scatter or histogram and see your chart drawn instantly, with feedback on whether it answers the question. Switch as often as you like, then lock in your final choice — get at least 5 of the 6 right.' },
 
       { kind: 'check', concepts: ['scatter-hist', 'dataviz-cat'], n: 3 },
 
