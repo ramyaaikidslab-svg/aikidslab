@@ -265,9 +265,9 @@ export const GENS = {
       } else if (kind === 1) {
         const n = rng.int(3, 6), st = rng.pick([2, 3]);
         const vals = []; for (let i = 0; i < n * st; i += st) vals.push(i);
-        code = `for i in range(0, ${n * st}, ${st}):\n    print(i, end=" ")`; out = vals.join(' ');
-        wrongs = uniq([vals.concat(n * st).join(' '), vals.slice(1).join(' '), Array.from({ length: n }, (_, k) => k).join(' ')]).filter(w => w !== out);
-        ex = `range(0, ${n * st}, ${st}) starts at 0, adds ${st} each time, and stops before ${n * st}: ${out}.`;
+        code = `for i in range(0, ${n * st}, ${st}):\n    print(i)`; out = vals.join('\n');
+        wrongs = uniq([vals.concat(n * st).join('\n'), vals.slice(1).join('\n'), Array.from({ length: n }, (_, k) => k).join('\n')]).filter(w => w !== out);
+        ex = `range(0, ${n * st}, ${st}) starts at 0, adds ${st} each time, and stops before ${n * st}: ${vals.join(', ')}, each on its own line.`;
       } else {
         const x = rng.int(1, 3), lim = rng.pick([20, 30, 50, 100]);
         let v = x, c = 0; while (v < lim) { v *= 2; c++; }
