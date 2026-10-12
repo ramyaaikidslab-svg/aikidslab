@@ -278,7 +278,7 @@ answers = ["School runs ...", "The library ...", "The canteen ..."]</pre>
 <tr><td><b>New wording</b></td><td>Fails unless a keyword matches</td><td>Can often handle wording it has not seen</td></tr>
 <tr><td><b>Needs</b></td><td>Someone to write every rule</td><td>Lots of example data and training</td></tr>
 <tr><td><b>Risk</b></td><td>Says “sorry” too often</td><td>Can give a confident but wrong answer</td></tr></tbody></table>
-<p>The smart-home lab in Unit 1 worked like a learning-based tool such as Microsoft LUIS: it found the <b>intent</b> and <b>entities</b> in a sentence. Generative AI chatbots such as ChatGPT and Gemini go further and write new replies from patterns learnt from huge amounts of text.</p>`
+<p>The smart-home lab in Unit 1 worked like a learning-based tool such as Microsoft LUIS (now replaced by Microsoft’s Conversational Language Understanding): it found the <b>intent</b> and <b>entities</b> in a sentence. Generative AI chatbots such as ChatGPT and Gemini go further and write new replies from patterns learnt from huge amounts of text.</p>`
         },
         { kind: 'check', concepts: ['bot-types'], n: 2 },
         {

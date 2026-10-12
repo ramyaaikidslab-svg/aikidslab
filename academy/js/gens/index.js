@@ -51,8 +51,9 @@ const CONTEXTS_CM = [
   { what: 'an app that predicts whether it will rain in your town', pos: 'rain', neg: 'no rain' }
 ];
 function cmTable(c, tp, fn, fp, tn) {
-  return `<div class="tblwrap"><table class="tbl"><thead><tr><th></th><th>Predicted: ${c.pos}</th><th>Predicted: ${c.neg}</th></tr></thead>` +
-    `<tbody><tr><th>Actual: ${c.pos}</th><td>${tp}</td><td>${fn}</td></tr><tr><th>Actual: ${c.neg}</th><td>${fp}</td><td>${tn}</td></tr></tbody></table></div>`;
+  // CBSE layout: rows = Prediction, columns = Reality (actual).
+  return `<div class="tblwrap"><table class="tbl"><thead><tr><th></th><th>Reality: ${c.pos}</th><th>Reality: ${c.neg}</th></tr></thead>` +
+    `<tbody><tr><th>Prediction: ${c.pos}</th><td>${tp}</td><td>${fp}</td></tr><tr><th>Prediction: ${c.neg}</th><td>${fn}</td><td>${tn}</td></tr></tbody></table></div>`;
 }
 
 export const GENS = {
@@ -61,7 +62,7 @@ export const GENS = {
     make(rng) {
       const c = rng.pick(CONTEXTS_CM), tp = rng.int(8, 40), fn = rng.int(1, 12), fp = rng.int(1, 12), tn = rng.int(10, 45);
       const kind = rng.int(0, 3), table = cmTable(c, tp, fn, fp, tn);
-      const intro = `This confusion matrix shows ${c.what} (rows = actual, columns = predicted).${table}`;
+      const intro = `This confusion matrix shows ${c.what} (rows = Prediction, columns = Reality).${table}`;
       if (kind === 0) return { t: 'num', d: 2, q: `${intro}How many cases did the model predict as <b>${c.pos}</b>?`, a: tp + fp, ex: `Predicted ${c.pos} = True Positives + False Positives = ${tp} + ${fp} = ${tp + fp}.` };
       if (kind === 1) return { t: 'num', d: 2, q: `${intro}How many cases were <b>actually ${c.pos}</b>?`, a: tp + fn, ex: `Actually ${c.pos} = True Positives + False Negatives = ${tp} + ${fn} = ${tp + fn}.` };
       if (kind === 2) return { t: 'num', d: 2, q: `${intro}How many predictions were <b>correct</b>?`, a: tp + tn, ex: `Correct predictions are on the diagonal: TP + TN = ${tp} + ${tn} = ${tp + tn}.` };
@@ -79,7 +80,7 @@ export const GENS = {
       tp = rng.int(10, 50); fn = rng.int(1, 15); fp = rng.int(1, 15); tn = rng.int(10, 50); total = tp + fn + fp + tn;
       const acc = Math.round((tp + tn) / total * 1000) / 10;
       return { t: 'num', d: 2, tol: 0.05, unit: '%',
-        q: `Calculate the accuracy of ${c.what} (rows = actual, columns = predicted). Give the answer as a percentage to 1 decimal place.${cmTable(c, tp, fn, fp, tn)}`,
+        q: `Calculate the accuracy of ${c.what} (rows = Prediction, columns = Reality). Give the answer as a percentage to 1 decimal place.${cmTable(c, tp, fn, fp, tn)}`,
         a: acc, ex: `Accuracy = (TP + TN) ÷ total × 100 = (${tp} + ${tn}) ÷ ${total} × 100 = ${acc}%.` };
     }
   },
