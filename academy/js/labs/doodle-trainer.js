@@ -263,9 +263,9 @@ export default {
       const right = cm[0][0] + cm[1][1] + cm[2][2], acc = Math.round(right / evalRes.length * 100);
       const worst = [0, 1, 2].map(c => ({ c, miss: EVAL_PER - cm[c][c] })).sort((a, b) => b.miss - a.miss)[0];
       shell(`<div class="row between"><h4>Evaluation results</h4><span class="chip gold">Accuracy ${acc}%</span></div>
-        <div class="tblwrap"><table class="tbl dt-cm"><caption class="small muted" style="caption-side:top;text-align:left;padding-bottom:6px">Confusion matrix: rows = what you drew (actual), columns = what the model said (predicted)</caption>
-          <thead><tr><th><span class="tiny">actual ↓<br>predicted →</span></th>${D.classes.map(n => `<th>${esc(n)}</th>`).join('')}</tr></thead>
-          <tbody>${cm.map((row, a) => `<tr><th scope="row" style="background:${COLS[a]}">${esc(D.classes[a])}</th>${row.map((v, p) => `<td class="${a === p ? 'diag' : v ? 'off' : ''}">${v}${a === p ? ' ✓' : ''}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
+        <div class="tblwrap"><table class="tbl dt-cm"><caption class="small muted" style="caption-side:top;text-align:left;padding-bottom:6px">Confusion matrix: rows = what the model said (prediction), columns = what you drew (reality)</caption>
+          <thead><tr><th><span class="tiny">prediction ↓<br>reality →</span></th>${D.classes.map(n => `<th>${esc(n)}</th>`).join('')}</tr></thead>
+          <tbody>${cm.map((_, p) => `<tr><th scope="row" style="background:${COLS[p]}">${esc(D.classes[p])}</th>${cm.map((row, a) => row[p]).map((v, a) => `<td class="${a === p ? 'diag' : v ? 'off' : ''}">${v}${a === p ? ' ✓' : ''}</td>`).join('')}</tr>`).join('')}</tbody></table></div>
         <div class="formula">Accuracy = correct ÷ total × 100% = ${right} ÷ ${evalRes.length} × 100% ${right * 100 % evalRes.length ? '≈' : '='} ${acc}%</div>
         <p class="small">${acc === 100 ? 'Perfect on this test set! Try harder test drawings to see where it breaks.' : `Most mistakes: <b>${esc(D.classes[worst.c])}</b>. Adding more varied training drawings of it usually helps.`} Off-diagonal cells are mistakes; the green diagonal is correct.</p>
         <div class="row"><button class="btn sm" id="dtMore">Add training data</button><button class="btn sm" id="dtAgain">${ic('refresh')} Evaluate again</button></div>`, false);
